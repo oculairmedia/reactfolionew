@@ -1,0 +1,321 @@
+/* Existing styles... */
+
+/* Updated styles for the portfolio section on the homepage */
+.portfolio_section {
+    padding: 80px 0;
+    background-color: var(--bg-color);
+}
+
+.portfolio_section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.section_title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--text-color);
+}
+
+.portfolio_items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.view_all_btn {
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .portfolio_items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .portfolio_section {
+        padding: 60px 0;
+    }
+    .section_title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .portfolio_items {
+        grid-template-columns: 1fr;
+    }
+    .section_title {
+        font-size: 1.8rem;
+    }
+}
+
+/* Rest of the existing styles... */
+section {
+    flex: 1 0 auto;
+    position: relative;
+    width: 100%;
+    -webkit-transition: all .5s ease-in;
+    -o-transition: all .5s ease-in;
+    transition: all .5s ease-in;
+}
+
+.who_am_I {
+    font-family: Cinzel;
+}
+
+.has-first-color {
+    color: var(--primary-color);
+}
+
+.btn-portfolio {
+    background: var(--primary-color);
+    border-radius: 0;
+}
+
+.btn-portfolio a {
+    color: #000;
+    text-decoration: none;
+}
+
+.btn-about a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.intro_sec {
+    height: calc(100vh - 60px);
+    min-height: 700px;
+    height: 100vh;
+    margin-top: -60px;
+    display: flex;
+    align-items: center;
+}
+
+.intro_sec .text {
+    width: 55%;
+    padding-left: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.intro_sec .h_bg-video {
+    width: 45%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.intro_sec .intro {
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+}
+
+.intro_sec .intro .feature .wrap-icon {
+    background: 0 0!important;
+    width: auto;
+    height: auto;
+    margin-bottom: 0;
+}
+
+.intro_sec .intro .feature .wrap-icon svg {
+    color: #5cccc9;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.intro_sec .text h1 {
+    font-size: 30px;
+    margin-bottom: 50px;
+    font-weight: 700;
+    white-space: normal;
+    overflow: hidden;
+    height: 72px;
+    line-height: 1.2;
+    max-width: 80%;
+    animation: fadeIn 1.5s ease-out;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+
+.intro_sec .text h3 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ac_btn {
+    padding: 4px 19px;
+    color: var(--secondary-color);
+    position: relative;
+    border: var(--secondary-color) 2px solid;
+    overflow: hidden;
+    transition: all 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+    cursor: pointer;
+    border-radius: 0;
+    margin-right: 20px;
+}
+
+.ac_btn a {
+    text-decoration: none;
+}
+
+.ac_btn:hover {
+    box-shadow: 8px 8px 0px var(--text-color), -8px -8px 0px var(--text-color);
+}
+
+.ac_btn:hover .one {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px);
+}
+
+.ac_btn:hover .two {
+    transform: translate3d(0px, 0px, 0px);
+}
+
+.ac_btn:hover .three {
+    transform: translate3d(0px, 0px, 0px);
+}
+
+.ac_btn:hover .four {
+    transform: translate3d(0px, 0px, 0px);
+}
+
+.ac_btn .ring {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: transparent;
+    top: 0;
+    left: 0;
+    transform: translate3d(0px, 90px, 0px);
+}
+
+.ac_btn .one {
+    background-color: #000;
+    transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -3;
+    z-index: -4;
+}
+
+.ac_btn .two {
+    background-color: var(--primary-color);
+    transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -3;
+}
+
+.ac_btn .three {
+    background-color: var(--secondary-color);
+    z-index: -2;
+    transition: all 0.7s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -3;
+}
+
+#button_p {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+#button_h:hover {
+    color: var(--primary-color)
+}
+
+@media (max-width:991.98px) {
+    .intro_sec {
+        flex-direction: column;
+        height: auto;
+    }
+    .intro_sec .text,
+    .intro_sec .h_bg-video {
+        width: 100%;
+    }
+    .intro_sec .h_bg-video {
+        height: 50vh;
+        min-height: 400px;
+        order: -1;
+    }
+    .intro_sec .text {
+        padding: 50px 15px;
+    }
+    .intro_sec .intro {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+}
+
+/* Rainbow effect for typewriter text */
+@keyframes rainbow-text {
+  0% { color: #c4c4c4; }
+  14% { color: #d5d5d5; }
+  28% { color: #ffffff; }
+  42% { color: #f9f9f9; }
+  57% { color: #dddddd; }
+  71% { color: #cecece; }
+  85% { color: #ffffff; }
+  100% { color: #e3e3e3; }
+}
+
+.Typewriter {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.Typewriter__wrapper {
+    display: inline;
+    white-space: normal;
+    overflow: hidden;
+    max-width: 100%;
+    transition: all 0.3s ease;
+}
+
+.Typewriter__cursor {
+    display: inline-block;
+    color: var(--text-color, #ffffff);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    position: relative;
+    margin-left: 2px;
+}
+
+.rainbow-text {
+  animation: rainbow-text 5s linear infinite;
+}
+
+/* Ensure text is visible */
+body, .home, .intro_sec, .intro_sec .text {
+  color: var(--text-color, #ffffff);
+  background-color: var(--bg-color, #000000);
+}
+
+/* Add subtle glow to all text in the intro section */
+.intro_sec .text h1,
+.intro_sec .text h2,
+.intro_sec .text p {
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
