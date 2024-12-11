@@ -17,40 +17,27 @@ import Binmetrics from "../pages/projects/Binmetrics";
 import VHBTapes from "../pages/projects/3MVHBTapes";
 import CoupleIsh from "../pages/projects/CoupleIsh";
 import { Socialicons } from "../components/socialicons";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const AnimatedRoutes = withRouter(({ location }) => (
-  <TransitionGroup>
-    <CSSTransition
-      key={location.key}
-      timeout={{
-        enter: 400,
-        exit: 400,
-      }}
-      classNames="page"
-      unmountOnExit
-    >
-      <Routes location={location}>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/contact" element={<ContactUs />} />
-        <Route path="/projects/3m-vhb-tapes" element={<VHBTapes />} />
-        <Route path="/projects/binmetrics" element={<Binmetrics />} />
-        <Route path="/projects/voices-unheard" element={<VoicesUnheard />} />
-        <Route path="/projects/coffee-by-altitude" element={<CoffeeByAltitude />} />
-        <Route path="/projects/garden-city-essentials" element={<GardenCityEssentials />} />
-        <Route path="/projects/liebling-wines" element={<LieblingWines />} />
-        <Route path="/projects/merchant-ale-house" element={<MerchantAleHouse />} />
-        <Route path="/projects/super-burgers-fries" element={<SuperBurgersFries />} />
-        <Route path="/projects/aquatic-resonance" element={<AquaticResonance />} />
-        <Route path="/projects/branton" element={<Branton />} />
-        <Route path="/projects/couple-ish" element={<CoupleIsh />} />
-        <Route path="/blog" element={<Navigate to="https://blog.emmanuelu.com/" replace />} />
-        <Route path="*" element={<Home />} />
-      </Routes>
-    </CSSTransition>
-  </TransitionGroup>
+  <Routes location={location}>
+    <Route exact path="/" element={<Home />} />
+    <Route path="/about" element={<About />} />
+    <Route path="/portfolio" element={<Portfolio />} />
+    <Route path="/contact" element={<ContactUs />} />
+    <Route path="/projects/3m-vhb-tapes" element={<VHBTapes />} />
+    <Route path="/projects/binmetrics" element={<Binmetrics />} />
+    <Route path="/projects/voices-unheard" element={<VoicesUnheard />} />
+    <Route path="/projects/coffee-by-altitude" element={<CoffeeByAltitude />} />
+    <Route path="/projects/garden-city-essentials" element={<GardenCityEssentials />} />
+    <Route path="/projects/liebling-wines" element={<LieblingWines />} />
+    <Route path="/projects/merchant-ale-house" element={<MerchantAleHouse />} />
+    <Route path="/projects/super-burgers-fries" element={<SuperBurgersFries />} />
+    <Route path="/projects/aquatic-resonance" element={<AquaticResonance />} />
+    <Route path="/projects/branton" element={<Branton />} />
+    <Route path="/projects/couple-ish" element={<CoupleIsh />} />
+    <Route path="/blog" element={<Navigate to="https://blog.emmanuelu.com/" replace />} />
+    <Route path="*" element={<Home />} />
+  </Routes>
 ));
 
 function AppRoutes() {
