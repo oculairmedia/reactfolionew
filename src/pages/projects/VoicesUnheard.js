@@ -79,8 +79,7 @@ export const VoicesUnheard = () => {
           <motion.div
             variants={containerVariants}
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            animate="visible"
           >
             <Row className="mb-5 mt-3 pt-md-3">
               <Col lg="12">
