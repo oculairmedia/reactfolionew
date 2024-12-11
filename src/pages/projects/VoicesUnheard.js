@@ -4,7 +4,7 @@ import { Container, Row, Col, Image } from "react-bootstrap";
 import { meta } from "../../content_option";
 import "./ProjectPage.css";
 import "./VoicesUnheard.css";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import ReturnToPortfolio from "../../components/ReturnToPortfolio";
 
 export const VoicesUnheard = () => {
@@ -14,8 +14,6 @@ export const VoicesUnheard = () => {
 
   const videoRef1 = useRef(null);
   const videoRef2 = useRef(null);
-  const contentRef = useRef(null);
-  const isInView = useInView(contentRef, { once: true, amount: 0.3 });
 
   useEffect(() => {
     [videoRef1, videoRef2].forEach(ref => {
@@ -79,10 +77,10 @@ export const VoicesUnheard = () => {
         
         <Container className="content-wrapper">
           <motion.div
-            ref={contentRef}
             variants={containerVariants}
             initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
           >
             <Row className="mb-5 mt-3 pt-md-3">
               <Col lg="12">
