@@ -1,15 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { meta } from "../../content_option";
 import "./ProjectPage.css";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import ReturnToPortfolio from "../../components/ReturnToPortfolio";
 
 const VHBTapes = () => {
-  const contentRef = useRef(null);
-  const isInView = useInView(contentRef, { once: true, amount: 0.3 });
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -59,10 +56,9 @@ const VHBTapes = () => {
         
         <Container className="content-wrapper">
           <motion.div
-            ref={contentRef}
             variants={containerVariants}
             initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
+            animate="visible"
           >
             <Row className="mb-5 mt-3 pt-md-3">
               <Col lg="8">

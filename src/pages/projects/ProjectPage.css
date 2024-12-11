@@ -92,6 +92,9 @@ p {
     background-color: #0056b3;
 }
 
+/* Add or adjust styles if necessary */
+/* Ensure that elements have correct positioning and overflow properties */
+
 @media (max-width: 768px) {
     h1.display-4 {
         font-size: 2rem;

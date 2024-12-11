@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { meta } from "../../content_option";
 import ProjectPage from "../../components/ProjectPage";
+import { motion } from 'framer-motion';
 
 // Import images
 import heroImage from "../../assets/scraped/work_coffee-by-altitude/coffee-by-altitude-1.jpg";
@@ -38,6 +39,22 @@ export const CoffeeByAltitude = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1, 
+      transition: { staggerChildren: 0.2 } 
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, y: 0, 
+      transition: { duration: 0.5 } 
+    },
+  };
+
   return (
     <HelmetProvider>
       <Helmet>
@@ -45,7 +62,16 @@ export const CoffeeByAltitude = () => {
         <title> {projectData.title} | {meta.title} </title>
         <meta name="description" content={meta.description} />
       </Helmet>
-      <ProjectPage {...projectData} />
+      <motion.div
+        className="main-content"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <ProjectPage {...projectData} />
+      </motion.div>
     </HelmetProvider>
   );
 };
+
+export default CoffeeByAltitude;

@@ -3,12 +3,10 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { meta } from "../../content_option";
 import "./ProjectPage.css";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import ReturnToPortfolio from "../../components/ReturnToPortfolio";
 
 const Binmetrics = () => {
-  const contentRef = useRef(null);
-  const isInView = useInView(contentRef, { once: true, amount: 0.3 });
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -75,10 +73,9 @@ const Binmetrics = () => {
         
         <Container className="content-wrapper">
           <motion.div
-            ref={contentRef}
             variants={containerVariants}
             initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
+            animate="visible"
           >
             <Row className="mb-5 mt-3 pt-md-3">
               <Col lg="12">

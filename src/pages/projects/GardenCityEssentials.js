@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { meta } from "../../content_option";
 import ProjectPage from "../../components/ProjectPage";
+import { motion } from 'framer-motion';
 
 // Import images
 import heroImage from "../../assets/scraped/work_garden-city-essentials/garden-city-essentials-after.jpg";
@@ -15,6 +16,24 @@ import image7 from "../../assets/scraped/test 1/garden-city-essentials-14.jpg";
 import image8 from "../../assets/scraped/test 1/garden-city-essentials-15.jpg";
 
 export const GardenCityEssentials = () => {
+  useEffect(() => { /* ...existing code... */ }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1, 
+      transition: { staggerChildren: 0.2 } 
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, y: 0, 
+      transition: { duration: 0.5 } 
+    },
+  };
+
   const projectData = {
     title: "Garden City Essentials",
     heroImage: heroImage,
@@ -45,7 +64,17 @@ export const GardenCityEssentials = () => {
         <title> {projectData.title} | {meta.title} </title>
         <meta name="description" content={meta.description} />
       </Helmet>
-      <ProjectPage {...projectData} />
+
+      <motion.div
+        className="main-content"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <ProjectPage {...projectData} />
+      </motion.div>
     </HelmetProvider>
   );
 };
+
+export default GardenCityEssentials;

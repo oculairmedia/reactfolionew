@@ -2,6 +2,7 @@ import React from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { meta } from "../../content_option";
 import ProjectPage from "../../components/ProjectPage";
+import { motion } from 'framer-motion';
 
 // Import images
 import heroImage from "../../assets/scraped/work_liebling-wines/liebling-wines-1.jpg";
@@ -40,6 +41,22 @@ export const LieblingWines = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1, y: 0,
+      transition: { duration: 0.5 },
+    },
+  };
+
   return (
     <HelmetProvider>
       <Helmet>
@@ -47,23 +64,32 @@ export const LieblingWines = () => {
         <title> {projectData.title} | {meta.title} </title>
         <meta name="description" content={meta.description} />
       </Helmet>
-      <ProjectPage {...projectData} />
-      <div className="portfolio-summary">
-        <h2>Portfolio Summary</h2>
-        <div className="thumbnail-grid">
-          <div className="thumbnail">
-            <img src={heroImage} alt="Liebling Wines" />
-            <p>Liebling Wines</p>
+      <motion.div
+        className="main-content"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        <ProjectPage {...projectData} />
+        <div className="portfolio-summary">
+          <h2>Portfolio Summary</h2>
+          <div className="thumbnail-grid">
+            <div className="thumbnail">
+              <img src={heroImage} alt="Liebling Wines" />
+              <p>Liebling Wines</p>
+            </div>
+            {/* Add more thumbnails for other projects */}
+            {/* Example:
+            <div className="thumbnail">
+              <img src={otherProjectImage} alt="Other Project" />
+              <p>Other Project</p>
+            </div>
+            */}
           </div>
-          {/* Add more thumbnails for other projects */}
-          {/* Example:
-          <div className="thumbnail">
-            <img src={otherProjectImage} alt="Other Project" />
-            <p>Other Project</p>
-          </div>
-          */}
         </div>
-      </div>
+      </motion.div>
     </HelmetProvider>
   );
 };
+
+export default LieblingWines;
