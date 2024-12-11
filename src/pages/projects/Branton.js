@@ -28,7 +28,7 @@ export const Branton = () => {
 
   const projectData = {
     title: "Branton",
-    videoUrl: "https://files.oculair.ca/api/v1/videos/f200bfc144e110dc4821384c82dca7d6fbd67c66/3rjei659/avc",
+    videoUrl: "https://oculair.b-cdn.net/api/v1/videos/f200bfc144e110dc4821384c82dca7d6fbd67c66/3rjei659/avc",
     overview: "In my tenure as a digital designer for Branton, a London-based design firm known for its industrial clientele, including names like McCormick and 3M, my challenge was to elevate their brand presence. The assignment: to conceive and develop brand treatments that resonate with the robust nature of industrial manufacturing yet convey the innovative spirit of the design firm.",
     process: "Leveraging the powerful procedural capabilities of Houdini, I sculpted a series of visual pieces that embody Branton's commitment to strength and precision. The process involved several key steps:\n\n1. Analyzing Branton's existing brand identity and client base\n2. Researching industrial design trends and innovative branding techniques\n3. Conceptualizing visual treatments that blend industrial strength with design innovation\n4. Utilizing Houdini to create procedurally generated designs\n5. Refining and iterating on the designs based on client feedback\n6. Finalizing a comprehensive set of brand treatments for various applications",
     services: [

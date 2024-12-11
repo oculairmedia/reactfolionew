@@ -80,7 +80,7 @@ export const Home = () => {
               playsInline
               className="hero-video"
             >
-              <source src="https://files.oculair.ca/api/v1/videos/29d980a5d2fff954196daf60232e7072ebac9752/3rjei659/avc" type="video/mp4" />
+              <source src="https://oculair.b-cdn.net/api/v1/videos/29d980a5d2fff954196daf60232e7072ebac9752/3rjei659/avc" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
