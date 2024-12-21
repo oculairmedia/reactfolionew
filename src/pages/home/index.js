@@ -21,6 +21,7 @@ const SocialIcon = ({ href, children }) => (
 );
 
 export const Home = () => {
+  const [videoLoaded, setVideoLoaded] = React.useState(false);
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
   useEffect(() => {
@@ -89,13 +90,37 @@ export const Home = () => {
         <div className="intro_sec">
           <div className="h_bg-video">
             <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="hero-video"
+              ref={(el) => {
+                if (el) {
+                  el.playsInline = true;
+                  el.muted = true;
+                  el.loop = true;
+                  // Force load and play
+                  el.load();
+                  const playPromise = el.play();
+                  if (playPromise !== undefined) {
+                    playPromise
+                      .then(() => {
+                        setVideoLoaded(true);
+                      })
+                      .catch(error => {
+                        console.log("Video autoplay failed:", error);
+                        // Try to play again after a short delay
+                        setTimeout(() => {
+                          el.play().catch(e => console.log("Retry failed:", e));
+                        }, 1000);
+                      });
+                  }
+                }
+              }}
+              onLoadedData={() => setVideoLoaded(true)}
+              className={`hero-video ${videoLoaded ? 'loaded' : ''}`}
+              preload="auto"
             >
-              <source src="https://oculair.b-cdn.net/api/v1/videos/29d980a5d2fff954196daf60232e7072ebac9752/3rjei659/avc" type="video/mp4" />
+              <source 
+                src="https://oculair.b-cdn.net/api/v1/videos/29d980a5d2fff954196daf60232e7072ebac9752/3rjei659/avc" 
+                type="video/mp4" 
+              />
               Your browser does not support the video tag.
             </video>
           </div>
