@@ -1,4 +1,7 @@
-/* Existing styles... */
+/* Core styles */
+:root {
+  --gradient-overlay: linear-gradient(45deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+}
 
 /* Updated styles for the portfolio section on the homepage */
 .portfolio_section {
@@ -112,6 +115,17 @@ section {
     overflow: hidden;
 }
 
+.intro_sec .h_bg-video::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-overlay);
+    z-index: 1;
+}
+
 .intro_sec .intro {
     max-width: 450px;
     display: flex;
@@ -141,19 +155,21 @@ section {
 }
 
 .intro_sec .text h1 {
-    font-size: 30px;
-    margin-bottom: 50px;
+    font-size: 32px;
+    margin-bottom: 30px;
     font-weight: 700;
     white-space: normal;
     overflow: hidden;
-    height: 72px;
-    line-height: 1.2;
-    max-width: 80%;
+    height: auto;
+    min-height: 72px;
+    line-height: 1.4;
+    max-width: 90%;
     animation: fadeIn 1.5s ease-out;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
+    letter-spacing: -0.02em;
 }
 
 .intro_sec .text h3 {
@@ -171,15 +187,19 @@ section {
 }
 
 .ac_btn {
-    padding: 4px 19px;
+    padding: 8px 24px;
     color: var(--secondary-color);
     position: relative;
     border: var(--secondary-color) 2px solid;
     overflow: hidden;
-    transition: all 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+    transition: all 0.4s cubic-bezier(0.55, 0, 0.1, 1);
     cursor: pointer;
-    border-radius: 0;
+    border-radius: 4px;
     margin-right: 20px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .ac_btn a {
@@ -318,4 +338,34 @@ body, .home, .intro_sec, .intro_sec .text {
 .intro_sec .text h2,
 .intro_sec .text p {
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.social-icon {
+  color: var(--text-color);
+  font-size: 24px;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+  background: rgba(255, 255, 255, 0.1);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.social-icon:hover {
+  opacity: 1;
+  color: var(--text-color);
+  text-decoration: none;
+  transform: translateY(-2px);
 }

@@ -2,12 +2,27 @@ import React, { useEffect, useMemo } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Typewriter from "typewriter-effect";
-import { introdata, meta, dataportfolio } from "../../content_option";
+import { introdata, meta, dataportfolio, socialprofils } from "../../content_option";
 import { Link } from "react-router-dom";
 import PortfolioItem from "../../components/PortfolioItem";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+
+const SocialIcon = ({ href, children }) => (
+  <motion.a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="social-icon"
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    {children}
+  </motion.a>
+);
 
 export const Home = () => {
+  const { scrollYProgress } = useScroll();
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
   useEffect(() => {
     const addMinimalScrollbar = () => {
       const style = document.createElement('style');
@@ -116,7 +131,7 @@ export const Home = () => {
                   <motion.div
                     id="button_p"
                     className="ac_btn btn"
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
                     whileTap={{ scale: 0.95 }}
                   >
                     My Portfolio
@@ -129,7 +144,7 @@ export const Home = () => {
                   <motion.div
                     id="button_h"
                     className="ac_btn btn"
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
                     whileTap={{ scale: 0.95 }}
                   >
                     Contact Me
@@ -139,6 +154,23 @@ export const Home = () => {
                   </motion.div>
                 </Link>
               </motion.div>
+              <motion.div className="social-icons" variants={itemVariants}>
+                {socialprofils.linkedin && (
+                  <SocialIcon href={socialprofils.linkedin}>
+                    <i className="fab fa-linkedin"></i>
+                  </SocialIcon>
+                )}
+                {socialprofils.github && (
+                  <SocialIcon href={socialprofils.github}>
+                    <i className="fab fa-github"></i>
+                  </SocialIcon>
+                )}
+                {socialprofils.twitter && (
+                  <SocialIcon href={socialprofils.twitter}>
+                    <i className="fab fa-twitter"></i>
+                  </SocialIcon>
+                )}
+              </motion.div>
             </div>
           </motion.div>
         </div>
@@ -146,9 +178,7 @@ export const Home = () => {
       <motion.section
         id="portfolio"
         className="portfolio_section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3, delay: 0.3 }} // Reduced from 0.5 to 0.3
+        style={{ opacity }}
       >
         <div className="container">
           <motion.h2
