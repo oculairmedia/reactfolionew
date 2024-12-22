@@ -151,25 +151,24 @@ section {
     max-width: 90%; /* Fallback for smaller screens */
     height: auto;
     min-height: 45px; /* Height for single line */
-    display: flex;
-    align-items: flex-start; /* Align to top for smoother height transitions */
+    display: block; /* Changed to block for better text flow */
     animation: fadeIn 1.5s ease-out;
     letter-spacing: -0.02em;
     transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative; /* For proper cursor containment */
 }
 
 /* Typewriter styles */
 .Typewriter {
     width: 100%;
-    display: block;
-    position: relative; /* For proper cursor positioning */
+    display: inline; /* Changed to inline to keep cursor with text */
 }
 
 .Typewriter__wrapper {
     font-size: 32px;
     font-weight: 700;
     line-height: 1.4;
-    display: block; /* Changed to block for consistent width */
+    display: inline; /* Keep inline for cursor positioning */
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -182,14 +181,12 @@ section {
 .Typewriter__cursor {
     font-size: 32px;
     font-weight: 700;
-    display: inline-block;
+    display: inline;
     color: var(--text-color);
     opacity: 1;
     margin-left: 2px;
     animation: blink 0.7s infinite;
-    position: relative;
-    top: 0;
-    transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes blink {
