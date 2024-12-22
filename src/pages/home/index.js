@@ -95,8 +95,21 @@ export const Home = () => {
                   el.playsInline = true;
                   el.muted = true;
                   el.loop = true;
+                  el.autoplay = true;
                   // Force load and play
                   el.load();
+                  // Add error handling for video playback
+                  el.addEventListener('error', (e) => {
+                    console.error('Video error:', e);
+                    // Try to recover by reloading the video
+                    el.load();
+                    el.play().catch(console.error);
+                  });
+                  // Add ended event listener to ensure looping
+                  el.addEventListener('ended', () => {
+                    el.currentTime = 0;
+                    el.play().catch(console.error);
+                  });
                   const playPromise = el.play();
                   if (playPromise !== undefined) {
                     playPromise
