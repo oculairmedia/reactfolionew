@@ -146,20 +146,9 @@ section {
 }
 
 .intro_sec .text h1 {
-    font-size: 32px;
     margin-bottom: 30px;
-    font-weight: 700;
-    white-space: normal;
-    overflow: hidden;
-    height: auto;
-    min-height: 72px;
-    line-height: 1.4;
     max-width: 90%;
     animation: fadeIn 1.5s ease-out;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
     letter-spacing: -0.02em;
 }
 
@@ -286,43 +275,7 @@ section {
     }
 }
 
-/* Rainbow effect for typewriter text */
-@keyframes rainbow-text {
-  0% { color: #c4c4c4; }
-  14% { color: #d5d5d5; }
-  28% { color: #ffffff; }
-  42% { color: #f9f9f9; }
-  57% { color: #dddddd; }
-  71% { color: #cecece; }
-  85% { color: #ffffff; }
-  100% { color: #e3e3e3; }
-}
 
-.Typewriter {
-    display: block;
-    max-width: 100%;
-    overflow: hidden;
-}
-
-.Typewriter__wrapper {
-    display: inline;
-    white-space: normal;
-    overflow: hidden;
-    max-width: 100%;
-    transition: all 0.3s ease;
-}
-
-.Typewriter__cursor {
-    display: inline-block;
-    color: var(--text-color, #ffffff);
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    position: relative;
-    margin-left: 2px;
-}
-
-.rainbow-text {
-  animation: rainbow-text 5s linear infinite;
-}
 
 /* Ensure text is visible */
 body, .home, .intro_sec, .intro_sec .text {
