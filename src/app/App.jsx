@@ -1,4 +1,5 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
+import { usePerformance } from '../hooks/usePerformance';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from '../features/layout/components/Layout/Layout';
 import { LoadingSpinner } from '../components/LoadingSpinner/LoadingSpinner';
@@ -22,6 +23,21 @@ const VHBTapes = lazy(() => import('../pages/projects/3MVHBTapes'));
 const CoupleIsh = lazy(() => import('../pages/projects/CoupleIsh'));
 
 const App = () => {
+  usePerformance();
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/serviceWorker.js')
+          .then(registration => {
+            console.log('ServiceWorker registration successful');
+          })
+          .catch(err => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+  }, []);
   return (
     <Router>
       <Layout>

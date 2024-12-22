@@ -234,10 +234,10 @@ const contactConfig = {
 };
 
 const socialprofils = {
-    github: "https://github.com",
+    github: "https://github.com/oculairmedia",
     facebook: "https://www.facebook.com/emmanuel.umukoro",
     linkedin: "https://www.linkedin.com/in/emmanuel-umukoro-50b45597",
-    twitter: "https://twitter.com",
+    twitter: "https://x.com/emanuvaderland",
 };
 
 export {
