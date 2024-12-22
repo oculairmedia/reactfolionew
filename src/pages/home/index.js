@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import Typewriter from "typewriter-effect";
 import { introdata, meta, dataportfolio, socialprofils } from "../../content_option";
 import { Link } from "react-router-dom";
 import PortfolioItem from "../../components/PortfolioItem";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { AnimatedText } from "../../components/AnimatedText/AnimatedText";
 
 const SocialIcon = ({ href, children }) => (
   <motion.a
@@ -135,8 +135,23 @@ export const Home = () => {
           >
             <div className="intro">
               <motion.h2 variants={itemVariants}>{introdata.title}</motion.h2>
-              <motion.h1 variants={itemVariants}>
-                <AnimatedText texts={randomizedStrings} />
+              <motion.h1 variants={itemVariants} className="typewriter-container">
+                <Typewriter
+                  options={{
+                    strings: randomizedStrings,
+                    autoStart: true,
+                    loop: true,
+                    deleteSpeed: 20,
+                    delay: 100,
+                    wrapperClassName: "Typewriter__wrapper rainbow-text",
+                    cursorClassName: "Typewriter__cursor",
+                    typeSpeed: (index) => {
+                      const baseSpeed = 50;
+                      const variableSpeed = Math.floor(Math.random() * 40) - 20;
+                      return Math.max(10, baseSpeed + variableSpeed);
+                    },
+                  }}
+                />
               </motion.h1>
               <motion.p variants={itemVariants}>{introdata.description}</motion.p>
               <motion.div className="intro_btn-action" variants={itemVariants}>

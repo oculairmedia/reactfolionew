@@ -145,11 +145,66 @@ section {
   }
 }
 
-.intro_sec .text h1 {
+.intro_sec .text h1.typewriter-container {
     margin-bottom: 30px;
-    max-width: 90%;
+    width: 90%;
+    max-width: 600px;
+    min-height: 96px; /* Adjust based on your font size and max expected lines */
+    display: flex;
+    align-items: center;
     animation: fadeIn 1.5s ease-out;
     letter-spacing: -0.02em;
+}
+
+/* Typewriter styles */
+.Typewriter {
+    width: 100%;
+    display: block;
+}
+
+.Typewriter__wrapper {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.4;
+    display: inline;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+}
+
+.Typewriter__cursor {
+    font-size: 32px;
+    font-weight: 700;
+    display: inline-block;
+    color: var(--text-color);
+    opacity: 1;
+    margin-left: 2px;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Rainbow text effect */
+@keyframes rainbow-text {
+    0% { color: #c4c4c4; }
+    14% { color: #d5d5d5; }
+    28% { color: #ffffff; }
+    42% { color: #f9f9f9; }
+    57% { color: #dddddd; }
+    71% { color: #cecece; }
+    85% { color: #ffffff; }
+    100% { color: #e3e3e3; }
+}
+
+.rainbow-text {
+    animation: rainbow-text 5s linear infinite;
 }
 
 .intro_sec .text h3 {
