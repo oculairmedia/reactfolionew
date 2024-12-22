@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import './ErrorBoundary.css';
 
-class ErrorBoundary extends React.Component {
+export class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
