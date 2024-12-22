@@ -26,7 +26,7 @@ const AquaticResonance = () => {
 
   const projectData = {
     title: "Aquatic Resonance",
-    videoUrl: "https://files.oculair.ca/api/v1/videos/29d980a5d2fff954196daf60232e7072ebac9752/3rjei659/avc",
+    videoUrl: "https://oculair.b-cdn.net/downloads/title.avc",
     overview: "In collaboration with a close friend, Arnie Guha, this piece transforms a static canvas into a vibrant, breathing animation. Melding their original art with my digital alchemy, we've created a fluid dance of color and form, igniting the artwork with motion that resonates with the ebb and flow of oceanic life.",
     process: "The process began with Arnie Guha's original artwork, which we then digitized and prepared for animation. Using advanced digital tools and techniques, we brought the static image to life, carefully preserving the integrity of the original piece while infusing it with dynamic movement that mimics the graceful sway of underwater flora.",
     services: [
