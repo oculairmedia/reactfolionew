@@ -28,7 +28,7 @@ export const About = () => {
         <Row className="sec_sp">
           <Col lg="5">
             <h3 className="color_sec py-4">{dataabout.title}</h3>
-            <Image src="https://oculair.b-cdn.net/pages/about-us/clean-2.jpg" alt="Emmanuel Umukoro" fluid className="about-image mb-4" />
+            <Image src="https://oculair.b-cdn.net/pages%252Fabout-us%252Fclean-2.jpg" alt="Emmanuel Umukoro" fluid className="about-image mb-4" />
           </Col>
           <Col lg="7" className="d-flex align-items-center">
             <div>
