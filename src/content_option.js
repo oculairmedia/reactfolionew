@@ -164,7 +164,7 @@ const dataportfolio = [
     },
     {
         id: "aquatic-resonance",
-        video: "https://oculair.b-cdn.net/api/v1/videos/29d980a5d2fff954196daf60232e7072ebac9752/3rjei659/avc",
+        video: "https://oculair.b-cdn.net/downloads/title.avc",
         title: "Aquatic Resonance",
         description: "A collaborative piece that transforms static canvas into a vibrant, breathing animation, evoking the fluid dance of underwater flora through a fusion of original art and digital alchemy.",
         link: "/projects/aquatic-resonance",
