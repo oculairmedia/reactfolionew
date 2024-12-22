@@ -121,6 +121,8 @@ section {
     max-width: 450px;
     display: flex;
     flex-direction: column;
+    margin: 0;
+    padding: 0;
 }
 
 .intro_sec .intro .feature .wrap-icon {
@@ -145,8 +147,16 @@ section {
   }
 }
 
+.intro_sec .text h2 {
+    margin: 0 0 16px 0;
+    font-size: 24px;
+    line-height: 1.4;
+    padding: 0;
+}
+
 .intro_sec .text h1.typewriter-container {
-    margin-bottom: 30px;
+    margin: 0 0 24px 0;
+    padding: 0;
     width: 500px; /* Fixed width to prevent horizontal movement */
     max-width: 90%; /* Fallback for smaller screens */
     height: auto;
@@ -216,9 +226,19 @@ section {
     animation: rainbow-text 5s linear infinite;
 }
 
+.intro_sec .text p {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
 .intro_sec .text h3 {
     font-size: 16px;
     font-weight: 700;
+    margin: 0;
+    padding: 0;
 }
 
 .hero-video {
