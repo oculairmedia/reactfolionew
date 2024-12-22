@@ -160,7 +160,7 @@ section {
     width: 500px; /* Fixed width to prevent horizontal movement */
     max-width: 90%; /* Fallback for smaller screens */
     height: auto;
-    min-height: 45px; /* Height for single line */
+    min-height: 90px; /* Height for single line */
     display: block; /* Changed to block for better text flow */
     animation: fadeIn 1.5s ease-out;
     letter-spacing: -0.02em;
