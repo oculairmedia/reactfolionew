@@ -35,7 +35,7 @@ const AnimatedRoutes = withRouter(({ location }) => (
     <Route path="/projects/aquatic-resonance" element={<AquaticResonance />} />
     <Route path="/projects/branton" element={<Branton />} />
     <Route path="/projects/couple-ish" element={<CoupleIsh />} />
-    <Route path="/blog" element={<Navigate to="https://blog.emmanuelu.com/" replace />} />
+    <Route path="/blog" element={<Navigate to="https://blogs.emmanuelu.com/" replace />} />
     <Route path="*" element={<Home />} />
   </Routes>
 ));
