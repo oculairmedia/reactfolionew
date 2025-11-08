@@ -10,8 +10,8 @@
  * @param {string} url - The original image URL
  * @param {object} options - Optimization options
  * @param {number} options.width - Target width in pixels
- * @param {number} options.quality - JPEG/WebP quality (1-100)
- * @param {string} options.format - Target format (webp, jpg, png)
+ * @param {number} options.quality - JPEG/WebP/AVIF quality (1-100)
+ * @param {string} options.format - Target format (avif, webp, jpg, png)
  * @param {number} options.height - Target height in pixels (optional)
  * @returns {string} Optimized image URL
  */
@@ -19,7 +19,7 @@ export const optimizeImage = (url, options = {}) => {
   const {
     width = null,
     quality = 85,
-    format = 'webp',
+    format = 'avif', // AVIF is 30% smaller than WebP
     height = null
   } = options;
 
@@ -87,13 +87,44 @@ export const generateSizes = (breakpoints = {
 };
 
 /**
- * Presets for common use cases
+ * Presets for common use cases (using AVIF for maximum compression)
  */
 export const IMAGE_PRESETS = {
-  thumbnail: { width: 400, quality: 80, format: 'webp' },
-  card: { width: 800, quality: 85, format: 'webp' },
-  hero: { width: 1920, quality: 85, format: 'webp' },
-  fullscreen: { width: 2560, quality: 90, format: 'webp' },
+  thumbnail: { width: 400, quality: 80, format: 'avif' },
+  card: { width: 800, quality: 85, format: 'avif' },
+  hero: { width: 1920, quality: 85, format: 'avif' },
+  fullscreen: { width: 2560, quality: 90, format: 'avif' },
+};
+
+/**
+ * Generates a picture element config with multiple format fallbacks
+ * @param {string} url - The original image URL
+ * @param {string} alt - Alt text for the image
+ * @param {number} width - Target width
+ * @param {number} quality - Quality (1-100)
+ * @returns {object} Picture element config for React
+ */
+export const generatePictureElement = (url, alt, width = 800, quality = 85) => {
+  if (!url || !url.includes('b-cdn.net')) {
+    return { src: url, alt };
+  }
+
+  return {
+    sources: [
+      {
+        srcSet: optimizeImage(url, { width, quality, format: 'avif' }),
+        type: 'image/avif'
+      },
+      {
+        srcSet: optimizeImage(url, { width, quality, format: 'webp' }),
+        type: 'image/webp'
+      }
+    ],
+    img: {
+      src: optimizeImage(url, { width, quality, format: 'jpg' }),
+      alt
+    }
+  };
 };
 
 /**
@@ -106,7 +137,7 @@ export const optimizeVideoPoster = (url, options = {}) => {
   return optimizeImage(url, {
     width: 1200,
     quality: 80,
-    format: 'webp',
+    format: 'avif',
     ...options
   });
 };

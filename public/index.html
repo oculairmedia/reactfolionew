@@ -12,10 +12,26 @@
     <link rel="dns-prefetch" href="https://oculair.b-cdn.net">
     <link rel="preconnect" href="https://metrics.oculair.ca">
     <link rel="dns-prefetch" href="https://metrics.oculair.ca">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
-    <script defer src="https://metrics.oculair.ca/script.js" data-website-id="8dcf1f31-3038-45db-ab89-8e89133f44af"></script>
+
+    <!-- Preload critical assets for faster rendering -->
+    <link rel="preload" href="/static/css/main.css" as="style">
+    <link rel="preload" href="/static/js/main.js" as="script">
+
+    <!-- Prefetch likely next pages for instant navigation -->
+    <link rel="prefetch" href="/portfolio" as="document">
+    <link rel="prefetch" href="/about" as="document">
+    <link rel="prefetch" href="/contact" as="document">
+
+    <!-- Defer analytics loading until after page is fully loaded -->
+    <script>
+      window.addEventListener('load', function() {
+        var script = document.createElement('script');
+        script.src = 'https://metrics.oculair.ca/script.js';
+        script.setAttribute('data-website-id', '8dcf1f31-3038-45db-ab89-8e89133f44af');
+        script.defer = true;
+        document.head.appendChild(script);
+      });
+    </script>
 </head>
 
 <body>
