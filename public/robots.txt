@@ -1,3 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemaps
+Sitemap: https://emmanuelu.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

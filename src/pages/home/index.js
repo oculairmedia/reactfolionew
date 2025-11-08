@@ -6,6 +6,7 @@ import { introdata, meta, dataportfolio, socialprofils } from "../../content_opt
 import { Link } from "react-router-dom";
 import PortfolioItem from "../../components/PortfolioItem";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
 
 const SocialIcon = ({ href, children }) => (
   <motion.a
@@ -128,14 +129,11 @@ export const Home = () => {
               }}
               onLoadedData={() => setVideoLoaded(true)}
               className={`hero-video ${videoLoaded ? 'loaded' : ''}`}
-              preload="auto"
+              preload="metadata"
             >
-              <source 
-                src={process.env.NODE_ENV === 'development' 
-                  ? 'https://oculair.b-cdn.net/downloads/title.avc'
-                  : 'https://oculair.b-cdn.net/downloads/title.avc'
-                }
-                type="video/mp4" 
+              <source
+                src="https://oculair.b-cdn.net/downloads/title.avc"
+                type="video/mp4"
               />
               Your browser does not support the video tag.
             </video>
@@ -198,17 +196,17 @@ export const Home = () => {
               <motion.div className="social-icons" variants={itemVariants}>
                 {socialprofils.linkedin && (
                   <SocialIcon href={socialprofils.linkedin}>
-                    <i className="fab fa-linkedin"></i>
+                    <FaLinkedin />
                   </SocialIcon>
                 )}
                 {socialprofils.github && (
                   <SocialIcon href={socialprofils.github}>
-                    <i className="fab fa-github"></i>
+                    <FaGithub />
                   </SocialIcon>
                 )}
                 {socialprofils.twitter && (
                   <SocialIcon href={socialprofils.twitter}>
-                    <i className="fab fa-twitter"></i>
+                    <FaTwitter />
                   </SocialIcon>
                 )}
               </motion.div>

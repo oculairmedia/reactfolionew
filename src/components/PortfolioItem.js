@@ -9,48 +9,22 @@ const truncateText = (text, maxLength) => {
 
 const PortfolioItem = ({ data, index }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
-  const [thumbnailUrl, setThumbnailUrl] = useState('');
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const videoRef = useRef(null);
-  const canvasRef = useRef(null);
   const navigate = useNavigate();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
+  // Only load video when in viewport
   useEffect(() => {
-    if (data.isVideo) {
-      const video = document.createElement('video');
-      video.crossOrigin = 'anonymous';
-      video.src = data.video;
-      video.muted = true;
-      video.preload = 'metadata';
-
-      video.onloadedmetadata = () => {
-        video.currentTime = 0;
-      };
-
-      video.onseeked = () => {
-        const canvas = canvasRef.current;
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-        setThumbnailUrl(canvas.toDataURL());
-      };
-
+    if (isInView && data.isVideo) {
+      // Delay video loading slightly to prioritize visible content
       const timer = setTimeout(() => {
-        setShowVideo(true);
-      }, 500);
-
-      return () => {
-        clearTimeout(timer);
-        video.remove();
-      };
-    } else if (data.img) {
-      const img = new Image();
-      img.src = data.img;
-      img.onload = () => setIsLoaded(true);
+        setShouldLoadVideo(true);
+      }, 200);
+      return () => clearTimeout(timer);
     }
-  }, [data.isVideo, data.video, data.img]);
+  }, [isInView, data.isVideo]);
 
   const handleClick = () => {
     navigate(data.link);
@@ -85,25 +59,38 @@ const PortfolioItem = ({ data, index }) => {
     >
       <div className="media-container">
         {data.isVideo ? (
-          showVideo ? (
-            <video 
+          shouldLoadVideo ? (
+            <video
               ref={videoRef}
               className={isLoaded ? 'loaded' : ''}
-              autoPlay 
-              loop 
-              muted 
+              autoPlay
+              loop
+              muted
               playsInline
-              poster={thumbnailUrl || data.img}
+              preload="metadata"
+              poster={data.img}
               onLoadedData={handleVideoLoad}
             >
               <source src={data.video} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           ) : (
-            <img src={thumbnailUrl || data.img} alt={data.title} className={isLoaded ? 'loaded' : ''} onLoad={() => setIsLoaded(true)} />
+            <img
+              src={data.img}
+              alt={data.title}
+              className={isLoaded ? 'loaded' : ''}
+              loading="lazy"
+              onLoad={() => setIsLoaded(true)}
+            />
           )
         ) : (
-          <img src={data.img} alt={data.title} className={isLoaded ? 'loaded' : ''} onLoad={() => setIsLoaded(true)} />
+          <img
+            src={data.img}
+            alt={data.title}
+            className={isLoaded ? 'loaded' : ''}
+            loading="lazy"
+            onLoad={() => setIsLoaded(true)}
+          />
         )}
       </div>
       <div className="content">
@@ -111,7 +98,6 @@ const PortfolioItem = ({ data, index }) => {
         <p>{truncateText(data.description, 100)}</p>
         <span className="view-project">View Project</span>
       </div>
-      <canvas ref={canvasRef} style={{ display: 'none' }} />
     </motion.div>
   );
 };
