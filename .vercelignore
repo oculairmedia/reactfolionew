@@ -21,7 +21,6 @@ build
 
 # Large files not needed for deployment
 media
-src/assets/scraped
 bfg.jar
 large-files.txt
 
