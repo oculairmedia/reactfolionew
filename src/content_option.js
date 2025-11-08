@@ -1,3 +1,5 @@
+import { optimizeImage } from './utils/cdnHelper';
+
 const logotext = "EMMANUEL";
 const meta = {
     title: "Emmanuel Umukoro",
@@ -126,7 +128,7 @@ const services = [{
 const dataportfolio = [
     {
         id: "couple-ish",
-        img: "https://oculair.b-cdn.net/cache/images/13a71ce18ea4cd61e90d177cafd64842d8788508.jpg",
+        img: optimizeImage("https://oculair.b-cdn.net/cache/images/13a71ce18ea4cd61e90d177cafd64842d8788508.jpg", { width: 800, quality: 85 }),
         title: "Couple-Ish",
         description: "Promotional poster design for a new Canadian LGBTQ web series, conveying unique character personalities and increasing collectability.",
         link: "/projects/couple-ish",
@@ -135,7 +137,7 @@ const dataportfolio = [
     },
     {
         id: "3m-vhb-tapes",
-        img: "https://oculair.b-cdn.net/cache/images/b1d7b284701359f4d25a324dd3ac3068023b3767.jpg",
+        img: optimizeImage("https://oculair.b-cdn.net/cache/images/b1d7b284701359f4d25a324dd3ac3068023b3767.jpg", { width: 800, quality: 85 }),
         title: "3M VHB Tapes",
         description: "A 3D illustration campaign for 3M VHB Tapes, showcasing the product's role in modern construction with compelling visuals.",
         link: "/projects/3m-vhb-tapes",
@@ -145,6 +147,7 @@ const dataportfolio = [
     {
         id: "binmetrics",
         video: "https://oculair.b-cdn.net/api/v1/videos/332b28a6113e401b77b6894d3254766d15c6a9ac/3rjei659/avc",
+        img: optimizeImage("https://oculair.b-cdn.net/cache/images/binmetrics-poster.jpg", { width: 800, quality: 80 }),
         title: "Binmetrics",
         description: "Innovative UI/UX design for a logistics management and asset tracking solution, featuring a guerilla marketing campaign for drone-based bin clearing.",
         link: "/projects/binmetrics",
@@ -155,6 +158,7 @@ const dataportfolio = [
     {
         id: "branton",
         video: "https://oculair.b-cdn.net/api/v1/videos/f200bfc144e110dc4821384c82dca7d6fbd67c66/3rjei659/avc",
+        img: optimizeImage("https://oculair.b-cdn.net/cache/images/branton-poster.jpg", { width: 800, quality: 80 }),
         title: "Branton",
         description: "Elevating brand presence for a London-based design firm with industrial clientele through innovative visual treatments.",
         link: "/projects/branton",
@@ -165,6 +169,7 @@ const dataportfolio = [
     {
         id: "aquatic-resonance",
         video: "https://oculair.b-cdn.net/downloads/title.avc",
+        img: optimizeImage("https://oculair.b-cdn.net/cache/images/aquatic-poster.jpg", { width: 800, quality: 80 }),
         title: "Aquatic Resonance",
         description: "A collaborative piece that transforms static canvas into a vibrant, breathing animation, evoking the fluid dance of underwater flora through a fusion of original art and digital alchemy.",
         link: "/projects/aquatic-resonance",
@@ -175,6 +180,7 @@ const dataportfolio = [
     {
         id: "voices-unheard",
         video: "https://oculair.b-cdn.net/api/v1/videos/bfbad3bf0b671badf4eb75634e9f15407ffd60ad/3rjei659/hevc",
+        img: optimizeImage("https://oculair.b-cdn.net/cache/images/voices-poster.jpg", { width: 800, quality: 80 }),
         title: "Voices Unheard: The Church and Marginalized Communities",
         description: "A video collaboration for Inter/Access IA 360° Showcase Exhibition, using AI-generated imagery to create a new 'church' for Indigenous, Queer, and POC folks.",
         link: "/projects/voices-unheard",
