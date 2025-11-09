@@ -51,11 +51,15 @@ export default buildConfig({
     process.env.REACT_APP_URL || 'http://localhost:3000',
     'https://cms.emmanuelu.com',
     'https://cms2.emmanuelu.com',
+    'https://www.emmanuelu.com',
+    'https://emmanuelu.com',
   ].filter(Boolean),
   csrf: [
     process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001',
     process.env.REACT_APP_URL || 'http://localhost:3000',
     'https://cms.emmanuelu.com',
     'https://cms2.emmanuelu.com',
+    'https://www.emmanuelu.com',
+    'https://emmanuelu.com',
   ].filter(Boolean),
 });
