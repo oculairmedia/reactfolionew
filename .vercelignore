@@ -41,3 +41,18 @@ scripts
 # Documentation
 *.md
 !README.md
+
+# CMS Backend files (Docker only, not needed for Vercel frontend build)
+payload/
+server.ts
+payload.config.ts
+payload.config.js
+tsconfig.server.json
+docker-compose*.yml
+Dockerfile
+.dockerignore
+.env.backend
+.env.docker
+*_DEPLOYMENT.md
+PAYLOAD_CMS_SETUP.md
+MIGRATION_TO_PAYLOAD.md
