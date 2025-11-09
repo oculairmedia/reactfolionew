@@ -1,0 +1,41 @@
+{
+  "id": "branton",
+  "title": "Branton",
+  "subtitle": "",
+  "metadata": {
+    "client": "Branton",
+    "date": "January 2021",
+    "role": "Digital Designer",
+    "category": "Industrial Design, Brand Identity",
+    "technologies": "Houdini, Adobe Creative Suite"
+  },
+  "hero": {
+    "type": "video",
+    "video": "https://oculair.b-cdn.net/api/v1/videos/f200bfc144e110dc4821384c82dca7d6fbd67c66/3rjei659/avc",
+    "alt": "Branton brand treatments video"
+  },
+  "tags": ["Brand Identity", "Industrial Design", "Procedural Design", "3D Design"],
+  "sections": [
+    {
+      "title": "Project Overview",
+      "content": "In my tenure as a digital designer for Branton, a London-based design firm known for its industrial clientele, including names like McCormick and 3M, my challenge was to elevate their brand presence. The assignment: to conceive and develop brand treatments that resonate with the robust nature of industrial manufacturing yet convey the innovative spirit of the design firm.",
+      "layout": "full-width"
+    },
+    {
+      "title": "The Process",
+      "content": "Leveraging the powerful procedural capabilities of Houdini, I sculpted a series of visual pieces that embody Branton's commitment to strength and precision. The process involved several key steps:\n\n1. Analyzing Branton's existing brand identity and client base\n2. Researching industrial design trends and innovative branding techniques\n3. Conceptualizing visual treatments that blend industrial strength with design innovation\n4. Utilizing Houdini to create procedurally generated designs\n5. Refining and iterating on the designs based on client feedback\n6. Finalizing a comprehensive set of brand treatments for various applications",
+      "layout": "two-column"
+    },
+    {
+      "title": "Services Provided",
+      "content": "Brand Identity Design, Industrial Design, Procedural Design Creation, 3D Modeling and Rendering, Client Presentation and Collaboration",
+      "layout": "two-column"
+    },
+    {
+      "title": "The Outcome",
+      "content": "The video and images showcased here represent a curated selection from a comprehensive body of work, each piece a testament to the synthesis of technical expertise and creative design that Branton offers to its distinguished industrial partners. The final brand treatments successfully elevated Branton's visual presence, aligning their image with the innovative and robust nature of their industrial clientele.",
+      "layout": "two-column"
+    }
+  ],
+  "gallery": []
+}
