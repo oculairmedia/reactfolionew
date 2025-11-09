@@ -46,8 +46,8 @@ services:
       NODE_ENV: development
       PORT: 3006
 
-      # CORS for Vercel frontend
-      PAYLOAD_ALLOWED_ORIGINS: ${VERCEL_URL},https://*.vercel.app
+      # CORS for Vercel frontend and Cloudflare tunnel
+      PAYLOAD_ALLOWED_ORIGINS: ${VERCEL_URL},https://*.vercel.app,https://cms.emmanuelu.com,https://cms2.emmanuelu.com
     ports:
       - "3006:3006"
     volumes:

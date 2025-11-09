@@ -49,9 +49,13 @@ export default buildConfig({
   cors: [
     process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001',
     process.env.REACT_APP_URL || 'http://localhost:3000',
+    'https://cms.emmanuelu.com',
+    'https://cms2.emmanuelu.com',
   ].filter(Boolean),
   csrf: [
     process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001',
     process.env.REACT_APP_URL || 'http://localhost:3000',
+    'https://cms.emmanuelu.com',
+    'https://cms2.emmanuelu.com',
   ].filter(Boolean),
 });

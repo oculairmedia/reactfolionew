@@ -38,7 +38,6 @@ RUN npm install --legacy-peer-deps --only=production
 # Copy built files from base stage
 COPY --from=base /app/dist ./dist
 COPY --from=base /app/payload ./payload
-COPY --from=base /app/node_modules ./node_modules
 COPY --from=base /app/payload.config.js ./payload.config.js
 
 # Create media directory
