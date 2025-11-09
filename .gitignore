@@ -10,9 +10,16 @@
 
 # production
 /build
+/dist
+
+# payload cms
+payload/payload-types.ts
+payload/generated-schema.graphql
+media/
 
 # misc
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
