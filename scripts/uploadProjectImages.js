@@ -21,7 +21,7 @@ const uploadFile = async (filePath, cdnPath) => {
     const options = {
         method: 'PUT',
         host: 'la.storage.bunnycdn.com',
-        path: `/${STORAGE_ZONE}/${encodeURIComponent(cdnPath)}`,
+        path: `/${STORAGE_ZONE}/${cdnPath}`,
         headers: {
             'AccessKey': BUNNY_STORAGE_PASSWORD,
             'Content-Type': mimeType
