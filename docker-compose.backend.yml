@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7
+    container_name: payload-cms-mongodb-3006
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-changeme}
+      MONGO_INITDB_DATABASE: portfolio
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    ports:
+      - "27018:27017"
+    networks:
+      - portfolio-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+
+  # Payload CMS Backend
+  payload:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: payload-cms-backend-3006
+    restart: unless-stopped
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      # Payload Configuration
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+      PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL}
+
+      # MongoDB Connection
+      MONGODB_URI: mongodb://${MONGO_ROOT_USERNAME:-admin}:${MONGO_ROOT_PASSWORD:-changeme}@mongodb:27017/portfolio?authSource=admin
+
+      # Node Environment (development allows admin UI to build dynamically)
+      NODE_ENV: development
+      PORT: 3006
+
+      # CORS for Vercel frontend and Cloudflare tunnel
+      PAYLOAD_ALLOWED_ORIGINS: ${VERCEL_URL},https://*.vercel.app,https://cms.emmanuelu.com,https://cms2.emmanuelu.com
+    ports:
+      - "3006:3006"
+    volumes:
+      # Persist uploaded media files
+      - payload_media:/app/media
+    networks:
+      - portfolio-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3006/admin"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  mongodb_data:
+    driver: local
+  mongodb_config:
+    driver: local
+  payload_media:
+    driver: local
+
+networks:
+  portfolio-network:
+    driver: bridge
