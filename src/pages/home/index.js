@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Typewriter from "typewriter-effect";
-import { introdata, meta, dataportfolio, socialprofils } from "../../content_option";
+import { introdata, meta, dataportfolio, socialprofils, uiText } from "../../content_option";
 import { Link } from "react-router-dom";
 import PortfolioItem from "../../components/PortfolioItem";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -173,7 +173,7 @@ export const Home = () => {
                     whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    My Portfolio
+                    {uiText.myPortfolio}
                     <div className="ring one"></div>
                     <div className="ring two"></div>
                     <div className="ring three"></div>
@@ -186,7 +186,7 @@ export const Home = () => {
                     whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    Contact Me
+                    {uiText.contactMe}
                     <div className="ring one"></div>
                     <div className="ring two"></div>
                     <div className="ring three"></div>
@@ -226,7 +226,7 @@ export const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.4 }} // Reduced duration from 0.5 to 0.3 and delay from 0.7 to 0.4
           >
-            Featured Projects
+            {uiText.featuredProjects}
           </motion.h2>
           <div className="portfolio_items">
             {dataportfolio.slice(0, 3).map((data, i) => (
@@ -246,7 +246,7 @@ export const Home = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                View All Projects
+                {uiText.viewAllProjects}
                 <div className="ring one"></div>
                 <div className="ring two"></div>
                 <div className="ring three"></div>

@@ -1,0 +1,52 @@
+{
+  "id": "voices-unheard",
+  "title": "Voices Unheard: The Church and Marginalized Communities",
+  "subtitle": "",
+  "client": "Inter/Access",
+  "year": "2023",
+  "date": "November 2023",
+  "role": "AI Artist & Animator",
+  "exhibition": "Inter/Access IA 360° Showcase",
+  "curators": "Kyle Duffield and Terry Anastasiadis",
+  "collaborators": "Nyle Migiizi Johnston, Nigel Nolan, Emmanuel Umukoro",
+  "technologies": "AI-generated imagery, Digital Animation",
+  "featured_video": "https://oculair.b-cdn.net/api/v1/videos/bfbad3bf0b671badf4eb75634e9f15407ffd60ad/3rjei659/hevc",
+  "tags": ["AI Art", "Immersive Media", "Social Commentary", "Collaboration"],
+  "sections": [
+    {
+      "title": "Project Summary",
+      "content": "*Voices Unheard: The Church and Marginalized Communities* is a video collaboration that is part of the Inter/Access IA 360° Showcase Exhibition. This project uses AI-generated imagery to create a new 'church' for Indigenous, Queer, and POC folks, bringing together technology, art, and social commentary.",
+      "layout": "full-width"
+    },
+    {
+      "title": "The Process",
+      "content": "This project was a collaborative effort by Nyle Migiizi Johnston, Nigel Nolan, and Emmanuel Umukoro - members of Highness Generates, a division of Highness Global Inc. The process began with gathering datasets from Johnston's and Nolan's artwork, which Umukoro then used to create AI-generated imagery.\n\nThe objective during the creative process was to create a machine-generated collaboration of Johnston's and Nolan's work while employing Umukoro's extensive knowledge in animation and digital media. This unique approach allowed for a blend of traditional artistic styles with cutting-edge AI technology.\n\nThe team worked on creating a maximalist vision that incorporates patterns, colours, plant life, astronomy, and architecture into a new concept of a \"church\" for marginalized communities. This process involved multiple iterations of AI-generated imagery, careful curation, and skillful animation to bring the static images to life.",
+      "layout": "two-column"
+    },
+    {
+      "title": "The Outcome",
+      "content": "The final video brings together a maximalist vision of patterns, colours, plant life, astronomy, and architecture into a new \"church\" for Indigenous, Queer, and POC folks. *Voices Unheard: The Church and Marginalized Communities* layers imagery of the future and thoughts from our past to bring the viewer into a space to contemplate new modes of creation, awareness, and unity.\n\nThis project showcases the potential of AI in creating immersive, thought-provoking art that addresses important social issues. It challenges traditional notions of religious spaces and invites viewers to consider more inclusive, diverse spiritual environments.",
+      "layout": "two-column"
+    }
+  ],
+  "gallery": [
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/a464a6d79ac0a23ba1e3dca4ed8f836534ed77fd.jpg",
+      "caption": "Voices Unheard - Generated Imagery",
+      "width": "half"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/dfa646d4fc64ddb3ec60a61e5dbd8e1e1be2f4dc.jpg",
+      "caption": "Voices Unheard - AI-Generated Church",
+      "width": "half"
+    },
+    {
+      "type": "video",
+      "url": "https://oculair.b-cdn.net/api/v1/videos/ab378b5c663d95304309a7a814fcae6997042c36/3rjei659/avc",
+      "caption": "Immersive Experience - First-person perspective of the installation",
+      "width": "full"
+    }
+  ]
+}
