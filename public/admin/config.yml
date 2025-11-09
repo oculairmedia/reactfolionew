@@ -1,9 +1,9 @@
 backend:
   name: github
-  repo: oculairmedia/reactfolio
+  repo: oculairmedia/reactfolionew
   branch: master
   # OAuth authentication via Vercel serverless function
-  base_url: https://your-site.vercel.app # Replace with your actual Vercel URL
+  base_url: https://emmulu.vercel.app
   auth_endpoint: /api/auth
 
 # Publish mode - set to editorial_workflow for draft/review/publish workflow
