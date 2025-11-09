@@ -4,7 +4,7 @@ services:
   # MongoDB Database
   mongodb:
     image: mongo:7
-    container_name: portfolio-mongodb
+    container_name: payload-cms-mongodb-3006
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:-admin}
@@ -14,7 +14,7 @@ services:
       - mongodb_data:/data/db
       - mongodb_config:/data/configdb
     ports:
-      - "27017:27017"
+      - "27018:27017"
     networks:
       - portfolio-network
     healthcheck:
@@ -29,7 +29,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: portfolio-payload
+    container_name: payload-cms-backend-3006
     restart: unless-stopped
     depends_on:
       mongodb:
@@ -42,43 +42,25 @@ services:
       # MongoDB Connection
       MONGODB_URI: mongodb://${MONGO_ROOT_USERNAME:-admin}:${MONGO_ROOT_PASSWORD:-changeme}@mongodb:27017/portfolio?authSource=admin
 
-      # Node Environment
-      NODE_ENV: production
-      PORT: 3001
+      # Node Environment (development allows admin UI to build dynamically)
+      NODE_ENV: development
+      PORT: 3006
 
       # CORS for Vercel frontend
       PAYLOAD_ALLOWED_ORIGINS: ${VERCEL_URL},https://*.vercel.app
     ports:
-      - "3001:3001"
+      - "3006:3006"
     volumes:
       # Persist uploaded media files
       - payload_media:/app/media
     networks:
       - portfolio-network
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/admin"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3006/admin"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 60s
-
-  # Optional: Nginx reverse proxy for SSL termination
-  nginx:
-    image: nginx:alpine
-    container_name: portfolio-nginx
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx-backend.conf:/etc/nginx/nginx.conf:ro
-      - nginx_ssl:/etc/nginx/ssl
-    depends_on:
-      - payload
-    networks:
-      - portfolio-network
-    profiles:
-      - with-ssl  # Optional service, only start with: docker compose --profile with-ssl up
 
 volumes:
   mongodb_data:
@@ -86,8 +68,6 @@ volumes:
   mongodb_config:
     driver: local
   payload_media:
-    driver: local
-  nginx_ssl:
     driver: local
 
 networks:

@@ -19,6 +19,7 @@
   },
   "include": [
     "payload/**/*",
+    "payload.config.ts",
     "server.ts"
   ],
   "exclude": [

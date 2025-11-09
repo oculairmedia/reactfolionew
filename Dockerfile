@@ -12,11 +12,13 @@ WORKDIR /app
 COPY package*.json ./
 COPY tsconfig.server.json ./
 
-# Install dependencies
-RUN npm ci --legacy-peer-deps --ignore-scripts
+# Install dependencies (using install instead of ci to respect overrides)
+RUN npm install --legacy-peer-deps
 
 # Copy Payload configuration and server
 COPY payload ./payload
+COPY payload.config.ts ./
+COPY payload.config.js ./
 COPY server.ts ./
 
 # Build TypeScript
@@ -31,11 +33,13 @@ WORKDIR /app
 
 # Copy package files and install production dependencies only
 COPY package*.json ./
-RUN npm ci --legacy-peer-deps --ignore-scripts --only=production
+RUN npm install --legacy-peer-deps --only=production
 
 # Copy built files from base stage
 COPY --from=base /app/dist ./dist
 COPY --from=base /app/payload ./payload
+COPY --from=base /app/node_modules ./node_modules
+COPY --from=base /app/payload.config.js ./payload.config.js
 
 # Create media directory
 RUN mkdir -p media && chown -R node:node media
