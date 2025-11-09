@@ -1,8 +1,9 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Typewriter from "typewriter-effect";
-import { introdata, meta, dataportfolio, socialprofils, uiText } from "../../content_option";
+import { meta, socialprofils, uiText } from "../../content_option";
+import { getHomeIntro, getPortfolioItems, getSiteSettings } from "../../utils/payloadApi";
 import { Link } from "react-router-dom";
 import PortfolioItem from "../../components/PortfolioItem";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -22,9 +23,13 @@ const SocialIcon = ({ href, children }) => (
 );
 
 export const Home = () => {
-  const [videoLoaded, setVideoLoaded] = React.useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [introdata, setIntroData] = useState(null);
+  const [dataportfolio, setDataPortfolio] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+
   useEffect(() => {
     const addMinimalScrollbar = () => {
       const style = document.createElement('style');
@@ -54,10 +59,54 @@ export const Home = () => {
     addMinimalScrollbar();
   }, []);
 
+  // Fetch data from CMS
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [homeIntroData, portfolioData] = await Promise.all([
+          getHomeIntro(),
+          getPortfolioItems({ limit: 3 })
+        ]);
+
+        // Transform home intro data to match expected format
+        const transformedIntroData = {
+          title: homeIntroData.title,
+          description: homeIntroData.description,
+          your_img_url: homeIntroData.image_url,
+          animated: homeIntroData.animated.reduce((acc, item, index) => {
+            const keys = [
+              'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'
+            ];
+            if (index < keys.length) {
+              acc[keys[index]] = item.text;
+            }
+            return acc;
+          }, {})
+        };
+
+        setIntroData(transformedIntroData);
+        setDataPortfolio(portfolioData);
+      } catch (error) {
+        console.error('Error fetching CMS data:', error);
+        // Fallback to static data if CMS fails
+        import('../../content_option').then(module => {
+          setIntroData(module.introdata);
+          setDataPortfolio(module.dataportfolio);
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const randomizedStrings = useMemo(() => {
+    if (!introdata?.animated) return [];
     const strings = Object.values(introdata.animated);
     return strings.sort(() => Math.random() - 0.5);
-  }, []);
+  }, [introdata]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -79,6 +128,17 @@ export const Home = () => {
       }
     }
   };
+
+  // Show loading state while fetching data
+  if (loading || !introdata) {
+    return (
+      <HelmetProvider>
+        <div className="home" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <div>Loading...</div>
+        </div>
+      </HelmetProvider>
+    );
+  }
 
   return (
     <HelmetProvider>
@@ -229,9 +289,13 @@ export const Home = () => {
             {uiText.featuredProjects}
           </motion.h2>
           <div className="portfolio_items">
-            {dataportfolio.slice(0, 3).map((data, i) => (
-              <PortfolioItem key={i} data={data} />
-            ))}
+            {dataportfolio && dataportfolio.length > 0 ? (
+              dataportfolio.map((data, i) => (
+                <PortfolioItem key={data.id || i} data={data} />
+              ))
+            ) : (
+              <div>No projects available</div>
+            )}
           </div>
           <motion.div
             className="view_all_btn"

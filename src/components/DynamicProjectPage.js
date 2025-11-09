@@ -1,30 +1,75 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import { meta } from "../content_option";
+import { getProjectById } from "../utils/payloadApi";
 import ReturnToPortfolio from "./ReturnToPortfolio";
 import "./ProjectPage.css";
 
-// Import all project JSON files
-const projectContext = require.context('../content/projects', false, /\.json$/);
-const allProjects = {};
-
-projectContext.keys().forEach((key) => {
-  const projectId = key.replace('./', '').replace('.json', '');
-  allProjects[projectId] = projectContext(key);
-});
-
 const DynamicProjectPage = () => {
   const { slug } = useParams();
-  const project = allProjects[slug];
+  const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
   const videoRefs = useRef([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Fetch project data from CMS
+    const fetchProject = async () => {
+      try {
+        setLoading(true);
+        setNotFound(false);
+        const projectData = await getProjectById(slug);
+
+        if (projectData) {
+          setProject(projectData);
+        } else {
+          // Fallback to static data if CMS fails
+          const projectContext = require.context('../content/projects', false, /\.json$/);
+          const allProjects = {};
+          projectContext.keys().forEach((key) => {
+            const projectId = key.replace('./', '').replace('.json', '');
+            allProjects[projectId] = projectContext(key);
+          });
+
+          if (allProjects[slug]) {
+            setProject(allProjects[slug]);
+          } else {
+            setNotFound(true);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching project:', error);
+        // Fallback to static data
+        try {
+          const projectContext = require.context('../content/projects', false, /\.json$/);
+          const allProjects = {};
+          projectContext.keys().forEach((key) => {
+            const projectId = key.replace('./', '').replace('.json', '');
+            allProjects[projectId] = projectContext(key);
+          });
+
+          if (allProjects[slug]) {
+            setProject(allProjects[slug]);
+          } else {
+            setNotFound(true);
+          }
+        } catch (fallbackError) {
+          console.error('Fallback error:', fallbackError);
+          setNotFound(true);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
   }, [slug]);
 
   useEffect(() => {
@@ -40,7 +85,17 @@ const DynamicProjectPage = () => {
     });
   }, [project]);
 
-  if (!project) {
+  if (loading) {
+    return (
+      <HelmetProvider>
+        <Container className="content-wrapper">
+          <div style={{ textAlign: 'center', padding: '4rem' }}>Loading project...</div>
+        </Container>
+      </HelmetProvider>
+    );
+  }
+
+  if (notFound || !project) {
     return <Navigate to="/portfolio" replace />;
   }
 

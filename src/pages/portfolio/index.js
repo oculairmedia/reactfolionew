@@ -1,13 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Container, Row, Col } from "react-bootstrap";
-import { dataportfolio, meta, portfolioPage } from "../../content_option";
+import { meta, portfolioPage } from "../../content_option";
+import { getPortfolioItems } from "../../utils/payloadApi";
 import PortfolioItem from "../../components/PortfolioItem";
 
 export const Portfolio = () => {
+  const [dataportfolio, setDataPortfolio] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Fetch portfolio items from CMS
+    const fetchPortfolio = async () => {
+      try {
+        setLoading(true);
+        const portfolioData = await getPortfolioItems();
+        setDataPortfolio(portfolioData);
+      } catch (error) {
+        console.error('Error fetching portfolio data:', error);
+        // Fallback to static data if CMS fails
+        import('../../content_option').then(module => {
+          setDataPortfolio(module.dataportfolio);
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPortfolio();
   }, []);
 
   return (
@@ -25,9 +48,15 @@ export const Portfolio = () => {
           </Col>
         </Row>
         <div className="mb-5 po_items_ho">
-          {dataportfolio.map((data, i) => (
-            <PortfolioItem key={i} data={data} index={i} />
-          ))}
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '2rem' }}>Loading portfolio...</div>
+          ) : dataportfolio && dataportfolio.length > 0 ? (
+            dataportfolio.map((data, i) => (
+              <PortfolioItem key={data.id || i} data={data} index={i} />
+            ))
+          ) : (
+            <div style={{ textAlign: 'center', padding: '2rem' }}>No portfolio items available</div>
+          )}
         </div>
       </Container>
     </HelmetProvider>
