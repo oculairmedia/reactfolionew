@@ -2,15 +2,21 @@
   "id": "voices-unheard",
   "title": "Voices Unheard: The Church and Marginalized Communities",
   "subtitle": "",
-  "client": "Inter/Access",
-  "year": "2023",
-  "date": "November 2023",
-  "role": "AI Artist & Animator",
-  "exhibition": "Inter/Access IA 360° Showcase",
-  "curators": "Kyle Duffield and Terry Anastasiadis",
-  "collaborators": "Nyle Migiizi Johnston, Nigel Nolan, Emmanuel Umukoro",
-  "technologies": "AI-generated imagery, Digital Animation",
-  "featured_video": "https://oculair.b-cdn.net/api/v1/videos/bfbad3bf0b671badf4eb75634e9f15407ffd60ad/3rjei659/hevc",
+  "metadata": {
+    "client": "Inter/Access",
+    "year": "2023",
+    "date": "November 2023",
+    "role": "AI Artist & Animator",
+    "exhibition": "Inter/Access IA 360° Showcase",
+    "curators": "Kyle Duffield and Terry Anastasiadis",
+    "collaborators": "Nyle Migiizi Johnston, Nigel Nolan, Emmanuel Umukoro",
+    "technologies": "AI-generated imagery, Digital Animation"
+  },
+  "hero": {
+    "type": "video",
+    "video": "https://oculair.b-cdn.net/api/v1/videos/bfbad3bf0b671badf4eb75634e9f15407ffd60ad/3rjei659/hevc",
+    "alt": "Voices Unheard video installation"
+  },
   "tags": ["AI Art", "Immersive Media", "Social Commentary", "Collaboration"],
   "sections": [
     {
