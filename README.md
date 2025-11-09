@@ -12,6 +12,7 @@ A simple portfolio template for developer/designers built with React.
 - Multi-Page Layout
 - Contact Form With EmailJs
 - React-Bootstrap
+- Sveltia CMS for Content Management
 - Edit Content From One Place
 
 ### Setup
