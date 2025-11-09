@@ -1,0 +1,50 @@
+# Node modules
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build outputs
+build
+dist
+*.log
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage
+.nyc_output
+
+# Documentation
+*.md
+docs/
+
+# CI/CD
+.github
+
+# React source (not needed for backend)
+src/
+public/
+
+# Keep only what's needed for Payload
+!payload/
+!server.ts
+!package*.json
+!tsconfig.server.json

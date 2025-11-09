@@ -107,7 +107,8 @@ See [PAYLOAD_CMS_SETUP.md](./PAYLOAD_CMS_SETUP.md) for complete documentation.
 
 - **[Payload CMS Setup Guide](./PAYLOAD_CMS_SETUP.md)** - Complete setup instructions
 - **[Migration Guide](./MIGRATION_TO_PAYLOAD.md)** - Migrating from Sveltia CMS
-- **[Vercel Deployment](./VERCEL_DEPLOYMENT.md)** - Deployment instructions
+- **[Docker Deployment](./DOCKER_DEPLOYMENT.md)** - Deploy with Docker on your own server
+- **[Vercel Deployment](./VERCEL_DEPLOYMENT.md)** - Deploy frontend to Vercel
 
 ## Development
 
@@ -163,16 +164,21 @@ npm start
 
 ### Production
 
-**Option 1: Separate Deployments (Recommended)**
-- Deploy React frontend to Vercel
-- Deploy Payload backend to Railway, Heroku, or DigitalOcean
+**Option 1: Docker on Your Own Server (Most Cost-Effective)**
+- Deploy everything with Docker on a VPS ($5-12/month)
+- Full control, easy backups, scales well
+- See [DOCKER_DEPLOYMENT.md](./DOCKER_DEPLOYMENT.md)
+
+**Option 2: Separate Deployments**
+- Deploy React frontend to Vercel (free)
+- Deploy Payload backend to Railway, Heroku, or DigitalOcean ($5-7/month)
 - Update `REACT_APP_API_URL` to point to backend URL
 
-**Option 2: Vercel with Serverless**
+**Option 3: Vercel with Serverless (Advanced)**
 - Requires additional Payload serverless configuration
 - See Payload documentation for details
 
-See [PAYLOAD_CMS_SETUP.md](./PAYLOAD_CMS_SETUP.md) for detailed deployment instructions.
+See deployment guides for detailed instructions.
 
 ## Migration from Sveltia CMS
 
