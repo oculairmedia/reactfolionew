@@ -1,3 +1,7 @@
+/* Self-hosted fonts for better performance (no render-blocking external requests) */
+@import '@fontsource/marcellus';
+@import '@fontsource/raleway';
+
 :root {
     --bg-color: #1a1a1a;
     --primary-color: #0d0d0d;

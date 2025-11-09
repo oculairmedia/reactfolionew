@@ -5,22 +5,22 @@ import { Layout } from '../features/layout/components/Layout/Layout';
 import { LoadingSpinner } from '../components/LoadingSpinner/LoadingSpinner';
 import './App.css';
 
-// Lazy load pages
-const Home = lazy(() => import('../pages/home'));
-const Portfolio = lazy(() => import('../pages/portfolio'));
-const About = lazy(() => import('../pages/about'));
-const Contact = lazy(() => import('../pages/contact'));
-const VoicesUnheard = lazy(() => import('../pages/projects/VoicesUnheard'));
-const CoffeeByAltitude = lazy(() => import('../pages/projects/CoffeeByAltitude'));
-const GardenCityEssentials = lazy(() => import('../pages/projects/GardenCityEssentials'));
-const LieblingWines = lazy(() => import('../pages/projects/LieblingWines'));
-const MerchantAleHouse = lazy(() => import('../pages/projects/MerchantAleHouse'));
-const SuperBurgersFries = lazy(() => import('../pages/projects/SuperBurgersFries'));
-const AquaticResonance = lazy(() => import('../pages/projects/AquaticResonance'));
-const Branton = lazy(() => import('../pages/projects/Branton'));
-const Binmetrics = lazy(() => import('../pages/projects/Binmetrics'));
-const VHBTapes = lazy(() => import('../pages/projects/3MVHBTapes'));
-const CoupleIsh = lazy(() => import('../pages/projects/CoupleIsh'));
+// Lazy load pages with webpack chunk names for better debugging
+const Home = lazy(() => import(/* webpackChunkName: "home" */ '../pages/home'));
+const Portfolio = lazy(() => import(/* webpackChunkName: "portfolio" */ '../pages/portfolio'));
+const About = lazy(() => import(/* webpackChunkName: "about" */ '../pages/about'));
+const Contact = lazy(() => import(/* webpackChunkName: "contact" */ '../pages/contact'));
+const VoicesUnheard = lazy(() => import(/* webpackChunkName: "project-voices" */ '../pages/projects/VoicesUnheard'));
+const CoffeeByAltitude = lazy(() => import(/* webpackChunkName: "project-coffee" */ '../pages/projects/CoffeeByAltitude'));
+const GardenCityEssentials = lazy(() => import(/* webpackChunkName: "project-garden" */ '../pages/projects/GardenCityEssentials'));
+const LieblingWines = lazy(() => import(/* webpackChunkName: "project-liebling" */ '../pages/projects/LieblingWines'));
+const MerchantAleHouse = lazy(() => import(/* webpackChunkName: "project-merchant" */ '../pages/projects/MerchantAleHouse'));
+const SuperBurgersFries = lazy(() => import(/* webpackChunkName: "project-burgers" */ '../pages/projects/SuperBurgersFries'));
+const AquaticResonance = lazy(() => import(/* webpackChunkName: "project-aquatic" */ '../pages/projects/AquaticResonance'));
+const Branton = lazy(() => import(/* webpackChunkName: "project-branton" */ '../pages/projects/Branton'));
+const Binmetrics = lazy(() => import(/* webpackChunkName: "project-binmetrics" */ '../pages/projects/Binmetrics'));
+const VHBTapes = lazy(() => import(/* webpackChunkName: "project-vhb" */ '../pages/projects/3MVHBTapes'));
+const CoupleIsh = lazy(() => import(/* webpackChunkName: "project-couple" */ '../pages/projects/CoupleIsh'));
 
 const App = () => {
   usePerformance();
