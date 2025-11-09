@@ -1,0 +1,140 @@
+backend:
+  name: github
+  repo: oculairmedia/reactfolio
+  branch: master
+  # OAuth authentication via Vercel serverless function
+  base_url: https://your-site.vercel.app # Replace with your actual Vercel URL
+  auth_endpoint: /api/auth
+
+# Publish mode - set to editorial_workflow for draft/review/publish workflow
+publish_mode: simple
+
+# Media files
+media_folder: "public/images"
+public_folder: "/images"
+
+# Collections
+collections:
+  # Site Settings
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "Site Configuration"
+        name: "site"
+        file: "src/content/settings/site-settings.json"
+        fields:
+          - { label: "Logo Text", name: "logotext", widget: "string" }
+          - label: "Meta Information"
+            name: "meta"
+            widget: "object"
+            fields:
+              - { label: "Site Title", name: "title", widget: "string" }
+              - { label: "Site Description", name: "description", widget: "text" }
+          - label: "Contact Configuration"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Your Email", name: "email", widget: "string" }
+              - { label: "Contact Description", name: "description", widget: "text" }
+              - { label: "EmailJS Service ID", name: "serviceId", widget: "string" }
+              - { label: "EmailJS Template ID", name: "templateId", widget: "string" }
+              - { label: "EmailJS Public Key", name: "publicKey", widget: "string" }
+          - label: "Social Profiles"
+            name: "social"
+            widget: "object"
+            fields:
+              - { label: "GitHub URL", name: "github", widget: "string", required: false }
+              - { label: "Facebook URL", name: "facebook", widget: "string", required: false }
+              - { label: "LinkedIn URL", name: "linkedin", widget: "string", required: false }
+              - { label: "Twitter URL", name: "twitter", widget: "string", required: false }
+
+  # Home/Intro Content
+  - name: "intro"
+    label: "Home Page"
+    files:
+      - label: "Introduction"
+        name: "home"
+        file: "src/content/intro/home.json"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Description", name: "description", widget: "string" }
+          - { label: "Profile Image URL", name: "image_url", widget: "string" }
+          - label: "Animated Text Phrases"
+            name: "animated"
+            widget: "list"
+            fields:
+              - { label: "Phrase", name: "text", widget: "string" }
+
+  # About Page
+  - name: "about"
+    label: "About Page"
+    files:
+      - label: "About Content"
+        name: "about"
+        file: "src/content/about/about.json"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "About Me Text", name: "aboutme", widget: "text" }
+          - label: "Work Timeline"
+            name: "timeline"
+            widget: "list"
+            fields:
+              - { label: "Job Title", name: "jobtitle", widget: "string" }
+              - { label: "Company", name: "where", widget: "string" }
+              - { label: "Date Range", name: "date", widget: "string" }
+          - label: "Skills"
+            name: "skills"
+            widget: "list"
+            fields:
+              - { label: "Skill Name", name: "name", widget: "string" }
+              - { label: "Proficiency (0-100)", name: "value", widget: "number", value_type: "int", min: 0, max: 100 }
+          - label: "Services Offered"
+            name: "services"
+            widget: "list"
+            fields:
+              - { label: "Service Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+
+  # Portfolio Items
+  - name: "portfolio"
+    label: "Portfolio Items"
+    folder: "src/content/portfolio"
+    create: true
+    slug: "{{id}}"
+    format: "json"
+    fields:
+      - { label: "ID", name: "id", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Image", name: "img", widget: "image", required: false }
+      - { label: "Video URL", name: "video", widget: "string", required: false }
+      - { label: "Is Video?", name: "isVideo", widget: "boolean", default: false, required: false }
+      - { label: "Project Link", name: "link", widget: "string" }
+      - { label: "Date", name: "date", widget: "string", required: false }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: false
+        field: { label: "Tag", name: "tag", widget: "string" }
+
+  # Project Detail Pages
+  - name: "projects"
+    label: "Project Pages"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    format: "frontmatter"
+    extension: "md"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+      - { label: "Client", name: "client", widget: "string", required: false }
+      - { label: "Year", name: "year", widget: "string", required: false }
+      - { label: "Role", name: "role", widget: "string", required: false }
+      - { label: "Featured Image", name: "featured_image", widget: "image", required: false }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: false
+        field: { label: "Tag", name: "tag", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }

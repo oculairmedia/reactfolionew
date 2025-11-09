@@ -1,0 +1,11 @@
+{
+  "id": "voices-unheard",
+  "video": "https://oculair.b-cdn.net/api/v1/videos/bfbad3bf0b671badf4eb75634e9f15407ffd60ad/3rjei659/hevc",
+  "img": "https://oculair.b-cdn.net/cache/images/voices-poster.jpg",
+  "title": "Voices Unheard: The Church and Marginalized Communities",
+  "description": "A video collaboration for Inter/Access IA 360° Showcase Exhibition, using AI-generated imagery to create a new 'church' for Indigenous, Queer, and POC folks.",
+  "link": "/projects/voices-unheard",
+  "date": "November 2023",
+  "tags": ["stablediffusion", "Davinci Resolve", "portfolio"],
+  "isVideo": true
+}

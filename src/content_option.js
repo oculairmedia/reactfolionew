@@ -1,250 +1,101 @@
 import { optimizeImage } from './utils/cdnHelper';
 
-const logotext = "EMMANUEL";
-const meta = {
-    title: "Emmanuel Umukoro",
-    description: "I'm Emmanuel Umukoro, a Digital Designer and the force behind Oculair Media, specializing in multimedia design and UX/UI.",
-};
+// Import content from CMS-managed JSON files
+import siteSettings from './content/settings/site-settings.json';
+import homeData from './content/intro/home.json';
+import aboutData from './content/about/about.json';
+
+// Import all portfolio items
+import coupleIsh from './content/portfolio/couple-ish.json';
+import vhbTapes from './content/portfolio/3m-vhb-tapes.json';
+import binmetrics from './content/portfolio/binmetrics.json';
+import branton from './content/portfolio/branton.json';
+import aquaticResonance from './content/portfolio/aquatic-resonance.json';
+import voicesUnheard from './content/portfolio/voices-unheard.json';
+import superBurgers from './content/portfolio/super-burgers.json';
+import merchantAle from './content/portfolio/merchant-ale-house.json';
+import lieblingWines from './content/portfolio/liebling-wines.json';
+import gardenCity from './content/portfolio/garden-city-essentials.json';
+import coffeeAltitude from './content/portfolio/coffee-by-altitude.json';
+
+// Extract data from imported JSON
+const logotext = siteSettings.logotext;
+const meta = siteSettings.meta;
+
+// Transform animated phrases array to the expected format
+const animatedPhrases = homeData.animated.reduce((acc, item, index) => {
+    const keys = [
+        'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth',
+        'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth',
+        'eighteenth', 'nineteenth', 'twentieth', 'twentyFirst', 'twentySecond', 'twentyThird',
+        'twentyFourth', 'twentyFifth', 'twentySixth', 'twentySeventh', 'twentyEighth', 'twentyNinth',
+        'thirtieth', 'thirtyFirst', 'thirtySecond', 'thirtyThird', 'thirtyFourth', 'thirtyFifth',
+        'thirtySixth', 'thirtySeventh', 'thirtyEighth', 'thirtyNinth', 'fortieth', 'fortyFirst',
+        'fortySecond', 'fortyThird', 'fortyFourth', 'fortyFifth', 'fortySixth', 'fortySeventh',
+        'fortyEighth', 'fortyNinth', 'fiftieth', 'fiftyFirst', 'fiftySecond', 'fiftyThird'
+    ];
+    if (index < keys.length) {
+        acc[keys[index]] = item.text;
+    }
+    return acc;
+}, {});
 
 const introdata = {
-    title: "I'm Emmanuel Umukoro",
-    animated: {
-        first: "I love digital design",
-        second: "I create captivating experiences",
-        third: "I blend creativity with technology",
-        fourth: "I make pixels dance",
-        fifth: "I turn coffee into code",
-        sixth: "I speak fluent Photoshop",
-        seventh: "I'm a CSS wizard",
-        eighth: "I dream in RGB",
-        ninth: "I juggle deadlines like a pro",
-        tenth: "I'm allergic to Comic Sans",
-        eleventh: "I make UX smooth as butter",
-        twelfth: "I'm a master of digital alchemy",
-        thirteenth: "I tame wild websites",
-        fourteenth: "I'm a pixel perfectionist",
-        fifteenth: "I turn ideas into eye candy",
-        sixteenth: "I make interfaces sing",
-        seventeenth: "I'm fluent in GIF",
-        eighteenth: "I design faster than light",
-        nineteenth: "I'm a Jedi of Jquery",
-        twentieth: "I make logos pop",
-        twentyFirst: "I'm a Photoshop ninja",
-        twentySecond: "I turn bugs into features",
-        twentyThird: "I make responsive look easy",
-        twentyFourth: "I'm a UI superhero",
-        twentyFifth: "I turn caffeine into creativity",
-        twentySixth: "I speak HTML in my sleep",
-        twentySeventh: "I make browsers behave",
-        twentyEighth: "I'm a master of digital illusions",
-        twentyNinth: "I turn chaos into clean code",
-        thirtieth: "I make mobile-first look effortless",
-        thirtyFirst: "I'm a Sass sensation",
-        thirtySecond: "I turn wireframes into wonders",
-        thirtyThird: "I'm a bootstrap beast",
-        thirtyFourth: "I make gradients great again",
-        thirtyFifth: "I'm a flexbox flexer",
-        thirtySixth: "I turn mockups into magic",
-        thirtySeventh: "I'm a grid guru",
-        thirtyEighth: "I make parallax look parallel",
-        thirtyNinth: "I'm an SVG sorcerer",
-        fortieth: "I turn PNGs into perfection",
-        fortyFirst: "I'm a JavaScript genius",
-        fortySecond: "I make animations smooth as silk",
-        fortyThird: "I'm a typography titan",
-        fortyFourth: "I turn sketches into spectacles",
-        fortyFifth: "I'm a color theory therapist",
-        fortySixth: "I make buttons irresistibly clickable",
-        fortySeventh: "I'm an accessibility ace",
-        fortyEighth: "I turn user flows into user wows",
-        fortyNinth: "I'm a prototype prodigy",
-        fiftieth: "I make design systems look systematic",
-        fiftyFirst: "I turn brand guidelines into grand designs",
-        fiftySecond: "I'm a UX unicorn",
-        fiftyThird: "I make hover states heavenly",
-    },
-    description: "Turning Pixels into Priceless Experiences for Over 12 Years",
-    your_img_url: "/images/unsplash-photo-1514790193030-c89d266d5a9d.jpg",
+    title: homeData.title,
+    animated: animatedPhrases,
+    description: homeData.description,
+    your_img_url: homeData.image_url,
 };
 
 const dataabout = {
-    title: "A bit about myself",
-    aboutme: "I'm a seasoned Digital Designer and the force behind Oculair Media. With a degree in Multimedia Design from Durham College, I blend traditional design principles with modern tech to create captivating digital experiences. I have an esteemed track record, having worked with startups, design agencies, and Fortune 500 companies, leading projects that resonate globally. A staunch advocate of Swiss typography, I draw inspiration from the precision of the Josef Müller-Brockmann grid system, which informs the clarity and functionality of my work. My portfolio showcases a commitment to this disciplined approach across web design, UX/UI, and interactive media projects, including pioneering work in immersive new media that combines digital video production with AI generative techniques. Beyond my professional endeavors, I'm dedicated to continuous learning and value collaborative work with fellow creatives, aiming to push the boundaries of digital design. Through Oculair Media, I continue to shape the future of digital experiences, marrying the elegance of Swiss design with the possibilities of new technology.",
+    title: aboutData.title,
+    aboutme: aboutData.aboutme,
 };
 
-const worktimeline = [{
-        jobtitle: "Digital Designer",
-        where: "Incontrol",
-        date: "Apr 2021 - Apr 2023",
-    },
-    {
-        jobtitle: "Digital Designer",
-        where: "Branton Advertising",
-        date: "Apr 2018 - Jan 2020",
-    },
-    {
-        jobtitle: "UX/UI Designer",
-        where: "Apollo Metrics",
-        date: "Apr 2014 - Apr 2017",
-    },
-];
+const worktimeline = aboutData.timeline;
+const skills = aboutData.skills;
+const services = aboutData.services;
 
-const skills = [{
-        name: "Print Design",
-        value: 90,
-    },
-    {
-        name: "Web Design",
-        value: 95,
-    },
-    {
-        name: "3D Animation",
-        value: 85,
-    },
-    {
-        name: "UX/UI Design",
-        value: 90,
-    },
-    {
-        name: "Adobe Creative Suite",
-        value: 95,
-    },
-];
+// Process portfolio items and apply image optimization where needed
+const processPortfolioItem = (item) => {
+    // Create a copy of the item
+    const processed = { ...item };
 
-const services = [{
-        title: "UI & UX Design",
-        description: "Creating intuitive and engaging user interfaces and experiences for web and mobile applications.",
-    },
-    {
-        title: "3D Modeling & Animation",
-        description: "Bringing ideas to life through stunning 3D models and animations for various media projects.",
-    },
-    {
-        title: "Digital Marketing Materials",
-        description: "Designing eye-catching marketing materials for digital channels to boost engagement and brand awareness.",
-    },
-];
-
-const dataportfolio = [
-    {
-        id: "couple-ish",
-        img: optimizeImage("https://oculair.b-cdn.net/cache/images/13a71ce18ea4cd61e90d177cafd64842d8788508.jpg", { width: 800, quality: 85 }),
-        title: "Couple-Ish",
-        description: "Promotional poster design for a new Canadian LGBTQ web series, conveying unique character personalities and increasing collectability.",
-        link: "/projects/couple-ish",
-        date: "February 2024",
-        tags: ["portfolio", "Poster Design", "Digital Illustration"],
-    },
-    {
-        id: "3m-vhb-tapes",
-        img: optimizeImage("https://oculair.b-cdn.net/cache/images/b1d7b284701359f4d25a324dd3ac3068023b3767.jpg", { width: 800, quality: 85 }),
-        title: "3M VHB Tapes",
-        description: "A 3D illustration campaign for 3M VHB Tapes, showcasing the product's role in modern construction with compelling visuals.",
-        link: "/projects/3m-vhb-tapes",
-        date: "February 2024",
-        tags: ["portfolio", "Infographic", "3D illustration"],
-    },
-    {
-        id: "binmetrics",
-        video: "https://oculair.b-cdn.net/api/v1/videos/332b28a6113e401b77b6894d3254766d15c6a9ac/3rjei659/avc",
-        img: optimizeImage("https://oculair.b-cdn.net/cache/images/binmetrics-poster.jpg", { width: 800, quality: 80 }),
-        title: "Binmetrics",
-        description: "Innovative UI/UX design for a logistics management and asset tracking solution, featuring a guerilla marketing campaign for drone-based bin clearing.",
-        link: "/projects/binmetrics",
-        date: "February 2024",
-        tags: ["UI/UX", "Logistics", "B2B Marketing"],
-        isVideo: true
-    },
-    {
-        id: "branton",
-        video: "https://oculair.b-cdn.net/api/v1/videos/f200bfc144e110dc4821384c82dca7d6fbd67c66/3rjei659/avc",
-        img: optimizeImage("https://oculair.b-cdn.net/cache/images/branton-poster.jpg", { width: 800, quality: 80 }),
-        title: "Branton",
-        description: "Elevating brand presence for a London-based design firm with industrial clientele through innovative visual treatments.",
-        link: "/projects/branton",
-        date: "January 2021",
-        tags: ["portfolio", "Industrial Design", "Brand Identity"],
-        isVideo: true
-    },
-    {
-        id: "aquatic-resonance",
-        video: "https://oculair.b-cdn.net/downloads/title.avc",
-        img: optimizeImage("https://oculair.b-cdn.net/cache/images/aquatic-poster.jpg", { width: 800, quality: 80 }),
-        title: "Aquatic Resonance",
-        description: "A collaborative piece that transforms static canvas into a vibrant, breathing animation, evoking the fluid dance of underwater flora through a fusion of original art and digital alchemy.",
-        link: "/projects/aquatic-resonance",
-        date: "March 2024",
-        tags: ["portfolio", "Animation", "Collaboration", "Digital Art"],
-        isVideo: true
-    },
-    {
-        id: "voices-unheard",
-        video: "https://oculair.b-cdn.net/api/v1/videos/bfbad3bf0b671badf4eb75634e9f15407ffd60ad/3rjei659/hevc",
-        img: optimizeImage("https://oculair.b-cdn.net/cache/images/voices-poster.jpg", { width: 800, quality: 80 }),
-        title: "Voices Unheard: The Church and Marginalized Communities",
-        description: "A video collaboration for Inter/Access IA 360° Showcase Exhibition, using AI-generated imagery to create a new 'church' for Indigenous, Queer, and POC folks.",
-        link: "/projects/voices-unheard",
-        date: "November 2023",
-        tags: ["stablediffusion", "Davinci Resolve", "portfolio"],
-        isVideo: true
-    },
-    {
-        id: "super-burgers",
-        img: "/images/portfolio/super-burgers-fries-1.jpg",
-        title: "Super! Burgers & Fries",
-        description: "Brand identity and digital design for a modern fast-food chain.",
-        link: "/projects/super-burgers-fries",
-        tags: ["Branding", "UI/UX", "Web Design"]
-    },
-    {
-        id: "merchant-ale-house",
-        img: "/images/portfolio/the-merchant-ale-house-1.jpg",
-        title: "The Merchant Ale House",
-        description: "A complete digital overhaul for a classic ale house.",
-        link: "/projects/merchant-ale-house",
-        tags: ["Web Development", "UI Design", "Branding"]
-    },
-    {
-        id: "liebling-wines",
-        img: "/images/portfolio/liebling-wines-.jpg",
-        title: "Liebling Wines",
-        description: "E-commerce solution and brand identity for a boutique winery.",
-        link: "/projects/liebling-wines",
-        tags: ["E-commerce", "Branding", "UI/UX"]
-    },
-    {
-        id: "garden-city-essentials",
-        img: "/images/portfolio/garden-city-essentials-1.jpg",
-        title: "Garden City Essentials",
-        description: "Web presence for an eco-friendly essentials brand.",
-        link: "/projects/garden-city-essentials",
-        tags: ["Web Design", "Branding", "UI/UX"]
-    },
-    {
-        id: "coffee-by-altitude",
-        img: "/images/portfolio/coffee-by-altitude-1.jpg",
-        title: "Coffee by Altitude",
-        description: "Brand identity and e-commerce for a specialty coffee roaster.",
-        link: "/projects/coffee-by-altitude",
-        tags: ["Branding", "E-commerce", "UI/UX"]
+    // If the image URL is from CDN and doesn't have optimization params, apply optimization
+    if (processed.img && processed.img.includes('oculair.b-cdn.net') && !processed.img.includes('width=')) {
+        processed.img = optimizeImage(processed.img, { width: 800, quality: 85 });
+    } else if (processed.img && processed.img.includes('oculair.b-cdn.net') && processed.img.includes('width=')) {
+        processed.img = optimizeImage(processed.img, { width: 800, quality: 80 });
     }
+
+    return processed;
+};
+
+// Combine all portfolio items into a single array and apply image optimization
+const dataportfolio = [
+    processPortfolioItem(coupleIsh),
+    processPortfolioItem(vhbTapes),
+    processPortfolioItem(binmetrics),
+    processPortfolioItem(branton),
+    processPortfolioItem(aquaticResonance),
+    processPortfolioItem(voicesUnheard),
+    processPortfolioItem(superBurgers),
+    processPortfolioItem(merchantAle),
+    processPortfolioItem(lieblingWines),
+    processPortfolioItem(gardenCity),
+    processPortfolioItem(coffeeAltitude)
 ];
 
 const contactConfig = {
-    YOUR_EMAIL: "me@emmanuelu.com",
-    description: "Ready to turn ideas into visually stunning realities? Whether you have a project in mind or just want to chat about all things design, I'd love to connect!",
-    YOUR_SERVICE_ID: "service_2fil88f",
-    YOUR_TEMPLATE_ID: "template_ksmke1h",
+    YOUR_EMAIL: siteSettings.contact.email,
+    description: siteSettings.contact.description,
+    YOUR_SERVICE_ID: siteSettings.contact.serviceId,
+    YOUR_TEMPLATE_ID: siteSettings.contact.templateId,
     YOUR_USER_ID: "user_id",
-    YOUR_PUBLIC_KEY: "h9e4_z0Y1zbBb54me",
+    YOUR_PUBLIC_KEY: siteSettings.contact.publicKey,
 };
 
-const socialprofils = {
-    github: "https://github.com/oculairmedia",
-    facebook: "https://www.facebook.com/emmanuel.umukoro",
-    linkedin: "https://www.linkedin.com/in/emmanuel-umukoro-50b45597",
-    twitter: "https://x.com/emanuvaderland",
-};
+const socialprofils = siteSettings.social;
 
 export {
     meta,

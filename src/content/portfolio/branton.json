@@ -1,0 +1,11 @@
+{
+  "id": "branton",
+  "video": "https://oculair.b-cdn.net/api/v1/videos/f200bfc144e110dc4821384c82dca7d6fbd67c66/3rjei659/avc",
+  "img": "https://oculair.b-cdn.net/cache/images/branton-poster.jpg",
+  "title": "Branton",
+  "description": "Elevating brand presence for a London-based design firm with industrial clientele through innovative visual treatments.",
+  "link": "/projects/branton",
+  "date": "January 2021",
+  "tags": ["portfolio", "Industrial Design", "Brand Identity"],
+  "isVideo": true
+}
