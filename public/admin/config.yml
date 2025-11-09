@@ -123,18 +123,100 @@ collections:
     folder: "src/content/projects"
     create: true
     slug: "{{slug}}"
-    format: "frontmatter"
-    extension: "md"
+    format: "json"
     fields:
+      - { label: "ID", name: "id", widget: "string" }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
       - { label: "Client", name: "client", widget: "string", required: false }
       - { label: "Year", name: "year", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "string", required: false }
       - { label: "Role", name: "role", widget: "string", required: false }
+      - { label: "Exhibition", name: "exhibition", widget: "string", required: false }
+      - { label: "Curators", name: "curators", widget: "string", required: false }
+      - { label: "Collaborators", name: "collaborators", widget: "string", required: false }
+      - { label: "Technologies", name: "technologies", widget: "string", required: false }
       - { label: "Featured Image", name: "featured_image", widget: "image", required: false }
+      - { label: "Featured Video URL", name: "featured_video", widget: "string", required: false }
       - label: "Tags"
         name: "tags"
         widget: "list"
         required: false
         field: { label: "Tag", name: "tag", widget: "string" }
-      - { label: "Body", name: "body", widget: "markdown" }
+      - label: "Content Sections"
+        name: "sections"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Section Title", name: "title", widget: "string" }
+          - { label: "Section Content", name: "content", widget: "markdown" }
+          - { label: "Layout", name: "layout", widget: "select", options: ["full-width", "two-column"], default: "full-width", required: false }
+      - label: "Media Gallery"
+        name: "gallery"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Media Type", name: "type", widget: "select", options: ["image", "video"] }
+          - { label: "URL", name: "url", widget: "string" }
+          - { label: "Alt Text/Caption", name: "caption", widget: "string", required: false }
+          - { label: "Width", name: "width", widget: "select", options: ["half", "full"], default: "full", required: false }
+
+  # Navigation & Footer
+  - name: "navigation"
+    label: "Navigation & Footer"
+    files:
+      - label: "Navigation Menu"
+        name: "navigation"
+        file: "src/content/settings/navigation.json"
+        fields:
+          - label: "Menu Items"
+            name: "menuItems"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Path", name: "path", widget: "string" }
+              - { label: "External Link", name: "external", widget: "boolean", default: false, required: false }
+              - { label: "Order", name: "order", widget: "number", value_type: "int", default: 0 }
+      - label: "Footer"
+        name: "footer"
+        file: "src/content/settings/footer.json"
+        fields:
+          - { label: "Copyright Text", name: "copyright", widget: "string" }
+          - { label: "Footer Note", name: "note", widget: "text", required: false }
+          - label: "Footer Links"
+            name: "links"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+
+  # Page Content/UI Text
+  - name: "pages"
+    label: "Page Content"
+    files:
+      - label: "Portfolio Page"
+        name: "portfolio_page"
+        file: "src/content/pages/portfolio.json"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string" }
+          - { label: "Page Description", name: "description", widget: "text", required: false }
+      - label: "Contact Page"
+        name: "contact_page"
+        file: "src/content/pages/contact.json"
+        fields:
+          - { label: "Page Title", name: "title", widget: "string" }
+          - { label: "Section Title", name: "sectionTitle", widget: "string" }
+          - { label: "Form Submit Button", name: "submitButton", widget: "string" }
+          - { label: "Sending Text", name: "sendingText", widget: "string" }
+          - { label: "Success Message", name: "successMessage", widget: "string" }
+          - { label: "Error Message", name: "errorMessage", widget: "string" }
+      - label: "UI Text"
+        name: "ui_text"
+        file: "src/content/pages/ui-text.json"
+        fields:
+          - { label: "View All Projects Button", name: "viewAllProjects", widget: "string" }
+          - { label: "Return to Portfolio Button", name: "returnToPortfolio", widget: "string" }
+          - { label: "Featured Projects Title", name: "featuredProjects", widget: "string" }
+          - { label: "My Portfolio Button", name: "myPortfolio", widget: "string" }
+          - { label: "Contact Me Button", name: "contactMe", widget: "string" }

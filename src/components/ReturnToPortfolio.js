@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { uiText } from '../content_option';
 import './ReturnToPortfolio.css';
 
 const ReturnToPortfolio = () => {
   return (
-    <motion.div 
+    <motion.div
       className="return-button-container"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -16,7 +17,7 @@ const ReturnToPortfolio = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          Return to Portfolio
+          {uiText.returnToPortfolio}
         </motion.div>
       </Link>
     </motion.div>

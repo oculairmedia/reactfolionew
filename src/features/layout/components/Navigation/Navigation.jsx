@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import { ThemeToggle } from '../ThemeToggle';
+import { navigation, logotext } from '../../../../content_option';
 import './Navigation.css';
 
-const menuItems = [
-  { path: '/', label: 'Home' },
-  { path: '/portfolio', label: 'Portfolio' },
-  { path: '/about', label: 'About' },
-  { path: '/contact', label: 'Contact' },
-  { path: 'https://blog.emmanuelu.com/', label: 'Blog', external: true }
-];
+// Sort menu items by order and map to component format
+const menuItems = navigation.menuItems
+  .sort((a, b) => a.order - b.order)
+  .map(item => ({
+    path: item.path,
+    label: item.label,
+    external: item.external || false
+  }));
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +81,7 @@ export const Navigation = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            EMMANUEL
+            {logotext}
           </motion.span>
         </Link>
 

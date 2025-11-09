@@ -1,0 +1,8 @@
+{
+  "title": "Contact Me",
+  "sectionTitle": "Get in touch",
+  "submitButton": "Send",
+  "sendingText": "Sending...",
+  "successMessage": "SUCCESS! Thank you for your message",
+  "errorMessage": "Failed to send message. Please try again."
+}

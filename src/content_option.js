@@ -4,6 +4,11 @@ import { optimizeImage } from './utils/cdnHelper';
 import siteSettings from './content/settings/site-settings.json';
 import homeData from './content/intro/home.json';
 import aboutData from './content/about/about.json';
+import navigationData from './content/settings/navigation.json';
+import footerData from './content/settings/footer.json';
+import portfolioPageData from './content/pages/portfolio.json';
+import contactPageData from './content/pages/contact.json';
+import uiTextData from './content/pages/ui-text.json';
 
 // Import all portfolio items
 import coupleIsh from './content/portfolio/couple-ish.json';
@@ -97,6 +102,15 @@ const contactConfig = {
 
 const socialprofils = siteSettings.social;
 
+// Navigation and footer
+const navigation = navigationData;
+const footer = footerData;
+
+// Page content
+const portfolioPage = portfolioPageData;
+const contactPage = contactPageData;
+const uiText = uiTextData;
+
 export {
     meta,
     dataabout,
@@ -108,4 +122,9 @@ export {
     contactConfig,
     socialprofils,
     logotext,
+    navigation,
+    footer,
+    portfolioPage,
+    contactPage,
+    uiText,
 };
