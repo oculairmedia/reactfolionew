@@ -1,0 +1,95 @@
+{
+  "id": "liebling-wines",
+  "title": "Liebling Wines",
+  "subtitle": "",
+  "metadata": {
+    "client": "Liebling Wines",
+    "date": "2024",
+    "role": "Creative Director, Brand Identity Designer",
+    "technologies": "Logo Design, Typography, Packaging Design, Label Design, Website Design"
+  },
+  "hero": {
+    "type": "image",
+    "image": "/images/projects/work_liebling-wines/liebling-wines-1.jpg",
+    "alt": "Liebling Wines brand identity"
+  },
+  "tags": ["Brand Identity", "Logo Design", "Packaging Design", "Wine Label Design"],
+  "sections": [
+    {
+      "title": "Project Overview",
+      "content": "Liebling Wines, a virtual winery located in Niagara-on-the-Lake, approached us to create a brand identity that would reflect their unique approach to winemaking. The challenge was to develop a visual language that would pay homage to the proprietors' story, recognize the value of hard work and passion, and create an approachable, sustainable, and endearing aesthetic.",
+      "layout": "two-column"
+    },
+    {
+      "title": "The Process",
+      "content": "Our journey began with an extensive discovery phase, delving deep into Liebling Wines' history, production methods, and vision for the future. This involved multiple interviews with the proprietors, research into wine industry trends, and analysis of competitor branding. The design process started with conceptualizing a logomark that would encapsulate the essence of Liebling Wines. After numerous sketches and digital iterations, we landed on a stylized cornflower design. This choice acknowledges the role of earth and land in Liebling Wines' experience and product, while also nodding to the brand's historical roots in Germany. For the logotype, we developed a modern and playful spin on classic display serif fonts. This approach strikes a balance between tradition and innovation, reflecting Liebling Wines' respect for traditional winemaking methods and their forward-thinking approach to the industry. We then expanded the visual identity across various touchpoints, including bottle labels, packaging, and website design. The color palette and supporting graphical elements were carefully chosen to create a cohesive brand experience that feels both premium and approachable.",
+      "layout": "two-column"
+    },
+    {
+      "title": "Services Provided",
+      "content": "Creative Direction, Visual Identity Design, Logo Design, Typography Selection, Color Palette Development, Packaging Design, Label Design, Website Design, Brand Guidelines",
+      "layout": "two-column"
+    },
+    {
+      "title": "Client Testimonial",
+      "content": "\"It was a pleasure working with Emmanuel as we developed our brand identity. Emmanuel was thorough in learning who we are, our goals, and our vision. He took the time to research ideas, and clearly presented the concept and rationale behind each visual asset. Emmanuel was communicative throughout the whole process, and truly passionate about our project from conception to delivery. We highly recommend Emmanuel for his professionalism, creativity, and business acumen.\" - Alison Oppenlaender, Liebling Wines",
+      "layout": "two-column"
+    }
+  ],
+  "gallery": [
+    {
+      "type": "image",
+      "url": "/images/projects/work_liebling-wines/liebling-wines-2.jpg",
+      "caption": "Brand identity design",
+      "width": "half"
+    },
+    {
+      "type": "image",
+      "url": "/images/projects/work_liebling-wines/liebling-wines-3.jpg",
+      "caption": "Logo design details",
+      "width": "half"
+    },
+    {
+      "type": "image",
+      "url": "/images/projects/work_liebling-wines/liebling-wines-4.jpg",
+      "caption": "Wine label design",
+      "width": "half"
+    },
+    {
+      "type": "image",
+      "url": "/images/projects/work_liebling-wines/liebling-wines-5.jpg",
+      "caption": "Brand application",
+      "width": "half"
+    },
+    {
+      "type": "image",
+      "url": "/images/projects/test 1/liebling-wines--3.jpg",
+      "caption": "Packaging design",
+      "width": "half"
+    },
+    {
+      "type": "image",
+      "url": "/images/projects/test 1/liebling-wines--4.jpg",
+      "caption": "Brand collateral",
+      "width": "half"
+    },
+    {
+      "type": "image",
+      "url": "/images/projects/test 1/liebling-wines-.jpg",
+      "caption": "Typography system",
+      "width": "half"
+    },
+    {
+      "type": "image",
+      "url": "/images/projects/test 1/liebling-wines-11.jpg",
+      "caption": "Color palette",
+      "width": "half"
+    },
+    {
+      "type": "image",
+      "url": "/images/projects/test 1/liebling-wines-15.jpg",
+      "caption": "Final brand implementation",
+      "width": "half"
+    }
+  ]
+}

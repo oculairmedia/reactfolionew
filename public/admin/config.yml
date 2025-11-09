@@ -95,7 +95,7 @@ collections:
               - { label: "Service Title", name: "title", widget: "string" }
               - { label: "Description", name: "description", widget: "text" }
 
-  # Portfolio Items
+  # Portfolio Items (Grid Cards)
   - name: "portfolio"
     label: "Portfolio Items"
     folder: "src/content/portfolio"
@@ -103,14 +103,16 @@ collections:
     slug: "{{id}}"
     format: "json"
     fields:
-      - { label: "ID", name: "id", widget: "string" }
+      - { label: "ID (URL slug)", name: "id", widget: "string", hint: "URL-friendly identifier (e.g., 'my-project')" }
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Image", name: "img", widget: "image", required: false }
-      - { label: "Video URL", name: "video", widget: "string", required: false }
-      - { label: "Is Video?", name: "isVideo", widget: "boolean", default: false, required: false }
-      - { label: "Project Link", name: "link", widget: "string" }
+      - { label: "Short Description", name: "description", widget: "text", hint: "Brief description for portfolio grid" }
+      - { label: "Thumbnail Image", name: "img", widget: "image", required: false, hint: "Image for portfolio grid" }
+      - { label: "Thumbnail Video URL", name: "video", widget: "string", required: false, hint: "BunnyCDN video URL for grid" }
+      - { label: "Use Video as Thumbnail?", name: "isVideo", widget: "boolean", default: false, required: false }
+      - { label: "Project Detail Page", name: "link", widget: "string", hint: "Path to detail page (e.g., '/projects/my-project')" }
       - { label: "Date", name: "date", widget: "string", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false, required: false, hint: "Show in featured projects" }
+      - { label: "Order", name: "order", widget: "number", required: false, default: 0, hint: "Display order (lower numbers first)" }
       - label: "Tags"
         name: "tags"
         widget: "list"
@@ -122,22 +124,37 @@ collections:
     label: "Project Pages"
     folder: "src/content/projects"
     create: true
-    slug: "{{slug}}"
+    slug: "{{id}}"
     format: "json"
+    identifier_field: "id"
     fields:
-      - { label: "ID", name: "id", widget: "string" }
+      - { label: "ID (URL slug)", name: "id", widget: "string", hint: "Must match the ID in portfolio items (e.g., 'my-project')" }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
-      - { label: "Client", name: "client", widget: "string", required: false }
-      - { label: "Year", name: "year", widget: "string", required: false }
-      - { label: "Date", name: "date", widget: "string", required: false }
-      - { label: "Role", name: "role", widget: "string", required: false }
-      - { label: "Exhibition", name: "exhibition", widget: "string", required: false }
-      - { label: "Curators", name: "curators", widget: "string", required: false }
-      - { label: "Collaborators", name: "collaborators", widget: "string", required: false }
-      - { label: "Technologies", name: "technologies", widget: "string", required: false }
-      - { label: "Featured Image", name: "featured_image", widget: "image", required: false }
-      - { label: "Featured Video URL", name: "featured_video", widget: "string", required: false }
+      - label: "Metadata"
+        name: "metadata"
+        widget: "object"
+        collapsed: true
+        required: false
+        fields:
+          - { label: "Client", name: "client", widget: "string", required: false }
+          - { label: "Year", name: "year", widget: "string", required: false }
+          - { label: "Date", name: "date", widget: "string", required: false }
+          - { label: "Role", name: "role", widget: "string", required: false }
+          - { label: "Exhibition", name: "exhibition", widget: "string", required: false }
+          - { label: "Curators", name: "curators", widget: "string", required: false }
+          - { label: "Collaborators", name: "collaborators", widget: "string", required: false }
+          - { label: "Technologies", name: "technologies", widget: "string", required: false }
+      - label: "Hero Media"
+        name: "hero"
+        widget: "object"
+        collapsed: false
+        required: false
+        fields:
+          - { label: "Type", name: "type", widget: "select", options: ["image", "video"], default: "image" }
+          - { label: "Image URL", name: "image", widget: "image", required: false, hint: "For hero image" }
+          - { label: "Video URL", name: "video", widget: "string", required: false, hint: "For hero video" }
+          - { label: "Alt Text", name: "alt", widget: "string", required: false }
       - label: "Tags"
         name: "tags"
         widget: "list"
@@ -147,17 +164,19 @@ collections:
         name: "sections"
         widget: "list"
         required: false
+        hint: "Add multiple content sections with different layouts"
         fields:
           - { label: "Section Title", name: "title", widget: "string" }
-          - { label: "Section Content", name: "content", widget: "markdown" }
+          - { label: "Section Content", name: "content", widget: "markdown", hint: "Supports markdown formatting" }
           - { label: "Layout", name: "layout", widget: "select", options: ["full-width", "two-column"], default: "full-width", required: false }
       - label: "Media Gallery"
         name: "gallery"
         widget: "list"
         required: false
+        hint: "Add images and videos to your project gallery"
         fields:
           - { label: "Media Type", name: "type", widget: "select", options: ["image", "video"] }
-          - { label: "URL", name: "url", widget: "string" }
+          - { label: "URL", name: "url", widget: "string", hint: "BunnyCDN URL or local path" }
           - { label: "Alt Text/Caption", name: "caption", widget: "string", required: false }
           - { label: "Width", name: "width", widget: "select", options: ["half", "full"], default: "full", required: false }
 

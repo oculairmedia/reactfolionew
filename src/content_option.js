@@ -10,18 +10,24 @@ import portfolioPageData from './content/pages/portfolio.json';
 import contactPageData from './content/pages/contact.json';
 import uiTextData from './content/pages/ui-text.json';
 
-// Import all portfolio items
-import coupleIsh from './content/portfolio/couple-ish.json';
-import vhbTapes from './content/portfolio/3m-vhb-tapes.json';
-import binmetrics from './content/portfolio/binmetrics.json';
-import branton from './content/portfolio/branton.json';
-import aquaticResonance from './content/portfolio/aquatic-resonance.json';
-import voicesUnheard from './content/portfolio/voices-unheard.json';
-import superBurgers from './content/portfolio/super-burgers.json';
-import merchantAle from './content/portfolio/merchant-ale-house.json';
-import lieblingWines from './content/portfolio/liebling-wines.json';
-import gardenCity from './content/portfolio/garden-city-essentials.json';
-import coffeeAltitude from './content/portfolio/coffee-by-altitude.json';
+// Automatically import all portfolio items
+const portfolioContext = require.context('./content/portfolio', false, /\.json$/);
+const portfolioItems = [];
+
+portfolioContext.keys().forEach((key) => {
+  const item = portfolioContext(key);
+  portfolioItems.push(item);
+});
+
+// Automatically import all project pages
+const projectsContext = require.context('./content/projects', false, /\.json$/);
+const projectPages = {};
+
+projectsContext.keys().forEach((key) => {
+  const project = projectsContext(key);
+  const projectId = key.replace('./', '').replace('.json', '');
+  projectPages[projectId] = project;
+});
 
 // Extract data from imported JSON
 const logotext = siteSettings.logotext;
@@ -76,20 +82,21 @@ const processPortfolioItem = (item) => {
     return processed;
 };
 
-// Combine all portfolio items into a single array and apply image optimization
-const dataportfolio = [
-    processPortfolioItem(coupleIsh),
-    processPortfolioItem(vhbTapes),
-    processPortfolioItem(binmetrics),
-    processPortfolioItem(branton),
-    processPortfolioItem(aquaticResonance),
-    processPortfolioItem(voicesUnheard),
-    processPortfolioItem(superBurgers),
-    processPortfolioItem(merchantAle),
-    processPortfolioItem(lieblingWines),
-    processPortfolioItem(gardenCity),
-    processPortfolioItem(coffeeAltitude)
-];
+// Process and sort portfolio items
+const dataportfolio = portfolioItems
+    .map(processPortfolioItem)
+    .sort((a, b) => {
+        // Sort by order field (lower numbers first), then by date
+        const orderA = a.order !== undefined ? a.order : 999;
+        const orderB = b.order !== undefined ? b.order : 999;
+
+        if (orderA !== orderB) {
+            return orderA - orderB;
+        }
+
+        // Secondary sort by date (newest first)
+        return (b.date || '').localeCompare(a.date || '');
+    });
 
 const contactConfig = {
     YOUR_EMAIL: siteSettings.contact.email,
@@ -127,4 +134,5 @@ export {
     portfolioPage,
     contactPage,
     uiText,
+    projectPages,
 };
