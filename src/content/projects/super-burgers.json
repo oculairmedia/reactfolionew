@@ -10,10 +10,16 @@
   },
   "hero": {
     "type": "image",
-    "image": "/images/projects/work_super-burgers-fries/super-burgers-fries-1.jpg",
+    "image": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-1.jpg",
     "alt": "Super! Burgers & Fries brand identity"
   },
-  "tags": ["Brand Identity", "Logo Design", "Illustration", "Packaging Design", "Restaurant Branding"],
+  "tags": [
+    "Brand Identity",
+    "Logo Design",
+    "Illustration",
+    "Packaging Design",
+    "Restaurant Branding"
+  ],
   "sections": [
     {
       "title": "Project Overview",
@@ -39,49 +45,49 @@
   "gallery": [
     {
       "type": "image",
-      "url": "/images/projects/work_super-burgers-fries/super-burgers-fries-2.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-2.jpg",
       "caption": "Brand identity design",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_super-burgers-fries/super-burgers-fries-3.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-3.jpg",
       "caption": "Logo design details",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_super-burgers-fries/super-burgers-fries-4.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-4.jpg",
       "caption": "Brand application",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_super-burgers-fries/super-burgers-fries-5.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-5.jpg",
       "caption": "Packaging design",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_super-burgers-fries/super-burgers-fries-9.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-9.jpg",
       "caption": "Illustration style",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_super-burgers-fries/super-burgers-fries-10.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-10.jpg",
       "caption": "Typography system",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_super-burgers-fries/super-burgers-fries-11.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-11.jpg",
       "caption": "Brand collateral",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_super-burgers-fries/super-burgers-fries-16.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-16.jpg",
       "caption": "Final brand implementation",
       "width": "half"
     }

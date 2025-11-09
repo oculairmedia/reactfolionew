@@ -10,10 +10,15 @@
   },
   "hero": {
     "type": "image",
-    "image": "/images/projects/work_merchant-ale-house/the-merchant-ale-house-after.jpg",
+    "image": "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-after.jpg",
     "alt": "The Merchant Ale House brand identity"
   },
-  "tags": ["Brand Identity", "Logo Redesign", "Merchandise Design", "Restaurant Branding"],
+  "tags": [
+    "Brand Identity",
+    "Logo Redesign",
+    "Merchandise Design",
+    "Restaurant Branding"
+  ],
   "sections": [
     {
       "title": "Project Overview",
@@ -39,49 +44,49 @@
   "gallery": [
     {
       "type": "image",
-      "url": "/images/projects/work_merchant-ale-house/the-merchant-ale-house-2.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-2.jpg",
       "caption": "Brand identity refresh",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_merchant-ale-house/the-merchant-ale-house-5.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-5.jpg",
       "caption": "Logo design details",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_merchant-ale-house/the-merchant-ale-house-6.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-6.jpg",
       "caption": "Brand application",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/the-merchant-ale-house-1.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/the-merchant-ale-house-1.jpg",
       "caption": "Merchandise design",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/the-merchant-ale-house-12.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/the-merchant-ale-house-12.jpg",
       "caption": "Menu design",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/the-merchant-ale-house-13.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/the-merchant-ale-house-13.jpg",
       "caption": "Signage design",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/the-merchant-ale-house-15.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/the-merchant-ale-house-15.jpg",
       "caption": "Brand collateral",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/the-merchant-ale-house-16.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/the-merchant-ale-house-16.jpg",
       "caption": "Final brand implementation",
       "width": "half"
     }

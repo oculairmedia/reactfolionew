@@ -10,10 +10,15 @@
   },
   "hero": {
     "type": "image",
-    "image": "/images/projects/work_garden-city-essentials/garden-city-essentials-after.jpg",
+    "image": "https://oculair.b-cdn.net/cache/images/projects/work_garden-city-essentials/garden-city-essentials-after.jpg",
     "alt": "Garden City Essentials brand identity"
   },
-  "tags": ["Brand Identity", "Logo Redesign", "Packaging Design", "Signage Design"],
+  "tags": [
+    "Brand Identity",
+    "Logo Redesign",
+    "Packaging Design",
+    "Signage Design"
+  ],
   "sections": [
     {
       "title": "Project Overview",
@@ -39,49 +44,49 @@
   "gallery": [
     {
       "type": "image",
-      "url": "/images/projects/work_garden-city-essentials/garden-city-essentials-2.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_garden-city-essentials/garden-city-essentials-2.jpg",
       "caption": "Brand identity refresh",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_garden-city-essentials/garden-city-essentials-3.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_garden-city-essentials/garden-city-essentials-3.jpg",
       "caption": "Logo design details",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_garden-city-essentials/garden-city-essentials-4.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_garden-city-essentials/garden-city-essentials-4.jpg",
       "caption": "Brand application",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/garden-city-essentials-1.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/garden-city-essentials-1.jpg",
       "caption": "Signage design",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/garden-city-essentials-12.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/garden-city-essentials-12.jpg",
       "caption": "Packaging design",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/garden-city-essentials-13.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/garden-city-essentials-13.jpg",
       "caption": "Brand collateral",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/garden-city-essentials-14.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/garden-city-essentials-14.jpg",
       "caption": "Typography system",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/garden-city-essentials-15.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/garden-city-essentials-15.jpg",
       "caption": "Final brand implementation",
       "width": "half"
     }

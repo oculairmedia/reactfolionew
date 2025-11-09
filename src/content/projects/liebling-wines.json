@@ -10,10 +10,15 @@
   },
   "hero": {
     "type": "image",
-    "image": "/images/projects/work_liebling-wines/liebling-wines-1.jpg",
+    "image": "https://oculair.b-cdn.net/cache/images/projects/work_liebling-wines/liebling-wines-1.jpg",
     "alt": "Liebling Wines brand identity"
   },
-  "tags": ["Brand Identity", "Logo Design", "Packaging Design", "Wine Label Design"],
+  "tags": [
+    "Brand Identity",
+    "Logo Design",
+    "Packaging Design",
+    "Wine Label Design"
+  ],
   "sections": [
     {
       "title": "Project Overview",
@@ -39,55 +44,55 @@
   "gallery": [
     {
       "type": "image",
-      "url": "/images/projects/work_liebling-wines/liebling-wines-2.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_liebling-wines/liebling-wines-2.jpg",
       "caption": "Brand identity design",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_liebling-wines/liebling-wines-3.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_liebling-wines/liebling-wines-3.jpg",
       "caption": "Logo design details",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_liebling-wines/liebling-wines-4.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_liebling-wines/liebling-wines-4.jpg",
       "caption": "Wine label design",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/work_liebling-wines/liebling-wines-5.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_liebling-wines/liebling-wines-5.jpg",
       "caption": "Brand application",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/liebling-wines--3.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/liebling-wines--3.jpg",
       "caption": "Packaging design",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/liebling-wines--4.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/liebling-wines--4.jpg",
       "caption": "Brand collateral",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/liebling-wines-.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/liebling-wines-.jpg",
       "caption": "Typography system",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/liebling-wines-11.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/liebling-wines-11.jpg",
       "caption": "Color palette",
       "width": "half"
     },
     {
       "type": "image",
-      "url": "/images/projects/test 1/liebling-wines-15.jpg",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/liebling-wines-15.jpg",
       "caption": "Final brand implementation",
       "width": "half"
     }
