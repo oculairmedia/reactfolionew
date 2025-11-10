@@ -9,7 +9,7 @@ RUN apk add --no-cache libc6-compat python3 make g++
 WORKDIR /app
 
 # Copy package files
-COPY package*.json ./
+COPY package.backend.json ./package.json
 COPY tsconfig.server.json ./
 
 # Install dependencies (using install instead of ci to respect overrides)
@@ -32,7 +32,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Copy package files and install production dependencies only
-COPY package*.json ./
+COPY package.backend.json ./package.json
 RUN npm install --legacy-peer-deps --only=production
 
 # Copy built files from base stage
