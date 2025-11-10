@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  fastmcp-cms-v2:
+    build:
+      context: .
+      dockerfile: Dockerfile.v2
+    container_name: fastmcp-cms-server-v2
+    ports:
+      - "8000:8000"
+    environment:
+      # CMS Configuration
+      - CMS_API_URL=${CMS_API_URL:-http://localhost:3001/api}
+      - CMS_ADMIN_EMAIL=${CMS_ADMIN_EMAIL}
+      - CMS_ADMIN_PASSWORD=${CMS_ADMIN_PASSWORD}
+
+      # Server Configuration
+      - MCP_SERVER_NAME=${MCP_SERVER_NAME:-CMS Publisher V2}
+      - MCP_SERVER_VERSION=2.0.0
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=8000
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - AUDIT_LOG_PATH=/app/logs/audit.log
+
+      # Performance Configuration
+      - TOKEN_CACHE_TTL=${TOKEN_CACHE_TTL:-900}
+      - REQUEST_TIMEOUT=${REQUEST_TIMEOUT:-30}
+      - MAX_RETRIES=${MAX_RETRIES:-3}
+      - RETRY_BACKOFF=${RETRY_BACKOFF:-2}
+
+      # Security Configuration
+      - RATE_LIMIT_REQUESTS=${RATE_LIMIT_REQUESTS:-100}
+      - RATE_LIMIT_WINDOW=${RATE_LIMIT_WINDOW:-60}
+      - REQUIRE_APPROVAL_FOR_PUBLISH=${REQUIRE_APPROVAL_FOR_PUBLISH:-false}
+      - REQUIRE_APPROVAL_FOR_DELETE=${REQUIRE_APPROVAL_FOR_DELETE:-true}
+
+      # Features
+      - ENABLE_CACHING=${ENABLE_CACHING:-true}
+      - CACHE_TTL=${CACHE_TTL:-300}
+      - ENABLE_AUDIT_LOG=${ENABLE_AUDIT_LOG:-true}
+      - ENABLE_DRAFT_MODE=${ENABLE_DRAFT_MODE:-true}
+
+    volumes:
+      - ./logs:/app/logs
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+    networks:
+      - mcp-network
+
+    labels:
+      - "com.fastmcp.version=2.0.0"
+      - "com.fastmcp.architecture=consolidated"
+      - "com.fastmcp.tool-count=3"
+      - "com.fastmcp.operation-count=23"
+      - "com.fastmcp.density=7.7x"
+
+networks:
+  mcp-network:
+    driver: bridge
+
+volumes:
+  logs:
+    driver: local
