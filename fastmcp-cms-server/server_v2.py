@@ -41,10 +41,10 @@ async def cms_collection_ops(
     operation: str,
     collection: str,
     doc_id: Optional[str] = None,
-    data: Optional[Any] = None,
-    items: Optional[Any] = None,
-    doc_ids: Optional[Any] = None,
-    filters: Optional[Any] = None,
+    data: Optional[str] = None,
+    items: Optional[str] = None,
+    doc_ids: Optional[str] = None,
+    filters: Optional[str] = None,
     draft: bool = True,
     confirm: bool = False,
     parallel: bool = True,
@@ -52,8 +52,8 @@ async def cms_collection_ops(
     limit: int = 100,
     page: int = 1,
     query: Optional[str] = None,
-    fields: Optional[Any] = None,
-) -> Any:
+    fields: Optional[str] = None,
+) -> str:
     """
     Unified tool for all collection operations.
 
@@ -78,10 +78,10 @@ async def cms_collection_ops(
         operation: Operation to perform (see above)
         collection: Target collection ("projects" or "portfolio")
         doc_id: Document ID (for update, get, delete, publish, archive, restore)
-        data: Document data (for create, update)
-        items: List of items (for batch_create, batch_update)
-        doc_ids: List of document IDs (for batch_delete)
-        filters: Query filters (for list)
+        data: Document data as JSON string (for create, update)
+        items: List of items as JSON string (for batch_create, batch_update)
+        doc_ids: List of document IDs as JSON string (for batch_delete)
+        filters: Query filters as JSON string (for list)
         draft: Create as draft (for create, batch_create)
         confirm: Confirmation flag (for delete, batch_delete)
         parallel: Execute batch operations in parallel
@@ -89,17 +89,17 @@ async def cms_collection_ops(
         limit: Results per page (for list)
         page: Page number (for list)
         query: Search query (for search)
-        fields: Fields to search in (for search)
+        fields: Fields to search in as JSON string (for search)
 
     Returns:
-        Operation result with success status, data, and message
+        Operation result as JSON string with success status, data, and message
 
     Examples:
-        # Create a document
+        # Create a document (data as JSON string)
         cms_collection_ops(
             operation="create",
             collection="projects",
-            data={"id": "proj-1", "title": "My Project"},
+            data='{"id": "proj-1", "title": "My Project"}',
             draft=True
         )
 
@@ -110,24 +110,20 @@ async def cms_collection_ops(
             doc_id="proj-1"
         )
 
-        # List with filters
+        # List with filters (filters as JSON string)
         cms_collection_ops(
             operation="list",
             collection="projects",
-            filters={"where[_status][equals]": "published"},
+            filters='{"where[_status][equals]": "published"}',
             limit=50,
             page=1
         )
 
-        # Batch create (3x faster with parallel=True)
+        # Batch create (items as JSON string)
         cms_collection_ops(
             operation="batch_create",
             collection="projects",
-            items=[
-                {"id": "proj-1", "title": "Project 1"},
-                {"id": "proj-2", "title": "Project 2"},
-                {"id": "proj-3", "title": "Project 3"},
-            ],
+            items='[{"id": "proj-1", "title": "Project 1"}, {"id": "proj-2", "title": "Project 2"}]',
             parallel=True
         )
 
@@ -146,14 +142,23 @@ async def cms_collection_ops(
             confirm=True
         )
     """
-    return await cms_collection_ops_handler(
+    import json
+    
+    # Parse JSON string parameters
+    parsed_data = json.loads(data) if data and isinstance(data, str) else data
+    parsed_items = json.loads(items) if items and isinstance(items, str) else items
+    parsed_doc_ids = json.loads(doc_ids) if doc_ids and isinstance(doc_ids, str) else doc_ids
+    parsed_filters = json.loads(filters) if filters and isinstance(filters, str) else filters
+    parsed_fields = json.loads(fields) if fields and isinstance(fields, str) else fields
+    
+    result = await cms_collection_ops_handler(
         operation=operation,
         collection=collection,
         doc_id=doc_id,
-        data=data,
-        items=items,
-        doc_ids=doc_ids,
-        filters=filters,
+        data=parsed_data,
+        items=parsed_items,
+        doc_ids=parsed_doc_ids,
+        filters=parsed_filters,
         draft=draft,
         confirm=confirm,
         parallel=parallel,
@@ -161,8 +166,11 @@ async def cms_collection_ops(
         limit=limit,
         page=page,
         query=query,
-        fields=fields,
+        fields=parsed_fields,
     )
+    
+    # Return result as JSON string for Letta compatibility
+    return json.dumps(result)
 
 
 # ============================================================================
@@ -170,9 +178,71 @@ async def cms_collection_ops(
 # ============================================================================
 
 @mcp.tool()
-async def cms_health_ops(
+async def cms_global_ops(
     operation: str,
-) -> Any:
+    global_slug: Optional[str] = None,
+    data: Optional[str] = None,
+) -> str:
+    """
+    Unified tool for all global singleton operations.
+
+    This tool consolidates 7 global operations into a single interface.
+
+    Operations:
+    - get: Get a global singleton
+    - update: Update a global singleton
+    - list: List all available globals
+    - reset: Reset global to default values (requires approval)
+    - export: Export global data for backup
+    - import: Import global data from backup
+    - validate: Validate global data without saving
+
+    Args:
+        operation: Operation to perform (see above)
+        global_slug: Global identifier ("site-settings", "home-intro", "about-page")
+                    Not required for 'list' operation
+        data: Global data as JSON string (for update, import, validate)
+
+    Returns:
+        Operation result as JSON string with success status and data
+
+    Examples:
+        # Get global
+        cms_global_ops(operation="get", global_slug="site-settings")
+
+        # Update global (data as JSON string)
+        cms_global_ops(
+            operation="update",
+            global_slug="site-settings",
+            data='{"title": "New Site Title"}'
+        )
+
+        # List all globals
+        cms_global_ops(operation="list")
+    """
+    import json
+    
+    # Parse JSON string parameter
+    parsed_data = json.loads(data) if data and isinstance(data, str) else data
+    
+    result = await cms_global_ops_handler(
+        operation=operation,
+        global_slug=global_slug,
+        data=parsed_data,
+    )
+    
+    # Return result as JSON string for Letta compatibility
+    return json.dumps(result)
+
+
+# ============================================================================
+# CONSOLIDATED TOOL 3: HEALTH & MONITORING (4 operations)
+# ============================================================================
+
+@mcp.tool()
+async def cms_health_ops(
+    operation: str = "health_check",
+) -> str:
     """
     Unified tool for health and monitoring operations.
 
@@ -188,7 +258,7 @@ async def cms_health_ops(
         operation: Operation to perform (default: "health_check")
 
     Returns:
-        Health/metrics data
+        Health/metrics data as JSON string
 
     Examples:
         # Basic health check
@@ -203,9 +273,14 @@ async def cms_health_ops(
         # Connection status
         cms_health_ops(operation="connection_status")
     """
-    return await cms_health_ops_handler(
+    import json
+    
+    result = await cms_health_ops_handler(
         operation=operation,
     )
+    
+    # Return result as JSON string for Letta compatibility
+    return json.dumps(result)
 
 
 # ============================================================================
