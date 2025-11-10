@@ -463,5 +463,5 @@ if __name__ == "__main__":
         port=Config.MCP_PORT,
     )
 
-    # Run server with HTTP/SSE transport for Docker deployment
-    mcp.run(transport="sse", host=Config.MCP_HOST, port=Config.MCP_PORT)
+    # Run server with HTTP transport for Docker deployment
+    mcp.run(transport="http", host=Config.MCP_HOST, port=Config.MCP_PORT)
