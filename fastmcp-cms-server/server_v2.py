@@ -12,7 +12,7 @@ This version implements the improved functional density architecture with:
 
 import time
 from fastmcp import FastMCP
-from typing import Optional
+from typing import Optional, Any
 from config import Config
 from utils.logging import setup_logging, get_logger
 
@@ -41,10 +41,10 @@ async def cms_collection_ops(
     operation: str,
     collection: str,
     doc_id: Optional[str] = None,
-    data: Optional[dict] = None,
-    items: Optional[list] = None,
-    doc_ids: Optional[list] = None,
-    filters: Optional[dict] = None,
+    data: Optional[Any] = None,
+    items: Optional[Any] = None,
+    doc_ids: Optional[Any] = None,
+    filters: Optional[Any] = None,
     draft: bool = True,
     confirm: bool = False,
     parallel: bool = True,
@@ -52,8 +52,8 @@ async def cms_collection_ops(
     limit: int = 100,
     page: int = 1,
     query: Optional[str] = None,
-    fields: Optional[list] = None,
-) -> dict:
+    fields: Optional[Any] = None,
+) -> Any:
     """
     Unified tool for all collection operations.
 
@@ -170,81 +170,9 @@ async def cms_collection_ops(
 # ============================================================================
 
 @mcp.tool()
-async def cms_global_ops(
-    operation: str,
-    global_slug: Optional[str] = None,
-    data: Optional[dict] = None,
-) -> dict:
-    """
-    Unified tool for all global singleton operations.
-
-    This tool consolidates 7 global operations into a single interface.
-
-    Operations:
-    - get: Get a global singleton
-    - update: Update a global singleton
-    - list: List all available globals
-    - reset: Reset global to default values (requires approval)
-    - export: Export global data for backup
-    - import: Import global data from backup
-    - validate: Validate global data without saving
-
-    Args:
-        operation: Operation to perform (see above)
-        global_slug: Global identifier ("site-settings", "home-intro", "about-page")
-                    Not required for 'list' operation
-        data: Global data (for update, import, validate)
-
-    Returns:
-        Operation result with success status and data
-
-    Examples:
-        # Get site settings
-        cms_global_ops(
-            operation="get",
-            global_slug="site-settings"
-        )
-
-        # Update site settings
-        cms_global_ops(
-            operation="update",
-            global_slug="site-settings",
-            data={"metaTitle": "My Portfolio"}
-        )
-
-        # List all available globals
-        cms_global_ops(
-            operation="list"
-        )
-
-        # Export for backup
-        cms_global_ops(
-            operation="export",
-            global_slug="home-intro"
-        )
-
-        # Import from backup
-        cms_global_ops(
-            operation="import",
-            global_slug="home-intro",
-            data={...}
-        )
-    """
-    return await cms_global_ops_handler(
-        operation=operation,
-        global_slug=global_slug,
-        data=data,
-    )
-
-
-# ============================================================================
-# CONSOLIDATED TOOL 3: HEALTH & MONITORING (4 operations)
-# ============================================================================
-
-@mcp.tool()
 async def cms_health_ops(
-    operation: str = "health_check",
-) -> dict:
+    operation: str,
+) -> Any:
     """
     Unified tool for health and monitoring operations.
 
