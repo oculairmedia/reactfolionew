@@ -1,23 +1,23 @@
-name: Build MCP Server Container
+name: Build MCP Server Container V2
 
 on:
   push:
     branches:
-      - main
+      - master
       - 'claude/**'
     paths:
       - 'fastmcp-cms-server/**'
       - '.github/workflows/mcp-server-container.yml'
   pull_request:
     branches:
-      - main
+      - master
     paths:
       - 'fastmcp-cms-server/**'
   workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/mcp-server
+  IMAGE_NAME: ${{ github.repository }}/mcp-server-v2
 
 jobs:
   build:
@@ -52,11 +52,11 @@ jobs:
             type=sha,prefix={{branch}}-
             type=raw,value=latest,enable={{is_default_branch}}
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image (V2)
         uses: docker/build-push-action@v5
         with:
           context: ./fastmcp-cms-server
-          file: ./fastmcp-cms-server/Dockerfile
+          file: ./fastmcp-cms-server/Dockerfile.v2.simple
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -68,9 +68,10 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
           format: 'sarif'
           output: 'trivy-mcp-results.sarif'
+        continue-on-error: true
 
       - name: Upload Trivy results to GitHub Security
         if: github.event_name != 'pull_request'

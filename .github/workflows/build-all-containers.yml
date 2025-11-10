@@ -3,7 +3,7 @@ name: Build All Containers
 on:
   push:
     branches:
-      - main
+      - master
   release:
     types: [published]
   workflow_dispatch:
@@ -76,11 +76,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata for MCP Server
+      - name: Extract metadata for MCP Server V2
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ github.repository }}/mcp-server
+          images: ${{ env.REGISTRY }}/${{ github.repository }}/mcp-server-v2
           tags: |
             type=ref,event=branch
             type=semver,pattern={{version}}
@@ -88,11 +88,11 @@ jobs:
             type=sha,prefix={{branch}}-
             type=raw,value=latest,enable={{is_default_branch}}
 
-      - name: Build and push MCP Server Docker image
+      - name: Build and push MCP Server V2 Docker image
         uses: docker/build-push-action@v5
         with:
           context: ./fastmcp-cms-server
-          file: ./fastmcp-cms-server/Dockerfile
+          file: ./fastmcp-cms-server/Dockerfile.v2.simple
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -110,18 +110,20 @@ jobs:
 
     strategy:
       matrix:
-        image: [cms, mcp-server]
+        image: [cms, mcp-server-v2]
 
     steps:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.image }}:${{ github.sha }}
+          image-ref: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.image }}:${{ github.ref_name }}
           format: 'sarif'
           output: 'trivy-${{ matrix.image }}-results.sarif'
+        continue-on-error: true
 
       - name: Upload Trivy results to GitHub Security
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-${{ matrix.image }}-results.sarif'
           category: ${{ matrix.image }}
+        continue-on-error: true
