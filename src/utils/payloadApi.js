@@ -8,10 +8,16 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
 /**
  * Generic fetch function with error handling
+ * Includes cache-busting timestamp to prevent stale data from service worker
  */
 async function fetchFromPayload(endpoint) {
   try {
-    const response = await fetch(`${API_URL}${endpoint}`);
+    // Add cache-busting timestamp parameter
+    const timestamp = Date.now();
+    const separator = endpoint.includes('?') ? '&' : '?';
+    const url = `${API_URL}${endpoint}${separator}_t=${timestamp}`;
+    
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
