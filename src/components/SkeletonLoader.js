@@ -75,7 +75,7 @@ export const ProjectDetailSkeleton = () => (
 export const HomeIntroSkeleton = () => (
   <>
     <div className="h_bg-video skeleton-video-bg">
-      <Skeleton height="100%" width="100%" />
+      <Skeleton />
     </div>
     <div className="text">
       <div className="intro">
