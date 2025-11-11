@@ -247,7 +247,7 @@ export const Media: CollectionConfig = {
                 cdn_synced: true,
                 cdn_uploaded_at: new Date().toISOString(),
                 cdn_remote_path: remotePath,
-                cdn_sync_error: null,
+                cdn_sync_error: '',
               },
             });
 
@@ -295,7 +295,7 @@ export const Media: CollectionConfig = {
           if (doc.cdn_synced && doc.cdn_remote_path) {
             console.log(`[Media] Deleting from CDN: ${doc.cdn_remote_path}`);
 
-            const result = await cdnClient.deleteFile(doc.cdn_remote_path);
+            const result = await cdnClient.deleteFile(doc.cdn_remote_path as string);
 
             if (result.success) {
               console.log(`[Media] Successfully deleted from CDN`);

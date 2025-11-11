@@ -67,7 +67,7 @@ export async function retrySyncFailedUploads(payload: Payload): Promise<SyncStat
       stats.attempted++;
 
       try {
-        const localPath = path.join(process.cwd(), 'media', doc.filename);
+        const localPath = path.join(process.cwd(), 'media', doc.filename as string);
 
         // Verify file still exists
         if (!fs.existsSync(localPath)) {
@@ -104,7 +104,7 @@ export async function retrySyncFailedUploads(payload: Payload): Promise<SyncStat
               cdn_synced: true,
               cdn_uploaded_at: new Date().toISOString(),
               cdn_remote_path: remotePath,
-              cdn_sync_error: null,
+              cdn_sync_error: '',
             },
           });
 
@@ -194,7 +194,7 @@ export async function cleanupOldLocalFiles(payload: Payload, olderThanDays: numb
 
     for (const doc of oldSyncedMedia.docs) {
       try {
-        const localPath = path.join(process.cwd(), 'media', doc.filename);
+        const localPath = path.join(process.cwd(), 'media', doc.filename as string);
 
         if (fs.existsSync(localPath)) {
           fs.unlinkSync(localPath);
