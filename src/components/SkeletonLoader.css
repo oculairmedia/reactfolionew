@@ -21,45 +21,39 @@
   }
 }
 
-/* Portfolio Item Skeleton */
+/* Portfolio Item Skeleton - matches .po_item */
 .portfolio-item-skeleton {
-  border-radius: 8px;
+  position: relative;
   overflow: hidden;
-  margin-bottom: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  aspect-ratio: 1 / 1;
 }
 
-.skeleton-image {
+.skeleton-media-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: var(--bg-color, #1a1a1a);
+}
+
+.skeleton-media-container .skeleton {
+  border-radius: 0;
   margin-bottom: 0;
 }
 
-.skeleton-content {
-  padding: 1.5rem;
-}
-
-.skeleton-title {
-  margin-bottom: 0.75rem;
-}
-
-.skeleton-description {
-  margin-bottom: 1rem;
-}
-
-.skeleton-tags {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.skeleton-tag {
-  border-radius: 16px;
-}
-
-/* Portfolio Grid Skeleton */
+/* Portfolio Grid Skeleton - matches .po_items_ho and .portfolio_items */
 .portfolio-grid-skeleton {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 2rem;
-  padding: 2rem 0;
+}
+
+/* For home page portfolio section */
+.portfolio_items.portfolio-grid-skeleton {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
 }
 
 /* Project Detail Skeleton */
@@ -104,65 +98,103 @@
   margin-bottom: 1.5rem;
 }
 
-/* Home Intro Skeleton */
+/* Home Intro Skeleton - matches .intro_sec layout */
 .home-intro-skeleton {
+  height: calc(100vh - 60px);
+  min-height: 700px;
+  margin-top: -60px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 4rem;
-  padding: 4rem 2rem;
-  min-height: 500px;
+  position: relative;
 }
 
 .skeleton-intro-content {
-  flex: 1;
+  width: 55%;
+  padding-left: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1;
+}
+
+.skeleton-intro-inner {
+  max-width: 450px;
+  width: 100%;
 }
 
 .skeleton-intro-title {
+  margin-bottom: 1rem;
+}
+
+.skeleton-intro-typewriter {
   margin-bottom: 1.5rem;
 }
 
 .skeleton-intro-text {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .skeleton-intro-button {
-  margin-top: 2rem;
-  border-radius: 8px;
+  border-radius: 30px;
 }
 
-.skeleton-intro-image {
-  flex-shrink: 0;
+.skeleton-intro-video {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #2a2a2a 25%,
+    #333 50%,
+    #2a2a2a 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
 }
 
-/* About Page Skeleton */
+/* About Page Skeleton - matches Bootstrap Container layout */
 .about-page-skeleton {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+}
+
+.about-page-skeleton .mb-5 {
+  margin-bottom: 3rem;
+}
+
+.about-page-skeleton .mt-3 {
+  margin-top: 1rem;
 }
 
 .skeleton-page-title {
-  margin-bottom: 3rem;
+  margin-bottom: 0;
 }
 
-.skeleton-about-content {
-  display: flex;
-  gap: 3rem;
+.skeleton-about-section,
+.skeleton-timeline-section,
+.skeleton-skills-section,
+.skeleton-services-section {
+  margin-bottom: calc(3rem + 5.128vw);
+}
+
+/* Two column grid matching Bootstrap Row > Col lg="5" and lg="7" */
+.skeleton-about-grid {
+  display: grid;
+  grid-template-columns: 41.66667% 58.33333%; /* lg="5" and lg="7" */
+  gap: 2rem;
   align-items: flex-start;
-  margin-bottom: 3rem;
 }
 
-.skeleton-about-text {
-  flex: 1;
+.skeleton-about-left {
+  /* Matches Col lg="5" */
 }
 
-.skeleton-about-image {
-  flex-shrink: 0;
-}
-
-.skeleton-skills {
-  margin-top: 3rem;
+.skeleton-about-right {
+  /* Matches Col lg="7" */
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .skeleton-skill {
@@ -171,8 +203,8 @@
 
 .skeleton-skill-bar {
   margin-top: 0.5rem;
-  height: 8px;
-  border-radius: 4px;
+  height: 5px;
+  border-radius: 0;
 }
 
 /* Text Skeleton */
@@ -181,28 +213,38 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 991.98px) {
+  .portfolio_items.portfolio-grid-skeleton {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .skeleton-about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
   .portfolio-grid-skeleton {
     grid-template-columns: 1fr;
   }
 
   .home-intro-skeleton {
-    flex-direction: column-reverse;
-    text-align: center;
-  }
-
-  .skeleton-intro-image {
-    width: 200px;
-    height: 200px;
-  }
-
-  .about-page-skeleton {
-    padding: 1rem;
-  }
-
-  .skeleton-about-content {
     flex-direction: column;
-    align-items: center;
+    min-height: 100vh;
+    padding-top: 60px;
+    margin-top: 0;
+  }
+
+  .skeleton-intro-content {
+    width: 100%;
+    padding: 2rem;
+  }
+
+  .skeleton-intro-video {
+    position: relative;
+    width: 100%;
+    height: 300px;
   }
 
   .skeleton-metadata {
@@ -210,7 +252,14 @@
   }
 }
 
-/* Dark Mode Support */
+@media (max-width: 480px) {
+  .portfolio_items.portfolio-grid-skeleton {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark Mode Support - for data-theme="dark" or prefers-color-scheme */
+[data-theme="dark"] .skeleton,
 @media (prefers-color-scheme: dark) {
   .skeleton {
     background: linear-gradient(
@@ -221,8 +270,47 @@
     );
     background-size: 200% 100%;
   }
+}
 
-  .skeleton-metadata {
-    background: #1a1a1a;
-  }
+[data-theme="dark"] .skeleton-media-container {
+  background-color: #1a1a1a;
+}
+
+[data-theme="dark"] .skeleton-intro-video {
+  background: linear-gradient(
+    90deg,
+    #1a1a1a 25%,
+    #2a2a2a 50%,
+    #1a1a1a 75%
+  );
+  background-size: 200% 100%;
+}
+
+[data-theme="dark"] .skeleton-metadata {
+  background: #1a1a1a;
+}
+
+/* Light mode specific overrides */
+[data-theme="light"] .skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+}
+
+[data-theme="light"] .skeleton-media-container {
+  background-color: #f5f5f5;
+}
+
+[data-theme="light"] .skeleton-intro-video {
+  background: linear-gradient(
+    90deg,
+    #f5f5f5 25%,
+    #e5e5e5 50%,
+    #f5f5f5 75%
+  );
+  background-size: 200% 100%;
 }

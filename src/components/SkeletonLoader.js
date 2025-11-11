@@ -15,28 +15,21 @@ export const Skeleton = ({ width = '100%', height = '20px', circle = false, clas
 };
 
 /**
- * Skeleton for portfolio grid item
+ * Skeleton for portfolio grid item - matches .po_item structure
  */
 export const PortfolioItemSkeleton = () => (
   <div className="portfolio-item-skeleton">
-    <Skeleton height="250px" className="skeleton-image" />
-    <div className="skeleton-content">
-      <Skeleton height="24px" width="80%" className="skeleton-title" />
-      <Skeleton height="16px" width="60%" className="skeleton-description" />
-      <div className="skeleton-tags">
-        <Skeleton height="24px" width="60px" className="skeleton-tag" />
-        <Skeleton height="24px" width="80px" className="skeleton-tag" />
-        <Skeleton height="24px" width="70px" className="skeleton-tag" />
-      </div>
+    <div className="skeleton-media-container">
+      <Skeleton height="100%" className="skeleton-image" />
     </div>
   </div>
 );
 
 /**
- * Skeleton for portfolio grid (multiple items)
+ * Skeleton for portfolio grid (multiple items) - matches .po_items_ho structure
  */
-export const PortfolioGridSkeleton = ({ count = 6 }) => (
-  <div className="portfolio-grid-skeleton">
+export const PortfolioGridSkeleton = ({ count = 6, className = '' }) => (
+  <div className={`portfolio-grid-skeleton ${className}`}>
     {Array.from({ length: count }).map((_, index) => (
       <PortfolioItemSkeleton key={index} />
     ))}
@@ -76,46 +69,112 @@ export const ProjectDetailSkeleton = () => (
 );
 
 /**
- * Skeleton for home intro section
+ * Skeleton for home intro section - matches .intro_sec layout
  */
 export const HomeIntroSkeleton = () => (
   <div className="home-intro-skeleton">
     <div className="skeleton-intro-content">
-      <Skeleton height="48px" width="60%" className="skeleton-intro-title" />
-      <Skeleton height="24px" width="80%" className="skeleton-intro-text" />
-      <Skeleton height="24px" width="75%" className="skeleton-intro-text" />
-      <Skeleton height="40px" width="200px" className="skeleton-intro-button" />
+      <div className="skeleton-intro-inner">
+        <Skeleton height="40px" width="70%" className="skeleton-intro-title" />
+        <Skeleton height="60px" width="90%" className="skeleton-intro-typewriter" />
+        <Skeleton height="20px" width="100%" className="skeleton-intro-text" />
+        <Skeleton height="20px" width="95%" className="skeleton-intro-text" />
+        <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+          <Skeleton height="45px" width="150px" className="skeleton-intro-button" />
+          <Skeleton height="45px" width="150px" className="skeleton-intro-button" />
+        </div>
+        <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
+          <Skeleton circle width="40px" height="40px" />
+          <Skeleton circle width="40px" height="40px" />
+          <Skeleton circle width="40px" height="40px" />
+        </div>
+      </div>
     </div>
-    <div className="skeleton-intro-image">
-      <Skeleton circle width="300px" height="300px" />
-    </div>
+    <div className="skeleton-intro-video" />
   </div>
 );
 
 /**
- * Skeleton for about page
+ * Skeleton for about page - matches Bootstrap Row/Col layout
  */
 export const AboutPageSkeleton = () => (
   <div className="about-page-skeleton">
-    <Skeleton height="48px" width="300px" className="skeleton-page-title" />
-    <div className="skeleton-about-content">
-      <div className="skeleton-about-text">
-        <Skeleton height="16px" width="100%" />
-        <Skeleton height="16px" width="95%" />
-        <Skeleton height="16px" width="98%" />
-        <Skeleton height="16px" width="92%" />
-        <Skeleton height="16px" width="96%" />
-      </div>
-      <Skeleton circle width="200px" height="200px" className="skeleton-about-image" />
+    {/* Page title section */}
+    <div className="mb-5 mt-3">
+      <Skeleton height="48px" width="300px" className="skeleton-page-title" />
+      <Skeleton height="4px" width="100px" style={{ marginTop: '1.5rem' }} />
     </div>
-    <div className="skeleton-skills">
-      <Skeleton height="32px" width="200px" className="skeleton-section-title" />
-      {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="skeleton-skill">
-          <Skeleton height="20px" width="120px" />
-          <Skeleton height="12px" width="100%" className="skeleton-skill-bar" />
+
+    {/* About section - matches Row with Col lg="5" and lg="7" */}
+    <div className="skeleton-about-section sec_sp">
+      <div className="skeleton-about-grid">
+        <div className="skeleton-about-left">
+          <Skeleton height="32px" width="80%" className="skeleton-section-title" />
+          <Skeleton height="400px" width="100%" style={{ marginTop: '1rem', borderRadius: '8px' }} />
         </div>
-      ))}
+        <div className="skeleton-about-right">
+          <Skeleton height="18px" width="100%" />
+          <Skeleton height="18px" width="100%" />
+          <Skeleton height="18px" width="95%" />
+          <Skeleton height="18px" width="98%" />
+          <Skeleton height="18px" width="100%" />
+          <Skeleton height="18px" width="92%" />
+          <Skeleton height="18px" width="96%" />
+        </div>
+      </div>
+    </div>
+
+    {/* Work Timeline section */}
+    <div className="skeleton-timeline-section sec_sp">
+      <div className="skeleton-about-grid">
+        <div className="skeleton-about-left">
+          <Skeleton height="32px" width="200px" />
+        </div>
+        <div className="skeleton-about-right">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} style={{ marginBottom: '1rem', display: 'flex', gap: '1rem' }}>
+              <Skeleton height="20px" width="30%" />
+              <Skeleton height="20px" width="30%" />
+              <Skeleton height="20px" width="30%" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {/* Skills section */}
+    <div className="skeleton-skills-section sec_sp">
+      <div className="skeleton-about-grid">
+        <div className="skeleton-about-left">
+          <Skeleton height="32px" width="150px" />
+        </div>
+        <div className="skeleton-about-right">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="skeleton-skill">
+              <Skeleton height="20px" width="120px" />
+              <Skeleton height="5px" width="100%" className="skeleton-skill-bar" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {/* Services section */}
+    <div className="skeleton-services-section sec_sp">
+      <div className="skeleton-about-grid">
+        <div className="skeleton-about-left">
+          <Skeleton height="32px" width="150px" />
+        </div>
+        <div className="skeleton-about-right">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} style={{ marginBottom: '2rem' }}>
+              <Skeleton height="24px" width="60%" />
+              <Skeleton height="16px" width="100%" />
+              <Skeleton height="16px" width="90%" />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   </div>
 );

@@ -124,7 +124,7 @@ export const Home = () => {
           </div>
           <section id="portfolio" className="portfolio_section">
             <div className="container">
-              <PortfolioGridSkeleton count={3} />
+              <PortfolioGridSkeleton count={3} className="portfolio_items" />
             </div>
           </section>
         </section>
