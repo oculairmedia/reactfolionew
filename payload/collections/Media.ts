@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload/types';
+import { videoOptimizationAfterHook } from '../hooks/videoOptimizationWrapper';
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -210,15 +211,7 @@ export const Media: CollectionConfig = {
     ],
     // Auto-upload to CDN after file is saved locally, and optimize videos
     afterChange: [
-      // Video optimization hook (server-side only)
-      async (args) => {
-        // Only run on server (not in admin bundle)
-        if (typeof window === 'undefined') {
-          const { videoOptimizationAfterHook } = await import('../hooks/videoOptimizationAfter');
-          return videoOptimizationAfterHook(args);
-        }
-        return args.doc;
-      },
+      videoOptimizationAfterHook,
       async ({ doc, req, operation }) => {
         // Server-side only - skip in browser
         if (typeof window !== 'undefined') {

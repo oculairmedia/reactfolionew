@@ -21,7 +21,18 @@ export default buildConfig({
     user: 'users',
     bundler: webpackBundler(),
     webpack: (config) => {
-      // Exclude server-side hooks from admin bundle
+      const webpack = require('webpack');
+      
+      // Ignore server-side modules that use Node.js APIs
+      config.plugins = config.plugins || [];
+      config.plugins.push(
+        new webpack.IgnorePlugin({
+          resourceRegExp: /^(child_process|util)$/,
+          contextRegExp: /payload[\\/]hooks/,
+        })
+      );
+      
+      // Add fallbacks for Node.js core modules
       config.resolve = config.resolve || {};
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -30,7 +41,11 @@ export default buildConfig({
         util: false,
         path: false,
         crypto: false,
+        stream: false,
+        buffer: false,
+        process: false,
       };
+      
       return config;
     },
     meta: {
