@@ -8,18 +8,17 @@ import { Link } from "react-router-dom";
 import PortfolioItem from "../../components/PortfolioItem";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
+import { HomeIntroSkeleton, PortfolioGridSkeleton } from "../../components/SkeletonLoader";
 
 const SocialIcon = ({ href, children }) => (
-  <motion.a
+  <a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
     className="social-icon"
-    whileHover={{ scale: 1.1 }}
-    whileTap={{ scale: 0.95 }}
   >
     {children}
-  </motion.a>
+  </a>
 );
 
 export const Home = () => {
@@ -108,34 +107,27 @@ export const Home = () => {
     return strings.sort(() => Math.random() - 0.5);
   }, [introdata]);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2 // Reduced from 0.3 to 0.2
-      }
-    }
-  };
+  // Removed motion variants - using CSS animations instead for better performance
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.3 // Reduced from 0.5 to 0.3
-      }
-    }
-  };
-
-  // Show loading state while fetching data
+  // Show skeleton while fetching data
   if (loading || !introdata) {
     return (
       <HelmetProvider>
-        <div className="home" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-          <div>Loading...</div>
-        </div>
+        <section id="home" className="home">
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title> {meta.title}</title>
+            <meta name="description" content={meta.description} />
+          </Helmet>
+          <div className="intro_sec">
+            <HomeIntroSkeleton />
+          </div>
+          <section id="portfolio" className="portfolio_section">
+            <div className="container">
+              <PortfolioGridSkeleton count={3} />
+            </div>
+          </section>
+        </section>
       </HelmetProvider>
     );
   }
@@ -198,15 +190,12 @@ export const Home = () => {
               Your browser does not support the video tag.
             </video>
           </div>
-          <motion.div
-            className="text"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
+          <div className="text">
             <div className="intro">
-              <motion.h2 variants={itemVariants}>{introdata.title}</motion.h2>
-              <motion.h1 variants={itemVariants} className="typewriter-container">
+              <h2 className="animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards' }}>
+                {introdata.title}
+              </h2>
+              <h1 className="typewriter-container animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards', animationDelay: '0.2s', opacity: 0 }}>
                 <Typewriter
                   options={{
                     strings: randomizedStrings,
@@ -223,37 +212,29 @@ export const Home = () => {
                     },
                   }}
                 />
-              </motion.h1>
-              <motion.p variants={itemVariants}>{introdata.description}</motion.p>
-              <motion.div className="intro_btn-action" variants={itemVariants}>
+              </h1>
+              <p className="animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards', animationDelay: '0.4s', opacity: 0 }}>
+                {introdata.description}
+              </p>
+              <div className="intro_btn-action animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards', animationDelay: '0.6s', opacity: 0 }}>
                 <Link to="/portfolio" className="text_2">
-                  <motion.div
-                    id="button_p"
-                    className="ac_btn btn"
-                    whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
-                    whileTap={{ scale: 0.95 }}
-                  >
+                  <div id="button_p" className="ac_btn btn">
                     {uiText.myPortfolio}
                     <div className="ring one"></div>
                     <div className="ring two"></div>
                     <div className="ring three"></div>
-                  </motion.div>
+                  </div>
                 </Link>
                 <Link to="/contact">
-                  <motion.div
-                    id="button_h"
-                    className="ac_btn btn"
-                    whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.1)" }}
-                    whileTap={{ scale: 0.95 }}
-                  >
+                  <div id="button_h" className="ac_btn btn">
                     {uiText.contactMe}
                     <div className="ring one"></div>
                     <div className="ring two"></div>
                     <div className="ring three"></div>
-                  </motion.div>
+                  </div>
                 </Link>
-              </motion.div>
-              <motion.div className="social-icons" variants={itemVariants}>
+              </div>
+              <div className="social-icons animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards', animationDelay: '0.8s', opacity: 0 }}>
                 {socialprofils.linkedin && (
                   <SocialIcon href={socialprofils.linkedin}>
                     <FaLinkedin />
@@ -269,9 +250,9 @@ export const Home = () => {
                     <FaTwitter />
                   </SocialIcon>
                 )}
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
       <motion.section
@@ -280,14 +261,9 @@ export const Home = () => {
         style={{ opacity }}
       >
         <div className="container">
-          <motion.h2
-            className="section_title"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.4 }} // Reduced duration from 0.5 to 0.3 and delay from 0.7 to 0.4
-          >
+          <h2 className="section_title animate">
             {uiText.featuredProjects}
-          </motion.h2>
+          </h2>
           <div className="portfolio_items">
             {dataportfolio && dataportfolio.length > 0 ? (
               dataportfolio.map((data, i) => (
@@ -297,26 +273,16 @@ export const Home = () => {
               <div>No projects available</div>
             )}
           </div>
-          <motion.div
-            className="view_all_btn"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.5 }} // Reduced duration from 0.5 to 0.3 and delay from 0.9 to 0.5
-          >
+          <div className="view_all_btn animate">
             <Link to="/portfolio" className="text_2">
-              <motion.div
-                id="button_p"
-                className="ac_btn btn"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <div id="button_p" className="ac_btn btn">
                 {uiText.viewAllProjects}
                 <div className="ring one"></div>
                 <div className="ring two"></div>
                 <div className="ring three"></div>
-              </motion.div>
+              </div>
             </Link>
-          </motion.div>
+          </div>
         </div>
       </motion.section>
     </HelmetProvider>

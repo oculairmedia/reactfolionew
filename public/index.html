@@ -8,10 +8,14 @@
     <meta name="theme-color" content="#000000" />
     <meta name="author" content="Emmanuel Umukoro">
     <!-- Preconnect to CDN and external resources for faster loading -->
-    <link rel="preconnect" href="https://oculair.b-cdn.net">
+    <link rel="preconnect" href="https://oculair.b-cdn.net" crossorigin>
     <link rel="dns-prefetch" href="https://oculair.b-cdn.net">
     <link rel="preconnect" href="https://metrics.oculair.ca">
     <link rel="dns-prefetch" href="https://metrics.oculair.ca">
+
+    <!-- Preconnect to API endpoint for faster CMS data fetching -->
+    <!-- Note: Update this to your production API URL -->
+    <link rel="dns-prefetch" href="http://localhost:3001">
 
     <!-- Preload critical assets for faster rendering -->
     <link rel="preload" href="/static/css/main.css" as="style">

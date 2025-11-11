@@ -181,6 +181,12 @@ const RETRY_CONFIG = {
   maxDelay: 16000, // 16 seconds
 };
 
+const CACHE_CONFIG = {
+  ttl: 5 * 60 * 1000, // 5 minutes
+  staleWhileRevalidate: true,
+  prefix: 'payload_cache_',
+};
+
 // Request deduplication cache
 const pendingRequests = new Map<string, Promise<any>>();
 
@@ -297,6 +303,83 @@ async function fetchWithRetry<T>(
 }
 
 // ==========================================
+// LOCALSTORAGE CACHE UTILITIES
+// ==========================================
+
+interface CacheEntry<T> {
+  data: T;
+  timestamp: number;
+  endpoint: string;
+}
+
+function getCacheKey(endpoint: string, options?: RequestInit): string {
+  return `${CACHE_CONFIG.prefix}${endpoint}:${JSON.stringify(options || {})}`;
+}
+
+function getCachedData<T>(endpoint: string, options?: RequestInit): T | null {
+  try {
+    const cacheKey = getCacheKey(endpoint, options);
+    const cached = localStorage.getItem(cacheKey);
+
+    if (!cached) return null;
+
+    const entry: CacheEntry<T> = JSON.parse(cached);
+    const age = Date.now() - entry.timestamp;
+
+    // Return cached data if still fresh
+    if (age < CACHE_CONFIG.ttl) {
+      logInfo(`Cache hit (fresh): ${endpoint}`, { duration: age });
+      return entry.data;
+    }
+
+    // Return stale data if stale-while-revalidate is enabled
+    if (CACHE_CONFIG.staleWhileRevalidate && age < CACHE_CONFIG.ttl * 2) {
+      logInfo(`Cache hit (stale): ${endpoint}`, { duration: age });
+      return entry.data;
+    }
+
+    // Cache expired
+    return null;
+  } catch (error) {
+    logWarning('Cache read error', { error: (error as Error).message });
+    return null;
+  }
+}
+
+function setCachedData<T>(endpoint: string, data: T, options?: RequestInit): void {
+  try {
+    const cacheKey = getCacheKey(endpoint, options);
+    const entry: CacheEntry<T> = {
+      data,
+      timestamp: Date.now(),
+      endpoint,
+    };
+
+    localStorage.setItem(cacheKey, JSON.stringify(entry));
+    logInfo(`Cache set: ${endpoint}`);
+  } catch (error) {
+    // Fail silently if localStorage is full or disabled
+    logWarning('Cache write error', { error: (error as Error).message });
+  }
+}
+
+function isCacheStale(endpoint: string, options?: RequestInit): boolean {
+  try {
+    const cacheKey = getCacheKey(endpoint, options);
+    const cached = localStorage.getItem(cacheKey);
+
+    if (!cached) return true;
+
+    const entry: CacheEntry<any> = JSON.parse(cached);
+    const age = Date.now() - entry.timestamp;
+
+    return age >= CACHE_CONFIG.ttl;
+  } catch (error) {
+    return true;
+  }
+}
+
+// ==========================================
 // REQUEST DEDUPLICATION
 // ==========================================
 
@@ -324,11 +407,42 @@ async function fetchWithDeduplication<T>(
 }
 
 // ==========================================
-// GENERIC FETCH FUNCTION
+// GENERIC FETCH FUNCTION WITH CACHING
 // ==========================================
 
-async function fetchFromPayload<T>(endpoint: string): Promise<T> {
-  return fetchWithDeduplication<T>(endpoint);
+async function fetchFromPayload<T>(endpoint: string, options?: RequestInit): Promise<T> {
+  // Try to get cached data first
+  const cachedData = getCachedData<T>(endpoint, options);
+
+  // If we have fresh cached data, return it immediately
+  if (cachedData && !isCacheStale(endpoint, options)) {
+    return cachedData;
+  }
+
+  // If we have stale cached data and stale-while-revalidate is enabled
+  if (cachedData && CACHE_CONFIG.staleWhileRevalidate) {
+    // Return stale data immediately
+    // Revalidate in background (don't await)
+    fetchWithDeduplication<T>(endpoint, options)
+      .then(freshData => {
+        setCachedData(endpoint, freshData, options);
+      })
+      .catch(error => {
+        logWarning(`Background revalidation failed for ${endpoint}`, {
+          error: (error as Error).message,
+        });
+      });
+
+    return cachedData;
+  }
+
+  // No cache or cache expired, fetch fresh data
+  const freshData = await fetchWithDeduplication<T>(endpoint, options);
+
+  // Cache the fresh data
+  setCachedData(endpoint, freshData, options);
+
+  return freshData;
 }
 
 // ==========================================
@@ -525,4 +639,48 @@ export function clearRequestCache(): void {
  */
 export function getRequestCacheSize(): number {
   return pendingRequests.size;
+}
+
+/**
+ * Clear localStorage cache (useful for forcing fresh data)
+ */
+export function clearLocalStorageCache(): void {
+  try {
+    const keys = Object.keys(localStorage);
+    const cacheKeys = keys.filter(key => key.startsWith(CACHE_CONFIG.prefix));
+
+    cacheKeys.forEach(key => localStorage.removeItem(key));
+
+    logInfo(`Cleared ${cacheKeys.length} cache entries from localStorage`);
+  } catch (error) {
+    logWarning('Failed to clear localStorage cache', {
+      error: (error as Error).message,
+    });
+  }
+}
+
+/**
+ * Clear all caches (both in-memory and localStorage)
+ */
+export function clearAllCaches(): void {
+  clearRequestCache();
+  clearLocalStorageCache();
+}
+
+/**
+ * Get cache statistics
+ */
+export function getCacheStats(): {
+  inMemoryRequests: number;
+  localStorageEntries: number;
+  cacheKeys: string[];
+} {
+  const keys = Object.keys(localStorage);
+  const cacheKeys = keys.filter(key => key.startsWith(CACHE_CONFIG.prefix));
+
+  return {
+    inMemoryRequests: pendingRequests.size,
+    localStorageEntries: cacheKeys.length,
+    cacheKeys,
+  };
 }
