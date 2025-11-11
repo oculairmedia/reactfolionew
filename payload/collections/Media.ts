@@ -1,4 +1,7 @@
 import { CollectionConfig } from 'payload/types';
+import { getBunnyCDNClient, isCDNAutoUploadEnabled } from '../services/BunnyCDNClient';
+import path from 'path';
+import fs from 'fs';
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -97,6 +100,47 @@ export const Media: CollectionConfig = {
       admin: {
         description: 'How is this media stored?',
         position: 'sidebar',
+      },
+    },
+    // CDN Auto-Upload Sync Fields
+    {
+      name: 'cdn_synced',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description: 'Whether this file has been uploaded to CDN',
+        position: 'sidebar',
+        readOnly: true,
+      },
+    },
+    {
+      name: 'cdn_sync_error',
+      type: 'textarea',
+      admin: {
+        description: 'Error message if CDN upload failed',
+        position: 'sidebar',
+        readOnly: true,
+        condition: (data) => !!data.cdn_sync_error,
+      },
+    },
+    {
+      name: 'cdn_uploaded_at',
+      type: 'date',
+      admin: {
+        description: 'When this file was uploaded to CDN',
+        position: 'sidebar',
+        readOnly: true,
+        condition: (data) => !!data.cdn_uploaded_at,
+      },
+    },
+    {
+      name: 'cdn_remote_path',
+      type: 'text',
+      admin: {
+        description: 'Remote path on CDN storage',
+        position: 'sidebar',
+        readOnly: true,
+        condition: (data) => !!data.cdn_remote_path,
       },
     },
     {
