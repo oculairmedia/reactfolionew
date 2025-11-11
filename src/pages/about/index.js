@@ -18,7 +18,9 @@ export const About = () => {
     const fetchAboutData = async () => {
       try {
         setLoading(true);
+        console.log('[About] Fetching data from CMS API...');
         const aboutData = await getAboutPage();
+        console.log('[About] CMS data received:', aboutData.title);
 
         setDataAbout({
           title: aboutData.title,
@@ -28,9 +30,11 @@ export const About = () => {
         setSkills(aboutData.skills || []);
         setServices(aboutData.services || []);
       } catch (error) {
-        console.error('Error fetching about data:', error);
+        console.error('[About] Error fetching about data:', error);
+        console.log('[About] Falling back to static content_option.js data');
         // Fallback to static data if CMS fails
         import('../../content_option').then(module => {
+          console.log('[About] Static fallback data loaded:', module.dataabout.title);
           setDataAbout(module.dataabout);
           setWorkTimeline(module.worktimeline);
           setSkills(module.skills);

@@ -18,16 +18,19 @@ async function fetchFromPayload(endpoint) {
     const separator = endpoint.includes('?') ? '&' : '?';
     const url = `${API_URL}${endpoint}${separator}_t=${timestamp}`;
     
+    console.log(`[PayloadAPI] Fetching: ${url}`);
     const response = await fetch(url);
+    console.log(`[PayloadAPI] Response status: ${response.status}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
+    console.log(`[PayloadAPI] Data received for ${endpoint}:`, Object.keys(data));
     return data;
   } catch (error) {
-    console.error(`Error fetching ${endpoint}:`, error);
+    console.error(`[PayloadAPI] Error fetching ${endpoint}:`, error);
     throw error;
   }
 }
