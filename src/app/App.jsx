@@ -26,15 +26,13 @@ const App = () => {
   usePerformance();
 
   useEffect(() => {
+    // Unregister any existing service workers to prevent API caching issues
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/serviceWorker.js')
-          .then(registration => {
-            console.log('ServiceWorker registration successful');
-          })
-          .catch(err => {
-            console.log('ServiceWorker registration failed: ', err);
-          });
+      navigator.serviceWorker.getRegistrations().then(registrations => {
+        registrations.forEach(registration => {
+          registration.unregister();
+          console.log('ServiceWorker unregistered');
+        });
       });
     }
   }, []);
