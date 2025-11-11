@@ -98,153 +98,34 @@
   margin-bottom: 1.5rem;
 }
 
-/* Home Intro Skeleton - matches .intro_sec layout */
-.home-intro-skeleton {
-  height: calc(100vh - 60px);
-  min-height: 700px;
-  margin-top: -60px;
-  display: flex;
-  align-items: center;
+/* Skeleton video background - replaces real video */
+.skeleton-video-bg {
   position: relative;
+  overflow: hidden;
 }
 
-.skeleton-intro-content {
-  width: 55%;
-  padding-left: 5%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  z-index: 1;
-}
-
-.skeleton-intro-inner {
-  max-width: 450px;
-  width: 100%;
-}
-
-.skeleton-intro-title {
-  margin-bottom: 1rem;
-}
-
-.skeleton-intro-typewriter {
-  margin-bottom: 1.5rem;
-}
-
-.skeleton-intro-text {
-  margin-bottom: 0.5rem;
-}
-
-.skeleton-intro-button {
-  border-radius: 30px;
-}
-
-.skeleton-intro-video {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 45%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    #2a2a2a 25%,
-    #333 50%,
-    #2a2a2a 75%
-  );
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-}
-
-/* About Page Skeleton - matches Bootstrap Container layout */
-.about-page-skeleton {
-  width: 100%;
-}
-
-.about-page-skeleton .mb-5 {
-  margin-bottom: 3rem;
-}
-
-.about-page-skeleton .mt-3 {
-  margin-top: 1rem;
-}
-
-.skeleton-page-title {
+.skeleton-video-bg .skeleton {
   margin-bottom: 0;
-}
-
-.skeleton-about-section,
-.skeleton-timeline-section,
-.skeleton-skills-section,
-.skeleton-services-section {
-  margin-bottom: calc(3rem + 5.128vw);
-}
-
-/* Two column grid matching Bootstrap Row > Col lg="5" and lg="7" */
-.skeleton-about-grid {
-  display: grid;
-  grid-template-columns: 41.66667% 58.33333%; /* lg="5" and lg="7" */
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-.skeleton-about-left {
-  /* Matches Col lg="5" */
-}
-
-.skeleton-about-right {
-  /* Matches Col lg="7" */
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.skeleton-skill {
-  margin-bottom: 1.5rem;
-}
-
-.skeleton-skill-bar {
-  margin-top: 0.5rem;
-  height: 5px;
   border-radius: 0;
 }
+
+/* About Page uses Bootstrap classes directly - no custom CSS needed */
 
 /* Text Skeleton */
 .text-skeleton {
   padding: 1rem 0;
 }
 
-/* Responsive Design */
+/* Responsive Design - uses page's existing breakpoints */
 @media (max-width: 991.98px) {
   .portfolio_items.portfolio-grid-skeleton {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .skeleton-about-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
   }
 }
 
 @media (max-width: 767px) {
   .portfolio-grid-skeleton {
     grid-template-columns: 1fr;
-  }
-
-  .home-intro-skeleton {
-    flex-direction: column;
-    min-height: 100vh;
-    padding-top: 60px;
-    margin-top: 0;
-  }
-
-  .skeleton-intro-content {
-    width: 100%;
-    padding: 2rem;
-  }
-
-  .skeleton-intro-video {
-    position: relative;
-    width: 100%;
-    height: 300px;
   }
 
   .skeleton-metadata {
@@ -276,14 +157,8 @@
   background-color: #1a1a1a;
 }
 
-[data-theme="dark"] .skeleton-intro-video {
-  background: linear-gradient(
-    90deg,
-    #1a1a1a 25%,
-    #2a2a2a 50%,
-    #1a1a1a 75%
-  );
-  background-size: 200% 100%;
+[data-theme="dark"] .skeleton-video-bg {
+  background-color: #1a1a1a;
 }
 
 [data-theme="dark"] .skeleton-metadata {
@@ -305,12 +180,6 @@
   background-color: #f5f5f5;
 }
 
-[data-theme="light"] .skeleton-intro-video {
-  background: linear-gradient(
-    90deg,
-    #f5f5f5 25%,
-    #e5e5e5 50%,
-    #f5f5f5 75%
-  );
-  background-size: 200% 100%;
+[data-theme="light"] .skeleton-video-bg {
+  background-color: #f5f5f5;
 }
