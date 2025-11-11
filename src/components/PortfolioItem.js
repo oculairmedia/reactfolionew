@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
+import { usePrefetchProject } from "../hooks/useDataPrefetch";
 
 const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) return text;
@@ -14,6 +15,11 @@ const PortfolioItem = ({ data, index }) => {
   const navigate = useNavigate();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+
+  // Extract project ID from link for prefetching
+  // Link format is typically "/portfolio/[id]" or just the ID
+  const projectId = data.id || (data.link ? data.link.split('/').pop() : null);
+  const projectPrefetchHandlers = usePrefetchProject(projectId);
 
   // Only load video when in viewport
   useEffect(() => {
@@ -56,6 +62,7 @@ const PortfolioItem = ({ data, index }) => {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={variants}
+      {...projectPrefetchHandlers}
     >
       <div className="media-container">
         {data.isVideo ? (

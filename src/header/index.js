@@ -4,6 +4,8 @@ import { VscGrabber, VscClose } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { logotext ,socialprofils } from "../content_option";
 import Themetoggle from "../components/themetoggle";
+import { usePrefetchPortfolio, usePrefetchAbout, usePrefetchHomeIntro } from "../hooks/useDataPrefetch";
+import { usePrefetch } from "../hooks/usePrefetch";
 
 const Headermain = () => {
   const [isActive, setActive] = useState("false");
@@ -12,6 +14,22 @@ const Headermain = () => {
     setActive(!isActive);
     document.body.classList.toggle("ovhidden");
   };
+
+  // Get prefetch handlers for data
+  const portfolioDataHandlers = usePrefetchPortfolio();
+  const aboutDataHandlers = usePrefetchAbout();
+  const homeDataHandlers = usePrefetchHomeIntro();
+
+  // Get prefetch handlers for routes
+  const portfolioRouteHandlers = usePrefetch('/portfolio');
+  const aboutRouteHandlers = usePrefetch('/about');
+  const homeRouteHandlers = usePrefetch('/');
+
+  // Combine both data and route prefetch handlers
+  const combinePrefetchHandlers = (...handlerSets) => ({
+    onMouseEnter: () => handlerSets.forEach(h => h.onMouseEnter?.()),
+    onTouchStart: () => handlerSets.forEach(h => h.onTouchStart?.()),
+  });
 
   return (
     <>
@@ -35,13 +53,13 @@ const Headermain = () => {
               <div className="menu__container p-3">
                 <ul className="the_menu">
                   <li className="menu_item ">
-                  <Link  onClick={handleToggle} to="/" className="my-3">Home</Link>
+                  <Link  onClick={handleToggle} to="/" className="my-3" {...combinePrefetchHandlers(homeDataHandlers, homeRouteHandlers)}>Home</Link>
                   </li>
                   <li className="menu_item">
-                    <Link  onClick={handleToggle} to="/portfolio" className="my-3"> Portfolio</Link>
+                    <Link  onClick={handleToggle} to="/portfolio" className="my-3" {...combinePrefetchHandlers(portfolioDataHandlers, portfolioRouteHandlers)}> Portfolio</Link>
                   </li>
                   <li className="menu_item">
-                  <Link onClick={handleToggle} to="/about" className="my-3">About</Link>
+                  <Link onClick={handleToggle} to="/about" className="my-3" {...combinePrefetchHandlers(aboutDataHandlers, aboutRouteHandlers)}>About</Link>
                   </li>
                   <li className="menu_item">
                   <Link onClick={handleToggle} to="/contact" className="my-3"> Contact</Link>
