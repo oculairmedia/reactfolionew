@@ -59,10 +59,15 @@ const PortfolioItem = ({ data, index }) => {
 
   // Get media URLs - support both Payload media objects and legacy string URLs
   const featuredImage = data.featured_image || data.featuredImage || data.img;
-  const featuredVideo = data.featured_video || data.featuredVideo;
+  const featuredVideo = data.featured_video || data.featuredVideo || data.video;
+  
+  // Debug logging
+  if (!featuredImage && !featuredVideo) {
+    console.warn('[PortfolioItem] No image or video found for:', data.title, data);
+  }
   
   // Check if featured media is a video
-  const hasVideo = featuredVideo && isVideo(featuredVideo);
+  const hasVideo = (data.isVideo && featuredVideo) || (featuredVideo && isVideo(featuredVideo));
 
   return (
     <motion.div
@@ -95,6 +100,7 @@ const PortfolioItem = ({ data, index }) => {
               size="small"
               responsive={false}
               lazyLoad={true}
+              onLoad={() => setIsLoaded(true)}
               className={isLoaded ? 'loaded' : ''}
             />
           )
