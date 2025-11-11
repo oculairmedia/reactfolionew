@@ -201,5 +201,113 @@ export const Media: CollectionConfig = {
         return data;
       },
     ],
+    // Auto-upload to CDN after file is saved locally
+    afterChange: [
+      async ({ doc, req, operation }) => {
+        // Only process uploads, not CDN-registered media
+        if (!isCDNAutoUploadEnabled() || doc.source === 'cdn' || !doc.filename) {
+          return doc;
+        }
+
+        // Skip if already synced
+        if (doc.cdn_synced) {
+          return doc;
+        }
+
+        const cdnClient = getBunnyCDNClient();
+        if (!cdnClient) {
+          console.log('[Media] CDN client not available, skipping auto-upload');
+          return doc;
+        }
+
+        console.log(`[Media] Auto-uploading ${doc.filename} to CDN...`);
+
+        try {
+          // Construct local file path
+          const localPath = path.join(process.cwd(), 'media', doc.filename);
+
+          // Verify file exists
+          if (!fs.existsSync(localPath)) {
+            throw new Error(`Local file not found: ${localPath}`);
+          }
+
+          // Generate remote path (preserve folder structure)
+          const remotePath = `media/${doc.filename}`;
+
+          // Upload to CDN
+          const result = await cdnClient.uploadFile(localPath, remotePath);
+
+          if (result.success && result.cdnUrl) {
+            // Update document with CDN info (use Payload API to avoid infinite loop)
+            await req.payload.update({
+              collection: 'media',
+              id: doc.id,
+              data: {
+                cdn_url: result.cdnUrl,
+                cdn_synced: true,
+                cdn_uploaded_at: new Date().toISOString(),
+                cdn_remote_path: remotePath,
+                cdn_sync_error: null,
+              },
+            });
+
+            console.log(`[Media] Successfully uploaded to CDN: ${result.cdnUrl}`);
+          } else {
+            throw new Error(result.error || 'Upload failed');
+          }
+        } catch (error: any) {
+          console.error(`[Media] CDN upload failed for ${doc.filename}:`, error.message);
+
+          // Update document with error info
+          await req.payload.update({
+            collection: 'media',
+            id: doc.id,
+            data: {
+              cdn_synced: false,
+              cdn_sync_error: `Upload failed: ${error.message}`,
+            },
+          });
+        }
+
+        return doc;
+      },
+    ],
+    // Delete from CDN when media is deleted
+    beforeDelete: [
+      async ({ req, id }) => {
+        if (!isCDNAutoUploadEnabled()) {
+          return;
+        }
+
+        const cdnClient = getBunnyCDNClient();
+        if (!cdnClient) {
+          return;
+        }
+
+        try {
+          // Fetch the document to get CDN info
+          const doc = await req.payload.findByID({
+            collection: 'media',
+            id,
+          });
+
+          // Only delete from CDN if it was auto-uploaded (not external CDN URLs)
+          if (doc.cdn_synced && doc.cdn_remote_path) {
+            console.log(`[Media] Deleting from CDN: ${doc.cdn_remote_path}`);
+
+            const result = await cdnClient.deleteFile(doc.cdn_remote_path);
+
+            if (result.success) {
+              console.log(`[Media] Successfully deleted from CDN`);
+            } else {
+              console.error(`[Media] CDN delete failed: ${result.error}`);
+            }
+          }
+        } catch (error: any) {
+          console.error(`[Media] Error deleting from CDN:`, error.message);
+          // Don't block deletion if CDN cleanup fails
+        }
+      },
+    ],
   },
 };

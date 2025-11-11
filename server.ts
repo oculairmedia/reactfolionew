@@ -1,6 +1,7 @@
 import express from 'express';
 import payload from 'payload';
 import path from 'path';
+import { startCDNSyncJobs } from './payload/services/CDNSyncJob';
 
 require('dotenv').config();
 
@@ -28,6 +29,9 @@ const start = async () => {
     express: app,
     onInit: () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
+
+      // Start CDN sync background jobs
+      startCDNSyncJobs(payload);
     },
   });
 
