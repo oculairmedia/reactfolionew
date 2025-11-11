@@ -9,6 +9,7 @@ import PortfolioItem from "../../components/PortfolioItem";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
 import { HomeIntroSkeleton, PortfolioGridSkeleton, Skeleton } from "../../components/SkeletonLoader";
+import { usePrefetchCriticalData, usePrefetchPortfolio, usePrefetchAbout } from "../../hooks/useDataPrefetch";
 
 const SocialIcon = ({ href, children }) => (
   <a
@@ -101,6 +102,14 @@ export const Home = () => {
     fetchData();
   }, []);
 
+  // Prefetch critical data on idle (after home page loads)
+  // This will populate the cache for portfolio and about pages
+  usePrefetchCriticalData(['portfolio', 'about']);
+
+  // Get hover prefetch handlers
+  const portfolioHoverHandlers = usePrefetchPortfolio();
+  const aboutHoverHandlers = usePrefetchAbout();
+
   const randomizedStrings = useMemo(() => {
     if (!introdata?.animated) return [];
     const strings = Object.values(introdata.animated);
@@ -119,10 +128,10 @@ export const Home = () => {
             <title> {meta.title}</title>
             <meta name="description" content={meta.description} />
           </Helmet>
-          <div className="intro_sec">
+          <div className="intro_sec skeleton-container">
             <HomeIntroSkeleton />
           </div>
-          <section id="portfolio" className="portfolio_section">
+          <section id="portfolio" className="portfolio_section skeleton-container">
             <div className="container">
               <Skeleton height="48px" width="300px" className="section_title" style={{ margin: '0 auto 40px', display: 'block' }} />
               <div className="portfolio_items">
@@ -143,7 +152,7 @@ export const Home = () => {
           <title> {meta.title}</title>
           <meta name="description" content={meta.description} />
         </Helmet>
-        <div className="intro_sec">
+        <div className="intro_sec content-container">
           <div className="h_bg-video">
             <video
               ref={(el) => {
@@ -220,7 +229,7 @@ export const Home = () => {
                 {introdata.description}
               </p>
               <div className="intro_btn-action animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards', animationDelay: '0.6s', opacity: 0 }}>
-                <Link to="/portfolio" className="text_2">
+                <Link to="/portfolio" className="text_2" {...portfolioHoverHandlers}>
                   <div id="button_p" className="ac_btn btn">
                     {uiText.myPortfolio}
                     <div className="ring one"></div>
@@ -260,7 +269,7 @@ export const Home = () => {
       </section>
       <motion.section
         id="portfolio"
-        className="portfolio_section"
+        className="portfolio_section content-container"
         style={{ opacity }}
       >
         <div className="container">
@@ -277,7 +286,7 @@ export const Home = () => {
             )}
           </div>
           <div className="view_all_btn animate">
-            <Link to="/portfolio" className="text_2">
+            <Link to="/portfolio" className="text_2" {...portfolioHoverHandlers}>
               <div id="button_p" className="ac_btn btn">
                 {uiText.viewAllProjects}
                 <div className="ring one"></div>
