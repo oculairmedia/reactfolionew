@@ -53,7 +53,9 @@ export const About = () => {
             <title> About | {meta.title}</title>
             <meta name="description" content={meta.description} />
           </Helmet>
-          <AboutPageSkeleton />
+          <div className="skeleton-container">
+            <AboutPageSkeleton />
+          </div>
         </Container>
       </HelmetProvider>
     );
@@ -67,6 +69,7 @@ export const About = () => {
           <title> About | {meta.title}</title>
           <meta name="description" content={meta.description} />
         </Helmet>
+        <div className="content-container">
         <Row className="mb-5 mt-3 pt-md-3">
           <Col lg="8">
             <h1 className="display-4 mb-4">About me</h1>
@@ -151,6 +154,7 @@ export const About = () => {
             </Col>
           </Row>
         )}
+        </div>
       </Container>
     </HelmetProvider>
   );

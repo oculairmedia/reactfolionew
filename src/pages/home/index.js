@@ -128,10 +128,10 @@ export const Home = () => {
             <title> {meta.title}</title>
             <meta name="description" content={meta.description} />
           </Helmet>
-          <div className="intro_sec">
+          <div className="intro_sec skeleton-container">
             <HomeIntroSkeleton />
           </div>
-          <section id="portfolio" className="portfolio_section">
+          <section id="portfolio" className="portfolio_section skeleton-container">
             <div className="container">
               <Skeleton height="48px" width="300px" className="section_title" style={{ margin: '0 auto 40px', display: 'block' }} />
               <div className="portfolio_items">
@@ -152,7 +152,7 @@ export const Home = () => {
           <title> {meta.title}</title>
           <meta name="description" content={meta.description} />
         </Helmet>
-        <div className="intro_sec">
+        <div className="intro_sec content-container">
           <div className="h_bg-video">
             <video
               ref={(el) => {
@@ -269,7 +269,7 @@ export const Home = () => {
       </section>
       <motion.section
         id="portfolio"
-        className="portfolio_section"
+        className="portfolio_section content-container"
         style={{ opacity }}
       >
         <div className="container">

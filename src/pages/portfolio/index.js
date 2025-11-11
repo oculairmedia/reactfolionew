@@ -43,9 +43,11 @@ export const Portfolio = () => {
           <meta name="description" content={meta.description} />
         </Helmet>
         {loading ? (
-          <PortfolioPageSkeleton count={8} />
+          <div className="skeleton-container">
+            <PortfolioPageSkeleton count={8} />
+          </div>
         ) : (
-          <>
+          <div className="content-container">
             <Row className="mb-5 mt-3 pt-md-3">
               <Col lg="8">
                 <h1 className="display-4 mb-4">{portfolioPage.title}</h1>
@@ -61,7 +63,7 @@ export const Portfolio = () => {
                 <div style={{ textAlign: 'center', padding: '2rem' }}>No portfolio items available</div>
               )}
             </div>
-          </>
+          </div>
         )}
       </Container>
     </HelmetProvider>
