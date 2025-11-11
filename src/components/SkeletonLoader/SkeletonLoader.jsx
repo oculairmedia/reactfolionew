@@ -10,7 +10,7 @@ export const SkeletonLoader = ({ type = 'default' }) => {
     return (
       <div className="skeleton-portfolio">
         <div className="skeleton-grid">
-          {[...Array(6)].map((_, i) => (
+          {[...Array(8)].map((_, i) => (
             <div key={i} className="skeleton-item">
               <div className="skeleton-image"></div>
               <div className="skeleton-text">
