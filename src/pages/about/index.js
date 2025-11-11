@@ -4,6 +4,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { meta } from "../../content_option";
 import { getAboutPage } from "../../utils/payloadApi";
+import { AboutPageSkeleton } from "../../components/SkeletonLoader";
 
 export const About = () => {
   const [dataabout, setDataAbout] = useState(null);
@@ -47,7 +48,12 @@ export const About = () => {
     return (
       <HelmetProvider>
         <Container className="About-header">
-          <div style={{ textAlign: 'center', padding: '4rem' }}>Loading...</div>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title> About | {meta.title}</title>
+            <meta name="description" content={meta.description} />
+          </Helmet>
+          <AboutPageSkeleton />
         </Container>
       </HelmetProvider>
     );
