@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import PortfolioItem from "../../components/PortfolioItem";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
-import { HomeIntroSkeleton, PortfolioGridSkeleton } from "../../components/SkeletonLoader";
+import { HomeIntroSkeleton, PortfolioGridSkeleton, Skeleton } from "../../components/SkeletonLoader";
 
 const SocialIcon = ({ href, children }) => (
   <a
@@ -124,7 +124,10 @@ export const Home = () => {
           </div>
           <section id="portfolio" className="portfolio_section">
             <div className="container">
-              <PortfolioGridSkeleton count={3} className="portfolio_items" />
+              <Skeleton height="48px" width="300px" className="section_title" style={{ margin: '0 auto 40px', display: 'block' }} />
+              <div className="portfolio_items">
+                <PortfolioGridSkeleton count={3} />
+              </div>
             </div>
           </section>
         </section>

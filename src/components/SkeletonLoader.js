@@ -27,14 +27,14 @@ export const PortfolioItemSkeleton = () => (
 );
 
 /**
- * Skeleton for portfolio grid (multiple items) - matches .po_items_ho structure
+ * Skeleton for portfolio grid (multiple items) - renders items directly (no wrapper)
  */
 export const PortfolioGridSkeleton = ({ count = 6, className = '' }) => (
-  <div className={`portfolio-grid-skeleton ${className}`}>
+  <>
     {Array.from({ length: count }).map((_, index) => (
       <PortfolioItemSkeleton key={index} />
     ))}
-  </div>
+  </>
 );
 
 /**
