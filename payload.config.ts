@@ -20,6 +20,19 @@ export default buildConfig({
   admin: {
     user: 'users',
     bundler: webpackBundler(),
+    webpack: (config) => {
+      // Exclude server-side hooks from admin bundle
+      config.resolve = config.resolve || {};
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        child_process: false,
+        fs: false,
+        util: false,
+        path: false,
+        crypto: false,
+      };
+      return config;
+    },
     meta: {
       titleSuffix: '- Portfolio CMS',
       favicon: '/favicon.ico',

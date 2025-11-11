@@ -1,8 +1,4 @@
 import { CollectionConfig } from 'payload/types';
-import { getBunnyCDNClient, isCDNAutoUploadEnabled } from '../services/BunnyCDNClient';
-import { videoOptimizationAfterHook } from '../hooks/videoOptimizationAfter';
-import path from 'path';
-import fs from 'fs';
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -214,8 +210,28 @@ export const Media: CollectionConfig = {
     ],
     // Auto-upload to CDN after file is saved locally, and optimize videos
     afterChange: [
-      videoOptimizationAfterHook,
+      // Video optimization hook (server-side only)
+      async (args) => {
+        // Only run on server (not in admin bundle)
+        if (typeof window === 'undefined') {
+          const { videoOptimizationAfterHook } = await import('../hooks/videoOptimizationAfter');
+          return videoOptimizationAfterHook(args);
+        }
+        return args.doc;
+      },
       async ({ doc, req, operation }) => {
+        // Server-side only - skip in browser
+        if (typeof window !== 'undefined') {
+          return doc;
+        }
+
+        // Dynamic imports for server-side modules
+        const pathModule = await import('path');
+        const path = pathModule.default || pathModule;
+        const fsModule = await import('fs');
+        const fs = fsModule.default || fsModule;
+        const { getBunnyCDNClient, isCDNAutoUploadEnabled } = await import('../services/BunnyCDNClient');
+
         // Only process uploads, not CDN-registered media
         if (!isCDNAutoUploadEnabled() || doc.source === 'cdn' || !doc.filename) {
           return doc;
@@ -334,6 +350,13 @@ export const Media: CollectionConfig = {
     // Delete from CDN when media is deleted
     beforeDelete: [
       async ({ req, id }) => {
+        // Server-side only
+        if (typeof window !== 'undefined') {
+          return;
+        }
+
+        const { getBunnyCDNClient, isCDNAutoUploadEnabled } = await import('../services/BunnyCDNClient');
+
         if (!isCDNAutoUploadEnabled()) {
           return;
         }
