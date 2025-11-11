@@ -43,7 +43,7 @@ export const Portfolio = () => {
           <meta name="description" content={meta.description} />
         </Helmet>
         {loading ? (
-          <PortfolioPageSkeleton count={6} />
+          <PortfolioPageSkeleton count={8} />
         ) : (
           <>
             <Row className="mb-5 mt-3 pt-md-3">

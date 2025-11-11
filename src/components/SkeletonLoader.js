@@ -40,7 +40,7 @@ export const PortfolioGridSkeleton = ({ count = 6, className = '' }) => (
 /**
  * Skeleton for full portfolio page - matches EXACT portfolio page structure
  */
-export const PortfolioPageSkeleton = ({ count = 6 }) => (
+export const PortfolioPageSkeleton = ({ count = 8 }) => (
   <>
     <Row className="mb-5 mt-3 pt-md-3">
       <Col lg="8">
