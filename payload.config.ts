@@ -20,19 +20,6 @@ export default buildConfig({
   admin: {
     user: 'users',
     bundler: webpackBundler(),
-    webpack: (config) => {
-      // Add fallbacks for Node.js built-ins used in server-side code
-      config.resolve = {
-        ...config.resolve,
-        fallback: {
-          ...config.resolve?.fallback,
-          fs: false,
-          path: false,
-          crypto: false,
-        },
-      };
-      return config;
-    },
     meta: {
       titleSuffix: '- Portfolio CMS',
       favicon: '/favicon.ico',

@@ -24,6 +24,9 @@ COPY server.ts ./
 # Build TypeScript
 RUN npm run payload:build
 
+# Build Payload Admin UI
+RUN npx payload build
+
 # Production stage
 FROM node:18-alpine AS production
 

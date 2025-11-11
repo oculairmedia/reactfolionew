@@ -19,6 +19,16 @@ const PortfolioItem = ({ data, index }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
+  // Debug log
+  console.log('[PortfolioItem] Rendering:', {
+    title: data?.title,
+    hasImg: !!data?.img,
+    hasVideo: !!data?.video,
+    isVideo: data?.isVideo,
+    img: data?.img,
+    video: data?.video
+  });
+
   // Extract project ID from link for prefetching
   // Link format is typically "/portfolio/[id]" or just the ID
   const projectId = data.id || (data.link ? data.link.split('/').pop() : null);

@@ -48,8 +48,8 @@ services:
       BUNNY_PULL_ZONE_URL: ${BUNNY_PULL_ZONE_URL}
       ENABLE_CDN_AUTO_UPLOAD: ${ENABLE_CDN_AUTO_UPLOAD:-false}
 
-      # Node Environment
-      NODE_ENV: production
+      # Node Environment  
+      NODE_ENV: development
       PORT: 3001
     ports:
       - "3006:3001"
