@@ -1,0 +1,38 @@
+.payload-optimized-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.payload-optimized-video.loaded {
+  opacity: 1;
+}
+
+/* Ensure video maintains aspect ratio */
+.payload-optimized-video[poster] {
+  background-size: cover;
+  background-position: center;
+}
+
+/* Loading state placeholder */
+.payload-optimized-video:not(.loaded) {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.15) 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

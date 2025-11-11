@@ -1,0 +1,4 @@
+https://oculair.b-cdn.net/api/v1/videos/332b28a6113e401b77b6894d3254766d15c6a9ac/3rjei659/avc
+https://oculair.b-cdn.net/api/v1/videos/ab378b5c663d95304309a7a814fcae6997042c36/3rjei659/avc
+https://oculair.b-cdn.net/api/v1/videos/bfbad3bf0b671badf4eb75634e9f15407ffd60ad/3rjei659/hevc
+https://oculair.b-cdn.net/api/v1/videos/f200bfc144e110dc4821384c82dca7d6fbd67c66/3rjei659/avc

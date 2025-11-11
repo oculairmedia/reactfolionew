@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { usePrefetchProject } from "../hooks/useDataPrefetch";
+import { PayloadOptimizedImage } from "./OptimizedImage/PayloadOptimizedImage";
+import { PayloadOptimizedVideo } from "./OptimizedVideo/PayloadOptimizedVideo";
+import { getPayloadImageUrl, isVideo } from "../utils/payloadImageHelper";
 
 const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) return text;
@@ -54,6 +57,13 @@ const PortfolioItem = ({ data, index }) => {
     }
   };
 
+  // Get media URLs - support both Payload media objects and legacy string URLs
+  const featuredImage = data.featured_image || data.featuredImage || data.img;
+  const featuredVideo = data.featured_video || data.featuredVideo;
+  
+  // Check if featured media is a video
+  const hasVideo = featuredVideo && isVideo(featuredVideo);
+
   return (
     <motion.div
       ref={ref}
@@ -65,38 +75,38 @@ const PortfolioItem = ({ data, index }) => {
       {...projectPrefetchHandlers}
     >
       <div className="media-container">
-        {data.isVideo ? (
+        {hasVideo ? (
           shouldLoadVideo ? (
-            <video
-              ref={videoRef}
-              className={isLoaded ? 'loaded' : ''}
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              poster={data.img}
+            <PayloadOptimizedVideo
+              media={featuredVideo}
+              quality="auto"
+              autoPlay={true}
+              loop={true}
+              muted={true}
+              playsInline={true}
+              lazyLoad={true}
               onLoadedData={handleVideoLoad}
-            >
-              <source src={data.video} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          ) : (
-            <img
-              src={data.img}
-              alt={data.title}
               className={isLoaded ? 'loaded' : ''}
-              loading="lazy"
-              onLoad={() => setIsLoaded(true)}
+            />
+          ) : (
+            <PayloadOptimizedImage
+              media={featuredImage}
+              alt={data.title}
+              size="small"
+              responsive={false}
+              lazyLoad={true}
+              className={isLoaded ? 'loaded' : ''}
             />
           )
         ) : (
-          <img
-            src={data.img}
+          <PayloadOptimizedImage
+            media={featuredImage}
             alt={data.title}
-            className={isLoaded ? 'loaded' : ''}
-            loading="lazy"
+            size="medium"
+            responsive={true}
+            lazyLoad={true}
             onLoad={() => setIsLoaded(true)}
+            className={isLoaded ? 'loaded' : ''}
           />
         )}
       </div>

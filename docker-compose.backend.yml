@@ -6,6 +6,8 @@ services:
     image: mongo:7
     container_name: payload-cms-mongodb-3006
     restart: unless-stopped
+    env_file:
+      - .env.backend
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:-admin}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-changeme}
@@ -34,10 +36,12 @@ services:
     depends_on:
       mongodb:
         condition: service_healthy
+    env_file:
+      - .env.backend
     environment:
       # Payload Configuration
-      PAYLOAD_SECRET: ${PAYLOAD_SECRET}
-      PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL}
+      PAYLOAD_SECRET: ${PAYLOAD_SECRET:-7wMHyPw5IoC8FYrKtYs93DvB79kZcxak9MQAhtYjtNg=}
+      PAYLOAD_PUBLIC_SERVER_URL: ${PAYLOAD_PUBLIC_SERVER_URL:-https://cms2.emmanuelu.com}
 
       # MongoDB Connection
       MONGODB_URI: mongodb://${MONGO_ROOT_USERNAME:-admin}:${MONGO_ROOT_PASSWORD:-changeme}@mongodb:27017/portfolio?authSource=admin

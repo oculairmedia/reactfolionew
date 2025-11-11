@@ -47,10 +47,29 @@ export const Portfolio: CollectionConfig = {
       },
     },
     {
+      name: 'featuredImage',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+      admin: {
+        description: 'Featured image (preferred - links to Media collection)',
+      },
+    },
+    {
+      name: 'featuredVideo',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+      admin: {
+        description: 'Featured video (if isVideo is true)',
+        condition: (data) => data.isVideo === true,
+      },
+    },
+    {
       name: 'img',
       type: 'text',
       admin: {
-        description: 'Image URL or poster image for video',
+        description: 'Legacy: Image URL or poster image for video (use featuredImage instead)',
       },
     },
     {

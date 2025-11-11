@@ -5,7 +5,7 @@
  * Updated: 2025-11-11 - Added cache-busting and service worker fix
  */
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+const API_URL = process.env.REACT_APP_API_URL || 'https://cms2.emmanuelu.com/api';
 
 /**
  * Generic fetch function with error handling
@@ -37,15 +37,19 @@ async function fetchFromPayload(endpoint) {
 
 /**
  * Fetch all projects
- * @param {Object} options - Query options (limit, page, sort, where)
+ * @param {Object} options - Query options (limit, page, sort, where, depth)
  * @returns {Promise<Array>} Array of projects
  */
 export async function getProjects(options = {}) {
   const params = new URLSearchParams();
 
+  // Default depth=1 to populate media relationships
+  const depth = options.depth !== undefined ? options.depth : 1;
+
   if (options.limit) params.append('limit', options.limit);
   if (options.page) params.append('page', options.page);
   if (options.sort) params.append('sort', options.sort);
+  params.append('depth', depth);
 
   const queryString = params.toString();
   const endpoint = `/projects${queryString ? `?${queryString}` : ''}`;
@@ -67,15 +71,19 @@ export async function getProjectById(projectId) {
 
 /**
  * Fetch all portfolio items
- * @param {Object} options - Query options (limit, page, sort, where)
+ * @param {Object} options - Query options (limit, page, sort, where, depth)
  * @returns {Promise<Array>} Array of portfolio items
  */
 export async function getPortfolioItems(options = {}) {
   const params = new URLSearchParams();
 
+  // Default depth=1 to populate media relationships
+  const depth = options.depth !== undefined ? options.depth : 1;
+  
   if (options.limit) params.append('limit', options.limit);
   if (options.page) params.append('page', options.page);
   if (options.sort) params.append('sort', options.sort);
+  params.append('depth', depth);
 
   const queryString = params.toString();
   const endpoint = `/portfolio${queryString ? `?${queryString}` : ''}`;

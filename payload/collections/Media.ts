@@ -1,5 +1,6 @@
 import { CollectionConfig } from 'payload/types';
 import { getBunnyCDNClient, isCDNAutoUploadEnabled } from '../services/BunnyCDNClient';
+import { videoOptimizationAfterHook } from '../hooks/videoOptimizationAfter';
 import path from 'path';
 import fs from 'fs';
 
@@ -180,6 +181,16 @@ export const Media: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'video_sizes',
+      type: 'json',
+      admin: {
+        description: 'Optimized video variants (low, medium, high, thumbnail)',
+        position: 'sidebar',
+        readOnly: true,
+        condition: (data) => data?.mimeType?.startsWith('video/'),
+      },
+    },
   ],
   admin: {
     useAsTitle: 'alt',
@@ -201,8 +212,9 @@ export const Media: CollectionConfig = {
         return data;
       },
     ],
-    // Auto-upload to CDN after file is saved locally
+    // Auto-upload to CDN after file is saved locally, and optimize videos
     afterChange: [
+      videoOptimizationAfterHook,
       async ({ doc, req, operation }) => {
         // Only process uploads, not CDN-registered media
         if (!isCDNAutoUploadEnabled() || doc.source === 'cdn' || !doc.filename) {
@@ -223,7 +235,7 @@ export const Media: CollectionConfig = {
         console.log(`[Media] Auto-uploading ${doc.filename} to CDN...`);
 
         try {
-          // Construct local file path
+          // Construct local file path for original
           const localPath = path.join(process.cwd(), 'media', doc.filename);
 
           // Verify file exists
@@ -234,27 +246,74 @@ export const Media: CollectionConfig = {
           // Generate remote path (preserve folder structure)
           const remotePath = `media/${doc.filename}`;
 
-          // Upload to CDN
+          // Upload original to CDN
           const result = await cdnClient.uploadFile(localPath, remotePath);
 
-          if (result.success && result.cdnUrl) {
-            // Update document with CDN info (use Payload API to avoid infinite loop)
-            await req.payload.update({
-              collection: 'media',
-              id: doc.id,
-              data: {
-                cdn_url: result.cdnUrl,
-                cdn_synced: true,
-                cdn_uploaded_at: new Date().toISOString(),
-                cdn_remote_path: remotePath,
-                cdn_sync_error: '',
-              },
-            });
-
-            console.log(`[Media] Successfully uploaded to CDN: ${result.cdnUrl}`);
-          } else {
+          if (!result.success) {
             throw new Error(result.error || 'Upload failed');
           }
+
+          console.log(`[Media] Successfully uploaded original to CDN: ${result.cdnUrl}`);
+
+          // Upload all optimized sizes (thumbnail, small, medium, large, og)
+          if (doc.sizes && typeof doc.sizes === 'object') {
+            console.log(`[Media] Uploading ${Object.keys(doc.sizes).length} optimized sizes...`);
+            
+            for (const [sizeName, sizeData] of Object.entries(doc.sizes)) {
+              const sizeFilename = (sizeData as any).filename;
+              if (sizeFilename) {
+                const sizeLocalPath = path.join(process.cwd(), 'media', sizeFilename);
+                const sizeRemotePath = `media/${sizeFilename}`;
+                
+                if (fs.existsSync(sizeLocalPath)) {
+                  const sizeResult = await cdnClient.uploadFile(sizeLocalPath, sizeRemotePath);
+                  if (sizeResult.success) {
+                    console.log(`[Media] ✓ Uploaded ${sizeName}: ${sizeFilename}`);
+                  } else {
+                    console.error(`[Media] ✗ Failed to upload ${sizeName}: ${sizeResult.error}`);
+                  }
+                }
+              }
+            }
+          }
+
+          // Upload video variants (low, medium, high, thumbnail)
+          if (doc.video_sizes && typeof doc.video_sizes === 'object') {
+            console.log(`[Media] Uploading ${Object.keys(doc.video_sizes).length} video variants...`);
+            
+            for (const [variantName, variantData] of Object.entries(doc.video_sizes)) {
+              const variantFilename = (variantData as any).filename;
+              if (variantFilename) {
+                const variantLocalPath = path.join(process.cwd(), 'media', variantFilename);
+                const variantRemotePath = `media/${variantFilename}`;
+                
+                if (fs.existsSync(variantLocalPath)) {
+                  const variantResult = await cdnClient.uploadFile(variantLocalPath, variantRemotePath);
+                  if (variantResult.success) {
+                    console.log(`[Media] ✓ Uploaded video ${variantName}: ${variantFilename}`);
+                  } else {
+                    console.error(`[Media] ✗ Failed to upload video ${variantName}: ${variantResult.error}`);
+                  }
+                }
+              }
+            }
+          }
+
+          // Update document with CDN info (use Payload API to avoid infinite loop)
+          await req.payload.update({
+            collection: 'media',
+            id: doc.id,
+            data: {
+              cdn_url: result.cdnUrl,
+              cdn_synced: true,
+              cdn_uploaded_at: new Date().toISOString(),
+              cdn_remote_path: remotePath,
+              cdn_sync_error: '',
+            },
+          });
+
+          console.log(`[Media] Successfully uploaded all versions to CDN`);
+        
         } catch (error: any) {
           console.error(`[Media] CDN upload failed for ${doc.filename}:`, error.message);
 

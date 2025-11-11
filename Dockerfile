@@ -3,8 +3,8 @@
 # Use Node.js LTS version
 FROM node:18-alpine AS base
 
-# Install dependencies for building native modules
-RUN apk add --no-cache libc6-compat python3 make g++
+# Install dependencies for building native modules + FFmpeg for video processing
+RUN apk add --no-cache libc6-compat python3 make g++ ffmpeg
 
 WORKDIR /app
 
@@ -27,7 +27,7 @@ RUN npm run payload:build
 # Production stage
 FROM node:18-alpine AS production
 
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat ffmpeg
 
 WORKDIR /app
 
