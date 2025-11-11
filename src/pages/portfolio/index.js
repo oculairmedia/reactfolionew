@@ -5,7 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { meta, portfolioPage } from "../../content_option";
 import { getPortfolioItems } from "../../utils/payloadApi";
 import PortfolioItem from "../../components/PortfolioItem";
-import { PortfolioGridSkeleton } from "../../components/SkeletonLoader";
+import { PortfolioPageSkeleton } from "../../components/SkeletonLoader";
 
 export const Portfolio = () => {
   const [dataportfolio, setDataPortfolio] = useState([]);
@@ -42,23 +42,27 @@ export const Portfolio = () => {
           <title> Portfolio | {meta.title} </title>
           <meta name="description" content={meta.description} />
         </Helmet>
-        <Row className="mb-5 mt-3 pt-md-3">
-          <Col lg="8">
-            <h1 className="display-4 mb-4">{portfolioPage.title}</h1>
-            <hr className="t_border my-4 ml-0 text-left" />
-          </Col>
-        </Row>
-        <div className="mb-5 po_items_ho">
-          {loading ? (
-            <PortfolioGridSkeleton count={6} />
-          ) : dataportfolio && dataportfolio.length > 0 ? (
-            dataportfolio.map((data, i) => (
-              <PortfolioItem key={data.id || i} data={data} index={i} />
-            ))
-          ) : (
-            <div style={{ textAlign: 'center', padding: '2rem' }}>No portfolio items available</div>
-          )}
-        </div>
+        {loading ? (
+          <PortfolioPageSkeleton count={6} />
+        ) : (
+          <>
+            <Row className="mb-5 mt-3 pt-md-3">
+              <Col lg="8">
+                <h1 className="display-4 mb-4">{portfolioPage.title}</h1>
+                <hr className="t_border my-4 ml-0 text-left" />
+              </Col>
+            </Row>
+            <div className="mb-5 po_items_ho">
+              {dataportfolio && dataportfolio.length > 0 ? (
+                dataportfolio.map((data, i) => (
+                  <PortfolioItem key={data.id || i} data={data} index={i} />
+                ))
+              ) : (
+                <div style={{ textAlign: 'center', padding: '2rem' }}>No portfolio items available</div>
+              )}
+            </div>
+          </>
+        )}
       </Container>
     </HelmetProvider>
   );

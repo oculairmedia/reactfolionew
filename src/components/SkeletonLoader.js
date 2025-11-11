@@ -38,6 +38,23 @@ export const PortfolioGridSkeleton = ({ count = 6, className = '' }) => (
 );
 
 /**
+ * Skeleton for full portfolio page - matches EXACT portfolio page structure
+ */
+export const PortfolioPageSkeleton = ({ count = 6 }) => (
+  <>
+    <Row className="mb-5 mt-3 pt-md-3">
+      <Col lg="8">
+        <Skeleton height="48px" width="250px" className="display-4 mb-4" />
+        <hr className="t_border my-4 ml-0 text-left" style={{ borderColor: 'var(--text-color)' }} />
+      </Col>
+    </Row>
+    <div className="mb-5 po_items_ho">
+      <PortfolioGridSkeleton count={count} />
+    </div>
+  </>
+);
+
+/**
  * Skeleton for project detail page
  */
 export const ProjectDetailSkeleton = () => (
