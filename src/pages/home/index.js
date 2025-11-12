@@ -229,7 +229,7 @@ export const Home = () => {
                 {introdata.description}
               </p>
               <div className="intro_btn-action animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards', animationDelay: '0.6s', opacity: 0 }}>
-                <Link to="/portfolio" className="text_2" {...portfolioHoverHandlers}>
+                <Link to="/portfolio" className="text_2" {...portfolioHoverHandlers} onClick={() => { window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); }}>
                   <div id="button_p" className="ac_btn btn">
                     {uiText.myPortfolio}
                     <div className="ring one"></div>
@@ -286,7 +286,7 @@ export const Home = () => {
             )}
           </div>
           <div className="view_all_btn animate">
-            <Link to="/portfolio" className="text_2" {...portfolioHoverHandlers}>
+            <Link to="/portfolio" className="text_2" {...portfolioHoverHandlers} onClick={() => { window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); }}>
               <div id="button_p" className="ac_btn btn">
                 {uiText.viewAllProjects}
                 <div className="ring one"></div>
