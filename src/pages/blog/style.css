@@ -9,6 +9,9 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.03);
+  aspect-ratio: 5 / 7;
+  display: flex;
+  flex-direction: column;
 }
 
 .blog-card:hover {
@@ -18,9 +21,10 @@
 
 .blog-card-img {
   width: 100%;
-  aspect-ratio: 5 / 7;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   transition: transform 0.3s ease;
+  flex-shrink: 0;
 }
 
 .blog-card:hover .blog-card-img {
