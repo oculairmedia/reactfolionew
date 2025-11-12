@@ -16,6 +16,18 @@
     object-fit: cover;
 }
 
+.main-image {
+    width: 100%;
+    display: block;
+}
+
+.main-image img,
+.main-image video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 .content-wrapper {
     max-width: 900px;
     margin: 0 auto;
