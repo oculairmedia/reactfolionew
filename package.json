@@ -1,75 +1,78 @@
 {
-    "name": "react-portfolio",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "@fontsource/marcellus": "^5.2.8",
-        "@fontsource/raleway": "^5.2.8",
-        "@payloadcms/bundler-webpack": "^1.0.7",
-        "@payloadcms/db-mongodb": "^1.7.5",
-        "@payloadcms/richtext-slate": "^1.5.2",
-        "@tryghost/content-api": "^1.12.0",
-        "axios": "^1.13.2",
-        "bootstrap": "^5.2.3",
-        "dotenv": "^17.2.3",
-        "emailjs-com": "^3.2.0",
-        "express": "^4.18.2",
-        "framer-motion": "^11.11.1",
-        "jsonwebtoken": "^9.0.2",
-        "payload": "^2.32.3",
-        "react": "^18.2.0",
-        "react-bootstrap": "^2.7.0",
-        "react-dom": "^18.2.0",
-        "react-helmet-async": "^1.0.7",
-        "react-icons": "^4.1.0",
-        "react-markdown": "^10.1.0",
-        "react-router-dom": "^6.6.2",
-        "react-scripts": "^5.0.1",
-        "react-transition-group": "^4.4.2",
-        "typewriter-effect": "^2.18.2",
-        "web-vitals": "^3.1.1"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "vercel-build": "react-scripts build",
-        "build:analyze": "source-map-explorer 'build/static/js/*.js'",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "predeploy": "npm run build && cp build/index.html build/404.html",
-        "deploy": "gh-pages -d build",
-        "payload": "ts-node server.ts",
-        "payload:build": "tsc --project tsconfig.server.json",
-        "payload:serve": "node dist/server.js",
-        "payload:build:admin": "payload build"
-    },
-    "eslintConfig": {
-        "extends": [
-            "react-app",
-            "react-app/jest"
-        ]
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "@fullhuman/postcss-purgecss": "^7.0.2",
-        "@types/express": "^5.0.5",
-        "@types/node": "^24.10.0",
-        "http-proxy-middleware": "^3.0.3",
-        "null-loader": "^4.0.1",
-        "postcss": "^8.5.6",
-        "source-map-explorer": "^2.5.3",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.9.3"
-    }
+  "name": "react-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fontsource/marcellus": "^5.2.8",
+    "@fontsource/raleway": "^5.2.8",
+    "@payloadcms/bundler-webpack": "^1.0.7",
+    "@payloadcms/db-mongodb": "^1.7.5",
+    "@payloadcms/richtext-slate": "^1.5.2",
+    "@tryghost/content-api": "^1.12.0",
+    "axios": "^1.13.2",
+    "bootstrap": "^5.2.3",
+    "dotenv": "^17.2.3",
+    "emailjs-com": "^3.2.0",
+    "express": "^4.18.2",
+    "framer-motion": "^11.11.1",
+    "jsonwebtoken": "^9.0.2",
+    "payload": "^2.32.3",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.7.0",
+    "react-dom": "^18.2.0",
+    "react-helmet-async": "^1.0.7",
+    "react-icons": "^4.1.0",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^6.6.2",
+    "react-scripts": "^5.0.1",
+    "react-transition-group": "^4.4.2",
+    "typewriter-effect": "^2.18.2",
+    "web-vitals": "^3.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "vercel-build": "react-scripts build",
+    "build:analyze": "source-map-explorer 'build/static/js/*.js'",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build && cp build/index.html build/404.html",
+    "deploy": "gh-pages -d build",
+    "payload": "ts-node server.ts",
+    "payload:build": "tsc --project tsconfig.server.json",
+    "payload:serve": "node dist/server.js",
+    "payload:build:admin": "payload build",
+    "sync:content": "node scripts/sync-content.js",
+    "prebuild": "npm run sync:content",
+    "prevercel-build": "npm run sync:content"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^7.0.2",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.0",
+    "http-proxy-middleware": "^3.0.3",
+    "null-loader": "^4.0.1",
+    "postcss": "^8.5.6",
+    "source-map-explorer": "^2.5.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
 }

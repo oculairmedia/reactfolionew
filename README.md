@@ -84,6 +84,70 @@ Payload CMS provides a powerful admin interface at `/admin` where you can:
 - **About Page** - Update bio, timeline, skills, and services
 - **Media** - Upload and manage images and videos
 
+### 🔄 CMS-First with Fallback Architecture
+
+This site uses a **resilient content architecture** that ensures your site stays online even if the CMS is temporarily unavailable:
+
+#### How It Works
+
+1. **Primary Source**: Content is fetched from Payload CMS API
+2. **Fallback**: If CMS is unavailable, local JSON files are used
+3. **Sync**: Content is automatically synced before each build
+
+#### Benefits
+
+✅ **High Availability** - Site works even if CMS is down  
+✅ **Local Development** - No CMS dependency for frontend dev  
+✅ **Disaster Recovery** - Automatic content backup  
+✅ **Fast Builds** - Pre-synced content for static builds  
+✅ **Monitoring** - Track when fallback is used
+
+#### Content Sync
+
+Sync content from CMS to local JSON files:
+
+```bash
+# Manual sync
+npm run sync:content
+
+# Automatic sync (runs before builds)
+npm run build           # Syncs, then builds
+npm run vercel-build    # Syncs, then builds for Vercel
+```
+
+The sync script:
+- Fetches all content from Payload CMS API
+- Updates local JSON files in `src/content/`
+- Only fails build if critical content (portfolio/projects) is unavailable
+- Logs all sync activity for monitoring
+
+#### Monitoring Fallback Usage
+
+The app logs when fallback content is used:
+
+```javascript
+import { getFallbackStats, getFallbackEvents } from './utils/cmsWithFallback';
+
+// Get statistics
+const stats = getFallbackStats();
+console.log(stats);
+// {
+//   total_events: 5,
+//   last_24h: 2,
+//   success_rate: "100.0",
+//   most_common_source: "portfolio",
+//   most_common_reason: "Request timeout"
+// }
+
+// Get detailed events
+const events = getFallbackEvents();
+// [{ timestamp, source, reason, status, userAgent }, ...]
+```
+
+All fallback events are logged to the browser console with emoji indicators:
+- 🔄 = Fallback used successfully
+- ❌ = Fallback failed
+
 ### API Access
 
 All content is available via REST API:
@@ -122,7 +186,11 @@ See the [Documentation Index](./docs/INDEX.md) for complete documentation.
 ```bash
 # Frontend
 npm start              # Start React development server
-npm run build          # Build React app for production
+npm run build          # Sync content + build React app for production
+npm run vercel-build   # Sync content + build for Vercel
+
+# Content Management
+npm run sync:content   # Sync content from CMS to local JSON files
 
 # Backend
 npm run payload        # Start Payload CMS server (dev)
@@ -141,9 +209,19 @@ reactfolionew/
 ├── src/
 │   ├── components/      # React components
 │   ├── pages/           # Page components
-│   ├── content/         # Legacy JSON content (can be archived after migration)
-│   ├── utils/           # Utility functions (including payloadApi.js)
+│   ├── content/         # Fallback JSON content (synced from CMS)
+│   │   ├── portfolio/   # Portfolio items
+│   │   ├── projects/    # Project pages
+│   │   ├── settings/    # Site settings, navigation, footer
+│   │   ├── intro/       # Home page intro
+│   │   ├── about/       # About page content
+│   │   └── pages/       # Page metadata
+│   ├── utils/           # Utility functions
+│   │   ├── payloadApi.js        # CMS API helpers
+│   │   └── cmsWithFallback.js   # Fallback + monitoring
 │   └── assets/          # Images, styles, etc.
+├── scripts/
+│   └── sync-content.js  # CMS → JSON sync script
 ├── payload/
 │   ├── collections/     # Payload collection definitions
 │   ├── globals/         # Payload global definitions

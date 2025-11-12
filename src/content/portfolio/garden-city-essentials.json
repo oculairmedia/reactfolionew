@@ -1,8 +1,9 @@
 {
   "id": "garden-city-essentials",
-  "img": "/images/portfolio/garden-city-essentials-1.jpg",
   "title": "Garden City Essentials",
+  "img": "",
   "description": "Web presence for an eco-friendly essentials brand.",
-  "link": "/projects/garden-city-essentials",
-  "tags": ["Web Design", "Branding", "UI/UX"]
+  "link": "/portfolio/garden-city-essentials",
+  "order": 999,
+  "date": "2025-11-11"
 }

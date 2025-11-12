@@ -1,8 +1,9 @@
 {
   "id": "merchant-ale-house",
-  "img": "/images/portfolio/the-merchant-ale-house-1.jpg",
   "title": "The Merchant Ale House",
+  "img": "",
   "description": "A complete digital overhaul for a classic ale house.",
-  "link": "/projects/merchant-ale-house",
-  "tags": ["Web Development", "UI Design", "Branding"]
+  "link": "/portfolio/merchant-ale-house",
+  "order": 999,
+  "date": "2025-11-11"
 }

@@ -1,8 +1,9 @@
 {
   "id": "coffee-by-altitude",
-  "img": "/images/portfolio/coffee-by-altitude-1.jpg",
   "title": "Coffee by Altitude",
+  "img": "",
   "description": "Brand identity and e-commerce for a specialty coffee roaster.",
-  "link": "/projects/coffee-by-altitude",
-  "tags": ["Branding", "E-commerce", "UI/UX"]
+  "link": "/portfolio/coffee-by-altitude",
+  "order": 999,
+  "date": "2025-11-11"
 }

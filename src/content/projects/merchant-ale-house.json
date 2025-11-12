@@ -1,94 +1,22 @@
 {
   "id": "merchant-ale-house",
   "title": "The Merchant Ale House",
-  "subtitle": "",
-  "metadata": {
-    "client": "The Merchant Ale House",
-    "date": "2024",
-    "role": "Creative Director, Brand Identity Designer",
-    "technologies": "Logo Redesign, Brand Identity, Merchandise Design, Menu Design, Signage Design"
-  },
-  "hero": {
-    "type": "image",
-    "image": "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-after.jpg",
-    "alt": "The Merchant Ale House brand identity"
-  },
-  "tags": [
-    "Brand Identity",
-    "Logo Redesign",
-    "Merchandise Design",
-    "Restaurant Branding"
-  ],
-  "sections": [
-    {
-      "title": "Project Overview",
-      "content": "The Merchant Ale House, a beloved restaurant and brewpub in Downtown St. Catharines, approached us to revitalize their brand identity. With over 20 years of history, the challenge was to create a comprehensive brand identity that honors the restaurant's traditions while positioning it as the go-to destination for grain-to-glass beers and quality pub-style food.",
-      "layout": "two-column"
-    },
-    {
-      "title": "The Process",
-      "content": "We began with an in-depth discovery phase, immersing ourselves in The Merchant Ale House's rich history and unique position in the local community. This involved extensive interviews with the owners and long-time patrons, as well as research into craft beer trends and pub branding. The design process kicked off with exploring various concepts that could encapsulate the pub's warm, welcoming atmosphere and its commitment to quality craft beer. We developed multiple design directions, each paying homage to different aspects of The Merchant Ale House's identity. After several rounds of refinement and client feedback, we landed on a design that perfectly balanced the pub's heritage with a contemporary feel. The new logo incorporates elements that nod to the brewing process and the pub's architectural features, creating a strong visual tie to the physical space. We then expanded the visual identity across various touchpoints, including menus, signage, merchandise, and digital assets. Multiple lockups and variations were created to maximize the flexibility of visual elements in both digital and print mediums, enhancing the brand's presence in all use-cases, large or small.",
-      "layout": "two-column"
-    },
-    {
-      "title": "Services Provided",
-      "content": "Creative Direction, Visual Identity Design, Logo Redesign, Merchandise Design, Print Design, Signage Design, Packaging Design, Menu Design, Brand Guidelines",
-      "layout": "two-column"
-    },
-    {
-      "title": "Client Testimonial",
-      "content": "\"Emmanuel's work on our brand identity was professional, timely, and expertly done. He managed to accurately convey the spirit of our business. He spoke with clarity, experience, and confidence in all our meetings. We look forward to working with Emmanuel again in the future.\" - Stephen Cimprich, The Merchant Ale House",
-      "layout": "two-column"
-    }
-  ],
+  "description": "",
+  "content": "",
+  "featured_image": "",
   "gallery": [
-    {
-      "type": "image",
-      "url": "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-2.jpg",
-      "caption": "Brand identity refresh",
-      "width": "half"
-    },
-    {
-      "type": "image",
-      "url": "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-5.jpg",
-      "caption": "Logo design details",
-      "width": "half"
-    },
-    {
-      "type": "image",
-      "url": "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-6.jpg",
-      "caption": "Brand application",
-      "width": "half"
-    },
-    {
-      "type": "image",
-      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/the-merchant-ale-house-1.jpg",
-      "caption": "Merchandise design",
-      "width": "half"
-    },
-    {
-      "type": "image",
-      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/the-merchant-ale-house-12.jpg",
-      "caption": "Menu design",
-      "width": "half"
-    },
-    {
-      "type": "image",
-      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/the-merchant-ale-house-13.jpg",
-      "caption": "Signage design",
-      "width": "half"
-    },
-    {
-      "type": "image",
-      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/the-merchant-ale-house-15.jpg",
-      "caption": "Brand collateral",
-      "width": "half"
-    },
-    {
-      "type": "image",
-      "url": "https://oculair.b-cdn.net/cache/images/projects/test 1/the-merchant-ale-house-16.jpg",
-      "caption": "Final brand implementation",
-      "width": "half"
-    }
-  ]
+    "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-2.jpg",
+    "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-5.jpg",
+    "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-6.jpg",
+    "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-7.jpg",
+    "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-12.jpg",
+    "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-13.jpg",
+    "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-14.jpg",
+    "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-15.jpg",
+    "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-16.jpg"
+  ],
+  "technologies": [],
+  "link": "",
+  "github": "",
+  "date": "2025-11-11T20:41:59.246Z"
 }

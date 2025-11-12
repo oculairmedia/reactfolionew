@@ -5,53 +5,64 @@
     {
       "jobtitle": "Digital Designer",
       "where": "Incontrol",
-      "date": "Apr 2021 - Apr 2023"
+      "date": "Apr 2021 - Apr 2023",
+      "id": "69139f98e6f3290001ab4e10"
     },
     {
       "jobtitle": "Digital Designer",
       "where": "Branton Advertising",
-      "date": "Apr 2018 - Jan 2020"
+      "date": "Apr 2018 - Jan 2020",
+      "id": "69139f98e6f3290001ab4e11"
     },
     {
       "jobtitle": "UX/UI Designer",
       "where": "Apollo Metrics",
-      "date": "Apr 2014 - Apr 2017"
+      "date": "Apr 2014 - Apr 2017",
+      "id": "69139f98e6f3290001ab4e12"
     }
   ],
   "skills": [
     {
       "name": "Print Design",
-      "value": 90
+      "value": 90,
+      "id": "69139f98e6f3290001ab4e13"
     },
     {
       "name": "Web Design",
-      "value": 95
+      "value": 95,
+      "id": "69139f98e6f3290001ab4e14"
     },
     {
       "name": "3D Animation",
-      "value": 85
+      "value": 85,
+      "id": "69139f98e6f3290001ab4e15"
     },
     {
       "name": "UX/UI Design",
-      "value": 90
+      "value": 90,
+      "id": "69139f98e6f3290001ab4e16"
     },
     {
       "name": "Adobe Creative Suite",
-      "value": 95
+      "value": 95,
+      "id": "69139f98e6f3290001ab4e17"
     }
   ],
   "services": [
     {
       "title": "UI & UX Design",
-      "description": "Creating intuitive and engaging user interfaces and experiences for web and mobile applications."
+      "description": "Creating intuitive and engaging user interfaces and experiences for web and mobile applications.",
+      "id": "69139f98e6f3290001ab4e18"
     },
     {
       "title": "3D Modeling & Animation",
-      "description": "Bringing ideas to life through stunning 3D models and animations for various media projects."
+      "description": "Bringing ideas to life through stunning 3D models and animations for various media projects.",
+      "id": "69139f98e6f3290001ab4e19"
     },
     {
       "title": "Digital Marketing Materials",
-      "description": "Designing eye-catching marketing materials for digital channels to boost engagement and brand awareness."
+      "description": "Designing eye-catching marketing materials for digital channels to boost engagement and brand awareness.",
+      "id": "69139f98e6f3290001ab4e1a"
     }
   ]
 }

@@ -1,11 +1,9 @@
 {
   "id": "binmetrics",
-  "video": "https://oculair.b-cdn.net/api/v1/videos/332b28a6113e401b77b6894d3254766d15c6a9ac/3rjei659/avc",
-  "img": "https://oculair.b-cdn.net/cache/images/binmetrics-poster.jpg",
   "title": "Binmetrics",
+  "img": "",
   "description": "Innovative UI/UX design for a logistics management and asset tracking solution, featuring a guerilla marketing campaign for drone-based bin clearing.",
-  "link": "/projects/binmetrics",
-  "date": "February 2024",
-  "tags": ["UI/UX", "Logistics", "B2B Marketing"],
-  "isVideo": true
+  "link": "/portfolio/binmetrics",
+  "order": 999,
+  "date": "February 2024"
 }

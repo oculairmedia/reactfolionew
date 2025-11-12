@@ -1,41 +1,12 @@
 {
   "id": "aquatic-resonance",
   "title": "Aquatic Resonance",
-  "subtitle": "",
-  "metadata": {
-    "collaborator": "Arnie Guha",
-    "date": "March 2024",
-    "role": "Digital Animator, Creative Director",
-    "category": "Digital Animation, Art Collaboration",
-    "technologies": "Adobe After Effects, Custom JavaScript for animation"
-  },
-  "hero": {
-    "type": "video",
-    "video": "https://oculair.b-cdn.net/downloads/title.avc",
-    "alt": "Aquatic Resonance animated artwork"
-  },
-  "tags": ["Digital Animation", "Art Collaboration", "Motion Design", "Creative"],
-  "sections": [
-    {
-      "title": "Project Overview",
-      "content": "In collaboration with a close friend, Arnie Guha, this piece transforms a static canvas into a vibrant, breathing animation. Melding their original art with my digital alchemy, we've created a fluid dance of color and form, igniting the artwork with motion that resonates with the ebb and flow of oceanic life.",
-      "layout": "full-width"
-    },
-    {
-      "title": "The Process",
-      "content": "The process began with Arnie Guha's original artwork, which we then digitized and prepared for animation. Using advanced digital tools and techniques, we brought the static image to life, carefully preserving the integrity of the original piece while infusing it with dynamic movement that mimics the graceful sway of underwater flora.",
-      "layout": "two-column"
-    },
-    {
-      "title": "Services Provided",
-      "content": "Digital Animation, Art Collaboration, Motion Design, Creative Direction",
-      "layout": "two-column"
-    },
-    {
-      "title": "The Outcome",
-      "content": "Each frame of the animation is a testament to the synergy of our friendship and shared artistic vision. The piece demonstrates that art should not just be seen, but felt and experienced, inviting viewers to immerse themselves in a dynamic, ever-changing visual journey that echoes the rhythms of the ocean.",
-      "layout": "two-column"
-    }
-  ],
-  "gallery": []
+  "description": "",
+  "content": "",
+  "featured_image": "",
+  "gallery": [],
+  "technologies": [],
+  "link": "",
+  "github": "",
+  "date": "2025-11-11T20:41:56.612Z"
 }
