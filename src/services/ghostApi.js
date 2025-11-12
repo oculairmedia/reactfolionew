@@ -4,7 +4,7 @@ import GhostContentAPI from '@tryghost/content-api';
 const api = new GhostContentAPI({
   url: process.env.REACT_APP_GHOST_URL,
   key: process.env.REACT_APP_GHOST_KEY,
-  version: 'v5.0'
+  version: 'v5.0' // Can also use 'v3' or 'canary' depending on your Ghost version
 });
 
 /**
