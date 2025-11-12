@@ -79,7 +79,7 @@ export const Blog = () => {
             <Row className="mb-5">
               {posts.map((post) => (
                 <Col lg="4" md="6" className="mb-4" key={post.id}>
-                  <Card className="blog-card h-100">
+                  <Card className="blog-card">
                     {post.feature_image && (
                       <Link to={`/blog/${post.slug}`}>
                         <Card.Img
