@@ -4,7 +4,7 @@
 }
 
 .video-container {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     overflow: hidden;
     margin-bottom: 2rem;
@@ -12,6 +12,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
 
 .video-container video {
@@ -27,13 +31,17 @@
 }
 
 .main-image {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
 
 .main-image img {
