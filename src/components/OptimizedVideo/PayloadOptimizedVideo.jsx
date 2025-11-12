@@ -45,15 +45,18 @@ export const PayloadOptimizedVideo = ({
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentQuality, setCurrentQuality] = useState(quality);
 
-  // Validate that media is a video
-  if (!media || !isVideo(media)) {
+  // Handle legacy string URLs
+  const isLegacyUrl = typeof media === 'string';
+  
+  // Validate that media is a video (unless it's a legacy URL)
+  if (!isLegacyUrl && (!media || !isVideo(media))) {
     console.warn('[PayloadOptimizedVideo] Invalid video media object:', media);
     return null;
   }
 
   // Determine quality based on viewport
   useEffect(() => {
-    if (quality === 'auto') {
+    if (quality === 'auto' && !isLegacyUrl) {
       const handleResize = () => {
         const recommendedQuality = getRecommendedVideoQuality(window.innerWidth);
         setCurrentQuality(recommendedQuality);
@@ -63,7 +66,7 @@ export const PayloadOptimizedVideo = ({
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }
-  }, [quality]);
+  }, [quality, isLegacyUrl]);
 
   // Lazy loading with Intersection Observer
   useEffect(() => {
@@ -88,10 +91,10 @@ export const PayloadOptimizedVideo = ({
     return () => observer.disconnect();
   }, [lazyLoad]);
 
-  // Get video URLs
-  const videoUrl = getPayloadVideoUrl(media, currentQuality);
-  const posterUrl = getVideoThumbnailUrl(media);
-  const videoSources = generateVideoSources(media);
+  // Get video URLs - handle both Payload media objects and legacy string URLs
+  const videoUrl = isLegacyUrl ? media : getPayloadVideoUrl(media, currentQuality);
+  const posterUrl = isLegacyUrl ? null : getVideoThumbnailUrl(media);
+  const videoSources = isLegacyUrl ? [] : generateVideoSources(media);
 
   const handleLoadedData = (e) => {
     setIsLoaded(true);

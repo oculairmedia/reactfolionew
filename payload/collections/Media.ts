@@ -1,5 +1,31 @@
 import { CollectionConfig } from 'payload/types';
-import { videoOptimizationAfterHook } from '../hooks/videoOptimizationWrapper';
+
+// Dynamic hook wrapper that loads the actual hook at runtime (server-only)
+// This prevents webpack from bundling the server-only code
+// Updated: 2025-11-11 to fix webpack bundling issues
+const videoOptimizationAfterHook = async (args: any) => {
+  // Only run on server
+  if (typeof (global as any).window !== 'undefined') {
+    return args.doc;
+  }
+  
+  // Only process video files
+  if (!args.doc?.mimeType?.startsWith('video/')) {
+    return args.doc;
+  }
+  
+  try {
+    // Dynamic require at runtime - webpack can't analyze this
+    const evalRequire = eval('require');
+    const pathModule = evalRequire('path');
+    const hookPath = pathModule.join(process.cwd(), 'dist', 'payload', 'hooks', 'videoOptimizationAfter.js');
+    const hookModule = evalRequire(hookPath);
+    return await hookModule.videoOptimizationAfterHook(args);
+  } catch (error) {
+    console.error('[VideoOptimization] Failed to load hook:', error);
+    return args.doc;
+  }
+};
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -214,7 +240,7 @@ export const Media: CollectionConfig = {
       videoOptimizationAfterHook,
       async ({ doc, req, operation }) => {
         // Server-side only - skip in browser
-        if (typeof window !== 'undefined') {
+        if (typeof (global as any).window !== 'undefined') {
           return doc;
         }
 
@@ -344,7 +370,7 @@ export const Media: CollectionConfig = {
     beforeDelete: [
       async ({ req, id }) => {
         // Server-side only
-        if (typeof window !== 'undefined') {
+        if (typeof (global as any).window !== 'undefined') {
           return;
         }
 

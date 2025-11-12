@@ -22,17 +22,42 @@ export default buildConfig({
     bundler: webpackBundler(),
     webpack: (config) => {
       const webpack = require('webpack');
+      const path = require('path');
       
-      // Ignore server-side modules that use Node.js APIs
+      // CRITICAL: Tell webpack to treat ALL files from dist/ as external (don't bundle them)
+      // This is the nuclear option to prevent server-only code from being bundled
+      const existingExternals = config.externals;
+      const externalsArray = Array.isArray(existingExternals) 
+        ? existingExternals 
+        : existingExternals 
+          ? [existingExternals] 
+          : [];
+      
+      config.externals = [
+        ...externalsArray,
+        function({ context, request }: any, callback: any) {
+          // Treat anything from dist/ as external (don't bundle it)
+          if (request && (
+            request.includes('/dist/') || 
+            request.includes('\\dist\\') ||
+            request.startsWith('./dist/') ||
+            request.startsWith('../dist/')
+          )) {
+            return callback(null, 'commonjs ' + request);
+          }
+          callback();
+        },
+      ];
+      
+      // Ignore Node.js core modules completely
       config.plugins = config.plugins || [];
       config.plugins.push(
         new webpack.IgnorePlugin({
-          resourceRegExp: /^(child_process|util)$/,
-          contextRegExp: /payload[\\/]hooks/,
+          resourceRegExp: /^(child_process|util|fs|path)$/,
         })
       );
       
-      // Add fallbacks for Node.js core modules
+      // Add fallbacks for Node.js core modules (if they somehow get through)
       config.resolve = config.resolve || {};
       config.resolve.fallback = {
         ...config.resolve.fallback,
