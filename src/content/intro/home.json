@@ -2,9 +2,5 @@
   "title": "I'm Emmanuel Umukoro",
   "description": "Creative Technologist & Designer",
   "image_url": "",
-  "animated": [
-    {"text": "Designer"},
-    {"text": "Developer"},
-    {"text": "Creative Technologist"}
-  ]
+  "animated": []
 }

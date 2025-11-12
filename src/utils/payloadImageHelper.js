@@ -19,8 +19,10 @@
  * - thumbnail: JPEG poster image
  */
 
-const CDN_BASE_URL = 'https://oculair.b-cdn.net/media';
-const CMS_API_URL = 'https://cms2.emmanuelu.com/api/media';
+// Use CMS URL for uploaded media (not CDN for now)
+const CMS_BASE_URL = process.env.REACT_APP_API_URL || 'https://cms2.emmanuelu.com';
+const CDN_BASE_URL = `${CMS_BASE_URL}/media`;
+const CMS_API_URL = `${CMS_BASE_URL}/api/media`;
 
 /**
  * Generate optimized image URL from Payload media object or ID
