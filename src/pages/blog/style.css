@@ -9,7 +9,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   background-color: rgba(0, 0, 0, 0.03);
-  aspect-ratio: 5 / 7;
+  aspect-ratio: 3 / 4;
   display: flex;
   flex-direction: column;
 }
