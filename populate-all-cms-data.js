@@ -176,15 +176,39 @@ async function createProjectItem(item) {
       ? item.tags.map(t => typeof t === 'string' ? { tag: t } : t)
       : [];
 
+    // Transform gallery: convert URL strings to {type, url} objects
+    const gallery = Array.isArray(item.gallery)
+      ? item.gallery.map(url => {
+          if (typeof url === 'string') {
+            return {
+              type: url.match(/\.(mp4|webm|avi|mov|avc|hevc)$/i) ? 'video' : 'image',
+              url: url,
+              width: 'full'
+            };
+          }
+          return url;
+        })
+      : [];
+
+    // Ensure hero has required type field
+    let hero = item.hero || {};
+    if (!hero.type) {
+      hero = {
+        type: 'image',
+        image: item.featured_image || (gallery[0]?.url || ''),
+        ...hero
+      };
+    }
+
     const payload = {
       id: item.id,
       title: item.title,
       subtitle: item.subtitle || '',
       metadata: item.metadata || {},
-      hero: item.hero || {},
+      hero: hero,
       tags: tags,
       sections: item.sections || [],
-      gallery: item.gallery || [],
+      gallery: gallery,
     };
 
     const response = await axios.post(
