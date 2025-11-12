@@ -1,6 +1,10 @@
 {
   "title": "I'm Emmanuel Umukoro",
-  "description": "Turning Pixels into Priceless Experiences for Over 12 Years",
-  "image_url": "/images/unsplash-photo-1514790193030-c89d266d5a9d.jpg",
-  "animated": []
+  "description": "Creative Technologist & Designer",
+  "image_url": "",
+  "animated": [
+    {"text": "Designer"},
+    {"text": "Developer"},
+    {"text": "Creative Technologist"}
+  ]
 }

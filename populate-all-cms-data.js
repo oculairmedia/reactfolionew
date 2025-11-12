@@ -295,7 +295,7 @@ async function populateGlobals() {
   console.log('🌍 GLOBAL DATA');
   console.log('='.repeat(70));
 
-  const stats = { total: 3, created: 0, failed: 0 };
+  const stats = { total: 5, created: 0, failed: 0 };
 
   // 1. About Page
   console.log('\n1. About Page Global...');
@@ -315,13 +315,31 @@ async function populateGlobals() {
   if (homeResult) stats.created++; else stats.failed++;
   await new Promise(resolve => setTimeout(resolve, 300));
 
-  // 3. Site Settings (if global exists)
+  // 3. Site Settings
   console.log('3. Site Settings Global...');
   const settingsData = JSON.parse(
     fs.readFileSync(path.join(__dirname, 'src/content/settings/site-settings.json'), 'utf-8')
   );
   const settingsResult = await updateGlobal('site-settings', settingsData);
   if (settingsResult) stats.created++; else stats.failed++;
+  await new Promise(resolve => setTimeout(resolve, 300));
+
+  // 4. Navigation
+  console.log('4. Navigation Global...');
+  const navigationData = JSON.parse(
+    fs.readFileSync(path.join(__dirname, 'src/content/settings/navigation.json'), 'utf-8')
+  );
+  const navigationResult = await updateGlobal('navigation', navigationData);
+  if (navigationResult) stats.created++; else stats.failed++;
+  await new Promise(resolve => setTimeout(resolve, 300));
+
+  // 5. Footer
+  console.log('5. Footer Global...');
+  const footerData = JSON.parse(
+    fs.readFileSync(path.join(__dirname, 'src/content/settings/footer.json'), 'utf-8')
+  );
+  const footerResult = await updateGlobal('footer', footerData);
+  if (footerResult) stats.created++; else stats.failed++;
 
   console.log(`\n📊 Globals: ${stats.created}/${stats.total} updated\n`);
   return stats;

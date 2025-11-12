@@ -1,68 +1,7 @@
 {
-  "title": "A bit about myself",
-  "aboutme": "I'm a seasoned Digital Designer and the force behind Oculair Media. With a degree in Multimedia Design from Durham College, I blend traditional design principles with modern tech to create captivating digital experiences. I have an esteemed track record, having worked with startups, design agencies, and Fortune 500 companies, leading projects that resonate globally. A staunch advocate of Swiss typography, I draw inspiration from the precision of the Josef Müller-Brockmann grid system, which informs the clarity and functionality of my work. My portfolio showcases a commitment to this disciplined approach across web design, UX/UI, and interactive media projects, including pioneering work in immersive new media that combines digital video production with AI generative techniques. Beyond my professional endeavors, I'm dedicated to continuous learning and value collaborative work with fellow creatives, aiming to push the boundaries of digital design. Through Oculair Media, I continue to shape the future of digital experiences, marrying the elegance of Swiss design with the possibilities of new technology.",
-  "timeline": [
-    {
-      "jobtitle": "Digital Designer",
-      "where": "Incontrol",
-      "date": "Apr 2021 - Apr 2023",
-      "id": "69139f98e6f3290001ab4e10"
-    },
-    {
-      "jobtitle": "Digital Designer",
-      "where": "Branton Advertising",
-      "date": "Apr 2018 - Jan 2020",
-      "id": "69139f98e6f3290001ab4e11"
-    },
-    {
-      "jobtitle": "UX/UI Designer",
-      "where": "Apollo Metrics",
-      "date": "Apr 2014 - Apr 2017",
-      "id": "69139f98e6f3290001ab4e12"
-    }
-  ],
-  "skills": [
-    {
-      "name": "Print Design",
-      "value": 90,
-      "id": "69139f98e6f3290001ab4e13"
-    },
-    {
-      "name": "Web Design",
-      "value": 95,
-      "id": "69139f98e6f3290001ab4e14"
-    },
-    {
-      "name": "3D Animation",
-      "value": 85,
-      "id": "69139f98e6f3290001ab4e15"
-    },
-    {
-      "name": "UX/UI Design",
-      "value": 90,
-      "id": "69139f98e6f3290001ab4e16"
-    },
-    {
-      "name": "Adobe Creative Suite",
-      "value": 95,
-      "id": "69139f98e6f3290001ab4e17"
-    }
-  ],
-  "services": [
-    {
-      "title": "UI & UX Design",
-      "description": "Creating intuitive and engaging user interfaces and experiences for web and mobile applications.",
-      "id": "69139f98e6f3290001ab4e18"
-    },
-    {
-      "title": "3D Modeling & Animation",
-      "description": "Bringing ideas to life through stunning 3D models and animations for various media projects.",
-      "id": "69139f98e6f3290001ab4e19"
-    },
-    {
-      "title": "Digital Marketing Materials",
-      "description": "Designing eye-catching marketing materials for digital channels to boost engagement and brand awareness.",
-      "id": "69139f98e6f3290001ab4e1a"
-    }
-  ]
+  "title": "About Me",
+  "aboutme": "Creative technologist and designer passionate about crafting digital experiences that blend art, technology, and storytelling.",
+  "timeline": [],
+  "skills": [],
+  "services": []
 }
