@@ -101,15 +101,19 @@ GET /api/globals/home-intro
 GET /api/globals/about-page
 ```
 
-See [PAYLOAD_CMS_SETUP.md](./PAYLOAD_CMS_SETUP.md) for complete documentation.
+See the [Documentation Index](./docs/INDEX.md) for complete documentation.
 
-## Documentation
+## 📚 Documentation
 
-- **[Payload CMS Setup Guide](./PAYLOAD_CMS_SETUP.md)** - Complete setup instructions
-- **[Migration Guide](./MIGRATION_TO_PAYLOAD.md)** - Migrating from Sveltia CMS
-- **[Hybrid Deployment (Recommended)](./DOCKER_BACKEND_DEPLOYMENT.md)** - Vercel frontend + Docker backend
-- **[Full Docker Deployment](./DOCKER_DEPLOYMENT.md)** - Deploy everything with Docker
-- **[Vercel Deployment](./VERCEL_DEPLOYMENT.md)** - Deploy frontend to Vercel
+**[📖 Full Documentation Index](./docs/INDEX.md)** - Complete guide to all documentation
+
+### Quick Links
+
+- **[Quick Start Guide](./docs/QUICK-START.md)** - Get up and running fast
+- **[Payload CMS Setup](./docs/setup/PAYLOAD_CMS_SETUP.md)** - Complete setup instructions
+- **[Ghost Blog Integration](./docs/setup/GHOST_API_SETUP.md)** - Ghost CMS blog setup
+- **[Vercel + Docker Deployment](./docs/deployment/DOCKER_BACKEND_DEPLOYMENT.md)** - Recommended deployment (Vercel frontend + Docker backend)
+- **[Migration Guide](./docs/migration/MIGRATION_TO_PAYLOAD.md)** - Migrating from Sveltia CMS
 
 ## Development
 
@@ -169,12 +173,12 @@ npm start
 - Frontend on Vercel (free, fast CDN)
 - Backend on your VPS with Docker ($5-12/month)
 - Best of both worlds: speed + control
-- See [DOCKER_BACKEND_DEPLOYMENT.md](./DOCKER_BACKEND_DEPLOYMENT.md)
+- See [docs/deployment/DOCKER_BACKEND_DEPLOYMENT.md](./docs/deployment/DOCKER_BACKEND_DEPLOYMENT.md)
 
 **Option 2: Full Docker on Your Own Server**
 - Deploy everything with Docker on a VPS ($5-12/month)
 - Full control, easy backups, scales well
-- See [DOCKER_DEPLOYMENT.md](./DOCKER_DEPLOYMENT.md)
+- See [docs/deployment/DOCKER_DEPLOYMENT.md](./docs/deployment/DOCKER_DEPLOYMENT.md)
 
 **Option 3: Separate Managed Services**
 - Deploy React frontend to Vercel (free)
@@ -185,13 +189,13 @@ npm start
 - Requires additional Payload serverless configuration
 - See Payload documentation for details
 
-See deployment guides for detailed instructions.
+See [deployment guides](./docs/deployment/) for detailed instructions.
 
 ## Migration from Sveltia CMS
 
 If you're upgrading from the previous Sveltia CMS implementation:
 
-1. Follow the [Migration Guide](./MIGRATION_TO_PAYLOAD.md)
+1. Follow the [Migration Guide](./docs/migration/MIGRATION_TO_PAYLOAD.md)
 2. Use the provided migration scripts or manual process
 3. Update frontend components to use Payload API
 4. Test thoroughly before production deployment
