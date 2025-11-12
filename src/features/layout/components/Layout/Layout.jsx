@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Navigation } from '../Navigation/Navigation';
 import { Socialicons } from '../../../../components/socialicons';
+import { ContactFooter } from '../../../../components/ContactFooter';
 import { LoadingSpinner } from '../../../../components/LoadingSpinner';
 import './Layout.css';
 
@@ -23,6 +24,7 @@ export const Layout = ({ children }) => {
           </AnimatePresence>
         </Suspense>
       </main>
+      <ContactFooter />
       <Socialicons />
     </div>
   );
