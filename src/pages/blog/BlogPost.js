@@ -86,13 +86,14 @@ export const BlogPost = () => {
           {post.og_image && <meta property="og:image" content={post.og_image} />}
           {post.twitter_image && <meta name="twitter:image" content={post.twitter_image} />}
         </Helmet>
-        <div className="content-container">
-          <div className="blog-back-button">
-            <Link to="/blog" className="btn btn-outline-primary btn-sm">
-              ← Back to Blog
-            </Link>
-          </div>
 
+        <div className="blog-back-button">
+          <Link to="/blog" className="blog-back-btn">
+            ← Back to Blog
+          </Link>
+        </div>
+
+        <div className="content-container">
           <Row>
             <Col lg="10" className="mx-auto">
               <article className="blog-post">
