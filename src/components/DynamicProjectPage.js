@@ -355,14 +355,14 @@ const DynamicProjectPage = () => {
         <meta name="description" content={project.subtitle || meta.description} />
       </Helmet>
 
+      {renderHero()}
+
       <motion.div
         className="main-content"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        {renderHero()}
-
         <Container className="content-wrapper">
           <motion.div
             variants={containerVariants}
