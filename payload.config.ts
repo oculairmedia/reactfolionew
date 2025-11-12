@@ -39,35 +39,60 @@ export default buildConfig({
           ? [existingExternals] 
           : [];
       
+      // Mark Node.js-only modules as external (don't bundle for browser)
       config.externals = [
         ({ request }: { request?: string }, callback: any) => {
-          if (request && request.match(/^(child_process|fs|path|util)$/)) {
+          // These modules should NOT be bundled for the browser
+          if (request && request.match(/^(child_process|fs|worker_threads|module|uglify-js|@swc\/wasm)$/)) {
+            return callback(null, 'commonjs ' + request);
+          }
+          // Ignore .node binary files and @swc/core native bindings
+          if (request && (request.endsWith('.node') || request.includes('@swc/core-'))) {
             return callback(null, 'commonjs ' + request);
           }
           callback();
         },
       ];
       
-      // Ignore Node.js core modules completely
+      // Provide global polyfills and ignore problematic modules
       config.plugins = config.plugins || [];
       config.plugins.push(
         new webpack.ProvidePlugin({
           Buffer: ['buffer', 'Buffer'],
           process: 'process/browser',
+        }),
+        // Ignore .node binaries and SWC native modules
+        new webpack.IgnorePlugin({
+          resourceRegExp: /\.node$/,
+        }),
+        new webpack.IgnorePlugin({
+          resourceRegExp: /@swc\/core-(linux|darwin|win32|freebsd)/,
+        }),
+        new webpack.IgnorePlugin({
+          resourceRegExp: /@swc\/wasm/,
         })
       );
       
+      // Add browser polyfills for Node.js core modules
       config.resolve = config.resolve || {};
       config.resolve.fallback = {
         ...config.resolve.fallback,
+        assert: requireShim.resolve('assert/'),
         buffer: requireShim.resolve('buffer/'),
-        process: requireShim.resolve('process/browser'),
-        stream: requireShim.resolve('stream-browserify'),
-        util: requireShim.resolve('util/'),
-        path: requireShim.resolve('path-browserify'),
+        constants: requireShim.resolve('constants-browserify'),
         crypto: requireShim.resolve('crypto-browserify'),
+        os: requireShim.resolve('os-browserify/browser'),
+        path: requireShim.resolve('path-browserify'),
+        process: requireShim.resolve('process/browser'),
+        querystring: requireShim.resolve('querystring-es3'),
+        stream: requireShim.resolve('stream-browserify'),
+        tty: requireShim.resolve('tty-browserify'),
+        url: requireShim.resolve('url/'),
+        util: requireShim.resolve('util/'),
         vm: requireShim.resolve('vm-browserify'),
+        zlib: requireShim.resolve('browserify-zlib'),
       };
+
 
       
       return config;
