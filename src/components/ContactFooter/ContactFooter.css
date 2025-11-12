@@ -28,6 +28,15 @@
   opacity: 0.8;
 }
 
+[data-theme="dark"] .contact-footer address a {
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .contact-footer address a:hover {
+  color: var(--text-color);
+  opacity: 0.9;
+}
+
 .contact-footer .contact__form {
   max-width: 100%;
 }
