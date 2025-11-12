@@ -85,7 +85,21 @@ const AquaticResonance = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
         >
-          <video ref={videoRef} autoPlay loop muted playsInline>
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              position: 'absolute',
+              top: 0,
+              left: 0
+            }}
+          >
             <source src={projectData.videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
           </video>

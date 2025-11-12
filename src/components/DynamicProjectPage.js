@@ -138,6 +138,14 @@ const DynamicProjectPage = () => {
             loop
             muted
             playsInline
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              position: 'absolute',
+              top: 0,
+              left: 0
+            }}
           >
             <source src={project.hero.video} type="video/mp4" />
             Your browser does not support the video tag.
@@ -157,7 +165,14 @@ const DynamicProjectPage = () => {
           <img
             src={project.hero.image}
             alt={project.hero.alt || project.title}
-            style={{ width: '100%', height: 'auto' }}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              position: 'absolute',
+              top: 0,
+              left: 0
+            }}
           />
         </motion.div>
       );
