@@ -24,7 +24,8 @@ import ContactPage from './payload/globals/ContactPage';
 import UIText from './payload/globals/UIText';
 
 export default buildConfig({
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001',
+  // Use window.location.origin in browser for admin, env var for server
+  serverURL: typeof window !== 'undefined' ? window.location.origin : (process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001'),
   admin: {
     user: 'users',
     bundler: webpackBundler(),
@@ -131,6 +132,8 @@ export default buildConfig({
   cors: [
     process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001',
     process.env.REACT_APP_URL || 'http://localhost:3000',
+    'http://192.168.50.90:3006',
+    'http://localhost:3006',
     'https://cms.emmanuelu.com',
     'https://cms2.emmanuelu.com',
     'https://www.emmanuelu.com',
@@ -139,6 +142,8 @@ export default buildConfig({
   csrf: [
     process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001',
     process.env.REACT_APP_URL || 'http://localhost:3000',
+    'http://192.168.50.90:3006',
+    'http://localhost:3006',
     'https://cms.emmanuelu.com',
     'https://cms2.emmanuelu.com',
     'https://www.emmanuelu.com',
