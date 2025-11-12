@@ -89,9 +89,9 @@ export const PayloadOptimizedImage = ({
   // Get alt text from media object or prop
   const altText = alt || media?.alt || '';
 
-  // Get dimensions from media object
-  const imgWidth = width || media?.width;
-  const imgHeight = height || media?.height;
+  // Get dimensions from media object (only use if explicitly provided)
+  const imgWidth = width;
+  const imgHeight = height;
 
   if (!mainSrc) {
     return (
@@ -103,11 +103,17 @@ export const PayloadOptimizedImage = ({
     );
   }
 
+  // Only set explicit dimensions if provided via props
+  // Otherwise, let CSS handle sizing (responsive)
+  const containerStyle = (imgWidth && imgHeight) 
+    ? { width: imgWidth, height: imgHeight }
+    : undefined;
+
   return (
     <div
       ref={imgRef}
       className={`optimized-image-container ${className}`}
-      style={{ width: imgWidth, height: imgHeight }}
+      style={containerStyle}
     >
       <AnimatePresence mode="wait">
         {!isLoaded && !error && (
@@ -133,8 +139,6 @@ export const PayloadOptimizedImage = ({
             srcSet={srcSet}
             sizes={sizesAttr}
             alt={altText}
-            width={imgWidth}
-            height={imgHeight}
             onLoad={() => setIsLoaded(true)}
             onError={() => setError(true)}
             initial={{ opacity: 0 }}

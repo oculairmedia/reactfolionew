@@ -118,7 +118,7 @@ const PortfolioItem = ({ data, index }) => {
           <PayloadOptimizedImage
             media={featuredImage}
             alt={data.title}
-            size="medium"
+            size="small"
             responsive={true}
             lazyLoad={true}
             onLoad={() => setIsLoaded(true)}
