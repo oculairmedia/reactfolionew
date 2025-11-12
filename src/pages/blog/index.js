@@ -120,7 +120,7 @@ export const Blog = () => {
                             </>
                           )}
                         </div>
-                        <Link to={`/blog/${post.slug}`} className="btn btn-primary btn-sm mt-3">
+                        <Link to={`/blog/${post.slug}`} className="blog-read-more-btn mt-3">
                           Read More
                         </Link>
                       </div>

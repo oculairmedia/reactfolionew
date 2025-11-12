@@ -8,15 +8,17 @@
   border-radius: 8px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
+  background-color: var(--bg-color);
 }
 
 .blog-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .blog-card-img {
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 2 / 3;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
@@ -43,6 +45,38 @@
 
 .blog-meta {
   font-size: 0.875rem;
+}
+
+/* Read More Button */
+.blog-read-more-btn {
+  display: inline-block;
+  padding: 8px 20px;
+  color: var(--secondary-color);
+  background-color: transparent;
+  border: var(--secondary-color) 2px solid;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.blog-read-more-btn:hover {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+  text-decoration: none;
+  transform: scale(1.05);
+}
+
+/* Dark mode card enhancements */
+[data-theme="dark"] .blog-card {
+  background-color: var(--bg-color);
+  border-color: var(--color-border);
+}
+
+[data-theme="dark"] .blog-card:hover {
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
 }
 
 /* Single Post Styles */
