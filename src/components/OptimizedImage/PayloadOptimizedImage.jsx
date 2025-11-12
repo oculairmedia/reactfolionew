@@ -67,7 +67,7 @@ export const PayloadOptimizedImage = ({
         ref={imgRef}
         src={media}
         alt={alt || ''}
-        className={className}
+        className={`${className} ${isLoaded ? 'loaded' : ''}`}
         loading={lazyLoad ? 'lazy' : 'eager'}
         onLoad={() => setIsLoaded(true)}
         onError={() => setError(true)}
@@ -139,6 +139,7 @@ export const PayloadOptimizedImage = ({
             srcSet={srcSet}
             sizes={sizesAttr}
             alt={altText}
+            className={`${className} ${isLoaded ? 'loaded' : ''}`}
             onLoad={() => setIsLoaded(true)}
             onError={() => setError(true)}
             initial={{ opacity: 0 }}
