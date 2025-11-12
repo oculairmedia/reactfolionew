@@ -18,7 +18,7 @@
 
 .blog-card-img {
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 5 / 7;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
