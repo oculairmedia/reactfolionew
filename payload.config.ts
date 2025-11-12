@@ -3,6 +3,9 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb';
 import { webpackBundler } from '@payloadcms/bundler-webpack';
 import { slateEditor } from '@payloadcms/richtext-slate';
 import path from 'path';
+import webpack from 'webpack';
+// @ts-ignore - require is available in CommonJS/Node environment during bundling
+const requireShim = require;
 
 // Collections
 import { Projects } from './payload/collections/Projects';
@@ -14,6 +17,11 @@ import { Media } from './payload/collections/Media';
 import { SiteSettings } from './payload/collections/SiteSettings';
 import { HomeIntro } from './payload/globals/HomeIntro';
 import { AboutPage } from './payload/globals/AboutPage';
+import Navigation from './payload/globals/Navigation';
+import Footer from './payload/globals/Footer';
+import PortfolioPage from './payload/globals/PortfolioPage';
+import ContactPage from './payload/globals/ContactPage';
+import UIText from './payload/globals/UIText';
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001',
@@ -21,8 +29,6 @@ export default buildConfig({
     user: 'users',
     bundler: webpackBundler(),
     webpack: (config) => {
-      const webpack = require('webpack');
-      const path = require('path');
       
       // CRITICAL: Tell webpack to treat ALL files from dist/ as external (don't bundle them)
       // This is the nuclear option to prevent server-only code from being bundled
@@ -34,15 +40,8 @@ export default buildConfig({
           : [];
       
       config.externals = [
-        ...externalsArray,
-        function({ context, request }: any, callback: any) {
-          // Treat anything from dist/ as external (don't bundle it)
-          if (request && (
-            request.includes('/dist/') || 
-            request.includes('\\dist\\') ||
-            request.startsWith('./dist/') ||
-            request.startsWith('../dist/')
-          )) {
+        ({ request }: { request?: string }, callback: any) => {
+          if (request && request.match(/^(child_process|fs|path|util)$/)) {
             return callback(null, 'commonjs ' + request);
           }
           callback();
@@ -52,24 +51,24 @@ export default buildConfig({
       // Ignore Node.js core modules completely
       config.plugins = config.plugins || [];
       config.plugins.push(
-        new webpack.IgnorePlugin({
-          resourceRegExp: /^(child_process|util|fs|path)$/,
+        new webpack.ProvidePlugin({
+          Buffer: ['buffer', 'Buffer'],
+          process: 'process/browser',
         })
       );
       
-      // Add fallbacks for Node.js core modules (if they somehow get through)
       config.resolve = config.resolve || {};
       config.resolve.fallback = {
         ...config.resolve.fallback,
-        child_process: false,
-        fs: false,
-        util: false,
-        path: false,
-        crypto: false,
-        stream: false,
-        buffer: false,
-        process: false,
+        buffer: requireShim.resolve('buffer/'),
+        process: requireShim.resolve('process/browser'),
+        stream: requireShim.resolve('stream-browserify'),
+        util: requireShim.resolve('util/'),
+        path: requireShim.resolve('path-browserify'),
+        crypto: requireShim.resolve('crypto-browserify'),
+        vm: requireShim.resolve('vm-browserify'),
       };
+
       
       return config;
     },
@@ -89,6 +88,11 @@ export default buildConfig({
     SiteSettings,
     HomeIntro,
     AboutPage,
+    Navigation,
+    Footer,
+    PortfolioPage,
+    ContactPage,
+    UIText,
   ],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
