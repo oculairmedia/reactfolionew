@@ -69,7 +69,8 @@ const PortfolioItem = ({ data, index }) => {
 
   // Get media URLs - support both Payload media objects and legacy string URLs
   const featuredImage = data.featured_image || data.featuredImage || data.img;
-  const featuredVideo = data.featured_video || data.featuredVideo || data.video;
+  // When isVideo is true, the video URL is in data.img
+  const featuredVideo = data.isVideo ? data.img : (data.featured_video || data.featuredVideo || data.video);
   
   // Debug logging
   if (!featuredImage && !featuredVideo) {
@@ -77,7 +78,7 @@ const PortfolioItem = ({ data, index }) => {
   }
   
   // Check if featured media is a video
-  const hasVideo = (data.isVideo && featuredVideo) || (featuredVideo && isVideo(featuredVideo));
+  const hasVideo = data.isVideo || (featuredVideo && isVideo(featuredVideo));
 
   return (
     <motion.div
