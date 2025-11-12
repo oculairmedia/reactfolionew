@@ -25,6 +25,7 @@ import UIText from './payload/globals/UIText';
 
 export default buildConfig({
   // Use window.location.origin in browser for admin, env var for server
+  // @ts-ignore - window is available in browser context
   serverURL: typeof window !== 'undefined' ? window.location.origin : (process.env.PAYLOAD_PUBLIC_SERVER_URL || 'http://localhost:3001'),
   admin: {
     user: 'users',
