@@ -50,6 +50,11 @@ Welcome to the Personal Site documentation! This guide will help you find the in
 - **[MCP Density Improvement Proposal](MCP_DENSITY_IMPROVEMENT_PROPOSAL.md)** - MCP server optimization proposal
 - **[FastMCP CMS Server PRD](PRD-FastMCP-CMS-Server.md)** - Product requirements document
 
+## 🔄 Content Resilience
+
+- **[CMS Fallback Implementation](CMS_FALLBACK_IMPLEMENTATION.md)** - CMS-first with fallback architecture guide
+- **[Legacy Content Analysis](LEGACY_CONTENT_ANALYSIS.md)** - Analysis of legacy content and fallback strategy
+
 ## 📝 Project History
 
 - **[Changelog](CHANGELOG.md)** - Project version history and changes
