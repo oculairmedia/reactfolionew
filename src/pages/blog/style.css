@@ -38,7 +38,7 @@
 }
 
 .blog-title-link:hover {
-  color: var(--primary-color);
+  color: #ff0000;
 }
 
 .blog-excerpt {
