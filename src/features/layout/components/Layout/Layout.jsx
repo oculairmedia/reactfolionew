@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import { Navigation } from '../Navigation/Navigation';
 import { Socialicons } from '../../../../components/socialicons';
 import { ContactFooter } from '../../../../components/ContactFooter';
@@ -7,6 +8,9 @@ import { LoadingSpinner } from '../../../../components/LoadingSpinner';
 import './Layout.css';
 
 export const Layout = ({ children }) => {
+  const location = useLocation();
+  const isContactPage = location.pathname === '/contact';
+
   return (
     <div className="layout">
       <Navigation />
@@ -24,7 +28,7 @@ export const Layout = ({ children }) => {
           </AnimatePresence>
         </Suspense>
       </main>
-      <ContactFooter />
+      {!isContactPage && <ContactFooter />}
       <Socialicons />
     </div>
   );
