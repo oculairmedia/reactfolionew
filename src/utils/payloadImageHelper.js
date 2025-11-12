@@ -240,17 +240,19 @@ export const convertLegacyCdnUrl = (oldCdnUrl) => {
  */
 
 /**
- * Get video URL from Payload media object
- * @param {object} media - Payload media object with video_sizes
+ * Get video URL from Payload media object or URL string
+ * @param {object|string} media - Payload media object with video_sizes, media ID, or URL string
  * @param {string} quality - Quality level: 'low', 'medium', 'high', 'full', or 'original'
  * @returns {string} CDN URL for the video
  */
 export const getPayloadVideoUrl = (media, quality = 'medium') => {
-  // Handle direct filename strings
+  // Handle direct URL strings (including legacy CDN URLs)
   if (typeof media === 'string') {
+    // If it's already a full URL, return as-is
     if (media.startsWith('http')) {
       return media;
     }
+    // If it's just a filename, construct CMS URL
     return `${CDN_BASE_URL}/${media}`;
   }
 

@@ -249,7 +249,7 @@ const DynamicProjectPage = () => {
                           alt={item.caption || `${project.title} - Image ${index + 1}`}
                           fluid
                         />
-                      ) : (
+                      ) : item.type === 'video' ? (
                         <video
                           ref={el => videoRefs.current.push(el)}
                           autoPlay
@@ -257,10 +257,22 @@ const DynamicProjectPage = () => {
                           muted
                           playsInline
                           style={{ width: '100%' }}
+                          onError={(e) => {
+                            console.error('Video load error:', item.url, e);
+                          }}
+                          onLoadedData={() => {
+                            console.log('Video loaded:', item.url);
+                          }}
                         >
                           <source src={item.url} type="video/mp4" />
                           Your browser does not support the video tag.
                         </video>
+                      ) : (
+                        <Image
+                          src={item.url}
+                          alt={item.caption || `${project.title} - Image ${index + 1}`}
+                          fluid
+                        />
                       )}
                     </motion.div>
                   </Col>
@@ -291,7 +303,7 @@ const DynamicProjectPage = () => {
                     alt={item.caption || `${project.title} - Image ${index + 1}`}
                     fluid
                   />
-                ) : (
+                ) : item.type === 'video' ? (
                   <video
                     ref={el => videoRefs.current.push(el)}
                     autoPlay
@@ -299,10 +311,22 @@ const DynamicProjectPage = () => {
                     muted
                     playsInline
                     style={{ width: '100%' }}
+                    onError={(e) => {
+                      console.error('Video load error (full width):', item.url, e);
+                    }}
+                    onLoadedData={() => {
+                      console.log('Video loaded (full width):', item.url);
+                    }}
                   >
                     <source src={item.url} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
+                ) : (
+                  <Image
+                    src={item.url}
+                    alt={item.caption || `${project.title} - Image ${index + 1}`}
+                    fluid
+                  />
                 )}
               </motion.div>
               {item.caption && (
