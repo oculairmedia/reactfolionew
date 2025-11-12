@@ -21,6 +21,8 @@ const Branton = lazy(() => import(/* webpackChunkName: "project-branton" */ '../
 const Binmetrics = lazy(() => import(/* webpackChunkName: "project-binmetrics" */ '../pages/projects/Binmetrics'));
 const VHBTapes = lazy(() => import(/* webpackChunkName: "project-vhb" */ '../pages/projects/3MVHBTapes'));
 const CoupleIsh = lazy(() => import(/* webpackChunkName: "project-couple" */ '../pages/projects/CoupleIsh'));
+const Blog = lazy(() => import(/* webpackChunkName: "blog" */ '../pages/blog'));
+const BlogPost = lazy(() => import(/* webpackChunkName: "blog-post" */ '../pages/blog/BlogPost'));
 
 const App = () => {
   usePerformance();
@@ -56,7 +58,8 @@ const App = () => {
             <Route path="/projects/aquatic-resonance" element={<AquaticResonance />} />
             <Route path="/projects/branton" element={<Branton />} />
             <Route path="/projects/couple-ish" element={<CoupleIsh />} />
-            <Route path="/blog" element={<Navigate to="https://blog.emmanuelu.com/" replace />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>

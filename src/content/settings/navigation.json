@@ -26,8 +26,8 @@
     },
     {
       "label": "Blog",
-      "path": "https://blog.emmanuelu.com/",
-      "external": true,
+      "path": "/blog",
+      "external": false,
       "order": 5
     }
   ]

@@ -65,7 +65,7 @@ const Headermain = () => {
                   <Link onClick={handleToggle} to="/contact" className="my-3"> Contact</Link>
                   </li>
                   <li className="menu_item">
-                  <a href="https://blog.emmanuelu.com/" onClick={handleToggle} className="my-3" target="_blank" rel="noopener noreferrer">Blog</a>
+                  <Link onClick={handleToggle} to="/blog" className="my-3">Blog</Link>
                   </li>
                 </ul>
               </div>
