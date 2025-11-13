@@ -181,17 +181,51 @@ const DynamicProjectPage = () => {
     return null;
   };
 
-  // Helper to render content sections
+  // Helper to render content sections with automatic image interleaving
   const renderSections = () => {
     if (!project.sections || project.sections.length === 0) return null;
 
-    return project.sections.map((section, index) => {
-      const isFullWidth = !section.layout || section.layout === 'full-width';
+    const sections = project.sections;
+    const galleryImages = project.gallery ? project.gallery.map(item => 
+      typeof item === 'string' ? item : item.url || item
+    ) : [];
 
-      return (
-        <Row className="sec_sp" key={index}>
-          {isFullWidth ? (
-            <Col lg="12">
+    const elements = [];
+    let imageIndex = 0;
+
+    sections.forEach((section, index) => {
+      // Determine if we should show an image with this section
+      const shouldShowImage = imageIndex < galleryImages.length;
+      
+      // Alternate layout pattern: image-left, image-right, full-width
+      let layoutPattern;
+      if (index % 3 === 0) {
+        layoutPattern = 'image-left';
+      } else if (index % 3 === 1) {
+        layoutPattern = 'image-right';
+      } else {
+        layoutPattern = 'full-width';
+      }
+
+      // IMAGE-LEFT: Image on left, text on right
+      if (layoutPattern === 'image-left' && shouldShowImage) {
+        elements.push(
+          <Row className="sec_sp align-items-center" key={`section-${index}`}>
+            <Col lg="5" md="12" className="mb-4 mb-lg-0">
+              <motion.div 
+                variants={itemVariants} 
+                whileHover={{ scale: 1.02 }}
+                style={{ overflow: 'hidden', borderRadius: '4px' }}
+              >
+                <Image 
+                  src={galleryImages[imageIndex]} 
+                  alt={section.title} 
+                  fluid 
+                  style={{ width: '100%', height: 'auto' }} 
+                />
+              </motion.div>
+            </Col>
+            <Col lg="7" md="12">
               <motion.h3 variants={itemVariants} className="color_sec py-4">
                 {section.title}
               </motion.h3>
@@ -199,29 +233,89 @@ const DynamicProjectPage = () => {
                 <ReactMarkdown>{section.content}</ReactMarkdown>
               </motion.div>
             </Col>
-          ) : (
-            // Two-column layout: title above content in narrower column
-            <>
-              <Col lg="2" md="1">
-                {/* Empty spacer column for better visual balance */}
-              </Col>
-              <Col lg="8" md="10">
-                <motion.h3 variants={itemVariants} className="color_sec py-4">
-                  {section.title}
-                </motion.h3>
-                <motion.div variants={itemVariants}>
-                  <ReactMarkdown>{section.content}</ReactMarkdown>
-                </motion.div>
-              </Col>
-              <Col lg="2" md="1">
-                {/* Empty spacer column for better visual balance */}
-              </Col>
-            </>
-          )}
+          </Row>
+        );
+        imageIndex++;
+        return;
+      }
+
+      // IMAGE-RIGHT: Text on left, image on right
+      if (layoutPattern === 'image-right' && shouldShowImage) {
+        elements.push(
+          <Row className="sec_sp align-items-center" key={`section-${index}`}>
+            <Col lg="7" md="12" className="mb-4 mb-lg-0 order-2 order-lg-1">
+              <motion.h3 variants={itemVariants} className="color_sec py-4">
+                {section.title}
+              </motion.h3>
+              <motion.div variants={itemVariants}>
+                <ReactMarkdown>{section.content}</ReactMarkdown>
+              </motion.div>
+            </Col>
+            <Col lg="5" md="12" className="order-1 order-lg-2 mb-4 mb-lg-0">
+              <motion.div 
+                variants={itemVariants} 
+                whileHover={{ scale: 1.02 }}
+                style={{ overflow: 'hidden', borderRadius: '4px' }}
+              >
+                <Image 
+                  src={galleryImages[imageIndex]} 
+                  alt={section.title} 
+                  fluid 
+                  style={{ width: '100%', height: 'auto' }} 
+                />
+              </motion.div>
+            </Col>
+          </Row>
+        );
+        imageIndex++;
+        return;
+      }
+
+      // FULL-WIDTH: Text only
+      elements.push(
+        <Row className="sec_sp" key={`section-${index}`}>
+          <Col lg="10" md="12" className="mx-auto">
+            <motion.h3 variants={itemVariants} className="color_sec py-4">
+              {section.title}
+            </motion.h3>
+            <motion.div variants={itemVariants}>
+              <ReactMarkdown>{section.content}</ReactMarkdown>
+            </motion.div>
+          </Col>
         </Row>
       );
     });
+
+    // Add any remaining gallery images
+    if (imageIndex < galleryImages.length) {
+      const remainingImages = galleryImages.slice(imageIndex);
+      
+      elements.push(
+        <Row className="sec_sp" key="remaining-gallery">
+          <Col lg="12">
+            <motion.h3 variants={itemVariants} className="color_sec py-4 text-center">
+              More from the Project
+            </motion.h3>
+          </Col>
+          {remainingImages.map((img, idx) => (
+            <Col lg={remainingImages.length === 1 ? 12 : 6} md="12" className="mb-4" key={`extra-img-${idx}`}>
+              <motion.div 
+                variants={itemVariants} 
+                whileHover={{ scale: 1.02 }}
+                style={{ overflow: 'hidden', borderRadius: '4px' }}
+              >
+                <Image src={img} alt={`Gallery image ${imageIndex + idx + 1}`} fluid />
+              </motion.div>
+            </Col>
+          ))}
+        </Row>
+      );
+    }
+
+    return elements;
   };
+
+
 
   // Helper to render gallery
   const renderGallery = () => {
@@ -394,7 +488,7 @@ const DynamicProjectPage = () => {
             </Row>
 
             {renderSections()}
-            {renderGallery()}
+            {/* Gallery images are now mixed into sections automatically */}
             {renderMetadata()}
           </motion.div>
         </Container>
