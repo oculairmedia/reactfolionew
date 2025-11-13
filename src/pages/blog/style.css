@@ -96,7 +96,7 @@
 }
 
 [data-theme="dark"] .blog-card:hover {
-  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+  /* Glow effect removed */
 }
 
 /* Single Post Styles */
@@ -234,7 +234,6 @@
 .blog-back-btn:hover {
   color: var(--primary-color);
   background-color: var(--secondary-color);
-  box-shadow: 8px 8px 0px var(--text-color), -8px -8px 0px var(--text-color);
   text-decoration: none;
 }
 
