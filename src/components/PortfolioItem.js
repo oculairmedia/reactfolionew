@@ -70,10 +70,10 @@ const PortfolioItem = ({ data, index }) => {
   // Get media URLs - support both Payload media objects and legacy string URLs
   // When isVideo is true, the video URL is in data.img
   const featuredVideo = data.isVideo ? data.img : (data.featured_video || data.featuredVideo || data.video);
-  // For images, use img field; for videos, use featuredImage object if available (poster)
+  // For images, prioritize img field (has correct CDN URLs), fallback to featuredImage object
   const featuredImage = data.isVideo 
     ? (data.featuredImage || data.featured_image) 
-    : (data.featured_image || data.featuredImage || data.img);
+    : (data.img || data.featured_image || data.featuredImage);
   
   // Debug logging
   if (!featuredImage && !featuredVideo) {
