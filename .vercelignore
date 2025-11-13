@@ -35,8 +35,10 @@ large-files.txt
 *.swo
 *~
 
-# Scripts (not needed in deployment)
-scripts
+# Scripts (some needed for build)
+# Keep sync-content.js for prebuild step
+scripts/*.js
+!scripts/sync-content.js
 
 # Documentation
 *.md
