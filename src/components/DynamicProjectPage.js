@@ -310,8 +310,7 @@ const DynamicProjectPage = () => {
         </Col>
       </Row>
     );
-
-
+  };
 
   // Helper to render metadata
   const renderMetadata = () => {
