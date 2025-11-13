@@ -1,9 +1,10 @@
 {
   "id": "voices-unheard",
   "title": "Voices Unheard: The Church and Marginalized Communities",
-  "img": "",
+  "img": "https://oculair.b-cdn.net/api/v1/videos/bfbad3bf0b671badf4eb75634e9f15407ffd60ad/3rjei659/hevc",
+  "isVideo": true,
   "description": "A video collaboration for Inter/Access IA 360° Showcase Exhibition, using AI-generated imagery to create a new 'church' for Indigenous, Queer, and POC folks.",
-  "link": "/portfolio/voices-unheard",
+  "link": "/projects/voices-unheard",
   "order": 999,
   "date": "November 2023"
 }

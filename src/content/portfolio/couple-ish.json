@@ -1,9 +1,10 @@
 {
   "id": "couple-ish",
   "title": "Couple-Ish",
-  "img": "",
+  "img": "https://oculair.b-cdn.net/cache/images/28690189625a7d5ecf17b8a213a41e053b848ab9.jpg",
+  "isVideo": false,
   "description": "Promotional poster design for a new Canadian LGBTQ web series, conveying unique character personalities and increasing collectability.",
-  "link": "/portfolio/couple-ish",
+  "link": "/projects/couple-ish",
   "order": 999,
   "date": "February 2024"
 }

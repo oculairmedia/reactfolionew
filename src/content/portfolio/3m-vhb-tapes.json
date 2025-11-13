@@ -1,9 +1,10 @@
 {
   "id": "3m-vhb-tapes",
   "title": "3M VHB Tapes",
-  "img": "",
+  "img": "https://oculair.b-cdn.net/cache/images/b1d7b284701359f4d25a324dd3ac3068023b3767.jpg",
+  "isVideo": false,
   "description": "A 3D illustration campaign for 3M VHB Tapes, showcasing the product's role in modern construction with compelling visuals.",
-  "link": "/portfolio/3m-vhb-tapes",
+  "link": "/projects/3m-vhb-tapes",
   "order": 999,
   "date": "February 2024"
 }

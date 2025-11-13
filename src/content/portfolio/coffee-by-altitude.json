@@ -1,9 +1,10 @@
 {
   "id": "coffee-by-altitude",
   "title": "Coffee by Altitude",
-  "img": "",
+  "img": "https://oculair.b-cdn.net/cache/images/projects/work_coffee-by-altitude/coffee-by-altitude-2.jpg",
+  "isVideo": false,
   "description": "Brand identity and e-commerce for a specialty coffee roaster.",
-  "link": "/portfolio/coffee-by-altitude",
+  "link": "/projects/coffee-by-altitude",
   "order": 999,
   "date": "2025-11-11"
 }

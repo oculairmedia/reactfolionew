@@ -1,9 +1,10 @@
 {
   "id": "liebling-wines",
   "title": "Liebling Wines",
-  "img": "",
+  "img": "https://oculair.b-cdn.net/cache/images/projects/work_liebling-wines/liebling-wines-2.jpg",
+  "isVideo": false,
   "description": "E-commerce solution and brand identity for a boutique winery.",
-  "link": "/portfolio/liebling-wines",
+  "link": "/projects/liebling-wines",
   "order": 999,
   "date": "2025-11-11"
 }

@@ -1,9 +1,10 @@
 {
   "id": "super-burgers",
   "title": "Super! Burgers & Fries",
-  "img": "",
+  "img": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-2.jpg",
+  "isVideo": false,
   "description": "Brand identity and digital design for a modern fast-food chain.",
-  "link": "/portfolio/super-burgers",
+  "link": "/projects/super-burgers",
   "order": 999,
   "date": "2025-11-11"
 }

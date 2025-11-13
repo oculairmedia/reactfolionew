@@ -1,9 +1,10 @@
 {
   "id": "aquatic-resonance",
   "title": "Aquatic Resonance",
-  "img": "",
+  "img": "https://oculair.b-cdn.net/downloads/title.avc",
+  "isVideo": true,
   "description": "A collaborative piece that transforms static canvas into a vibrant, breathing animation, evoking the fluid dance of underwater flora through a fusion of original art and digital alchemy.",
-  "link": "/portfolio/aquatic-resonance",
+  "link": "/projects/aquatic-resonance",
   "order": 999,
   "date": "March 2024"
 }

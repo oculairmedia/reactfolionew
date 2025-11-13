@@ -1,9 +1,10 @@
 {
   "id": "merchant-ale-house",
   "title": "The Merchant Ale House",
-  "img": "",
+  "img": "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-2.jpg",
+  "isVideo": false,
   "description": "A complete digital overhaul for a classic ale house.",
-  "link": "/portfolio/merchant-ale-house",
+  "link": "/projects/merchant-ale-house",
   "order": 999,
   "date": "2025-11-11"
 }

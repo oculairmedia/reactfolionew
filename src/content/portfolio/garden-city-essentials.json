@@ -1,9 +1,10 @@
 {
   "id": "garden-city-essentials",
   "title": "Garden City Essentials",
-  "img": "",
+  "img": "https://oculair.b-cdn.net/cache/images/projects/work_garden-city-essentials/garden-city-essentials-2.jpg",
+  "isVideo": false,
   "description": "Web presence for an eco-friendly essentials brand.",
-  "link": "/portfolio/garden-city-essentials",
+  "link": "/projects/garden-city-essentials",
   "order": 999,
   "date": "2025-11-11"
 }

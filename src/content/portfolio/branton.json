@@ -1,9 +1,10 @@
 {
   "id": "branton",
   "title": "Branton",
-  "img": "",
+  "img": "https://oculair.b-cdn.net/api/v1/videos/f200bfc144e110dc4821384c82dca7d6fbd67c66/3rjei659/avc",
+  "isVideo": true,
   "description": "Elevating brand presence for a London-based design firm with industrial clientele through innovative visual treatments.",
-  "link": "/portfolio/branton",
+  "link": "/projects/branton",
   "order": 999,
   "date": "January 2021"
 }

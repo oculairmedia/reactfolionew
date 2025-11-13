@@ -157,9 +157,10 @@ const SYNC_MAP = {
     itemTransform: (item) => ({
       id: item.id,
       title: item.title,
-      img: item.featured_image?.cdn_url || item.featured_image?.url || item.image || '',
+      img: item.img || item.featured_image?.cdn_url || item.featured_image?.url || item.image || '',
+      isVideo: item.isVideo || false,
       description: item.short_description || item.description || '',
-      link: `/portfolio/${item.id}`,
+      link: item.link || `/portfolio/${item.id}`,
       order: item.order || 999,
       date: item.date || item.createdAt || ''
     }),
