@@ -68,9 +68,12 @@ const PortfolioItem = ({ data, index }) => {
   };
 
   // Get media URLs - support both Payload media objects and legacy string URLs
-  const featuredImage = data.featured_image || data.featuredImage || data.img;
   // When isVideo is true, the video URL is in data.img
   const featuredVideo = data.isVideo ? data.img : (data.featured_video || data.featuredVideo || data.video);
+  // For images, use img field; for videos, use featuredImage object if available (poster)
+  const featuredImage = data.isVideo 
+    ? (data.featuredImage || data.featured_image) 
+    : (data.featured_image || data.featuredImage || data.img);
   
   // Debug logging
   if (!featuredImage && !featuredVideo) {
@@ -92,29 +95,17 @@ const PortfolioItem = ({ data, index }) => {
     >
       <div className="media-container">
         {hasVideo ? (
-          shouldLoadVideo ? (
-            <PayloadOptimizedVideo
-              media={featuredVideo}
-              quality="auto"
-              autoPlay={true}
-              loop={true}
-              muted={true}
-              playsInline={true}
-              lazyLoad={true}
-              onLoadedData={handleVideoLoad}
-              className={isLoaded ? 'loaded' : ''}
-            />
-          ) : (
-            <PayloadOptimizedImage
-              media={featuredImage}
-              alt={data.title}
-              size="small"
-              responsive={false}
-              lazyLoad={true}
-              onLoad={() => setIsLoaded(true)}
-              className={isLoaded ? 'loaded' : ''}
-            />
-          )
+          <PayloadOptimizedVideo
+            media={featuredVideo}
+            quality="auto"
+            autoPlay={true}
+            loop={true}
+            muted={true}
+            playsInline={true}
+            lazyLoad={true}
+            onLoadedData={handleVideoLoad}
+            className={isLoaded ? 'loaded' : ''}
+          />
         ) : (
           <PayloadOptimizedImage
             media={featuredImage}
