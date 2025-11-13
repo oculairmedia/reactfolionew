@@ -200,16 +200,21 @@ const DynamicProjectPage = () => {
               </motion.div>
             </Col>
           ) : (
+            // Two-column layout: title above content in narrower column
             <>
-              <Col lg="5">
+              <Col lg="2" md="1">
+                {/* Empty spacer column for better visual balance */}
+              </Col>
+              <Col lg="8" md="10">
                 <motion.h3 variants={itemVariants} className="color_sec py-4">
                   {section.title}
                 </motion.h3>
-              </Col>
-              <Col lg="7">
                 <motion.div variants={itemVariants}>
                   <ReactMarkdown>{section.content}</ReactMarkdown>
                 </motion.div>
+              </Col>
+              <Col lg="2" md="1">
+                {/* Empty spacer column for better visual balance */}
               </Col>
             </>
           )}
@@ -222,124 +227,91 @@ const DynamicProjectPage = () => {
   const renderGallery = () => {
     if (!project.gallery || project.gallery.length === 0) return null;
 
-    const fullWidthItems = project.gallery.filter(item => item.width === 'full');
-    const halfWidthItems = project.gallery.filter(item => item.width === 'half');
+    // For Couple-ish, create a dynamic layout pattern
+    // First image: full width
+    // Next two: half width side by side
+    // Next one: full width
+    // Remaining: half width
+    const galleryItems = project.gallery.map(item => 
+      typeof item === 'string' ? { url: item, type: 'image' } : item
+    );
+
+    const renderGalleryItem = (item, index, colSize = 12) => {
+      const content = item.type === 'video' ? (
+        <video
+          ref={el => videoRefs.current.push(el)}
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{ width: '100%', height: 'auto' }}
+          onError={(e) => {
+            console.error('Video load error:', item.url, e);
+          }}
+          onLoadedData={() => {
+            console.log('Video loaded:', item.url);
+          }}
+        >
+          <source src={item.url} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      ) : (
+        <Image
+          src={item.url || item}
+          alt={item.caption || `${project.title} - Image ${index + 1}`}
+          fluid
+          style={{ width: '100%', height: 'auto' }}
+        />
+      );
+
+      return (
+        <Col lg={colSize} md={colSize === 6 ? 6 : 12} className="mb-4" key={`gallery-${index}`}>
+          <motion.div
+            variants={itemVariants}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            style={{ overflow: 'hidden', cursor: 'pointer' }}
+          >
+            {content}
+            {item.caption && (
+              <p className="text-center mt-2 text-muted small">{item.caption}</p>
+            )}
+          </motion.div>
+        </Col>
+      );
+    };
 
     return (
-      <>
-        {halfWidthItems.length > 0 && (
-          <Row className="sec_sp">
-            <Col lg="5">
-              <motion.h3 variants={itemVariants} className="color_sec py-4">
-                Project Gallery
-              </motion.h3>
-            </Col>
-            <Col lg="7">
-              <Row>
-                {halfWidthItems.map((item, index) => (
-                  <Col md={6} className="mb-3" key={`half-${index}`}>
-                    <motion.div
-                      variants={itemVariants}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {item.type === 'image' ? (
-                        <Image
-                          src={item.url}
-                          alt={item.caption || `${project.title} - Image ${index + 1}`}
-                          fluid
-                        />
-                      ) : item.type === 'video' ? (
-                        <video
-                          ref={el => videoRefs.current.push(el)}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          style={{ width: '100%' }}
-                          onError={(e) => {
-                            console.error('Video load error:', item.url, e);
-                          }}
-                          onLoadedData={() => {
-                            console.log('Video loaded:', item.url);
-                          }}
-                        >
-                          <source src={item.url} type="video/mp4" />
-                          Your browser does not support the video tag.
-                        </video>
-                      ) : (
-                        <Image
-                          src={item.url}
-                          alt={item.caption || `${project.title} - Image ${index + 1}`}
-                          fluid
-                        />
-                      )}
-                    </motion.div>
-                  </Col>
-                ))}
-              </Row>
-            </Col>
+      <Row className="sec_sp">
+        <Col lg="12">
+          <motion.h3 variants={itemVariants} className="color_sec py-4 text-center">
+            Project Gallery
+          </motion.h3>
+        </Col>
+        <Col lg="12">
+          <Row>
+            {galleryItems.map((item, index) => {
+              // Dynamic layout pattern for visual interest
+              if (index === 0) {
+                // First image: full width
+                return renderGalleryItem(item, index, 12);
+              } else if (index === 1 || index === 2) {
+                // Next two: half width
+                return renderGalleryItem(item, index, 6);
+              } else if (index === 3) {
+                // Fourth: full width
+                return renderGalleryItem(item, index, 12);
+              } else {
+                // Remaining: half width
+                return renderGalleryItem(item, index, 6);
+              }
+            })}
           </Row>
-        )}
-
-        {fullWidthItems.map((item, index) => (
-          <Row className="sec_sp" key={`full-${index}`}>
-            <Col lg="12">
-              {index === 0 && halfWidthItems.length === 0 && (
-                <motion.h3 variants={itemVariants} className="color_sec py-4">
-                  {item.caption || 'Project Gallery'}
-                </motion.h3>
-              )}
-              <motion.div
-                variants={itemVariants}
-                className="video-container"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                {item.type === 'image' ? (
-                  <Image
-                    src={item.url}
-                    alt={item.caption || `${project.title} - Image ${index + 1}`}
-                    fluid
-                  />
-                ) : item.type === 'video' ? (
-                  <video
-                    ref={el => videoRefs.current.push(el)}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    style={{ width: '100%' }}
-                    onError={(e) => {
-                      console.error('Video load error (full width):', item.url, e);
-                    }}
-                    onLoadedData={() => {
-                      console.log('Video loaded (full width):', item.url);
-                    }}
-                  >
-                    <source src={item.url} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                ) : (
-                  <Image
-                    src={item.url}
-                    alt={item.caption || `${project.title} - Image ${index + 1}`}
-                    fluid
-                  />
-                )}
-              </motion.div>
-              {item.caption && (
-                <motion.p variants={itemVariants} className="mt-3">
-                  {item.caption}
-                </motion.p>
-              )}
-            </Col>
-          </Row>
-        ))}
-      </>
+        </Col>
+      </Row>
     );
-  };
+
+
 
   // Helper to render metadata
   const renderMetadata = () => {
