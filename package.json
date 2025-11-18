@@ -40,6 +40,7 @@
     "typewriter-effect": "^2.18.2",
     "url": "^0.11.4",
     "util": "^0.12.5",
+    "vibe-kanban-web-companion": "^0.0.5",
     "vm-browserify": "^1.1.2",
     "web-vitals": "^3.1.1"
   },
