@@ -46,7 +46,10 @@ export async function getProjects(options = {}) {
   // Default depth=1 to populate media relationships
   const depth = options.depth !== undefined ? options.depth : 1;
 
-  if (options.limit) params.append('limit', options.limit);
+  // Default limit=100 to ensure all projects are fetched
+  const limit = options.limit !== undefined ? options.limit : 100;
+
+  params.append('limit', limit);
   if (options.page) params.append('page', options.page);
   if (options.sort) params.append('sort', options.sort);
   params.append('depth', depth);
@@ -80,7 +83,10 @@ export async function getPortfolioItems(options = {}) {
   // Default depth=1 to populate media relationships
   const depth = options.depth !== undefined ? options.depth : 1;
   
-  if (options.limit) params.append('limit', options.limit);
+  // Default limit=100 to ensure all portfolio items are fetched
+  const limit = options.limit !== undefined ? options.limit : 100;
+  
+  params.append('limit', limit);
   if (options.page) params.append('page', options.page);
   if (options.sort) params.append('sort', options.sort);
   params.append('depth', depth);
