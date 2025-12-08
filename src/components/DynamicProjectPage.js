@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import { meta } from "../content_option";
 import { getProjectById } from "../utils/payloadApi";
 import ReturnToPortfolio from "./ReturnToPortfolio";
+import GalleryMedia, { normalizeGalleryItem } from "./GalleryMedia";
 import "./ProjectPage.css";
 
 const DynamicProjectPage = () => {
@@ -31,10 +32,14 @@ const DynamicProjectPage = () => {
           setProject(projectData);
         } else {
           // Fallback to static data if CMS fails
-          const projectContext = require.context('../content/projects', false, /\.json$/);
+          const projectContext = require.context(
+            "../content/projects",
+            false,
+            /\.json$/,
+          );
           const allProjects = {};
           projectContext.keys().forEach((key) => {
-            const projectId = key.replace('./', '').replace('.json', '');
+            const projectId = key.replace("./", "").replace(".json", "");
             allProjects[projectId] = projectContext(key);
           });
 
@@ -45,13 +50,17 @@ const DynamicProjectPage = () => {
           }
         }
       } catch (error) {
-        console.error('Error fetching project:', error);
+        console.error("Error fetching project:", error);
         // Fallback to static data
         try {
-          const projectContext = require.context('../content/projects', false, /\.json$/);
+          const projectContext = require.context(
+            "../content/projects",
+            false,
+            /\.json$/,
+          );
           const allProjects = {};
           projectContext.keys().forEach((key) => {
-            const projectId = key.replace('./', '').replace('.json', '');
+            const projectId = key.replace("./", "").replace(".json", "");
             allProjects[projectId] = projectContext(key);
           });
 
@@ -61,7 +70,7 @@ const DynamicProjectPage = () => {
             setNotFound(true);
           }
         } catch (fallbackError) {
-          console.error('Fallback error:', fallbackError);
+          console.error("Fallback error:", fallbackError);
           setNotFound(true);
         }
       } finally {
@@ -73,13 +82,13 @@ const DynamicProjectPage = () => {
   }, [slug]);
 
   useEffect(() => {
-    videoRefs.current.forEach(ref => {
+    videoRefs.current.forEach((ref) => {
       if (ref) {
-        ref.addEventListener('loadeddata', () => {
-          console.log('Video loaded successfully');
+        ref.addEventListener("loadeddata", () => {
+          console.log("Video loaded successfully");
         });
-        ref.addEventListener('error', (e) => {
-          console.error('Error loading video:', e);
+        ref.addEventListener("error", (e) => {
+          console.error("Error loading video:", e);
         });
       }
     });
@@ -89,7 +98,9 @@ const DynamicProjectPage = () => {
     return (
       <HelmetProvider>
         <Container className="content-wrapper">
-          <div style={{ textAlign: 'center', padding: '4rem' }}>Loading project...</div>
+          <div style={{ textAlign: "center", padding: "4rem" }}>
+            Loading project...
+          </div>
         </Container>
       </HelmetProvider>
     );
@@ -104,9 +115,9 @@ const DynamicProjectPage = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
-      }
-    }
+        staggerChildren: 0.2,
+      },
+    },
   };
 
   const itemVariants = {
@@ -115,16 +126,25 @@ const DynamicProjectPage = () => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.5
-      }
+        duration: 0.5,
+      },
+    },
+  };
+
+  // Helper to render hero media
+  const registerVideoRef = (el) => {
+    if (el && !videoRefs.current.includes(el)) {
+      videoRefs.current.push(el);
     }
   };
+
+  const galleryItems = (project.gallery || []).map(normalizeGalleryItem);
 
   // Helper to render hero media
   const renderHero = () => {
     if (!project.hero) return null;
 
-    if (project.hero.type === 'video' && project.hero.video) {
+    if (project.hero.type === "video" && project.hero.video) {
       return (
         <motion.div
           className="video-container main-image"
@@ -133,18 +153,18 @@ const DynamicProjectPage = () => {
           transition={{ duration: 0.7 }}
         >
           <video
-            ref={el => videoRefs.current.push(el)}
+            ref={registerVideoRef}
             autoPlay
             loop
             muted
             playsInline
             style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              position: 'absolute',
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              position: "absolute",
               top: 0,
-              left: 0
+              left: 0,
             }}
           >
             <source src={project.hero.video} type="video/mp4" />
@@ -154,7 +174,7 @@ const DynamicProjectPage = () => {
       );
     }
 
-    if (project.hero.type === 'image' && project.hero.image) {
+    if (project.hero.type === "image" && project.hero.image) {
       return (
         <motion.div
           className="video-container main-image"
@@ -166,12 +186,12 @@ const DynamicProjectPage = () => {
             src={project.hero.image}
             alt={project.hero.alt || project.title}
             style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              position: 'absolute',
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              position: "absolute",
               top: 0,
-              left: 0
+              left: 0,
             }}
           />
         </motion.div>
@@ -186,42 +206,37 @@ const DynamicProjectPage = () => {
     if (!project.sections || project.sections.length === 0) return null;
 
     const sections = project.sections;
-    const galleryImages = project.gallery ? project.gallery.map(item => 
-      typeof item === 'string' ? item : item.url || item
-    ) : [];
 
     const elements = [];
     let imageIndex = 0;
 
     sections.forEach((section, index) => {
       // Determine if we should show an image with this section
-      const shouldShowImage = imageIndex < galleryImages.length;
-      
+      const shouldShowImage = imageIndex < galleryItems.length;
+
       // Alternate layout pattern: image-left, image-right, full-width
       let layoutPattern;
       if (index % 3 === 0) {
-        layoutPattern = 'image-left';
+        layoutPattern = "image-left";
       } else if (index % 3 === 1) {
-        layoutPattern = 'image-right';
+        layoutPattern = "image-right";
       } else {
-        layoutPattern = 'full-width';
+        layoutPattern = "full-width";
       }
 
       // IMAGE-LEFT: Image on left, text on right
-      if (layoutPattern === 'image-left' && shouldShowImage) {
+      if (layoutPattern === "image-left" && shouldShowImage) {
         elements.push(
           <Row className="sec_sp align-items-center" key={`section-${index}`}>
             <Col lg="5" md="12" className="mb-4 mb-lg-0">
-              <motion.div 
-                variants={itemVariants} 
+              <motion.div
+                variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
-                style={{ overflow: 'hidden', borderRadius: '4px' }}
+                style={{ overflow: "hidden", borderRadius: "4px" }}
               >
-                <Image 
-                  src={galleryImages[imageIndex]} 
-                  alt={section.title} 
-                  fluid 
-                  style={{ width: '100%', height: 'auto' }} 
+                <GalleryMedia
+                  item={galleryItems[imageIndex]}
+                  registerVideoRef={registerVideoRef}
                 />
               </motion.div>
             </Col>
@@ -233,14 +248,14 @@ const DynamicProjectPage = () => {
                 <ReactMarkdown>{section.content}</ReactMarkdown>
               </motion.div>
             </Col>
-          </Row>
+          </Row>,
         );
         imageIndex++;
         return;
       }
 
       // IMAGE-RIGHT: Text on left, image on right
-      if (layoutPattern === 'image-right' && shouldShowImage) {
+      if (layoutPattern === "image-right" && shouldShowImage) {
         elements.push(
           <Row className="sec_sp align-items-center" key={`section-${index}`}>
             <Col lg="7" md="12" className="mb-4 mb-lg-0 order-2 order-lg-1">
@@ -252,20 +267,18 @@ const DynamicProjectPage = () => {
               </motion.div>
             </Col>
             <Col lg="5" md="12" className="order-1 order-lg-2 mb-4 mb-lg-0">
-              <motion.div 
-                variants={itemVariants} 
+              <motion.div
+                variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
-                style={{ overflow: 'hidden', borderRadius: '4px' }}
+                style={{ overflow: "hidden", borderRadius: "4px" }}
               >
-                <Image 
-                  src={galleryImages[imageIndex]} 
-                  alt={section.title} 
-                  fluid 
-                  style={{ width: '100%', height: 'auto' }} 
+                <GalleryMedia
+                  item={galleryItems[imageIndex]}
+                  registerVideoRef={registerVideoRef}
                 />
               </motion.div>
             </Col>
-          </Row>
+          </Row>,
         );
         imageIndex++;
         return;
@@ -282,93 +295,70 @@ const DynamicProjectPage = () => {
               <ReactMarkdown>{section.content}</ReactMarkdown>
             </motion.div>
           </Col>
-        </Row>
+        </Row>,
       );
     });
 
-    // Add any remaining gallery images
-    if (imageIndex < galleryImages.length) {
-      const remainingImages = galleryImages.slice(imageIndex);
-      
+    // Add any remaining gallery media items
+    if (imageIndex < galleryItems.length) {
+      const remainingImages = galleryItems.slice(imageIndex);
+
       elements.push(
         <Row className="sec_sp" key="remaining-gallery">
           <Col lg="12">
-            <motion.h3 variants={itemVariants} className="color_sec py-4 text-center">
+            <motion.h3
+              variants={itemVariants}
+              className="color_sec py-4 text-center"
+            >
               More from the Project
             </motion.h3>
           </Col>
           {remainingImages.map((img, idx) => (
-            <Col lg={remainingImages.length === 1 ? 12 : 6} md="12" className="mb-4" key={`extra-img-${idx}`}>
-              <motion.div 
-                variants={itemVariants} 
+            <Col
+              lg={remainingImages.length === 1 ? 12 : 6}
+              md="12"
+              className="mb-4"
+              key={`extra-img-${idx}`}
+            >
+              <motion.div
+                variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
-                style={{ overflow: 'hidden', borderRadius: '4px' }}
+                style={{ overflow: "hidden", borderRadius: "4px" }}
               >
-                <Image src={img} alt={`Gallery image ${imageIndex + idx + 1}`} fluid />
+                <GalleryMedia item={img} registerVideoRef={registerVideoRef} />
               </motion.div>
             </Col>
           ))}
-        </Row>
+        </Row>,
       );
     }
 
     return elements;
   };
 
-
-
   // Helper to render gallery
   const renderGallery = () => {
-    if (!project.gallery || project.gallery.length === 0) return null;
-
-    // For Couple-ish, create a dynamic layout pattern
-    // First image: full width
-    // Next two: half width side by side
-    // Next one: full width
-    // Remaining: half width
-    const galleryItems = project.gallery.map(item => 
-      typeof item === 'string' ? { url: item, type: 'image' } : item
-    );
+    if (!galleryItems || galleryItems.length === 0) return null;
 
     const renderGalleryItem = (item, index, colSize = 12) => {
-      const content = item.type === 'video' ? (
-        <video
-          ref={el => videoRefs.current.push(el)}
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{ width: '100%', height: 'auto' }}
-          onError={(e) => {
-            console.error('Video load error:', item.url, e);
-          }}
-          onLoadedData={() => {
-            console.log('Video loaded:', item.url);
-          }}
-        >
-          <source src={item.url} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      ) : (
-        <Image
-          src={item.url || item}
-          alt={item.caption || `${project.title} - Image ${index + 1}`}
-          fluid
-          style={{ width: '100%', height: 'auto' }}
-        />
-      );
-
       return (
-        <Col lg={colSize} md={colSize === 6 ? 6 : 12} className="mb-4" key={`gallery-${index}`}>
+        <Col
+          lg={colSize}
+          md={colSize === 6 ? 6 : 12}
+          className="mb-4"
+          key={`gallery-${index}`}
+        >
           <motion.div
             variants={itemVariants}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            style={{ overflow: 'hidden', cursor: 'pointer' }}
+            style={{ overflow: "hidden", cursor: "pointer" }}
           >
-            {content}
+            <GalleryMedia item={item} registerVideoRef={registerVideoRef} />
             {item.caption && (
-              <p className="text-center mt-2 text-muted small">{item.caption}</p>
+              <p className="text-center mt-2 text-muted small">
+                {item.caption}
+              </p>
             )}
           </motion.div>
         </Col>
@@ -378,7 +368,10 @@ const DynamicProjectPage = () => {
     return (
       <Row className="sec_sp">
         <Col lg="12">
-          <motion.h3 variants={itemVariants} className="color_sec py-4 text-center">
+          <motion.h3
+            variants={itemVariants}
+            className="color_sec py-4 text-center"
+          >
             Project Gallery
           </motion.h3>
         </Col>
@@ -411,7 +404,7 @@ const DynamicProjectPage = () => {
     if (!project.metadata) return null;
 
     const metadata = project.metadata;
-    const hasMetadata = Object.values(metadata).some(val => val);
+    const hasMetadata = Object.values(metadata).some((val) => val);
 
     if (!hasMetadata) return null;
 
@@ -425,25 +418,39 @@ const DynamicProjectPage = () => {
         <Col lg="7">
           <motion.ul variants={itemVariants}>
             {metadata.date && (
-              <motion.li variants={itemVariants}>Date: {metadata.date}</motion.li>
+              <motion.li variants={itemVariants}>
+                Date: {metadata.date}
+              </motion.li>
             )}
             {metadata.client && (
-              <motion.li variants={itemVariants}>Client: {metadata.client}</motion.li>
+              <motion.li variants={itemVariants}>
+                Client: {metadata.client}
+              </motion.li>
             )}
             {metadata.role && (
-              <motion.li variants={itemVariants}>Role: {metadata.role}</motion.li>
+              <motion.li variants={itemVariants}>
+                Role: {metadata.role}
+              </motion.li>
             )}
             {metadata.exhibition && (
-              <motion.li variants={itemVariants}>Exhibition: {metadata.exhibition}</motion.li>
+              <motion.li variants={itemVariants}>
+                Exhibition: {metadata.exhibition}
+              </motion.li>
             )}
             {metadata.curators && (
-              <motion.li variants={itemVariants}>Curators: {metadata.curators}</motion.li>
+              <motion.li variants={itemVariants}>
+                Curators: {metadata.curators}
+              </motion.li>
             )}
             {metadata.collaborators && (
-              <motion.li variants={itemVariants}>Collaborators: {metadata.collaborators}</motion.li>
+              <motion.li variants={itemVariants}>
+                Collaborators: {metadata.collaborators}
+              </motion.li>
             )}
             {metadata.technologies && (
-              <motion.li variants={itemVariants}>Technologies: {metadata.technologies}</motion.li>
+              <motion.li variants={itemVariants}>
+                Technologies: {metadata.technologies}
+              </motion.li>
             )}
           </motion.ul>
         </Col>
@@ -455,8 +462,13 @@ const DynamicProjectPage = () => {
     <HelmetProvider>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>{project.title} | {meta.title}</title>
-        <meta name="description" content={project.subtitle || meta.description} />
+        <title>
+          {project.title} | {meta.title}
+        </title>
+        <meta
+          name="description"
+          content={project.subtitle || meta.description}
+        />
       </Helmet>
 
       {renderHero()}
@@ -483,7 +495,10 @@ const DynamicProjectPage = () => {
                     {project.subtitle}
                   </motion.p>
                 )}
-                <motion.hr variants={itemVariants} className="t_border my-4 ml-0 text-left" />
+                <motion.hr
+                  variants={itemVariants}
+                  className="t_border my-4 ml-0 text-left"
+                />
               </Col>
             </Row>
 
