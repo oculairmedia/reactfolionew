@@ -22,8 +22,10 @@ export default function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <ScrollToTop>
-        <Headermain />
-        <AppRoutes />
+        <div className="app-wrapper">
+          <Headermain />
+          <AppRoutes />
+        </div>
       </ScrollToTop>
     </Router>
   );
