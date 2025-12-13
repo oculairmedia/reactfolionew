@@ -6,7 +6,6 @@ from tools.consolidated.collections import cms_collection_ops_handler
 
 
 @pytest.mark.integration
-@pytest.mark.async
 class TestCollectionsToolIntegration:
     """Integration tests for collections tool."""
 

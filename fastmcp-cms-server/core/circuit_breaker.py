@@ -2,7 +2,7 @@
 
 from enum import Enum
 from datetime import datetime, timedelta
-from typing import Callable, Any, TypeVar
+from typing import Callable, TypeVar, Coroutine, Any
 import asyncio
 from utils.logging import get_logger
 from utils.errors import CMSConnectionError
@@ -66,7 +66,7 @@ class CircuitBreaker:
         self.last_failure_time: datetime | None = None
         self._lock = asyncio.Lock()
 
-    async def call(self, func: Callable[..., T], *args, **kwargs) -> T:
+    async def call(self, func: Callable[..., Coroutine[Any, Any, T]], *args, **kwargs) -> T:
         """
         Execute function with circuit breaker protection.
 

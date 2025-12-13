@@ -6,7 +6,6 @@ from core.deduplication import RequestDeduplicator
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestRequestDeduplicator:
     """Tests for RequestDeduplicator."""
 

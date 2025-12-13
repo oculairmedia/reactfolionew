@@ -200,11 +200,6 @@ class ValidationMiddleware(Middleware):
                     )
 
         # Operation-specific validation
-        if operation == "delete" and not kwargs.get("confirm"):
-            raise ValidationError(
-                "Delete operation requires confirm=True"
-            )
-
         if operation in ["batch_create", "batch_update", "batch_delete"]:
             items = kwargs.get("items", [])
             if not items:

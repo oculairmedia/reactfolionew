@@ -3,8 +3,9 @@
 import hashlib
 import json
 import asyncio
-from typing import Callable, Any, TypeVar
+from typing import Callable, Any, TypeVar, Coroutine, cast
 from utils.logging import get_logger
+
 
 logger = get_logger(__name__)
 
@@ -61,7 +62,7 @@ class RequestDeduplicator:
     async def execute(
         self,
         operation: str,
-        handler: Callable[..., T],
+        handler: Callable[..., Coroutine[Any, Any, T]],
         **params
     ) -> T:
         """
@@ -81,41 +82,30 @@ class RequestDeduplicator:
         key = self._make_key(operation, **params)
         self._stats["total_requests"] += 1
 
+        is_owner = False
+
         async with self._lock:
-            # Check if request is already in-flight
-            if key in self._in_flight:
+            existing_task = self._in_flight.get(key)
+            if existing_task is not None:
+                task = existing_task
                 self._stats["deduplicated"] += 1
                 logger.debug(
-                    f"Deduplicating request",
+                    "Deduplicating request",
                     operation=operation,
                     key_hash=key[:16],
                 )
-                # Wait for existing request
-                task = self._in_flight[key]
-
-        # If we found an existing request, wait for it
-        if key in self._in_flight:
-            return await self._in_flight[key]
-
-        # Create new task for this request
-        async with self._lock:
-            # Double-check it wasn't added while we were waiting
-            if key in self._in_flight:
-                self._stats["deduplicated"] += 1
-                return await self._in_flight[key]
-
-            # Create new future for this request
-            task = asyncio.create_task(handler(**params))
-            self._in_flight[key] = task
+            else:
+                task = asyncio.create_task(handler(**params))
+                self._in_flight[key] = task
+                is_owner = True
 
         try:
-            result = await task
-            return result
+            return cast(T, await task)
         finally:
-            async with self._lock:
-                # Remove from in-flight
-                if key in self._in_flight:
-                    del self._in_flight[key]
+            if is_owner:
+                async with self._lock:
+                    if self._in_flight.get(key) is task:
+                        del self._in_flight[key]
 
     def get_stats(self) -> dict:
         """

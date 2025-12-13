@@ -1,6 +1,6 @@
 """Retry strategies for operations."""
 
-from typing import Callable, Any, TypeVar
+from typing import Callable, TypeVar, Coroutine, Any
 from dataclasses import dataclass
 import asyncio
 from utils.logging import get_logger
@@ -116,7 +116,7 @@ DEFAULT_RETRY_CONFIG = RetryConfig(
 
 async def execute_with_retry(
     operation: str,
-    handler: Callable[..., T],
+    handler: Callable[..., Coroutine[Any, Any, T]],
     *args,
     **kwargs
 ) -> T:
@@ -145,7 +145,7 @@ async def execute_with_retry(
     """
     config = RETRY_CONFIGS.get(operation, DEFAULT_RETRY_CONFIG)
 
-    last_exception = None
+    last_exception: Exception | None = None
 
     for attempt in range(config.max_retries + 1):
         try:
@@ -200,6 +200,8 @@ async def execute_with_retry(
             )
 
     # All retries exhausted
+    if last_exception is None:
+        raise CMSConnectionError("Operation failed with no exception")
     raise last_exception
 
 

@@ -20,6 +20,7 @@ from utils.logging import setup_logging, get_logger
 from tools.consolidated.collections import cms_collection_ops_handler
 from tools.consolidated.globals import cms_global_ops_handler
 from tools.consolidated.health import cms_health_ops_handler
+from tools.consolidated.media import cms_media_ops_handler
 
 # Import schema definitions
 from schemas.operation_schemas import OPERATION_SCHEMAS
@@ -284,6 +285,60 @@ async def cms_health_ops(
 
 
 # ============================================================================
+# CONSOLIDATED TOOL 4: MEDIA OPERATIONS (2 operations)
+# ============================================================================
+
+@mcp.tool()
+async def cms_media_ops(
+    operation: str,
+    source: Optional[str] = None,
+    url: Optional[str] = None,
+    local_path: Optional[str] = None,
+    file_base64: Optional[str] = None,
+    cdn_url: Optional[str] = None,
+    alt: Optional[str] = None,
+    caption: Optional[str] = None,
+    credit: Optional[str] = None,
+    media_type: Optional[str] = None,
+    filename: Optional[str] = None,
+    mime_type: Optional[str] = None,
+    dry_run: bool = False,
+) -> str:
+    """
+    Unified tool for media uploads and external CDN registration.
+
+    Operations:
+    - upload: Upload a file to the media collection
+      - source: url | local_path | base64
+      - requires: alt
+    - register: Register a CDN URL as a media document
+      - requires: cdn_url, alt
+
+    Returns:
+        Operation result as JSON string with success status and data
+    """
+    import json
+
+    result = await cms_media_ops_handler(
+        operation=operation,
+        source=source,
+        url=url,
+        local_path=local_path,
+        file_base64=file_base64,
+        cdn_url=cdn_url,
+        alt=alt,
+        caption=caption,
+        credit=credit,
+        media_type=media_type,
+        filename=filename,
+        mime_type=mime_type,
+        dry_run=dry_run,
+    )
+
+    return json.dumps(result)
+
+
+# ============================================================================
 # RESOURCES (Read-only endpoints)
 # ============================================================================
 
@@ -351,9 +406,9 @@ if __name__ == "__main__":
         version=Config.MCP_SERVER_VERSION,
         host=Config.MCP_HOST,
         port=Config.MCP_PORT,
-        tool_count=3,
-        operation_count=23,
-        density="7.7x",
+        tool_count=4,
+        operation_count=25,
+        density="6.2x",
     )
 
     logger.info(

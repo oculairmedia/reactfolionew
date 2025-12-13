@@ -7,7 +7,6 @@ from core.circuit_breaker import CircuitBreaker, CircuitState, CircuitBreakerErr
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestCircuitBreaker:
     """Tests for CircuitBreaker."""
 

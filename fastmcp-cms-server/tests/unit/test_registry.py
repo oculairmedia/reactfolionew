@@ -6,7 +6,6 @@ from core.registry import OperationRegistry, OperationMetadata
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestOperationRegistry:
     """Tests for OperationRegistry."""
 

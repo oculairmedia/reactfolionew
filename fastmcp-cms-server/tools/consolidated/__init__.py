@@ -11,6 +11,10 @@ from .globals import (
 from .health import (
     cms_health_ops_handler,
 )
+from .media import (
+    cms_media_ops_handler,
+    setup_media_registry,
+)
 
 __all__ = [
     "cms_collection_ops_handler",
@@ -18,4 +22,6 @@ __all__ = [
     "cms_global_ops_handler",
     "setup_global_registry",
     "cms_health_ops_handler",
+    "cms_media_ops_handler",
+    "setup_media_registry",
 ]

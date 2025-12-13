@@ -10,7 +10,6 @@ from services.batch import (
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestBatchCreate:
     """Tests for batch_create_documents."""
 
@@ -88,7 +87,7 @@ class TestBatchCreate:
                 collection="projects",
                 items=batch_items[:2],  # Just 2 items for speed
                 parallel=True,
-                client=None,  # Not provided
+                client=mock_client,  # Not provided
             )
 
             # Should have created client
@@ -111,7 +110,6 @@ class TestBatchCreate:
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestBatchUpdate:
     """Tests for batch_update_documents."""
 
@@ -167,7 +165,6 @@ class TestBatchUpdate:
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestBatchDelete:
     """Tests for batch_delete_documents."""
 

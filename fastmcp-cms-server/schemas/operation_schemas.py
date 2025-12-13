@@ -480,6 +480,54 @@ OPERATION_SCHEMAS = {
         },
         "required": []
     },
+
+    # Media Operations
+    "media_upload": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "description": "Result of uploading a media file",
+        "properties": {
+            "success": {"type": "boolean"},
+            "operation": {"type": "string", "enum": ["upload"]},
+            "message": {"type": "string"},
+            "error": {"type": "string"},
+            "mediaId": {"type": ["string", "null"]},
+            "data": {"type": ["object", "null"]},
+            "meta": {
+                "type": "object",
+                "properties": {
+                    "source": {"type": "string", "enum": ["url", "local_path", "base64"]},
+                    "filename": {"type": ["string", "null"]},
+                    "mime_type": {"type": ["string", "null"]},
+                    "usedTempFile": {"type": "boolean"}
+                },
+                "required": ["source", "usedTempFile"]
+            }
+        },
+        "required": ["success", "operation"]
+    },
+
+    "media_register": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "description": "Result of registering a CDN URL as media",
+        "properties": {
+            "success": {"type": "boolean"},
+            "operation": {"type": "string", "enum": ["register"]},
+            "message": {"type": "string"},
+            "error": {"type": "string"},
+            "mediaId": {"type": ["string", "null"]},
+            "data": {"type": ["object", "null"]},
+            "meta": {
+                "type": "object",
+                "properties": {
+                    "source": {"type": "string", "enum": ["cdn_url"]}
+                },
+                "required": ["source"]
+            }
+        },
+        "required": ["success", "operation"]
+    },
 }
 
 

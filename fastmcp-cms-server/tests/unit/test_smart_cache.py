@@ -7,7 +7,6 @@ from core.smart_cache import SmartCache
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestSmartCache:
     """Tests for SmartCache."""
 

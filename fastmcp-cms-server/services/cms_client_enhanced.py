@@ -1,13 +1,14 @@
 """Enhanced CMS client with all reliability and performance improvements."""
 
 import asyncio
+import os
 from typing import Any, Dict, Optional
 from config import Config
 from services.auth import AuthService
 from services.audit import AuditService
 from core.circuit_breaker import CircuitBreaker
 from core.smart_cache import SmartCache
-from core.connection_pool import get_global_pool
+from core.connection_pool import get_global_pool, ConnectionPool
 from core.deduplication import RequestDeduplicator
 from utils.logging import get_logger
 from utils.errors import (
@@ -63,7 +64,7 @@ class EnhancedCMSClient:
         self.cache = SmartCache(default_ttl=Config.CACHE_TTL)
         self.deduplicator = RequestDeduplicator()
 
-        self._connection_pool = None
+        self._connection_pool: Optional[ConnectionPool] = None
 
     async def __aenter__(self):
         """Async context manager entry."""
@@ -140,6 +141,9 @@ class EnhancedCMSClient:
         url = f"{self.base_url}/{endpoint.lstrip('/')}"
         headers = await self._get_headers()
 
+        if self._connection_pool is None:
+            self._connection_pool = await get_global_pool()
+
         try:
             logger.debug(
                 "CMS request",
@@ -149,6 +153,7 @@ class EnhancedCMSClient:
             )
 
             # Use connection pool
+            assert self._connection_pool is not None
             response = await self._connection_pool.request(
                 method=method,
                 url=url,
@@ -416,6 +421,114 @@ class EnhancedCMSClient:
         logger.info("Document deleted", collection=collection, doc_id=doc_id)
 
         return True
+
+    async def upload_media_file_path(
+        self,
+        local_path: str,
+        filename: Optional[str] = None,
+        mime_type: Optional[str] = None,
+        fields: Optional[Dict[str, Any]] = None,
+        retry_count: int = 0,
+    ) -> Dict[str, Any]:
+        """Upload a media file via multipart/form-data to the media collection."""
+        if not os.path.exists(local_path):
+            raise ResourceNotFoundError(f"File not found: {local_path}")
+
+        upload_filename = filename or os.path.basename(local_path)
+
+        async def _upload() -> Dict[str, Any]:
+            token = await self.auth.refresh_if_needed()
+            headers = {
+                "Authorization": f"Bearer {token}",
+            }
+
+            form_fields: Dict[str, str] = {}
+            if fields:
+                for key, value in fields.items():
+                    if value is None:
+                        continue
+                    form_fields[key] = str(value)
+
+            url = f"{self.base_url}/media"
+
+            logger.debug(
+                "CMS media upload request",
+                endpoint="/media",
+                filename=upload_filename,
+                mime_type=mime_type,
+            )
+
+            if self._connection_pool is None:
+                self._connection_pool = await get_global_pool()
+
+            with open(local_path, "rb") as file_handle:
+                assert self._connection_pool is not None
+                response = await self._connection_pool.request(
+                    method="POST",
+                    url=url,
+                    headers=headers,
+                    data=form_fields,
+                    files={
+                        "file": (
+                            upload_filename,
+                            file_handle,
+                            mime_type or "application/octet-stream",
+                        )
+                    },
+                )
+
+            if response.status_code == 401:
+                if retry_count < 1:
+                    logger.warning("Authentication failed during upload, refreshing token")
+                    await self.auth.authenticate(force=True)
+                    return await self.upload_media_file_path(
+                        local_path=local_path,
+                        filename=filename,
+                        mime_type=mime_type,
+                        fields=fields,
+                        retry_count=retry_count + 1,
+                    )
+                raise AuthenticationError("Authentication failed")
+
+            if response.status_code >= 400:
+                error_msg = f"CMS media upload failed with status {response.status_code}"
+                logger.error(
+                    error_msg,
+                    endpoint="/media",
+                    status_code=response.status_code,
+                    response=response.text[:500],
+                )
+                raise CMSConnectionError(error_msg)
+
+            result = response.json()
+
+            if Config.ENABLE_CACHING:
+                self.cache.invalidate_smart("create", "media")
+
+            media_id = result.get("id") or result.get("doc", {}).get("id")
+            if Config.ENABLE_AUDIT_LOG:
+                self.audit.log_create(
+                    resource_type="media",
+                    resource_id=media_id,
+                    data={
+                        **(fields or {}),
+                        "filename": upload_filename,
+                        "mime_type": mime_type,
+                    },
+                    metadata={"local_path": local_path},
+                )
+
+            logger.info("Media uploaded", media_id=media_id, filename=upload_filename)
+
+            return result.get("doc", result)
+
+        try:
+            return await self.circuit_breaker.call(_upload)
+        except Exception as e:
+            if not isinstance(e, (CMSConnectionError, CMSTimeoutError, ResourceNotFoundError, AuthenticationError)):
+                logger.error("Upload error", error=str(e), filename=upload_filename)
+                raise CMSConnectionError(f"Upload failed: {e}")
+            raise
 
     async def get_global(
         self,

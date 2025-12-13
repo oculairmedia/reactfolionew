@@ -1,7 +1,9 @@
 """Consolidated health and monitoring operations tool."""
 
+import inspect
 import time
 from typing import Literal, Optional
+
 from services.cms_client_enhanced import EnhancedCMSClient
 from core.registry import OperationRegistry
 from core.middleware import create_default_middleware_stack
@@ -14,6 +16,16 @@ logger = get_logger(__name__)
 
 # Server start time for uptime tracking
 START_TIME = time.time()
+
+
+# ============================================================================
+# HELPERS
+# ============================================================================
+
+async def maybe_await(value):
+    if inspect.isawaitable(value):
+        return await value
+    return value
 
 
 # ============================================================================
@@ -46,11 +58,11 @@ async def health_check_handler(**kwargs) -> dict:
 async def metrics_handler(**kwargs) -> dict:
     """Handle metrics operation."""
     async with EnhancedCMSClient() as client:
-        metrics = client.get_metrics()
+        metrics = await maybe_await(client.get_metrics())
 
         # Add connection pool metrics
         pool = await get_global_pool()
-        metrics["connection_pool"] = pool.get_stats()
+        metrics["connection_pool"] = await maybe_await(pool.get_stats())
 
         return {
             "success": True,
@@ -61,7 +73,7 @@ async def metrics_handler(**kwargs) -> dict:
 async def cache_stats_handler(**kwargs) -> dict:
     """Handle cache stats operation."""
     async with EnhancedCMSClient() as client:
-        cache_stats = client.cache.get_stats()
+        cache_stats = await maybe_await(client.cache.get_stats())
 
         return {
             "success": True,
@@ -72,10 +84,10 @@ async def cache_stats_handler(**kwargs) -> dict:
 async def connection_status_handler(**kwargs) -> dict:
     """Handle connection status operation."""
     pool = await get_global_pool()
-    pool_stats = pool.get_stats()
+    pool_stats = await maybe_await(pool.get_stats())
 
     async with EnhancedCMSClient() as client:
-        circuit_breaker_state = client.circuit_breaker.get_state()
+        circuit_breaker_state = await maybe_await(client.circuit_breaker.get_state())
 
         return {
             "success": True,

@@ -7,7 +7,6 @@ from utils.errors import CMSTimeoutError, CMSConnectionError
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestRetryConfig:
     """Tests for RetryConfig."""
 
@@ -55,7 +54,6 @@ class TestRetryConfig:
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestExecuteWithRetry:
     """Tests for execute_with_retry."""
 

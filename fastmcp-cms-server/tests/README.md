@@ -164,7 +164,6 @@ import pytest
 from core.circuit_breaker import CircuitBreaker
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestMyComponent:
     """Tests for MyComponent."""
 
@@ -183,7 +182,6 @@ from unittest.mock import patch, AsyncMock
 from tools.consolidated.collections import cms_collection_ops_handler
 
 @pytest.mark.integration
-@pytest.mark.async
 class TestCollectionsTool:
     """Integration tests for collections tool."""
 
@@ -210,7 +208,7 @@ Tests use pytest markers for organization:
 
 - `@pytest.mark.unit` - Unit tests
 - `@pytest.mark.integration` - Integration tests
-- `@pytest.mark.async` - Async tests (most tests)
+- `@pytest.mark.asyncio` - Async tests (most tests)
 - `@pytest.mark.slow` - Tests that take >1s
 - `@pytest.mark.performance` - Performance/load tests
 

@@ -17,7 +17,6 @@ from services.audit import AuditService
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestLoggingMiddleware:
     """Tests for LoggingMiddleware."""
 
@@ -54,7 +53,6 @@ class TestLoggingMiddleware:
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestRateLimitMiddleware:
     """Tests for RateLimitMiddleware."""
 
@@ -134,7 +132,6 @@ class TestRateLimitMiddleware:
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestValidationMiddleware:
     """Tests for ValidationMiddleware."""
 
@@ -169,23 +166,27 @@ class TestValidationMiddleware:
         assert result["success"] is True
 
     @pytest.mark.asyncio
-    async def test_delete_requires_confirm(self):
-        """Test that delete operation requires confirm=True."""
+    async def test_delete_passes_through_middleware(self):
+        """Test that delete operation passes through middleware (handler decides confirmation)."""
         middleware = ValidationMiddleware()
 
         async def next_handler(**kwargs):
+            # Handler logic decides confirmation behavior
+            if not kwargs.get("confirm"):
+                return {"success": False, "requiresConfirmation": True}
             return {"success": True}
 
-        # Delete without confirm
-        with pytest.raises(ValidationError, match="Delete operation requires confirm=True"):
-            await middleware.process(
-                "delete",
-                {},
-                next_handler,
-                doc_id="test-1",
-            )
+        # Delete without confirm - middleware passes through, handler returns confirmation needed
+        result = await middleware.process(
+            "delete",
+            {},
+            next_handler,
+            doc_id="test-1",
+        )
+        assert result["success"] is False
+        assert result["requiresConfirmation"] is True
 
-        # Delete with confirm
+        # Delete with confirm - handler proceeds
         result = await middleware.process(
             "delete",
             {},
@@ -232,7 +233,6 @@ class TestValidationMiddleware:
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestAuditMiddleware:
     """Tests for AuditMiddleware."""
 
@@ -288,7 +288,6 @@ class TestAuditMiddleware:
 
 
 @pytest.mark.unit
-@pytest.mark.async
 class TestMiddlewareStack:
     """Tests for MiddlewareStack."""
 

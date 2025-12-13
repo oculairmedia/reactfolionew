@@ -6,7 +6,6 @@ from tools.consolidated.globals import cms_global_ops_handler
 
 
 @pytest.mark.integration
-@pytest.mark.async
 class TestGlobalsToolIntegration:
     """Integration tests for globals tool."""
 

@@ -6,7 +6,6 @@ from tools.consolidated.health import cms_health_ops_handler
 
 
 @pytest.mark.integration
-@pytest.mark.async
 class TestHealthToolIntegration:
     """Integration tests for health tool."""
 
