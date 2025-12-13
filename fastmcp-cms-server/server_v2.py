@@ -285,7 +285,7 @@ async def cms_health_ops(
 
 
 # ============================================================================
-# CONSOLIDATED TOOL 4: MEDIA OPERATIONS (2 operations)
+# CONSOLIDATED TOOL 4: MEDIA OPERATIONS (4 operations)
 # ============================================================================
 
 @mcp.tool()
@@ -303,9 +303,13 @@ async def cms_media_ops(
     filename: Optional[str] = None,
     mime_type: Optional[str] = None,
     dry_run: bool = False,
+    media_id: Optional[str] = None,
+    filters: Optional[str] = None,
+    limit: int = 50,
+    page: int = 1,
 ) -> str:
     """
-    Unified tool for media uploads and external CDN registration.
+    Unified tool for media operations: uploads, CDN registration, and queries.
 
     Operations:
     - upload: Upload a file to the media collection
@@ -313,9 +317,48 @@ async def cms_media_ops(
       - requires: alt
     - register: Register a CDN URL as a media document
       - requires: cdn_url, alt
+    - get: Get a single media document by ID
+      - requires: media_id
+    - list: List media documents with optional filters
+      - optional: filters (JSON string), limit, page
+
+    Args:
+        operation: Operation to perform (upload, register, get, list)
+        source: Upload source type (url, local_path, base64)
+        url: Remote URL for source="url"
+        local_path: Local file path for source="local_path"
+        file_base64: Base64 data for source="base64"
+        cdn_url: CDN URL for register operation
+        alt: Alt text (required for upload/register)
+        caption: Optional caption
+        credit: Optional credit
+        media_type: Optional type (image, video)
+        filename: Optional filename override
+        mime_type: Optional MIME type override
+        dry_run: Validate without executing
+        media_id: Media document ID for get operation
+        filters: JSON string of filters for list operation
+        limit: Max documents per page (default 50)
+        page: Page number (default 1)
 
     Returns:
         Operation result as JSON string with success status and data
+
+    Examples:
+        # Upload from URL
+        cms_media_ops(operation="upload", source="url", url="https://...", alt="My image")
+
+        # Register CDN URL
+        cms_media_ops(operation="register", cdn_url="https://cdn.../img.jpg", alt="CDN image")
+
+        # Get media by ID
+        cms_media_ops(operation="get", media_id="abc123")
+
+        # List all media
+        cms_media_ops(operation="list", limit=25)
+
+        # List with filters
+        cms_media_ops(operation="list", filters='{"where[source][equals]":"upload"}')
     """
     import json
 
@@ -333,6 +376,10 @@ async def cms_media_ops(
         filename=filename,
         mime_type=mime_type,
         dry_run=dry_run,
+        media_id=media_id,
+        filters=filters,
+        limit=limit,
+        page=page,
     )
 
     return json.dumps(result)

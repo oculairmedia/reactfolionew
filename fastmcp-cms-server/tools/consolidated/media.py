@@ -1,21 +1,23 @@
 """Consolidated media operations tool.
 
-Stage 1 supports:
+Supports:
 - upload: upload file to Payload media collection (multipart/form-data)
 - register: register a CDN URL as a media document (no upload)
+- get: retrieve a single media document by ID
+- list: list/search media documents with filters
 
-Sources:
-- upload: url | local_path | base64
-- register: cdn_url
+Sources for upload:
+- url | local_path | base64
 """
 
 from __future__ import annotations
 
 import base64
+import json
 import mimetypes
 import os
 import tempfile
-from typing import Literal, Optional, Any
+from typing import Literal, Optional, Any, Union
 
 import httpx
 
@@ -275,6 +277,70 @@ async def media_register_handler(
     }
 
 
+async def media_get_handler(
+    media_id: str,
+    **kwargs,
+) -> dict:
+    """Get a single media document by ID."""
+    if not media_id:
+        raise ValidationError("media_id is required for get operation")
+
+    async with EnhancedCMSClient() as cms:
+        result = await cms.get_document(collection="media", doc_id=media_id)
+
+    return {
+        "success": True,
+        "operation": "get",
+        "message": "Media retrieved successfully",
+        "mediaId": media_id,
+        "data": result,
+    }
+
+
+async def media_list_handler(
+    filters: Optional[Union[str, dict]] = None,
+    limit: int = 50,
+    page: int = 1,
+    **kwargs,
+) -> dict:
+    """List media documents with optional filters.
+    
+    Args:
+        filters: JSON string or dict of filters (e.g. {"where[source][equals]": "upload"})
+        limit: Max documents per page (default 50)
+        page: Page number (default 1)
+    """
+    # Parse filters if provided as JSON string
+    parsed_filters: dict = {}
+    if filters:
+        if isinstance(filters, str):
+            try:
+                parsed_filters = json.loads(filters)
+            except json.JSONDecodeError as e:
+                raise ValidationError(f"Invalid filters JSON: {e}")
+        else:
+            parsed_filters = filters
+
+    async with EnhancedCMSClient() as cms:
+        result = await cms.get_collection(
+            collection="media",
+            filters=parsed_filters,
+            limit=limit,
+            page=page,
+        )
+
+    return {
+        "success": True,
+        "operation": "list",
+        "message": f"Found {result.get('totalDocs', 0)} media documents",
+        "documents": result.get("docs", []),
+        "totalDocs": result.get("totalDocs", 0),
+        "page": result.get("page", page),
+        "totalPages": result.get("totalPages", 1),
+        "limit": result.get("limit", limit),
+    }
+
+
 # ============================================================================
 # OPERATION REGISTRY SETUP
 # ============================================================================
@@ -305,6 +371,28 @@ def setup_media_registry() -> OperationRegistry:
         required_params=["cdn_url", "alt"],
     )
 
+    registry.register(
+        name="get",
+        handler=media_get_handler,
+        cost="low",
+        side_effects=False,
+        rate_limit=100,
+        output_schema=OPERATION_SCHEMAS.get("media_get"),
+        description="Get a single media document by ID",
+        required_params=["media_id"],
+    )
+
+    registry.register(
+        name="list",
+        handler=media_list_handler,
+        cost="low",
+        side_effects=False,
+        rate_limit=50,
+        output_schema=OPERATION_SCHEMAS.get("media_list"),
+        description="List media documents with optional filters",
+        required_params=[],
+    )
+
     middleware_stack = create_default_middleware_stack()
     registry.set_middleware_stack(middleware_stack)
 
@@ -331,7 +419,7 @@ def get_media_registry() -> OperationRegistry:
 
 
 async def cms_media_ops_handler(
-    operation: Literal["upload", "register"],
+    operation: Literal["upload", "register", "get", "list"],
     **kwargs,
 ) -> dict:
     registry = get_media_registry()

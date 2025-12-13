@@ -354,9 +354,9 @@ cms_media_ops(
 3. ✅ Document plan
 4. ✅ Implement Stage 1: streaming upload/register
 5. ✅ Add Stage 1 tests
-6. ⏳ Implement Stage 2: get/list
-7. ⏳ Add Stage 2 tests
-8. ⏳ Update documentation with examples
+6. ✅ Implement Stage 2: get/list
+7. ✅ Add Stage 2 tests
+8. ✅ Update documentation with examples
 
 ---
 
@@ -386,6 +386,31 @@ cms_media_ops(
 - All new tests passing
 - 132/137 tests pass (4 pre-existing failures unrelated to Stage 1 work)
 - Server compiles and loads with 4 tools
+
+---
+
+## Stage 2 Implementation Summary (Completed)
+
+### Operations Added
+- `get`: Retrieve a single media document by ID
+- `list`: List/search media documents with filters, pagination
+
+### Files Modified
+- `tools/consolidated/media.py` - Added `media_get_handler` and `media_list_handler`
+- `schemas/operation_schemas.py` - Added `media_get` and `media_list` schemas
+- `server_v2.py` - Updated `cms_media_ops` with new parameters (media_id, filters, limit, page)
+- `tests/integration/test_media_tool.py` - Added 7 new tests for get/list operations
+
+### Key Features
+- `get` operation retrieves single media document by ID
+- `list` operation supports JSON string or dict filters
+- Pagination via `limit` and `page` parameters
+- Filter pass-through matches `cms_collection_ops` style (e.g. `{"where[source][equals]": "upload"}`)
+
+### Test Results
+- 140/144 tests pass (4 pre-existing failures unrelated to media work)
+- 12 media tool tests all passing
+- Server loads with 4 tools, 27 operations
 
 ---
 

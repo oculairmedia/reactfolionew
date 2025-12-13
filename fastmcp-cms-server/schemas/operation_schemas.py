@@ -528,6 +528,42 @@ OPERATION_SCHEMAS = {
         },
         "required": ["success", "operation"]
     },
+
+    "media_get": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "description": "Result of getting a single media document",
+        "properties": {
+            "success": {"type": "boolean"},
+            "operation": {"type": "string", "enum": ["get"]},
+            "message": {"type": "string"},
+            "error": {"type": "string"},
+            "mediaId": {"type": ["string", "null"]},
+            "data": {"type": ["object", "null"]}
+        },
+        "required": ["success", "operation"]
+    },
+
+    "media_list": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "description": "Result of listing media documents",
+        "properties": {
+            "success": {"type": "boolean"},
+            "operation": {"type": "string", "enum": ["list"]},
+            "message": {"type": "string"},
+            "error": {"type": "string"},
+            "documents": {
+                "type": "array",
+                "items": {"type": "object"}
+            },
+            "totalDocs": {"type": "integer"},
+            "page": {"type": "integer"},
+            "totalPages": {"type": "integer"},
+            "limit": {"type": "integer"}
+        },
+        "required": ["success", "operation"]
+    },
 }
 
 
