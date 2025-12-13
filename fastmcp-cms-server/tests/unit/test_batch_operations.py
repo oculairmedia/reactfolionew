@@ -83,15 +83,16 @@ class TestBatchCreate:
             mock_client.__aexit__ = AsyncMock(return_value=None)
             MockClient.return_value = mock_client
 
+            # Don't pass client parameter - should create one internally
             result = await batch_create_documents(
                 collection="projects",
                 items=batch_items[:2],  # Just 2 items for speed
                 parallel=True,
-                client=mock_client,  # Not provided
             )
 
-            # Should have created client
-            MockClient.assert_called_once()
+            # Should have created client internally and used it
+            assert mock_client.create_document.call_count == 2
+            assert result["successful"] == 2
 
     @pytest.mark.asyncio
     async def test_batch_create_draft_flag(self, mock_cms_client, batch_items):

@@ -1,10 +1,11 @@
 """Tests for Pydantic models."""
 
 import pytest
-from pydantic import ValidationError
+from pydantic import ValidationError as PydanticValidationError
 from models.project import CreateProjectInput, ProjectHero, ProjectSection
 from models.portfolio import CreatePortfolioItemInput
 from models.globals import SiteSettingsInput
+from utils.errors import ValidationError as AppValidationError
 
 
 def test_create_project_input_valid():
@@ -23,7 +24,8 @@ def test_create_project_input_valid():
 
 def test_create_project_input_invalid_id():
     """Test project creation with invalid ID."""
-    with pytest.raises(ValidationError):
+    # The model validator raises our custom ValidationError, which pydantic wraps
+    with pytest.raises((PydanticValidationError, AppValidationError)):
         CreateProjectInput(
             id="Invalid ID",  # Spaces not allowed
             title="Test",

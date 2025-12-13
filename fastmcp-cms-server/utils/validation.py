@@ -63,6 +63,12 @@ def validate_url(url: str) -> str:
     """
     Validate URL format.
 
+    Accepts:
+    - Absolute URLs: https://example.com/path
+    - Protocol-relative URLs: //example.com/path
+    - Relative paths: /path/to/resource
+    - Localhost URLs: http://localhost:3000
+
     Args:
         url: The URL to validate
 
@@ -75,19 +81,27 @@ def validate_url(url: str) -> str:
     if not url:
         return url
 
-    # Basic URL validation
+    # Check for dangerous protocols first
+    if re.match(r'^(javascript|data|vbscript):', url, re.IGNORECASE):
+        raise ValidationError(f"Unsafe URL protocol: {url}")
+
+    # Allow relative paths starting with /
+    if url.startswith('/'):
+        # Validate it's a reasonable path (no dangerous characters)
+        if re.match(r'^/[\w./-]*$', url):
+            return url
+        raise ValidationError(f"Invalid relative path: {url}")
+
+    # Basic URL validation for absolute URLs
     url_pattern = re.compile(
         r'^(https?://)?'  # http:// or https://
         r'([a-zA-Z0-9.-]+)'  # domain
-        r'([:/].*)?$'  # port and path
+        r'(:\d+)?'  # optional port
+        r'(/.*)?$'  # path
     )
 
     if not url_pattern.match(url):
         raise ValidationError(f"Invalid URL format: {url}")
-
-    # Check for dangerous protocols
-    if re.match(r'^(javascript|data|vbscript):', url, re.IGNORECASE):
-        raise ValidationError(f"Unsafe URL protocol: {url}")
 
     return url
 
