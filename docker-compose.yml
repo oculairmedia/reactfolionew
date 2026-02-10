@@ -58,6 +58,12 @@ services:
       - payload_media:/app/media
     networks:
       - portfolio-network
+    labels:
+      - homepage.group=Media & Content
+      - homepage.name=Portfolio CMS
+      - homepage.icon=si-payload
+      - homepage.href=http://192.168.50.90:3006
+      - homepage.description=Personal portfolio and content management
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/admin"]
       interval: 30s
