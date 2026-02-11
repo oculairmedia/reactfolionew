@@ -61,7 +61,7 @@ services:
     labels:
       - homepage.group=Media & Content
       - homepage.name=Portfolio CMS
-      - homepage.icon=si-payload
+       - homepage.icon=mdi-web
       - homepage.href=http://192.168.50.90:3006
       - homepage.description=Personal portfolio and content management
     healthcheck:

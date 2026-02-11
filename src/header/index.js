@@ -38,9 +38,16 @@ const Headermain = () => {
           <Link  className="navbar-brand nav_ac" to="/">
             {logotext}
           </Link>
+          <nav className="desktop-nav">
+            <Link to="/" {...combinePrefetchHandlers(homeDataHandlers, homeRouteHandlers)}>Home</Link>
+            <Link to="/portfolio" {...combinePrefetchHandlers(portfolioDataHandlers, portfolioRouteHandlers)}>Portfolio</Link>
+            <Link to="/about" {...combinePrefetchHandlers(aboutDataHandlers, aboutRouteHandlers)}>About</Link>
+            <Link to="/contact">Contact</Link>
+            <Link to="/blog">Blog</Link>
+          </nav>
           <div className="d-flex align-items-center">
           <Themetoggle />
-          <button className="menu__button  nav_ac" onClick={handleToggle}>
+          <button className="menu__button  nav_ac mobile-menu-btn" onClick={handleToggle}>
             {!isActive ? <VscClose /> : <VscGrabber />}
           </button>
           

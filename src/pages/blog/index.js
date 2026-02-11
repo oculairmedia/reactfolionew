@@ -92,7 +92,7 @@ export const Blog = () => {
                     )}
                     <Card.Body className="d-flex flex-column">
                       <div className="mb-2">
-                        {post.tags && post.tags.map((tag) => (
+                        {post.tags && post.tags.slice(0, 3).map((tag) => (
                           <Badge
                             key={tag.id}
                             bg="secondary"
@@ -101,6 +101,11 @@ export const Blog = () => {
                             {tag.name}
                           </Badge>
                         ))}
+                        {post.tags && post.tags.length > 3 && (
+                          <Badge bg="outline-secondary" className="me-1 mb-1 tag-overflow">
+                            +{post.tags.length - 3}
+                          </Badge>
+                        )}
                       </div>
                       <Card.Title>
                         <Link to={`/blog/${post.slug}`} className="blog-title-link">
@@ -120,8 +125,8 @@ export const Blog = () => {
                             </>
                           )}
                         </div>
-                        <Link to={`/blog/${post.slug}`} className="blog-read-more-btn mt-3">
-                          Read More
+                        <Link to={`/blog/${post.slug}`} className="blog-read-more-link mt-3">
+                          Read Article <span className="arrow">→</span>
                         </Link>
                       </div>
                     </Card.Body>
