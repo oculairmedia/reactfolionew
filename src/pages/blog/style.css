@@ -1,5 +1,5 @@
 .Blog-header {
-  padding-top: 60px;
+  padding-top: 100px;
   min-height: 100vh;
 }
 
@@ -167,9 +167,9 @@
 }
 
 .blog-post-content a {
-  color: var(--primary-color);
+  color: #6db3f2;
   text-decoration: none;
-  border-bottom: 1px solid var(--primary-color);
+  border-bottom: 1px solid rgba(109, 179, 242, 0.4);
   transition: opacity 0.3s ease;
 }
 
@@ -212,6 +212,63 @@
 [data-theme="dark"] .blog-post-content pre,
 [data-theme="dark"] .blog-post-content code {
   background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Tables */
+.blog-post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.blog-post-content thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.blog-post-content tbody {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.blog-post-content th {
+  background-color: rgba(255, 255, 255, 0.08);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+
+.blog-post-content td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  vertical-align: top;
+}
+
+.blog-post-content tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Light mode tables */
+[data-theme="light"] .blog-post-content th {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-bottom-color: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .blog-post-content td {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .blog-post-content tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
 .blog-post-content ul,

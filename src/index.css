@@ -5,15 +5,15 @@
 
 /* Ensure fonts have fallback display */
 @font-face {
-  font-family: 'Raleway Fallback';
-  font-display: swap;
-  src: local('Arial'), local('Helvetica');
+    font-family: 'Raleway Fallback';
+    font-display: swap;
+    src: local('Arial'), local('Helvetica');
 }
 
 @font-face {
-  font-family: 'Marcellus Fallback';
-  font-display: swap;
-  src: local('Georgia'), local('Times New Roman');
+    font-family: 'Marcellus Fallback';
+    font-display: swap;
+    src: local('Georgia'), local('Times New Roman');
 }
 
 :root {
@@ -53,7 +53,7 @@ body {
     font-family: 'Raleway', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    padding-top: 60px;
+    padding-top: 100px;
     border-left: 10px solid var(--primary-color);
     border-right: 10px solid var(--primary-color);
 }

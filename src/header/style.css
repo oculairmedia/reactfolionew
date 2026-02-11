@@ -1,3 +1,9 @@
+/* ============================================
+   HEADER BAR
+   Frosted glass effect. No backdrop-filter children
+   should use position:fixed (they'll be trapped).
+   The mobile overlay lives OUTSIDE the header.
+   ============================================ */
 .site__header {
     top: 10px;
     padding-left: 10px;
@@ -35,7 +41,7 @@
     padding: 5px 15px;
     margin: 0;
     border: unset;
-    background: var(--primary-color);
+    background: transparent;
     font-size: 1.25rem;
     font-family: Marcellus;
     color: var(--text-color-2);
@@ -49,6 +55,9 @@
     color: var(--text-color-2);
 }
 
+/* ============================================
+   PAGE BORDER FRAME
+   ============================================ */
 .br-top,
 .br-bottom,
 .br-right,
@@ -86,6 +95,12 @@
     height: 100%;
 }
 
+/* ============================================
+   MOBILE FULLSCREEN OVERLAY
+   Lives OUTSIDE <header> to avoid backdrop-filter
+   creating a containing block for position:fixed.
+   z-index must be ABOVE the border frame (999999).
+   ============================================ */
 .cortina__wrapper-menu {
     position: relative;
     width: 100%;
@@ -103,6 +118,7 @@
     top: 0;
     width: 100%;
     visibility: hidden;
+    z-index: 9999999;
 }
 
 .menu__opend {
@@ -217,7 +233,10 @@
     text-decoration: none;
 }
 
-/* Desktop Navigation */
+/* ============================================
+   DESKTOP INLINE NAVIGATION
+   Visible only on screens >= 992px.
+   ============================================ */
 .desktop-nav {
     display: none;
 }
@@ -267,9 +286,25 @@
     }
 }
 
-/* Ensure hamburger shows on mobile */
+/* ============================================
+   MOBILE OVERRIDES (< 992px)
+   Desktop nav is nuked. Hamburger is visible.
+   ============================================ */
 @media (max-width: 991.98px) {
     .desktop-nav {
         display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        position: absolute !important;
+        pointer-events: none !important;
+    }
+
+    .mobile-menu-btn {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        background: transparent !important;
     }
 }
