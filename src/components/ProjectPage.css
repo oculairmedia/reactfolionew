@@ -1,46 +1,143 @@
-html, body {
+/* ============================================
+   PROJECT PAGE — Brutalist Template
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+html,
+body {
     overflow-x: hidden;
     width: 100%;
 }
 
-.project-page {
-    padding-bottom: 3rem;
-    color: var(--text-color);
-    overflow-x: hidden;
+/* --- Hero Section --- */
+.project-hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 500px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-top: -80px;
 }
 
-.project-page.dimmed::before {
-    content: '';
-    position: fixed;
+.project-hero video,
+.project-hero img {
+    position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.project-page.dimmed.animation-complete::before {
-    opacity: 1;
-}
-
-.hero-section {
-    position: relative;
-    height: 70vh;
-    min-height: 300px;
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-}
-
-.hero-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    z-index: 0;
+    filter: grayscale(0.3) brightness(0.4);
 }
 
-/* Full-bleed media containers for dynamic project pages */
+/* Hard gradient — no soft vignette */
+.project-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.95) 0%,
+            rgba(0, 0, 0, 0.3) 50%,
+            transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Hero content — bottom-left, no card */
+.project-hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 3rem 4rem;
+    max-width: 900px;
+    text-align: left;
+    /* No background, no blur, no border, no radius */
+}
+
+.project-hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.project-hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    color: rgba(255, 255, 255, 0.88);
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+}
+
+.project-hero-divider {
+    width: 60px;
+    height: 3px;
+    background: #fff;
+    margin: 0 0 1.25rem;
+    border: none;
+}
+
+.project-hero-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.75rem, 1vw, 0.85rem);
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    max-width: 500px;
+}
+
+/* Scroll indicator — minimal */
+.project-scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    right: 4rem;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    color: rgba(255, 255, 255, 0.25);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.project-scroll-line {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.25);
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+
+    0%,
+    100% {
+        opacity: 0.25;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* --- Legacy hero (backward compat) --- */
 .video-container,
 .main-image {
     width: 100vw;
@@ -51,7 +148,6 @@ html, body {
     overflow: hidden;
     margin: 0;
     margin-top: -80px;
-    /* Break out of centered container to full viewport width */
     left: 50%;
     right: 50%;
     margin-left: -50vw;
@@ -71,85 +167,251 @@ html, body {
     display: block;
 }
 
-@media (max-width: 768px) {
-    .video-container,
-    .main-image {
-        height: 40vh;
-        min-height: 250px;
-        margin-top: -60px;
-    }
+/* --- Main Content Area --- */
+.main-content {
+    padding-bottom: 2rem;
+    position: relative;
+    overflow-x: hidden;
 }
 
-@media (max-width: 480px) {
-    .video-container,
-    .main-image {
-        height: 30vh;
-        min-height: 200px;
-        margin-top: -50px;
-    }
+/* --- Metadata Bar --- */
+.project-meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 0;
+    margin: 0 auto 3rem;
+    max-width: 1100px;
+    border-top: 2px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.project-title {
-    font-size: 2.5rem;
+.project-meta-item {
+    flex: 1;
+    min-width: 120px;
+    padding: 1.25rem 1.5rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.project-meta-item:last-child {
+    border-right: none;
+}
+
+.project-meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 0.35rem;
+}
+
+.project-meta-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* --- Section Styling --- */
+.project-section {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.project-section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
     font-weight: 700;
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
-    text-align: left;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    color: rgba(255, 255, 255, 0.88);
+    position: relative;
 }
 
-.content-section {
-    margin-bottom: 3rem;
+.project-section-title::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background: #fff;
+    margin-top: 0.5rem;
 }
 
-.content-section h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    color: var(--text-color);
+.project-section p,
+.project-section .section-content p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 1.15rem;
 }
 
-.content-section p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
+/* Section with image — side by side */
+.project-section-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    align-items: stretch;
+    max-width: 1100px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.image-scroll-container {
-    width: 100%;
-    height: 250px;
+.project-section-row .section-text {
+    padding: 3rem 2.5rem;
+}
+
+.project-section-row.reverse {
+    direction: rtl;
+}
+
+.project-section-row.reverse>* {
+    direction: ltr;
+}
+
+.project-section-image {
     overflow: hidden;
     position: relative;
-    margin-bottom: 3rem;
+    /* No border-radius — brutalist */
 }
 
-.image-scroll-content {
-    display: flex;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    animation: scroll var(--animation-duration) linear infinite;
-}
-
-.project-image {
-    flex: 0 0 auto;
-    width: 375px;
-    height: 100%;
-    margin-right: 1.5rem;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.project-image:hover {
-    transform: scale(1.05);
-    z-index: 1;
-}
-
-.project-image img {
+.project-section-image img,
+.project-section-image video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
+    display: block;
+    transition: filter 0.3s ease;
+}
+
+.project-section-image:hover img,
+.project-section-image:hover video {
+    filter: contrast(1.1);
+}
+
+/* Full-width section (no image) */
+.project-section-full {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* --- Gallery Section --- */
+.project-gallery {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 0 3rem;
+    border-top: 2px solid rgba(255, 255, 255, 0.12);
+}
+
+.project-gallery-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    padding: 1.5rem 0;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.project-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+}
+
+.project-gallery-item {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    aspect-ratio: 4/3;
+    /* No border-radius */
+}
+
+.project-gallery-item img,
+.project-gallery-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: filter 0.3s ease;
+}
+
+.project-gallery-item:hover img,
+.project-gallery-item:hover video {
+    filter: contrast(1.15) brightness(1.05);
+}
+
+.project-gallery-item .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.8rem 1rem;
+    background: rgba(0, 0, 0, 0.75);
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.project-gallery-item:hover .gallery-caption {
+    opacity: 1;
+}
+
+/* --- Details Section --- */
+.project-details {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    border-top: 2px solid rgba(255, 255, 255, 0.12);
+}
+
+.project-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0;
+    padding-top: 0.5rem;
+}
+
+.project-detail-card {
+    padding: 1.25rem 1.5rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    /* No border-radius, no background — raw */
+}
+
+.project-detail-card:last-child {
+    border-right: none;
+}
+
+.project-detail-card:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* --- Image overlay / lightbox --- */
+.project-page.dimmed::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-page.dimmed.animation-complete::before {
+    opacity: 1;
 }
 
 .image-overlay {
@@ -168,133 +430,101 @@ html, body {
 .expanded-image {
     position: fixed;
     object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    box-shadow: none;
+    transition: all 0.2s ease;
 }
 
-.expanded-image:not([style]) {
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: 90% !important;
-    height: 90% !important;
-    max-width: 1200px !important;
-    max-height: 800px !important;
-}
-
-.services-testimonial-section {
-    margin-bottom: 3rem;
-}
-
-.services-testimonial-section h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-}
-
-.services-testimonial-section ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.services-testimonial-section ul li {
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
-    font-size: 1rem;
-}
-
-.testimonial {
-    margin-top: 1.5rem;
-}
-
-blockquote {
-    font-style: italic;
-    border-left: 3px solid var(--text-color-3);
-    padding-left: 1rem;
-    margin: 1rem 0;
-    color: var(--text-color);
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-blockquote footer {
-    font-style: normal;
-    text-align: right;
-    margin-top: 0.5rem;
-    color: var(--text-color-2);
-    font-size: 0.9rem;
-}
-
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 991px) {
+    .project-section-row {
+        grid-template-columns: 1fr;
+        gap: 0;
     }
-    100% {
-        transform: translateX(calc(-50% - 0.75rem));
+
+    .project-section-row.reverse {
+        direction: ltr;
+    }
+
+    .project-section-image {
+        max-height: 400px;
+    }
+
+    .project-gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    .project-meta-bar {
+        flex-direction: column;
+    }
+
+    .project-meta-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 1rem 1.5rem;
+    }
+
+    .project-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-detail-card {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 }
 
-@media (max-width: 992px) {
-    .project-title {
-        font-size: 2.2rem;
+@media (max-width: 767px) {
+    .project-hero {
+        height: 85vh;
+        min-height: 400px;
     }
 
-    .content-section h2 {
-        font-size: 1.6rem;
+    .project-hero-content {
+        padding: 2rem 1.5rem;
     }
 
-    .services-testimonial-section h3 {
-        font-size: 1.4rem;
+    .project-hero-title {
+        font-size: clamp(2.2rem, 8vw, 3.5rem);
     }
-}
 
-@media (max-width: 768px) {
-    .hero-section {
+    .project-scroll-hint {
+        right: 1.5rem;
+        bottom: 1.5rem;
+    }
+
+    .project-section-row .section-text {
+        padding: 2rem 1.5rem;
+    }
+
+    .project-gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+    }
+
+    .video-container,
+    .main-image {
         height: 40vh;
         min-height: 250px;
-    }
-
-    .project-title {
-        font-size: 2rem;
-    }
-
-    .image-scroll-container {
-        height: 200px;
-    }
-
-    .project-image {
-        width: 300px;
+        margin-top: -60px;
     }
 }
 
 @media (max-width: 480px) {
-    .hero-section {
+    .project-hero {
+        height: 75vh;
+        min-height: 350px;
+    }
+
+    .project-gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .video-container,
+    .main-image {
         height: 30vh;
         min-height: 200px;
-    }
-
-    .project-title {
-        font-size: 1.8rem;
-    }
-
-    .image-scroll-container {
-        height: 180px;
-    }
-
-    .project-image {
-        width: 250px;
-    }
-
-    .content-section h2 {
-        font-size: 1.4rem;
-    }
-
-    .content-section p {
-        font-size: 0.9rem;
-    }
-
-    .services-testimonial-section h3 {
-        font-size: 1.3rem;
+        margin-top: -50px;
     }
 }

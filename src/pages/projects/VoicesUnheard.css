@@ -1,18 +1,304 @@
-.Project-header {
+/* ============================================
+   VOICES UNHEARD — Immersive Redesign
+   ============================================ */
+
+/* --- Hero Section --- */
+.vu-hero {
     position: relative;
+    width: 100vw;
+    height: 100vh;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    margin-top: -80px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a0b2e;
+    background-image: url('https://oculair.b-cdn.net/cache/images/dfa646d4fc64ddb3ec60a61e5dbd8e1e1be2f4dc.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.vu-hero video {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: brightness(0.6) saturate(1.2);
+}
+
+.vu-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center,
+            rgba(10, 10, 30, 0.2) 0%,
+            rgba(10, 10, 30, 0.7) 70%,
+            rgba(10, 10, 30, 0.92) 100%);
+    z-index: 1;
+}
+
+.vu-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 3.5rem 3rem;
+}
+
+.vu-hero-eyebrow {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: rgba(201, 148, 74, 0.9);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.vu-hero-title {
+    font-family: 'Marcellus', serif;
+    font-size: clamp(3.2rem, 7vw, 5.5rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1.08;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.vu-hero-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(201, 148, 74, 0.8), transparent);
+    margin: 0 auto 1.5rem;
+    border: none;
+}
+
+.vu-hero-subtitle {
+    font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    line-height: 1.7;
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.vu-scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.vu-scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scaleY(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scaleY(1.2);
+    }
+}
+
+/* --- Metadata Bar --- */
+.vu-meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem 3rem;
+    padding: 2.5rem 2rem;
+    margin: 0 auto;
+    max-width: 900px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.vu-meta-item {
+    text-align: center;
+}
+
+.vu-meta-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 0.25rem;
+}
+
+.vu-meta-value {
+    font-family: 'Marcellus', serif;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* --- Content Sections (shared) --- */
+.vu-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.vu-section-title {
+    font-family: 'Marcellus', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    position: relative;
+}
+
+.vu-section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #7b5ea7, #c9944a);
+    margin-top: 0.75rem;
+}
+
+.vu-section p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.72);
+    margin-bottom: 1.25rem;
+}
+
+.vu-section p em {
+    color: rgba(255, 255, 255, 0.92);
+    font-style: italic;
+}
+
+/* --- Stained-Glass Image Grid --- */
+.vu-gallery {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+}
+
+.vu-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(180px, auto);
+    gap: 12px;
+}
+
+.vu-gallery-item {
+    overflow: hidden;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+}
+
+.vu-gallery-item::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(123, 94, 167, 0.12) 0%,
+            transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.vu-gallery-item:hover::after {
+    opacity: 1;
+}
+
+.vu-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.vu-gallery-item:hover img {
+    transform: scale(1.06);
+}
+
+/* Stained-glass shard positioning */
+.vu-gallery-item:nth-child(1) {
+    grid-column: 1 / 8;
+    grid-row: 1 / 3;
+}
+
+.vu-gallery-item:nth-child(2) {
+    grid-column: 8 / 13;
+    grid-row: 1 / 2;
+}
+
+/* --- Process Section (Sticky Scroll) --- */
+.vu-process {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.vu-process-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.vu-process-text {
+    position: sticky;
+    top: 100px;
+}
+
+.vu-process-text p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.72);
+    margin-bottom: 1.25rem;
+}
+
+.vu-process-media {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* --- Immersive Video (Second Video) --- */
+.vu-immersive-video {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    position: relative;
+    height: 70vh;
     overflow: hidden;
 }
 
-.video-container {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio */
-    overflow: hidden;
-    margin-bottom: 2rem;
-}
-
-.video-container video {
+.vu-immersive-video video {
     position: absolute;
     top: 0;
     left: 0;
@@ -21,57 +307,120 @@
     object-fit: cover;
 }
 
-.Project-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+.vu-immersive-video::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+            rgba(10, 10, 20, 0.4) 0%,
+            transparent 30%,
+            transparent 70%,
+            rgba(10, 10, 20, 0.4) 100%);
+    z-index: 1;
+    pointer-events: none;
 }
 
-.Project-header h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+.vu-immersive-caption {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
-.date {
-    font-size: 1rem;
-    color: #666;
+/* --- Details Section --- */
+.vu-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    padding-top: 1rem;
+}
+
+.vu-detail-card {
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.vu-detail-card:hover {
+    border-color: rgba(123, 94, 167, 0.3);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.vu-detail-card .vu-meta-label {
+    text-align: left;
     margin-bottom: 0.5rem;
 }
 
-.tags {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
+.vu-detail-card .vu-meta-value {
+    text-align: left;
+    font-size: 1rem;
 }
 
-.tags a {
-    color: #007bff;
-    text-decoration: none;
-    margin-right: 0.5rem;
-}
-
-.tags a:hover {
-    text-decoration: underline;
-}
-
-.img-fluid {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
-}
-
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 991px) {
-    .Project-header h1 {
-        font-size: 2rem;
+    .vu-process-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
     }
-    .Project-header h2 {
-        font-size: 1.75rem;
+
+    .vu-process-text {
+        position: static;
+    }
+
+    .vu-gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 200px;
+    }
+
+    .vu-gallery-item:nth-child(1),
+    .vu-gallery-item:nth-child(2) {
+        grid-column: auto;
+        grid-row: auto;
     }
 }
 
 @media (max-width: 767px) {
-    .Project-header h1 {
-        font-size: 1.8rem;
+    .vu-hero {
+        height: 100vh;
     }
-    .Project-header h2 {
-        font-size: 1.5rem;
+
+    .vu-hero-content {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+    }
+
+    .vu-meta-bar {
+        gap: 1rem 2rem;
+    }
+
+    .vu-section {
+        padding: 3rem 1.25rem;
+    }
+
+    .vu-gallery {
+        padding: 1.5rem 1rem 3rem;
+    }
+
+    .vu-gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 220px;
+    }
+
+    .vu-immersive-video {
+        height: 50vh;
+    }
+
+    .vu-details-grid {
+        grid-template-columns: 1fr;
     }
 }

@@ -1,23 +1,19 @@
 /* ============================================
-   HEADER BAR
-   Frosted glass effect. No backdrop-filter children
-   should use position:fixed (they'll be trapped).
-   The mobile overlay lives OUTSIDE the header.
+   HEADER BAR — Brutalist
+   Opaque background, no blur.
    ============================================ */
 .site__header {
     top: 10px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: rgba(13, 13, 13, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: var(--primary-color);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     z-index: 1000;
 }
 
 [data-theme="light"] .site__header {
-    background-color: rgba(255, 255, 255, 0.85);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background-color: var(--primary-color);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
 }
 
 .menu__button {
@@ -43,7 +39,7 @@
     border: unset;
     background: transparent;
     font-size: 1.25rem;
-    font-family: Marcellus;
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
     color: var(--text-color-2);
     line-height: 2;
     height: 50px;
@@ -207,7 +203,9 @@
     transition: color 250ms cubic-bezier(0, 0, 0.58, 1) 0s;
     padding: 4px 0px;
     text-decoration: none;
-    font-family: Marcellus;
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
 }
 
 .the_menu .menu_item>a:hover {
@@ -222,7 +220,7 @@
 
 .menu_footer {
     bottom: 0;
-    font-family: Marcellus;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 14px;
     background: var(--primary-color);
 }
@@ -251,10 +249,10 @@
     .desktop-nav a {
         color: var(--text-color);
         text-decoration: none;
-        font-family: 'Raleway', sans-serif;
-        font-size: 0.875rem;
+        font-family: var(--font-mono, 'JetBrains Mono', monospace);
+        font-size: 0.7rem;
         font-weight: 500;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.15em;
         text-transform: uppercase;
         position: relative;
         padding: 4px 0;

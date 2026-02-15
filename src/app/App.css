@@ -44,7 +44,12 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1rem;
@@ -153,6 +158,7 @@ button {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -185,6 +191,10 @@ button {
 .app-wrapper {
   position: relative;
   min-height: 100vh;
+}
+
+#page-top {
+  scroll-margin-top: 20px;
 }
 
 .app-wrapper::before {

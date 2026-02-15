@@ -67,7 +67,7 @@ export const ContactFooter = () => {
   };
 
   return (
-    <footer className="contact-footer">
+    <footer id="contact-footer" className="contact-footer">
       <Container>
         <Row className="sec_sp">
           <Col lg="12">

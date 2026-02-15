@@ -53,6 +53,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build && cp build/index.html build/404.html",
     "deploy": "gh-pages -d build",
+    "build:prod": "react-scripts build && node scripts/purgecss.js",
     "payload": "ts-node server.ts",
     "payload:build": "tsc --project tsconfig.server.json",
     "payload:serve": "node dist/server.js",

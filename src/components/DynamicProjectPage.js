@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import { meta } from "../content_option";
@@ -21,7 +21,6 @@ const DynamicProjectPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    // Fetch project data from CMS
     const fetchProject = async () => {
       try {
         setLoading(true);
@@ -31,7 +30,6 @@ const DynamicProjectPage = () => {
         if (projectData) {
           setProject(projectData);
         } else {
-          // Fallback to static data if CMS fails
           const projectContext = require.context(
             "../content/projects",
             false,
@@ -51,7 +49,6 @@ const DynamicProjectPage = () => {
         }
       } catch (error) {
         console.error("Error fetching project:", error);
-        // Fallback to static data
         try {
           const projectContext = require.context(
             "../content/projects",
@@ -110,28 +107,6 @@ const DynamicProjectPage = () => {
     return <Navigate to="/portfolio" replace />;
   }
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
-
-  // Helper to render hero media
   const registerVideoRef = (el) => {
     if (el && !videoRefs.current.includes(el)) {
       videoRefs.current.push(el);
@@ -140,321 +115,288 @@ const DynamicProjectPage = () => {
 
   const galleryItems = (project.gallery || []).map(normalizeGalleryItem);
 
-  // Helper to render hero media
+  const fadeUp = {
+    hidden: { opacity: 0, y: 25 },
+    visible: (i = 0) => ({
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.55, delay: i * 0.12, ease: "easeOut" },
+    }),
+  };
+
+  // ─── HERO ───
   const renderHero = () => {
     if (!project.hero) return null;
 
-    if (project.hero.type === "video" && project.hero.video) {
-      return (
-        <motion.div
-          className="video-container main-image"
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}
+    const heroMedia =
+      project.hero.type === "video" && project.hero.video ? (
+        <video
+          ref={registerVideoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
         >
-          <video
-            ref={registerVideoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              position: "absolute",
-              top: 0,
-              left: 0,
-            }}
-          >
-            <source src={project.hero.video} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </motion.div>
-      );
-    }
+          <source src={project.hero.video} type="video/mp4" />
+        </video>
+      ) : project.hero.type === "image" && project.hero.image ? (
+        <img
+          src={project.hero.image}
+          alt={project.hero.alt || project.title}
+        />
+      ) : null;
 
-    if (project.hero.type === "image" && project.hero.image) {
-      return (
-        <motion.div
-          className="video-container main-image"
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}
-        >
-          <img
-            src={project.hero.image}
-            alt={project.hero.alt || project.title}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              position: "absolute",
-              top: 0,
-              left: 0,
-            }}
-          />
-        </motion.div>
-      );
-    }
-
-    return null;
-  };
-
-  // Helper to render content sections with automatic image interleaving
-  const renderSections = () => {
-    if (!project.sections || project.sections.length === 0) return null;
-
-    const sections = project.sections;
-
-    const elements = [];
-    let imageIndex = 0;
-
-    sections.forEach((section, index) => {
-      // Determine if we should show an image with this section
-      const shouldShowImage = imageIndex < galleryItems.length;
-
-      // Alternate layout pattern: image-left, image-right, full-width
-      let layoutPattern;
-      if (index % 3 === 0) {
-        layoutPattern = "image-left";
-      } else if (index % 3 === 1) {
-        layoutPattern = "image-right";
-      } else {
-        layoutPattern = "full-width";
-      }
-
-      // IMAGE-LEFT: Image on left, text on right
-      if (layoutPattern === "image-left" && shouldShowImage) {
-        elements.push(
-          <Row className="sec_sp align-items-center" key={`section-${index}`}>
-            <Col lg="5" md="12" className="mb-4 mb-lg-0">
-              <motion.div
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-                style={{ overflow: "hidden", borderRadius: "4px" }}
-              >
-                <GalleryMedia
-                  item={galleryItems[imageIndex]}
-                  registerVideoRef={registerVideoRef}
-                />
-              </motion.div>
-            </Col>
-            <Col lg="7" md="12">
-              <motion.h3 variants={itemVariants} className="color_sec py-4">
-                {section.title}
-              </motion.h3>
-              <motion.div variants={itemVariants}>
-                <ReactMarkdown>{section.content}</ReactMarkdown>
-              </motion.div>
-            </Col>
-          </Row>,
-        );
-        imageIndex++;
-        return;
-      }
-
-      // IMAGE-RIGHT: Text on left, image on right
-      if (layoutPattern === "image-right" && shouldShowImage) {
-        elements.push(
-          <Row className="sec_sp align-items-center" key={`section-${index}`}>
-            <Col lg="7" md="12" className="mb-4 mb-lg-0 order-2 order-lg-1">
-              <motion.h3 variants={itemVariants} className="color_sec py-4">
-                {section.title}
-              </motion.h3>
-              <motion.div variants={itemVariants}>
-                <ReactMarkdown>{section.content}</ReactMarkdown>
-              </motion.div>
-            </Col>
-            <Col lg="5" md="12" className="order-1 order-lg-2 mb-4 mb-lg-0">
-              <motion.div
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-                style={{ overflow: "hidden", borderRadius: "4px" }}
-              >
-                <GalleryMedia
-                  item={galleryItems[imageIndex]}
-                  registerVideoRef={registerVideoRef}
-                />
-              </motion.div>
-            </Col>
-          </Row>,
-        );
-        imageIndex++;
-        return;
-      }
-
-      // FULL-WIDTH: Text only
-      elements.push(
-        <Row className="sec_sp" key={`section-${index}`}>
-          <Col lg="10" md="12" className="mx-auto">
-            <motion.h3 variants={itemVariants} className="color_sec py-4">
-              {section.title}
-            </motion.h3>
-            <motion.div variants={itemVariants}>
-              <ReactMarkdown>{section.content}</ReactMarkdown>
-            </motion.div>
-          </Col>
-        </Row>,
-      );
-    });
-
-    // Add any remaining gallery media items
-    if (imageIndex < galleryItems.length) {
-      const remainingImages = galleryItems.slice(imageIndex);
-
-      elements.push(
-        <Row className="sec_sp" key="remaining-gallery">
-          <Col lg="12">
-            <motion.h3
-              variants={itemVariants}
-              className="color_sec py-4 text-center"
-            >
-              More from the Project
-            </motion.h3>
-          </Col>
-          {remainingImages.map((img, idx) => (
-            <Col
-              lg={remainingImages.length === 1 ? 12 : 6}
-              md="12"
-              className="mb-4"
-              key={`extra-img-${idx}`}
-            >
-              <motion.div
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-                style={{ overflow: "hidden", borderRadius: "4px" }}
-              >
-                <GalleryMedia item={img} registerVideoRef={registerVideoRef} />
-              </motion.div>
-            </Col>
-          ))}
-        </Row>,
-      );
-    }
-
-    return elements;
-  };
-
-  // Helper to render gallery
-  const renderGallery = () => {
-    if (!galleryItems || galleryItems.length === 0) return null;
-
-    const renderGalleryItem = (item, index, colSize = 12) => {
-      return (
-        <Col
-          lg={colSize}
-          md={colSize === 6 ? 6 : 12}
-          className="mb-4"
-          key={`gallery-${index}`}
-        >
-          <motion.div
-            variants={itemVariants}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            style={{ overflow: "hidden", cursor: "pointer" }}
-          >
-            <GalleryMedia item={item} registerVideoRef={registerVideoRef} />
-            {item.caption && (
-              <p className="text-center mt-2 text-muted small">
-                {item.caption}
-              </p>
-            )}
-          </motion.div>
-        </Col>
-      );
-    };
+    if (!heroMedia) return null;
 
     return (
-      <Row className="sec_sp">
-        <Col lg="12">
-          <motion.h3
-            variants={itemVariants}
-            className="color_sec py-4 text-center"
-          >
-            Project Gallery
-          </motion.h3>
-        </Col>
-        <Col lg="12">
-          <Row>
-            {galleryItems.map((item, index) => {
-              // Dynamic layout pattern for visual interest
-              if (index === 0) {
-                // First image: full width
-                return renderGalleryItem(item, index, 12);
-              } else if (index === 1 || index === 2) {
-                // Next two: half width
-                return renderGalleryItem(item, index, 6);
-              } else if (index === 3) {
-                // Fourth: full width
-                return renderGalleryItem(item, index, 12);
-              } else {
-                // Remaining: half width
-                return renderGalleryItem(item, index, 6);
-              }
-            })}
-          </Row>
-        </Col>
-      </Row>
+      <div className="project-hero">
+        <motion.div
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          {heroMedia}
+        </motion.div>
+
+        <motion.div
+          className="project-hero-content"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          {project.metadata?.exhibition && (
+            <p className="project-hero-eyebrow">
+              {project.metadata.exhibition}
+            </p>
+          )}
+          <h1 className="project-hero-title">{project.title}</h1>
+          <div className="project-hero-divider" />
+          {project.subtitle && (
+            <p className="project-hero-subtitle">{project.subtitle}</p>
+          )}
+        </motion.div>
+
+        <motion.div
+          className="project-scroll-hint"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4, duration: 0.8 }}
+        >
+          <span>Scroll</span>
+          <div className="project-scroll-line" />
+        </motion.div>
+      </div>
     );
   };
 
-  // Helper to render metadata
-  const renderMetadata = () => {
+  // ─── METADATA BAR ───
+  const renderMetadataBar = () => {
     if (!project.metadata) return null;
+    const m = project.metadata;
+    const items = [
+      m.date && { label: "Date", value: m.date },
+      m.client && { label: "Client", value: m.client },
+      m.exhibition && { label: "Exhibition", value: m.exhibition },
+      m.role && { label: "Role", value: m.role },
+      m.collaborators && { label: "Team", value: m.collaborators },
+      m.technologies && { label: "Medium", value: m.technologies },
+      m.curators && { label: "Curators", value: m.curators },
+    ].filter(Boolean);
 
-    const metadata = project.metadata;
-    const hasMetadata = Object.values(metadata).some((val) => val);
-
-    if (!hasMetadata) return null;
+    if (items.length === 0) return null;
 
     return (
-      <Row className="sec_sp">
-        <Col lg="5">
-          <motion.h3 variants={itemVariants} className="color_sec py-4">
-            Project Details
-          </motion.h3>
-        </Col>
-        <Col lg="7">
-          <motion.ul variants={itemVariants}>
-            {metadata.date && (
-              <motion.li variants={itemVariants}>
-                Date: {metadata.date}
-              </motion.li>
-            )}
-            {metadata.client && (
-              <motion.li variants={itemVariants}>
-                Client: {metadata.client}
-              </motion.li>
-            )}
-            {metadata.role && (
-              <motion.li variants={itemVariants}>
-                Role: {metadata.role}
-              </motion.li>
-            )}
-            {metadata.exhibition && (
-              <motion.li variants={itemVariants}>
-                Exhibition: {metadata.exhibition}
-              </motion.li>
-            )}
-            {metadata.curators && (
-              <motion.li variants={itemVariants}>
-                Curators: {metadata.curators}
-              </motion.li>
-            )}
-            {metadata.collaborators && (
-              <motion.li variants={itemVariants}>
-                Collaborators: {metadata.collaborators}
-              </motion.li>
-            )}
-            {metadata.technologies && (
-              <motion.li variants={itemVariants}>
-                Technologies: {metadata.technologies}
-              </motion.li>
-            )}
-          </motion.ul>
-        </Col>
-      </Row>
+      <motion.div
+        className="project-meta-bar"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.08 } },
+        }}
+      >
+        {items.map((item, i) => (
+          <motion.div
+            key={i}
+            className="project-meta-item"
+            variants={fadeUp}
+          >
+            <div className="project-meta-label">{item.label}</div>
+            <div className="project-meta-value">{item.value}</div>
+          </motion.div>
+        ))}
+      </motion.div>
+    );
+  };
+
+  // ─── CONTENT SECTIONS ───
+  const renderSections = () => {
+    if (!project.sections || project.sections.length === 0) return null;
+
+    let imageIndex = 0;
+
+    return project.sections.map((section, index) => {
+      const hasImage = imageIndex < galleryItems.length;
+
+      // Full-width section (no image available or every 3rd section)
+      if (!hasImage || index % 3 === 2) {
+        return (
+          <motion.div
+            key={`section-${index}`}
+            className="project-section-full"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={fadeUp}
+          >
+            <h3 className="project-section-title">{section.title}</h3>
+            <div className="section-content">
+              <ReactMarkdown>{section.content}</ReactMarkdown>
+            </div>
+          </motion.div>
+        );
+      }
+
+      // Side-by-side: alternate image position
+      const isReverse = index % 2 === 1;
+      const currentImage = galleryItems[imageIndex];
+      imageIndex++;
+
+      return (
+        <motion.div
+          key={`section-${index}`}
+          className={`project-section-row ${isReverse ? "reverse" : ""}`}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.15 } },
+          }}
+        >
+          <motion.div className="section-text" variants={fadeUp}>
+            <h3 className="project-section-title">{section.title}</h3>
+            <div className="section-content">
+              <ReactMarkdown>{section.content}</ReactMarkdown>
+            </div>
+          </motion.div>
+          <motion.div
+            className="project-section-image"
+            variants={fadeUp}
+          >
+            <GalleryMedia
+              item={currentImage}
+              registerVideoRef={registerVideoRef}
+            />
+          </motion.div>
+        </motion.div>
+      );
+    });
+  };
+
+  // ─── REMAINING GALLERY ───
+  const renderGallery = () => {
+    // Figure out how many images were used in sections
+    const sectionsCount = (project.sections || []).length;
+    let usedImages = 0;
+    for (let i = 0; i < sectionsCount; i++) {
+      if (i % 3 !== 2 && usedImages < galleryItems.length) {
+        usedImages++;
+      }
+    }
+
+    const remainingItems = galleryItems.slice(usedImages);
+    if (remainingItems.length === 0) return null;
+
+    return (
+      <motion.div
+        className="project-gallery"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.1 } },
+        }}
+      >
+        <motion.h3
+          className="project-gallery-title"
+          variants={fadeUp}
+        >
+          Gallery
+        </motion.h3>
+        <div className="project-gallery-grid">
+          {remainingItems.map((item, idx) => (
+            <motion.div
+              key={`gallery-${idx}`}
+              className="project-gallery-item"
+              variants={fadeUp}
+              whileHover={{ y: -4 }}
+            >
+              <GalleryMedia
+                item={item}
+                registerVideoRef={registerVideoRef}
+              />
+              {item.caption && (
+                <div className="gallery-caption">{item.caption}</div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    );
+  };
+
+  // ─── DETAILS CARDS ───
+  const renderDetails = () => {
+    if (!project.metadata) return null;
+    const m = project.metadata;
+    const details = [
+      m.date && { label: "Date", value: m.date },
+      m.client && { label: "Client", value: m.client },
+      m.role && { label: "Role", value: m.role },
+      m.technologies && { label: "Technologies", value: m.technologies },
+      m.collaborators && { label: "Collaborators", value: m.collaborators },
+      m.curators && { label: "Curators", value: m.curators },
+    ].filter(Boolean);
+
+    if (details.length === 0) return null;
+
+    return (
+      <motion.div
+        className="project-details"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.08 } },
+        }}
+      >
+        <motion.h3 className="project-section-title" variants={fadeUp}>
+          Project Details
+        </motion.h3>
+        <div className="project-details-grid">
+          {details.map((d, i) => (
+            <motion.div
+              key={i}
+              className="project-detail-card"
+              variants={fadeUp}
+            >
+              <div className="project-meta-label">{d.label}</div>
+              <div className="project-meta-value">{d.value}</div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     );
   };
 
@@ -479,34 +421,10 @@ const DynamicProjectPage = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <Container className="content-wrapper">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <Row className="mb-5 mt-3 pt-md-3">
-              <Col lg="12">
-                <motion.h1 variants={itemVariants} className="display-4 mb-4">
-                  {project.title}
-                </motion.h1>
-                {project.subtitle && (
-                  <motion.p variants={itemVariants} className="lead">
-                    {project.subtitle}
-                  </motion.p>
-                )}
-                <motion.hr
-                  variants={itemVariants}
-                  className="t_border my-4 ml-0 text-left"
-                />
-              </Col>
-            </Row>
-
-            {renderSections()}
-            {/* Gallery images are now mixed into sections automatically */}
-            {renderMetadata()}
-          </motion.div>
-        </Container>
+        {renderMetadataBar()}
+        {renderSections()}
+        {renderGallery()}
+        {renderDetails()}
         <ReturnToPortfolio />
       </motion.div>
     </HelmetProvider>

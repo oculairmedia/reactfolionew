@@ -28,7 +28,7 @@ export const Layout = ({ children }) => {
           </AnimatePresence>
         </Suspense>
       </main>
-      {!isContactPage && <ContactFooter />}
+      <ContactFooter />
       <Socialicons />
     </div>
   );

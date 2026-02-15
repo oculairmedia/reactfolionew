@@ -1,22 +1,30 @@
 import React from "react";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import withRouter from "../hooks/withRouter"
-import { Home } from "../pages/home";
-import { Portfolio } from "../pages/portfolio";
-import { ContactUs } from "../pages/contact";
-import { About } from "../pages/about";
-import { Blog } from "../pages/blog";
-import { BlogPost } from "../pages/blog/BlogPost";
-import DynamicProjectPage from "../components/DynamicProjectPage";
+const loadHome = () => import("../pages/home").then(m => ({ default: m.Home }));
+const loadPortfolio = () => import("../pages/portfolio").then(m => ({ default: m.Portfolio }));
+const loadAbout = () => import("../pages/about").then(m => ({ default: m.About }));
+const loadBlog = () => import("../pages/blog").then(m => ({ default: m.Blog }));
+const loadBlogPost = () => import("../pages/blog/BlogPost").then(m => ({ default: m.BlogPost }));
+const loadProject = () => import("../components/DynamicProjectPage");
 import { Socialicons } from "../components/socialicons";
 import { ContactFooter } from "../components/ContactFooter";
+
+// Export loaders for prefetching
+export { loadHome, loadPortfolio, loadAbout, loadBlog, loadBlogPost, loadProject };
+
+const Home = React.lazy(loadHome);
+const Portfolio = React.lazy(loadPortfolio);
+const About = React.lazy(loadAbout);
+const Blog = React.lazy(loadBlog);
+const BlogPost = React.lazy(loadBlogPost);
+const DynamicProjectPage = React.lazy(loadProject);
 
 const AnimatedRoutes = withRouter(({ location }) => (
   <Routes location={location}>
     <Route exact path="/" element={<Home />} />
     <Route path="/about" element={<About />} />
     <Route path="/portfolio" element={<Portfolio />} />
-    <Route path="/contact" element={<ContactUs />} />
     <Route path="/projects/:slug" element={<DynamicProjectPage />} />
     <Route path="/blog" element={<Blog />} />
     <Route path="/blog/:slug" element={<BlogPost />} />
@@ -24,14 +32,18 @@ const AnimatedRoutes = withRouter(({ location }) => (
   </Routes>
 ));
 
+import { Suspense } from "react";
+import { LoadingSpinner } from "../components/LoadingSpinner";
+
 function AppRoutes() {
   const location = useLocation();
-  const isContactPage = location.pathname === "/contact";
 
   return (
     <div className="s_c">
-      <AnimatedRoutes />
-      {!isContactPage && <ContactFooter />}
+      <Suspense fallback={<LoadingSpinner />}>
+        <AnimatedRoutes />
+      </Suspense>
+      <ContactFooter />
       <Socialicons />
     </div>
   );

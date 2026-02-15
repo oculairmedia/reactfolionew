@@ -1,15 +1,18 @@
+/* ============================================
+   PORTFOLIO LISTING — Brutalist
+   ============================================ */
+
 .po_items_ho {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
+    gap: 2px;
 }
 
 .po_item {
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    /* No border-radius */
+    transition: none;
     aspect-ratio: 1 / 1;
 }
 
@@ -17,24 +20,11 @@
     width: 100%;
     height: 100%;
     position: relative;
-    background-color: #1a1a1a;
-    animation: softPulse 2s infinite;
-}
-
-@keyframes softPulse {
-    0% {
-        background-color: #1a1a1a;
-    }
-    50% {
-        background-color: #2a2a2a;
-    }
-    100% {
-        background-color: #1a1a1a;
-    }
+    background-color: #111;
 }
 
 .po_item:hover {
-    transform: translateY(-5px);
+    /* No float — brutalist */
 }
 
 .po_item img,
@@ -42,7 +32,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: opacity 1.5s ease; /* Extended fade-in duration */
+    transition: opacity 1s ease, filter 0.2s ease;
     opacity: 0;
 }
 
@@ -53,7 +43,7 @@
 
 .po_item:hover img,
 .po_item:hover video {
-    transform: scale(1.05);
+    filter: contrast(1.15) brightness(1.05);
 }
 
 .po_item .content {
@@ -61,11 +51,11 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.85);
     color: white;
-    padding: 0.75rem;
+    padding: 0.75rem 1rem;
     transform: translateY(100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
 }
 
 .po_item:hover .content {
@@ -73,31 +63,41 @@
 }
 
 .po_item .content h3 {
-    font-size: 0.9rem;
-    margin-bottom: 0.3rem;
-    font-weight: bold;
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
 }
 
 .po_item .content p {
-    font-size: 0.75rem;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.6rem;
     margin-bottom: 0.3rem;
-    line-height: 1.2;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .po_item .content .view-project {
     display: inline-block;
     background: white;
     color: black;
-    padding: 0.3rem 0.6rem;
-    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.55rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    /* No border-radius */
+    transition: all 0.15s ease;
 }
 
 .po_item .content .view-project:hover {
-    background: black;
+    background: transparent;
     color: white;
+    outline: 1px solid white;
 }
 
 @media (max-width: 768px) {
@@ -109,19 +109,19 @@
 @media (max-width: 480px) {
     .po_items_ho {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        gap: 2px;
     }
 
     .po_item .content h3 {
-        font-size: 0.8rem;
+        font-size: 0.65rem;
     }
 
     .po_item .content p {
-        font-size: 0.7rem;
+        font-size: 0.55rem;
     }
 
     .po_item .content .view-project {
-        font-size: 0.6rem;
+        font-size: 0.5rem;
         padding: 0.2rem 0.4rem;
     }
 }

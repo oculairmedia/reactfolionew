@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 /**
  * Predictive prefetching hook
@@ -7,19 +7,19 @@ import { useEffect, useRef } from 'react';
  * @param {string} path - The route to prefetch
  * @returns {object} - Event handlers for onMouseEnter and onTouchStart
  */
-export const usePrefetch = (path) => {
+export const usePrefetch = (loaderFunc) => {
   const prefetched = useRef(false);
 
   const prefetchRoute = () => {
-    if (prefetched.current || !path) return;
+    if (prefetched.current || !loaderFunc) return;
 
-    const link = document.createElement('link');
-    link.rel = 'prefetch';
-    link.href = path;
-    link.as = 'document';
-    document.head.appendChild(link);
-
-    prefetched.current = true;
+    loaderFunc()
+      .then(() => {
+        prefetched.current = true;
+      })
+      .catch((err) => {
+        console.warn('Failed to prefetch chunk:', err);
+      });
   };
 
   return {
@@ -28,48 +28,5 @@ export const usePrefetch = (path) => {
   };
 };
 
-/**
- * Prefetch component - wraps children and prefetches on hover
- */
-export const Prefetch = ({ path, children, ...props }) => {
-  const prefetchHandlers = usePrefetch(path);
-
-  return (
-    <div {...prefetchHandlers} {...props}>
-      {children}
-    </div>
-  );
-};
-
-/**
- * Prefetch critical routes on idle
- * Call this in your main App component
- */
-export const usePrefetchCriticalRoutes = (routes = []) => {
-  useEffect(() => {
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(() => {
-        routes.forEach(route => {
-          const link = document.createElement('link');
-          link.rel = 'prefetch';
-          link.href = route;
-          link.as = 'document';
-          document.head.appendChild(link);
-        });
-      });
-    } else {
-      // Fallback for browsers without requestIdleCallback
-      setTimeout(() => {
-        routes.forEach(route => {
-          const link = document.createElement('link');
-          link.rel = 'prefetch';
-          link.href = route;
-          link.as = 'document';
-          document.head.appendChild(link);
-        });
-      }, 2000);
-    }
-  }, [routes]);
-};
-
 export default usePrefetch;
+

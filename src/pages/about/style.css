@@ -1,26 +1,35 @@
+/* ============================================
+   ABOUT PAGE — Brutalist
+   ============================================ */
+
 .sec_sp {
-    margin-bottom: calc(3rem + 5.128vw)
+    margin-bottom: calc(3rem + 5.128vw);
 }
 
 .table td,
 .table th {
     color: var(--text-color);
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.85rem;
 }
 
 .t_border {
     border-color: var(--text-color) !important;
+    border-width: 2px !important;
 }
 
 .progress-title {
-    font-size: 16px;
-    font-weight: 700;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     margin: 15px 0 20px;
-    font-family: 'Raleway';
 }
 
 .progress {
-    height: 5px;
-    background: var(--secondary);
+    height: 3px;
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 0;
     box-shadow: none;
     margin-bottom: 30px;
@@ -30,25 +39,21 @@
 .progress .progress-bar {
     position: relative;
     background: var(--text-color);
-    animation: animate-positive 2s;
+    animation: animate-positive 1.5s;
     overflow: visible;
-    opacity: 0.9;
+    opacity: 1;
 }
 
 .progress .progress-value {
     position: absolute;
-    top: -30px;
-    right: 8px;
-    font-size: 17px;
-    font-weight: bold;
-    font-style: italic;
+    top: -25px;
+    right: 0;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.65rem;
+    font-weight: 500;
+    font-style: normal;
     color: var(--text-color);
-}
-
-@-webkit-keyframes animate-positive {
-    0% {
-        width: 0%;
-    }
+    letter-spacing: 0.05em;
 }
 
 @keyframes animate-positive {
@@ -58,55 +63,44 @@
 }
 
 .section-title {
-    font-size: 45px;
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
 }
 
 .service__title {
     padding: 8px 0;
     border-bottom: solid 2px var(--secondary-color);
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    text-transform: uppercase;
 }
 
 .service-section .service-category-title {
     padding-bottom: 4px;
 }
 
-/* New styles for the about image */
+/* About image — no rounded corners */
 .about-image {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
+    /* No border-radius, no shadow */
+    transition: filter 0.2s ease;
 }
 
 .about-image:hover {
-    transform: scale(1.05);
-}
-
-/*! CSS Used keyframes */
-
-@-webkit-keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        -webkit-transform: translate3d(0, 100%, 0);
-        transform: translate3d(0, 100%, 0);
-    }
-    to {
-        opacity: 1;
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-    }
+    filter: contrast(1.1);
 }
 
 @keyframes fadeInUp {
     0% {
         opacity: 0;
-        -webkit-transform: translate3d(0, 100%, 0);
-        transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 30px, 0);
     }
+
     to {
         opacity: 1;
-        -webkit-transform: translateZ(0);
         transform: translateZ(0);
     }
 }

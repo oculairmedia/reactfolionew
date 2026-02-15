@@ -4,8 +4,8 @@ import { VscGrabber, VscClose } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { logotext, socialprofils } from "../content_option";
 import Themetoggle from "../components/themetoggle";
-import { usePrefetchPortfolio, usePrefetchAbout, usePrefetchHomeIntro } from "../hooks/useDataPrefetch";
 import { usePrefetch } from "../hooks/usePrefetch";
+import { loadHome, loadPortfolio, loadAbout, loadBlog } from "../app/routes";
 
 const Headermain = () => {
   const [isActive, setActive] = useState("false");
@@ -15,21 +15,11 @@ const Headermain = () => {
     document.body.classList.toggle("ovhidden");
   };
 
-  // Get prefetch handlers for data
-  const portfolioDataHandlers = usePrefetchPortfolio();
-  const aboutDataHandlers = usePrefetchAbout();
-  const homeDataHandlers = usePrefetchHomeIntro();
-
-  // Get prefetch handlers for routes
-  const portfolioRouteHandlers = usePrefetch('/portfolio');
-  const aboutRouteHandlers = usePrefetch('/about');
-  const homeRouteHandlers = usePrefetch('/');
-
-  // Combine both data and route prefetch handlers
-  const combinePrefetchHandlers = (...handlerSets) => ({
-    onMouseEnter: () => handlerSets.forEach(h => h.onMouseEnter?.()),
-    onTouchStart: () => handlerSets.forEach(h => h.onTouchStart?.()),
-  });
+  // Prefetch handlers using code splitting loaders
+  const homeHandlers = usePrefetch(loadHome);
+  const portfolioHandlers = usePrefetch(loadPortfolio);
+  const aboutHandlers = usePrefetch(loadAbout);
+  const blogHandlers = usePrefetch(loadBlog);
 
   return (
     <>
@@ -39,13 +29,12 @@ const Headermain = () => {
           <Link className="navbar-brand nav_ac" to="/">
             {logotext}
           </Link>
-          {/* Desktop inline navigation — hidden on mobile via CSS */}
           <nav className="desktop-nav">
-            <Link to="/" {...combinePrefetchHandlers(homeDataHandlers, homeRouteHandlers)}>Home</Link>
-            <Link to="/portfolio" {...combinePrefetchHandlers(portfolioDataHandlers, portfolioRouteHandlers)}>Portfolio</Link>
-            <Link to="/about" {...combinePrefetchHandlers(aboutDataHandlers, aboutRouteHandlers)}>About</Link>
-            <Link to="/contact">Contact</Link>
-            <Link to="/blog">Blog</Link>
+            <Link to="/" onClick={() => document.getElementById('page-top')?.scrollIntoView({ behavior: 'smooth' })} {...homeHandlers}>Home</Link>
+            <Link to="/portfolio" onClick={() => document.getElementById('page-top')?.scrollIntoView({ behavior: 'smooth' })} {...portfolioHandlers}>Portfolio</Link>
+            <Link to="/about" onClick={() => document.getElementById('page-top')?.scrollIntoView({ behavior: 'smooth' })} {...aboutHandlers}>About</Link>
+            <a href="#contact-footer" onClick={(e) => { e.preventDefault(); document.getElementById('contact-footer')?.scrollIntoView({ behavior: 'smooth' }); }}>Contact</a>
+            <Link to="/blog" onClick={() => document.getElementById('page-top')?.scrollIntoView({ behavior: 'smooth' })} {...blogHandlers}>Blog</Link>
           </nav>
           <div className="d-flex align-items-center">
             <Themetoggle />
@@ -69,19 +58,19 @@ const Headermain = () => {
             <div className="menu__container p-3">
               <ul className="the_menu">
                 <li className="menu_item ">
-                  <Link onClick={handleToggle} to="/" className="my-3" {...combinePrefetchHandlers(homeDataHandlers, homeRouteHandlers)}>Home</Link>
+                  <Link onClick={() => { handleToggle(); document.getElementById('page-top')?.scrollIntoView({ behavior: 'smooth' }); }} to="/" className="my-3" {...homeHandlers}>Home</Link>
                 </li>
                 <li className="menu_item">
-                  <Link onClick={handleToggle} to="/portfolio" className="my-3" {...combinePrefetchHandlers(portfolioDataHandlers, portfolioRouteHandlers)}> Portfolio</Link>
+                  <Link onClick={() => { handleToggle(); document.getElementById('page-top')?.scrollIntoView({ behavior: 'smooth' }); }} to="/portfolio" className="my-3" {...portfolioHandlers}> Portfolio</Link>
                 </li>
                 <li className="menu_item">
-                  <Link onClick={handleToggle} to="/about" className="my-3" {...combinePrefetchHandlers(aboutDataHandlers, aboutRouteHandlers)}>About</Link>
+                  <Link onClick={() => { handleToggle(); document.getElementById('page-top')?.scrollIntoView({ behavior: 'smooth' }); }} to="/about" className="my-3" {...aboutHandlers}>About</Link>
                 </li>
                 <li className="menu_item">
-                  <Link onClick={handleToggle} to="/contact" className="my-3"> Contact</Link>
+                  <a onClick={(e) => { e.preventDefault(); handleToggle(); setTimeout(() => document.getElementById('contact-footer')?.scrollIntoView({ behavior: 'smooth' }), 300); }} href="#contact-footer" className="my-3"> Contact</a>
                 </li>
                 <li className="menu_item">
-                  <Link onClick={handleToggle} to="/blog" className="my-3">Blog</Link>
+                  <Link onClick={() => { handleToggle(); document.getElementById('page-top')?.scrollIntoView({ behavior: 'smooth' }); }} to="/blog" className="my-3" {...blogHandlers}>Blog</Link>
                 </li>
               </ul>
             </div>

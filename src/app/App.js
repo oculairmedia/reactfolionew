@@ -4,29 +4,27 @@ import {
   BrowserRouter as Router,
   useLocation,
 } from "react-router-dom";
-import withRouter from "../hooks/withRouter";
 import AppRoutes from "./routes";
 import Headermain from "../header";
 import "./App.css";
 
-function _ScrollToTop(props) {
+function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    document.getElementById('page-top')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('page-top').scrollIntoView();
   }, [pathname]);
-  return props.children;
+  return null;
 }
-const ScrollToTop = withRouter(_ScrollToTop);
 
 export default function App() {
   return (
     <Router basename={process.env.PUBLIC_URL}>
-      <ScrollToTop>
-        <div className="app-wrapper">
-          <Headermain />
-          <AppRoutes />
-        </div>
-      </ScrollToTop>
+      <ScrollToTop />
+      <div id="page-top" className="app-wrapper">
+        <Headermain />
+        <AppRoutes />
+      </div>
     </Router>
   );
 }

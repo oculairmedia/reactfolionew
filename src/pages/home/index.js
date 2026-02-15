@@ -30,34 +30,6 @@ export const Home = () => {
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
 
-  useEffect(() => {
-    const addMinimalScrollbar = () => {
-      const style = document.createElement('style');
-      style.textContent = `
-        ::-webkit-scrollbar {
-          width: 6px;
-          height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.1);
-        }
-        ::-webkit-scrollbar-thumb {
-          background: rgba(0, 0, 0, 0.2);
-          border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-          background: rgba(0, 0, 0, 0.4);
-        }
-        body {
-          scrollbar-width: thin;
-          scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.1);
-        }
-      `;
-      document.head.appendChild(style);
-    };
-
-    addMinimalScrollbar();
-  }, []);
 
   // Fetch data from CMS
   useEffect(() => {
@@ -215,7 +187,7 @@ export const Home = () => {
                     loop: true,
                     deleteSpeed: 20,
                     delay: 100,
-                    wrapperClassName: "Typewriter__wrapper rainbow-text",
+                    wrapperClassName: "Typewriter__wrapper",
                     cursorClassName: "Typewriter__cursor",
                     typeSpeed: (index) => {
                       const baseSpeed = 50;
@@ -237,14 +209,14 @@ export const Home = () => {
                     <div className="ring three"></div>
                   </div>
                 </Link>
-                <Link to="/contact">
+                <a href="#contact-footer" onClick={(e) => { e.preventDefault(); document.getElementById('contact-footer')?.scrollIntoView({ behavior: 'smooth' }); }}>
                   <div id="button_h" className="ac_btn btn">
                     {uiText.contactMe}
                     <div className="ring one"></div>
                     <div className="ring two"></div>
                     <div className="ring three"></div>
                   </div>
-                </Link>
+                </a>
               </div>
               <div className="social-icons animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards', animationDelay: '0.8s', opacity: 0 }}>
                 {socialprofils.linkedin && (
