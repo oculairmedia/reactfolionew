@@ -18,8 +18,8 @@ const fs = require('fs');
 const path = require('path');
 
 const CMS_API_URL = process.env.CMS_API_URL || 'http://localhost:3006/api';
-const EMAIL = 'emanuvaderland@gmail.com';
-const PASSWORD = '7beEXKPk93xSD6m';
+const EMAIL = process.env.CMS_EMAIL || '';
+const PASSWORD = process.env.CMS_PASSWORD || '';
 
 let authToken = null;
 
