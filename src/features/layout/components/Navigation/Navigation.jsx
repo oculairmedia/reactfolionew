@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from '@tanstack/react-router';
 import { ThemeToggle } from '../ThemeToggle';
 import { navigation, logotext } from '../../../../content_option';
 import './Navigation.css';
@@ -69,7 +69,7 @@ export const Navigation = () => {
   };
 
   return (
-    <motion.nav 
+    <motion.nav
       className={`navigation ${scrolled ? 'scrolled' : ''}`}
       initial="hidden"
       animate="visible"
@@ -87,7 +87,7 @@ export const Navigation = () => {
 
         <div className="nav-controls">
           <ThemeToggle />
-          <button 
+          <button
             className={`menu-toggle ${isOpen ? 'open' : ''}`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
@@ -113,7 +113,7 @@ export const Navigation = () => {
                   variants={menuItemVariants}
                 >
                   {item.external ? (
-                    <a 
+                    <a
                       href={item.path}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -143,7 +143,7 @@ export const Navigation = () => {
               whileTap={{ y: 0 }}
             >
               {item.external ? (
-                <a 
+                <a
                   href={item.path}
                   target="_blank"
                   rel="noopener noreferrer"

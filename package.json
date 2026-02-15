@@ -8,6 +8,7 @@
     "@payloadcms/bundler-webpack": "^1.0.7",
     "@payloadcms/db-mongodb": "^1.7.5",
     "@payloadcms/richtext-slate": "^1.5.2",
+    "@tanstack/react-router": "^1.159.14",
     "@tryghost/content-api": "^1.12.0",
     "assert": "^2.1.0",
     "axios": "^1.13.2",
@@ -32,7 +33,6 @@
     "react-helmet-async": "^1.0.7",
     "react-icons": "^4.1.0",
     "react-markdown": "^10.1.0",
-    "react-router-dom": "^6.6.2",
     "react-transition-group": "^4.4.2",
     "stream-browserify": "^3.0.0",
     "tty-browserify": "^0.0.1",
@@ -79,6 +79,7 @@
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^7.0.2",
+    "@rollup/rollup-win32-x64-msvc": "^4.57.1",
     "@types/express": "^5.0.5",
     "@types/node": "^24.10.0",
     "@vitejs/plugin-react": "^5.1.4",

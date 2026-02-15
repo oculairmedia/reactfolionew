@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Container, Row, Col, Badge, Spinner, Alert, Button } from "react-bootstrap";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate } from "@tanstack/react-router";
 import { meta } from "../../content_option";
 import { getPostBySlug } from "../../services/ghostApi";
 
 export const BlogPost = () => {
-  const { slug } = useParams();
+  const { slug } = useParams({ strict: false });
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);

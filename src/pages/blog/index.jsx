@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Container, Row, Col, Card, Badge, Spinner, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { meta } from "../../content_option";
 import { getPosts } from "../../services/ghostApi";
 

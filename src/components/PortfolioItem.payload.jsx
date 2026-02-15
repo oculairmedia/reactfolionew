@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 import { motion, useInView } from "framer-motion";
 import { usePrefetchProject } from "../hooks/useDataPrefetch";
 import { PayloadOptimizedImage } from "./OptimizedImage/PayloadOptimizedImage";
@@ -60,20 +60,20 @@ const PortfolioItemPayload = ({ project, index }) => {
 
   const variants = {
     hidden: { opacity: 0.6, y: 20, scale: 0.98 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       scale: 1,
-      transition: { 
+      transition: {
         duration: 0.5,
         ease: "easeOut",
         delay: index * 0.2
-      } 
+      }
     }
   };
 
   // Get video URL if available
-  const videoUrl = project.featuredVideo 
+  const videoUrl = project.featuredVideo
     ? getPayloadImageUrl(project.featuredVideo, 'original')
     : null;
 

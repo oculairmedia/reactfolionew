@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { PayloadOptimizedImage } from '../components/OptimizedImage/PayloadOptimizedImage';
 import { getPayloadImageUrl, getOgImageUrl } from '../utils/payloadImageHelper';
@@ -32,7 +32,7 @@ const ProjectDetailPagePayload = () => {
   const fetchProject = async () => {
     try {
       setLoading(true);
-      
+
       // Fetch project by slug with populated relationships
       const response = await fetch(
         `${CMS_API_URL}/projects?where[slug][equals]=${slug}&depth=2&limit=1`
@@ -43,7 +43,7 @@ const ProjectDetailPagePayload = () => {
       }
 
       const data = await response.json();
-      
+
       if (data.docs.length === 0) {
         throw new Error('Project not found');
       }
@@ -67,7 +67,7 @@ const ProjectDetailPagePayload = () => {
 
     // Update OG meta tags
     const ogImage = getOgImageUrl(project.featuredImage);
-    
+
     // Update or create meta tags
     updateMetaTag('og:title', project.title);
     updateMetaTag('og:description', project.description);
@@ -126,7 +126,7 @@ const ProjectDetailPagePayload = () => {
   return (
     <div className="project-detail-page">
       {/* Hero Section */}
-      <motion.section 
+      <motion.section
         className="project-hero"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -238,7 +238,7 @@ const ProjectDetailPagePayload = () => {
       {/* Navigation */}
       <section className="project-navigation">
         <div className="container">
-          <button 
+          <button
             className="back-button"
             onClick={() => navigate('/portfolio')}
           >

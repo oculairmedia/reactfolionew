@@ -1,54 +1,109 @@
-import React from "react";
-import { Route, Routes, Navigate, useLocation } from "react-router-dom";
-import withRouter from "../hooks/withRouter.jsx"
-const loadHome = () => import("../pages/home").then(m => ({ default: m.Home }));
-const loadPortfolio = () => import("../pages/portfolio").then(m => ({ default: m.Portfolio }));
-const loadAbout = () => import("../pages/about").then(m => ({ default: m.About }));
-const loadBlog = () => import("../pages/blog").then(m => ({ default: m.Blog }));
-const loadBlogPost = () => import("../pages/blog/BlogPost").then(m => ({ default: m.BlogPost }));
-const loadProject = () => import("../components/DynamicProjectPage");
-import { Socialicons } from "../components/socialicons";
+import React, { Suspense } from "react";
+import {
+  Outlet,
+  createRouter,
+  createRoute,
+  createRootRoute,
+} from "@tanstack/react-router";
+import { LoadingSpinner } from "../components/LoadingSpinner";
+import Headermain from "../header";
 import { ContactFooter } from "../components/ContactFooter";
+import { Socialicons } from "../components/socialicons";
 
-import { Home } from "../pages/home";
+// Lazy Load Pages
+const loadHome = () => import("../pages/home").then((m) => ({ default: m.Home }));
+const loadPortfolio = () => import("../pages/portfolio").then((m) => ({ default: m.Portfolio }));
+const loadAbout = () => import("../pages/about").then((m) => ({ default: m.About }));
+const loadBlog = () => import("../pages/blog").then((m) => ({ default: m.Blog }));
+const loadBlogPost = () =>
+  import("../pages/blog/BlogPost").then((m) => ({ default: m.BlogPost }));
+const loadProject = () => import("../components/DynamicProjectPage");
 
-// Export loaders for prefetching (loadHome still needed for hover prefetching)
-export { loadHome, loadPortfolio, loadAbout, loadBlog, loadBlogPost, loadProject };
-
-// const Home = React.lazy(loadHome); // Removed to fix FOUC
+const Home = React.lazy(loadHome);
 const Portfolio = React.lazy(loadPortfolio);
 const About = React.lazy(loadAbout);
 const Blog = React.lazy(loadBlog);
 const BlogPost = React.lazy(loadBlogPost);
 const DynamicProjectPage = React.lazy(loadProject);
 
-const AnimatedRoutes = withRouter(({ location }) => (
-  <Routes location={location}>
-    <Route exact path="/" element={<Home />} />
-    <Route path="/about" element={<About />} />
-    <Route path="/portfolio" element={<Portfolio />} />
-    <Route path="/projects/:slug" element={<DynamicProjectPage />} />
-    <Route path="/blog" element={<Blog />} />
-    <Route path="/blog/:slug" element={<BlogPost />} />
-    <Route path="*" element={<Home />} />
-  </Routes>
-));
+// Helper for Suspense wrapper
+const Suspended = ({ Component }) => (
+  <Suspense fallback={<LoadingSpinner />}>
+    <Component />
+  </Suspense>
+);
 
-import { Suspense } from "react";
-import { LoadingSpinner } from "../components/LoadingSpinner";
-
-function AppRoutes() {
-  const location = useLocation();
-
-  return (
+// Root Layout
+const rootRoute = createRootRoute({
+  component: () => (
     <div className="s_c">
-      <Suspense fallback={<LoadingSpinner />}>
-        <AnimatedRoutes />
-      </Suspense>
+      <div id="page-top" className="app-wrapper">
+        <Headermain />
+        <Outlet />
+      </div>
       <ContactFooter />
       <Socialicons />
     </div>
-  );
-}
+  ),
+});
 
-export default AppRoutes;
+// Routes
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  component: () => <Suspended Component={Home} />,
+});
+
+const aboutRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/about",
+  component: () => <Suspended Component={About} />,
+});
+
+const portfolioRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/portfolio",
+  component: () => <Suspended Component={Portfolio} />,
+});
+
+const blogRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/blog",
+  component: () => <Suspended Component={Blog} />,
+});
+
+const blogPostRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/blog/$slug",
+  component: () => <Suspended Component={BlogPost} />,
+});
+
+const projectRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/projects/$slug",
+  component: () => <Suspended Component={DynamicProjectPage} />,
+});
+
+// Catch-all (Simple 404 for now, redirects to Home as per legacy)
+const notFoundRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '*',
+  component: () => <Suspended Component={Home} />
+})
+
+// Route Tree
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  aboutRoute,
+  portfolioRoute,
+  blogRoute,
+  blogPostRoute,
+  projectRoute,
+  notFoundRoute
+]);
+
+// Router
+export const router = createRouter({ routeTree });
+
+// Pre-fetch exports (legacy support if needed)
+export { loadHome, loadPortfolio, loadAbout, loadBlog, loadBlogPost, loadProject };

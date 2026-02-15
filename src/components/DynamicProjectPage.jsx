@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate } from "@tanstack/react-router";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Container } from "react-bootstrap";
 import { motion } from "framer-motion";
@@ -11,7 +11,7 @@ import GalleryMedia, { normalizeGalleryItem } from "./GalleryMedia";
 import "./ProjectPage.css";
 
 const DynamicProjectPage = () => {
-  const { slug } = useParams();
+  const { slug } = useParams({ strict: false });
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { motion } from 'framer-motion';
 import { uiText } from '../content_option';
 import './ReturnToPortfolio.css';

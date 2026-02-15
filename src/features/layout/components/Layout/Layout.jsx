@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from '@tanstack/react-router';
 import { Navigation } from '../Navigation/Navigation';
 import { Socialicons } from '../../../../components/socialicons';
 import { ContactFooter } from '../../../../components/ContactFooter';

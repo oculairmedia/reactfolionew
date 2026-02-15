@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./style.css";
 import { VscGrabber, VscClose } from "react-icons/vsc";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import { logotext, socialprofils } from "../content_option";
 import Themetoggle from "../components/themetoggle";
 import { usePrefetch } from "../hooks/usePrefetch";

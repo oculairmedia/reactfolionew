@@ -4,7 +4,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import Typewriter from "typewriter-effect";
 import { meta, socialprofils, uiText } from "../../content_option";
 import { getHomeIntro, getPortfolioItems, getSiteSettings } from "../../utils/payloadApi";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import PortfolioItem from "../../components/PortfolioItem";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
@@ -84,7 +84,7 @@ export const Home = () => {
   const portfolioHoverHandlers = usePrefetchPortfolio();
   const aboutHoverHandlers = usePrefetchAbout();
 
-const randomizedStrings = useMemo(() => {
+  const randomizedStrings = useMemo(() => {
     if (!introdata?.animated) return [];
     const strings = Object.values(introdata.animated);
     return strings.sort(() => Math.random() - 0.5);

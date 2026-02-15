@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@tanstack/react-router";
 import "./PortfolioItem.css";
 import { motion, useInView } from "framer-motion";
 import { usePrefetchProject } from "../hooks/useDataPrefetch";
@@ -47,7 +47,11 @@ const PortfolioItem = ({ data, index }) => {
   }, [isInView, data.isVideo]);
 
   const handleClick = () => {
-    navigate(data.link);
+    const link = data.link || `/projects/${data.slug || data.id}`;
+    if (link) {
+      // Use object syntax for TanStack Router navigation
+      navigate({ to: link });
+    }
   };
 
   const handleVideoLoad = () => {
