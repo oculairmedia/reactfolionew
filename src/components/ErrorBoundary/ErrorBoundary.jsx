@@ -39,7 +39,7 @@ export class ErrorBoundary extends React.Component {
             >
               Refresh Page
             </button>
-            {process.env.NODE_ENV === 'development' && (
+            {import.meta.env.DEV && (
               <div className="error-details">
                 <h3>Error Details:</h3>
                 <pre>{this.state.error && this.state.error.toString()}</pre>

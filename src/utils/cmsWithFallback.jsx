@@ -49,7 +49,7 @@ function logFallbackEvent(source, reason, status = 'success') {
   }
   
   // Send to console in development
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.DEV) {
     console.table([event]);
   }
 }

@@ -5,7 +5,7 @@
  * Updated: 2025-11-11 - Added cache-busting and service worker fix
  */
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://cms2.emmanuelu.com/api';
+const API_URL = import.meta.env.REACT_APP_API_URL || 'https://cms2.emmanuelu.com/api';
 
 /**
  * Generic fetch function with error handling
