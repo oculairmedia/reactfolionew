@@ -78,13 +78,15 @@
   align-items: center;
 }
 
-.desktop-menu a {
-  color: var(--text-color);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  opacity: 0.8;
-  transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+color: var(--text-color);
+text-decoration: none;
+font-weight: 500;
+font-size: 1rem;
+opacity: 0.8;
+transition: all 0.3s ease;
 }
 
 .desktop-menu a:hover,

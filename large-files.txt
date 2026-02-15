@@ -1,9 +1,0 @@
-src/assets/videos/video_1.mp4
-src/assets/videos/video_2.mp4
-src/assets/videos/video_3.mp4
-src/assets/videos/video_4.mp4
-src/assets/videos/video_5.mp4
-src/assets/images/react portfolio gif.gif
-media/a029bae20e35b0b564a8c4762f67c9abaae66d80.jpg
-downloads/cache/images/a029bae20e35b0b564a8c4762f67c9abaae66d80.jpg
-downloads/cache/cache/images/008d59decaadca3dd12d0272809a4b4000500a2a.png
