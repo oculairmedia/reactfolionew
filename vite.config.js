@@ -1,21 +1,21 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import envCompatible from 'vite-plugin-env-compatible';
 import svgr from 'vite-plugin-svgr';
 import { visualizer } from 'rollup-plugin-visualizer';
+
+const isCI = process.env.CI || process.env.VERCEL;
 
 export default defineConfig({
     envPrefix: ['VITE_', 'REACT_APP_'],
     plugins: [
         react(),
-        envCompatible(),
         svgr(),
-        visualizer({
+        ...(!isCI ? [visualizer({
             open: false,
             gzipSize: true,
             brotliSize: true,
             filename: 'bundle-analysis.html'
-        })
+        })] : [])
     ],
     resolve: {
         alias: {
@@ -41,7 +41,7 @@ export default defineConfig({
     },
     build: {
         outDir: 'build',
-        sourcemap: true,
+        sourcemap: !isCI,
         minify: 'terser',
         terserOptions: {
             compress: {
