@@ -28,9 +28,7 @@ services:
 
   # Payload CMS Backend
   payload:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/oculairmedia/reactfolionew/cms:latest
     container_name: payload-cms-backend-3006
     restart: unless-stopped
     depends_on:
