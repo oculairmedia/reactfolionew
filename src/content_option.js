@@ -10,23 +10,21 @@ import portfolioPageData from './content/pages/portfolio.json';
 import contactPageData from './content/pages/contact.json';
 import uiTextData from './content/pages/ui-text.json';
 
-// Automatically import all portfolio items
-const portfolioContext = require.context('./content/portfolio', false, /\.json$/);
+// Automatically import all portfolio items using Vite's import.meta.glob
+const portfolioModules = import.meta.glob('./content/portfolio/*.json', { eager: true });
 const portfolioItems = [];
 
-portfolioContext.keys().forEach((key) => {
-  const item = portfolioContext(key);
-  portfolioItems.push(item);
+Object.entries(portfolioModules).forEach(([path, module]) => {
+  portfolioItems.push(module.default || module);
 });
 
-// Automatically import all project pages
-const projectsContext = require.context('./content/projects', false, /\.json$/);
+// Automatically import all project pages using Vite's import.meta.glob
+const projectsModules = import.meta.glob('./content/projects/*.json', { eager: true });
 const projectPages = {};
 
-projectsContext.keys().forEach((key) => {
-  const project = projectsContext(key);
-  const projectId = key.replace('./', '').replace('.json', '');
-  projectPages[projectId] = project;
+Object.entries(projectsModules).forEach(([path, module]) => {
+  const projectId = path.replace('./content/projects/', '').replace('.json', '');
+  projectPages[projectId] = module.default || module;
 });
 
 // Extract data from imported JSON

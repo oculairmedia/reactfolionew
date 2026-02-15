@@ -21,6 +21,18 @@ export default defineConfig({
         port: 3000,
         host: '0.0.0.0',
         open: true,
+        proxy: {
+            '/api/video': {
+                target: 'https://oculair.b-cdn.net/api/v1/videos',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api\/video/, ''),
+                configure: (proxy, options) => {
+                    proxy.on('proxyRes', (proxyRes, req, res) => {
+                        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+                    });
+                },
+            },
+        },
     },
     build: {
         outDir: 'build',
