@@ -392,9 +392,9 @@ section {
 
 @media (max-width: 576px) {
     .intro_sec .h_bg-video {
-        height: 35vh;
-        height: 35dvh;
-        min-height: 220px;
+        height: 55vh;
+        height: 55dvh;
+        min-height: 350px;
     }
 
     .intro_sec .text h1.typewriter-container {
