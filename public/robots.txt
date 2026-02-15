@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://emmanuelu.com/sitemap.xml
+Sitemap: https://www.emmanuelu.com/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1
