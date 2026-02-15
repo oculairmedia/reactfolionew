@@ -11,7 +11,7 @@
  *   node scripts/sync-content.js
  * 
  * Environment:
- *   CMS_API_URL - Override default CMS URL (default: https://cms2.emmanuelu.com/api)
+ *   CMS_API_URL - Override default CMS URL (default: http://localhost:3006/api)
  */
 
 const fs = require('fs');
@@ -20,7 +20,7 @@ const https = require('https');
 const http = require('http');
 
 // Configuration
-const CMS_API_URL = process.env.CMS_API_URL || 'https://cms2.emmanuelu.com/api';
+const CMS_API_URL = process.env.CMS_API_URL || 'http://localhost:3006/api';
 const CONTENT_DIR = path.join(__dirname, '..', 'src', 'content');
 const LOG_PREFIX = '[CMS Sync]';
 

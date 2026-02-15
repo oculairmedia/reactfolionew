@@ -17,7 +17,7 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
-const CMS_API_URL = process.env.CMS_API_URL || 'https://cms2.emmanuelu.com/api';
+const CMS_API_URL = process.env.CMS_API_URL || 'http://localhost:3006/api';
 const EMAIL = 'emanuvaderland@gmail.com';
 const PASSWORD = '7beEXKPk93xSD6m';
 
