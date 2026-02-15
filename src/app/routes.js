@@ -10,10 +10,12 @@ const loadProject = () => import("../components/DynamicProjectPage");
 import { Socialicons } from "../components/socialicons";
 import { ContactFooter } from "../components/ContactFooter";
 
-// Export loaders for prefetching
+import { Home } from "../pages/home";
+
+// Export loaders for prefetching (loadHome still needed for hover prefetching)
 export { loadHome, loadPortfolio, loadAbout, loadBlog, loadBlogPost, loadProject };
 
-const Home = React.lazy(loadHome);
+// const Home = React.lazy(loadHome); // Removed to fix FOUC
 const Portfolio = React.lazy(loadPortfolio);
 const About = React.lazy(loadAbout);
 const Blog = React.lazy(loadBlog);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import "./PortfolioItem.css";
 import { motion, useInView } from "framer-motion";
 import { usePrefetchProject } from "../hooks/useDataPrefetch";
 import { PayloadOptimizedImage } from "./OptimizedImage/PayloadOptimizedImage";
@@ -55,15 +56,15 @@ const PortfolioItem = ({ data, index }) => {
 
   const variants = {
     hidden: { opacity: 0.6, y: 20, scale: 0.98 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       scale: 1,
-      transition: { 
+      transition: {
         duration: 0.5,
         ease: "easeOut",
         delay: index * 0.2 // Add a delay based on the index
-      } 
+      }
     }
   };
 
@@ -71,15 +72,15 @@ const PortfolioItem = ({ data, index }) => {
   // When isVideo is true, the video URL is in data.img
   const featuredVideo = data.isVideo ? data.img : (data.featured_video || data.featuredVideo || data.video);
   // For images, prioritize img field (has correct CDN URLs), fallback to featuredImage object
-  const featuredImage = data.isVideo 
-    ? (data.featuredImage || data.featured_image) 
+  const featuredImage = data.isVideo
+    ? (data.featuredImage || data.featured_image)
     : (data.img || data.featured_image || data.featuredImage);
-  
+
   // Debug logging
   if (!featuredImage && !featuredVideo) {
     console.warn('[PortfolioItem] No image or video found for:', data.title, data);
   }
-  
+
   // Check if featured media is a video
   const hasVideo = data.isVideo || (featuredVideo && isVideo(featuredVideo));
 
