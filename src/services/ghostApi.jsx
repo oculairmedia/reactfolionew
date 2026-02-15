@@ -3,17 +3,7 @@ import GhostContentAPI from '@tryghost/content-api';
 const GHOST_URL = import.meta.env.VITE_GHOST_URL;
 const GHOST_KEY = import.meta.env.VITE_GHOST_KEY;
 
-// Debug logging
-console.log('[Ghost API] Config:', {
-  url: GHOST_URL,
-  key: GHOST_KEY ? `${GHOST_KEY.substring(0, 5)}...` : 'undefined'
-});
-
 export const isGhostConfigured = Boolean(GHOST_URL && GHOST_KEY);
-
-if (!isGhostConfigured) {
-  console.warn('[Ghost] Not configured. Set VITE_GHOST_URL and VITE_GHOST_KEY in .env');
-}
 
 const api = new GhostContentAPI({
   url: GHOST_URL || 'https://placeholder.invalid',

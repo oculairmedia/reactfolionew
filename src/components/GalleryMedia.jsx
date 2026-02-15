@@ -47,8 +47,8 @@ const GalleryMedia = ({ item, registerVideoRef }) => {
         muted
         playsInline
         style={{ width: "100%", height: "auto", display: "block" }}
-        onError={(e) => console.error("Video load error:", media.url, e)}
-        onLoadedData={() => console.log("Video loaded:", media.url)}
+        onError={() => {}}
+        onLoadedData={() => {}}
         poster={media.poster}
       >
         <source src={media.url} type="video/mp4" />
