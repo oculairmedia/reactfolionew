@@ -5,7 +5,7 @@ import svgr from 'vite-plugin-svgr';
 import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
-    envPrefix: 'REACT_APP_',
+    envPrefix: ['VITE_', 'REACT_APP_'],
     plugins: [
         react(),
         envCompatible(),
