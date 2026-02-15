@@ -1,11 +1,17 @@
 import GhostContentAPI from '@tryghost/content-api';
 
-// Initialize Ghost Content API
-// Vite uses import.meta.env instead of process.env
+const GHOST_URL = import.meta.env.VITE_GHOST_URL;
+const GHOST_KEY = import.meta.env.VITE_GHOST_KEY;
+export const isGhostConfigured = Boolean(GHOST_URL && GHOST_KEY);
+
+if (!isGhostConfigured) {
+  console.warn('[Ghost] Not configured. Set VITE_GHOST_URL and VITE_GHOST_KEY in .env');
+}
+
 const api = new GhostContentAPI({
-  url: import.meta.env.VITE_GHOST_URL,
-  key: import.meta.env.VITE_GHOST_KEY,
-  version: 'v5.0' // Can also use 'v3' or 'canary' depending on your Ghost version
+  url: GHOST_URL || 'https://placeholder.invalid',
+  key: GHOST_KEY || 'placeholder',
+  version: 'v5.0'
 });
 
 /**

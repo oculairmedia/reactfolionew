@@ -4,14 +4,16 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Container, Row, Col, Card, Badge, Spinner, Alert } from "react-bootstrap";
 import { Link } from "@tanstack/react-router";
 import { meta } from "../../content_option";
-import { getPosts } from "../../services/ghostApi";
+import { getPosts, isGhostConfigured } from "../../services/ghostApi";
 
 export const Blog = () => {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!isGhostConfigured ? false : true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!isGhostConfigured) return;
+
     const fetchPosts = async () => {
       try {
         setLoading(true);
@@ -66,7 +68,14 @@ export const Blog = () => {
             </Alert>
           )}
 
-          {!loading && !error && posts.length === 0 && (
+          {!isGhostConfigured && (
+            <div className="text-center py-5">
+              <h2>Under Construction</h2>
+              <p className="text-muted mt-3">The blog is being set up. Check back soon.</p>
+            </div>
+          )}
+
+          {isGhostConfigured && !loading && !error && posts.length === 0 && (
             <Alert variant="info">
               No blog posts available at the moment.
             </Alert>

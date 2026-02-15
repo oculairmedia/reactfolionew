@@ -4,16 +4,18 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Container, Row, Col, Badge, Spinner, Alert, Button } from "react-bootstrap";
 import { useParams, Link, useNavigate } from "@tanstack/react-router";
 import { meta } from "../../content_option";
-import { getPostBySlug } from "../../services/ghostApi";
+import { getPostBySlug, isGhostConfigured } from "../../services/ghostApi";
 
 export const BlogPost = () => {
   const { slug } = useParams({ strict: false });
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!isGhostConfigured ? false : true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!isGhostConfigured) return;
+
     const fetchPost = async () => {
       try {
         setLoading(true);
@@ -52,18 +54,25 @@ export const BlogPost = () => {
     );
   }
 
-  if (error || !post) {
+  if (!isGhostConfigured || error || !post) {
     return (
       <HelmetProvider>
         <Container className="Blog-header">
           <Helmet>
             <meta charSet="utf-8" />
-            <title>Error | {meta.title}</title>
+            <title>{!isGhostConfigured ? 'Under Construction' : 'Error'} | {meta.title}</title>
           </Helmet>
           <div className="content-container">
-            <Alert variant="danger">
-              {error || 'Post not found'}
-            </Alert>
+            {!isGhostConfigured ? (
+              <div className="text-center py-5">
+                <h2>Under Construction</h2>
+                <p className="text-muted mt-3">The blog is being set up. Check back soon.</p>
+              </div>
+            ) : (
+              <Alert variant="danger">
+                {error || 'Post not found'}
+              </Alert>
+            )}
             <Button variant="primary" onClick={() => navigate('/blog')}>
               Back to Blog
             </Button>
