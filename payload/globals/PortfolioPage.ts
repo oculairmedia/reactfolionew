@@ -2,6 +2,9 @@ import { GlobalConfig } from 'payload/types';
 
 const PortfolioPage: GlobalConfig = {
   slug: 'portfolio-page',
+  access: {
+    read: () => true,
+  },
   fields: [
     {
       name: 'title',

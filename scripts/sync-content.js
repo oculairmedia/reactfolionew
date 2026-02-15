@@ -102,7 +102,8 @@ const SYNC_MAP = {
     outputPath: 'settings/footer.json',
     transform: (data) => {
       return {
-        text: data.text || '',
+        copyright: data.copyright || '',
+        note: data.note || '',
         links: data.links || []
       };
     }

@@ -2,6 +2,9 @@ import { GlobalConfig } from 'payload/types';
 
 const UIText: GlobalConfig = {
   slug: 'ui-text',
+  access: {
+    read: () => true,
+  },
   fields: [
     {
       name: 'viewAllProjects',

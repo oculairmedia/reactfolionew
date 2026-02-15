@@ -2,6 +2,9 @@ import { GlobalConfig } from 'payload/types';
 
 const Navigation: GlobalConfig = {
   slug: 'navigation',
+  access: {
+    read: () => true,
+  },
   fields: [
     {
       name: 'items',
