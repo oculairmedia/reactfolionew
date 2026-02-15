@@ -27,12 +27,8 @@ export const VoicesUnheard = () => {
   useEffect(() => {
     [videoRef1, videoRef2].forEach((ref) => {
       if (ref.current) {
-        ref.current.addEventListener("loadeddata", () => {
-          console.log("Video loaded successfully");
-        });
-        ref.current.addEventListener("error", (e) => {
-          console.error("Error loading video:", e);
-        });
+        ref.current.addEventListener("loadeddata", () => {});
+        ref.current.addEventListener("error", () => {});
       }
     });
   }, []);

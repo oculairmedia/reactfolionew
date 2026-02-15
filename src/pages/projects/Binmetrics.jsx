@@ -15,12 +15,8 @@ const Binmetrics = () => {
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.addEventListener('loadeddata', () => {
-        console.log('Video loaded successfully');
-      });
-      videoRef.current.addEventListener('error', (e) => {
-        console.error('Error loading video:', e);
-      });
+      videoRef.current.addEventListener('loadeddata', () => {});
+      videoRef.current.addEventListener('error', () => {});
     }
   }, []);
 

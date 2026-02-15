@@ -12,7 +12,8 @@ export const getProxiedVideoUrl = (originalUrl) => {
     if (match) {
       const [, hash, folder, format] = match;
       // Try the direct storage URL format
-      return `https://oculair.b-cdn.net/${hash}/${folder}/${format}.mp4`;
+      const cdnBase = import.meta.env.REACT_APP_CDN_URL || 'https://oculair.b-cdn.net';
+      return `${cdnBase}/${hash}/${folder}/${format}.mp4`;
     }
   }
   

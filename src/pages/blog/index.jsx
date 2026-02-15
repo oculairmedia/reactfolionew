@@ -15,13 +15,10 @@ export const Blog = () => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        console.log('[Blog] Fetching posts from Ghost API...');
         const data = await getPosts({ limit: 12 });
-        console.log('[Blog] Posts received:', data.length);
         setPosts(data);
         setError(null);
-      } catch (error) {
-        console.error('[Blog] Error fetching posts:', error);
+      } catch {
         setError('Failed to load blog posts. Please try again later.');
       } finally {
         setLoading(false);

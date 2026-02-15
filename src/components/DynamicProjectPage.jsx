@@ -66,12 +66,8 @@ const DynamicProjectPage = () => {
   useEffect(() => {
     videoRefs.current.forEach((ref) => {
       if (ref) {
-        ref.addEventListener("loadeddata", () => {
-          console.log("Video loaded successfully");
-        });
-        ref.addEventListener("error", (e) => {
-          console.error("Error loading video:", e);
-        });
+        ref.addEventListener("loadeddata", () => {});
+        ref.addEventListener("error", () => {});
       }
     });
   }, [project]);

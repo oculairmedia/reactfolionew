@@ -17,9 +17,7 @@ export const usePrefetch = (loaderFunc) => {
       .then(() => {
         prefetched.current = true;
       })
-      .catch((err) => {
-        console.warn('Failed to prefetch chunk:', err);
-      });
+      .catch(() => {});
   };
 
   return {

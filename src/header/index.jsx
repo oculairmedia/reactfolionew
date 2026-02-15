@@ -8,7 +8,7 @@ import { usePrefetch } from "../hooks/usePrefetch";
 import { loadHome, loadPortfolio, loadAbout, loadBlog } from "../app/routes";
 
 const Headermain = () => {
-  const [isActive, setActive] = useState("false");
+  const [isActive, setActive] = useState(false);
 
   const handleToggle = () => {
     setActive(!isActive);

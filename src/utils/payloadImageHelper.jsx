@@ -202,8 +202,7 @@ export const fetchPayloadMedia = async (idOrFilename) => {
     }
 
     return null;
-  } catch (error) {
-    console.error('Failed to fetch Payload media:', error);
+  } catch {
     return null;
   }
 };

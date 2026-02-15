@@ -24,7 +24,6 @@ export const getPosts = async (options = {}) => {
     const posts = await api.posts.browse(defaultOptions);
     return posts;
   } catch (error) {
-    console.error('Error fetching posts:', error);
     throw error;
   }
 };
@@ -42,7 +41,6 @@ export const getPostBySlug = async (slug) => {
     );
     return post;
   } catch (error) {
-    console.error('Error fetching post:', error);
     throw error;
   }
 };
@@ -65,7 +63,6 @@ export const getPostsByTag = async (tagSlug, options = {}) => {
     const posts = await api.posts.browse(defaultOptions);
     return posts;
   } catch (error) {
-    console.error('Error fetching posts by tag:', error);
     throw error;
   }
 };
@@ -79,7 +76,6 @@ export const getTags = async () => {
     const tags = await api.tags.browse({ limit: 'all' });
     return tags;
   } catch (error) {
-    console.error('Error fetching tags:', error);
     throw error;
   }
 };
@@ -102,7 +98,6 @@ export const searchPosts = async (query, options = {}) => {
     const posts = await api.posts.browse(defaultOptions);
     return posts;
   } catch (error) {
-    console.error('Error searching posts:', error);
     throw error;
   }
 };

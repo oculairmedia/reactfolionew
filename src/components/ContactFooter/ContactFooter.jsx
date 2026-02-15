@@ -35,7 +35,6 @@ export const ContactFooter = () => {
       )
       .then(
         (result) => {
-          console.log(result.text);
           setFormdata({
             email: "",
             name: "",
@@ -47,7 +46,6 @@ export const ContactFooter = () => {
           });
         },
         (error) => {
-          console.log(error.text);
           setFormdata({
             ...formData,
             alertmessage: `Failed to send! ${error.text}`,

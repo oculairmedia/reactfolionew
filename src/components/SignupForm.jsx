@@ -9,7 +9,8 @@ const SignupForm = () => {
     setStatus('Subscribing...');
 
     try {
-      const response = await fetch('https://blog.emmanuelu.com/members/api/send-magic-link/', {
+      const ghostUrl = import.meta.env.REACT_APP_GHOST_URL || 'https://blog.emmanuelu.com';
+      const response = await fetch(`${ghostUrl}/members/api/send-magic-link/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -29,7 +30,6 @@ const SignupForm = () => {
       }
     } catch (error) {
       setStatus('An error occurred. Please try again later.');
-      console.error('Subscription error:', error);
     }
   };
 

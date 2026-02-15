@@ -17,13 +17,10 @@ export const BlogPost = () => {
     const fetchPost = async () => {
       try {
         setLoading(true);
-        console.log('[BlogPost] Fetching post:', slug);
         const data = await getPostBySlug(slug);
-        console.log('[BlogPost] Post received:', data.title);
         setPost(data);
         setError(null);
-      } catch (error) {
-        console.error('[BlogPost] Error fetching post:', error);
+      } catch {
         setError('Failed to load blog post. Please try again later.');
       } finally {
         setLoading(false);

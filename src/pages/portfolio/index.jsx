@@ -20,8 +20,7 @@ export const Portfolio = () => {
         setLoading(true);
         const portfolioData = await getPortfolioItems();
         setDataPortfolio(portfolioData);
-      } catch (error) {
-        console.error('Error fetching portfolio data:', error);
+      } catch {
         // Fallback to static data if CMS fails
         import('../../content_option').then(module => {
           setDataPortfolio(module.dataportfolio);

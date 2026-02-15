@@ -31,11 +31,7 @@ export const usePrefetchPortfolio = () => {
     prefetched.current = true;
     // Prefetch silently - data will be in cache when user navigates
     getPortfolioItems()
-      .then(() => {
-        console.log('✅ Prefetched: Portfolio items');
-      })
-      .catch((error) => {
-        console.log('Prefetch failed (will load normally):', error.message);
+      .catch(() => {
         prefetched.current = false; // Allow retry on error
       });
   }, []);
@@ -58,11 +54,7 @@ export const usePrefetchAbout = () => {
 
     prefetched.current = true;
     getAboutPage()
-      .then(() => {
-        console.log('✅ Prefetched: About page');
-      })
-      .catch((error) => {
-        console.log('Prefetch failed (will load normally):', error.message);
+      .catch(() => {
         prefetched.current = false;
       });
   }, []);
@@ -86,11 +78,7 @@ export const usePrefetchProject = (projectId) => {
 
     prefetched.current = true;
     getProjectById(projectId)
-      .then(() => {
-        console.log(`✅ Prefetched: Project ${projectId}`);
-      })
-      .catch((error) => {
-        console.log('Prefetch failed (will load normally):', error.message);
+      .catch(() => {
         prefetched.current = false;
       });
   }, [projectId]);
@@ -113,11 +101,7 @@ export const usePrefetchHomeIntro = () => {
 
     prefetched.current = true;
     getHomeIntro()
-      .then(() => {
-        console.log('✅ Prefetched: Home intro');
-      })
-      .catch((error) => {
-        console.log('Prefetch failed (will load normally):', error.message);
+      .catch(() => {
         prefetched.current = false;
       });
   }, []);
@@ -140,11 +124,7 @@ export const usePrefetchSiteSettings = () => {
 
     prefetched.current = true;
     getSiteSettings()
-      .then(() => {
-        console.log('✅ Prefetched: Site settings');
-      })
-      .catch((error) => {
-        console.log('Prefetch failed (will load normally):', error.message);
+      .catch(() => {
         prefetched.current = false;
       });
   }, []);
@@ -174,16 +154,13 @@ export const usePrefetchCriticalData = (dataTypes = []) => {
         'site-settings': getSiteSettings,
       };
 
-      console.log('🚀 Starting idle prefetch for:', dataTypes.join(', '));
-
       for (const type of dataTypes) {
         const fetchFn = prefetchFunctions[type];
         if (fetchFn) {
           try {
             await fetchFn();
-            console.log(`✅ Prefetched: ${type}`);
-          } catch (error) {
-            console.log(`Prefetch failed for ${type} (will load normally):`, error.message);
+          } catch {
+            // Prefetch failed — will load normally on navigation
           }
         }
       }
@@ -212,13 +189,7 @@ export const usePrefetchCriticalData = (dataTypes = []) => {
  * @param {string} label - Label for logging
  */
 export const prefetchData = (fetchFn, label = 'data') => {
-  fetchFn()
-    .then(() => {
-      console.log(`✅ Prefetched: ${label}`);
-    })
-    .catch((error) => {
-      console.log(`Prefetch failed for ${label} (will load normally):`, error.message);
-    });
+  fetchFn().catch(() => {});
 };
 
 export default {

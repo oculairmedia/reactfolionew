@@ -25,10 +25,6 @@ export const usePerformance = () => {
         type: resource.initiatorType,
       }));
 
-      // Log performance metrics
-      console.log('Navigation Timing:', timing);
-      console.log('Resource Timing:', resourceTiming);
-
       // Report to analytics if needed
       if (window.gtag) {
         window.gtag('event', 'performance', {

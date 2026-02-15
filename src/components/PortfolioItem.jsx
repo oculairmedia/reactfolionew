@@ -20,16 +20,6 @@ const PortfolioItem = ({ data, index }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
-  // Debug log
-  console.log('[PortfolioItem] Rendering:', {
-    title: data?.title,
-    hasImg: !!data?.img,
-    hasVideo: !!data?.video,
-    isVideo: data?.isVideo,
-    img: data?.img,
-    video: data?.video
-  });
-
   // Extract project ID from link for prefetching
   // Link format is typically "/portfolio/[id]" or just the ID
   const projectId = data.id || (data.link ? data.link.split('/').pop() : null);
@@ -59,15 +49,18 @@ const PortfolioItem = ({ data, index }) => {
   };
 
   const variants = {
-    hidden: { opacity: 0.6, y: 20, scale: 0.98 },
+    hidden: { opacity: 0, y: 30, scale: 0.95, filter: "blur(5px)" },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
+      filter: "blur(0px)",
       transition: {
-        duration: 0.5,
-        ease: "easeOut",
-        delay: index * 0.2 // Add a delay based on the index
+        type: "spring",
+        stiffness: 400,
+        damping: 20,
+        mass: 1,
+        delay: Math.min(index * 0.05, 0.5) // Cap delay at 0.5s to avoid waiting too long for last items
       }
     }
   };
@@ -79,11 +72,6 @@ const PortfolioItem = ({ data, index }) => {
   const featuredImage = data.isVideo
     ? (data.featuredImage || data.featured_image)
     : (data.img || data.featured_image || data.featuredImage);
-
-  // Debug logging
-  if (!featuredImage && !featuredVideo) {
-    console.warn('[PortfolioItem] No image or video found for:', data.title, data);
-  }
 
   // Check if featured media is a video
   const hasVideo = data.isVideo || (featuredVideo && isVideo(featuredVideo));

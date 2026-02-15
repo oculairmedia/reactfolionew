@@ -35,10 +35,6 @@ function logFallbackEvent(source, reason, status = 'success') {
     fallbackEvents.shift(); // Remove oldest
   }
   
-  // Console log with emoji for visibility
-  const emoji = status === 'success' ? '🔄' : '❌';
-  console.warn(`${emoji} [Fallback] ${source}: ${reason}`);
-  
   // Send to analytics if available (Google Analytics, Sentry, etc.)
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'cms_fallback', {
@@ -48,10 +44,6 @@ function logFallbackEvent(source, reason, status = 'success') {
     });
   }
   
-  // Send to console in development
-  if (import.meta.env.DEV) {
-    console.table([event]);
-  }
 }
 
 /**
@@ -99,16 +91,11 @@ function getMostCommon(arr) {
  */
 export async function fetchWithFallback(cmsFetcher, fallbackData, source) {
   try {
-    console.log(`[CMS] Attempting to fetch ${source} from CMS...`);
     const data = await cmsFetcher();
-    console.log(`[CMS] ✅ Successfully fetched ${source} from CMS`);
     return data;
   } catch (error) {
     const reason = error.message || 'Unknown error';
-    console.warn(`[CMS] ⚠️  Failed to fetch ${source} from CMS: ${reason}`);
     logFallbackEvent(source, reason, 'success');
-    
-    console.log(`[CMS] 🔄 Using fallback data for ${source}`);
     return fallbackData;
   }
 }
@@ -129,14 +116,10 @@ export async function fetchWithTimeout(cmsFetcher, fallbackData, source, timeout
         setTimeout(() => reject(new Error('Request timeout')), timeout)
       )
     ]);
-    console.log(`[CMS] ✅ Successfully fetched ${source} from CMS`);
     return data;
   } catch (error) {
     const reason = error.message || 'Unknown error';
-    console.warn(`[CMS] ⚠️  Failed to fetch ${source}: ${reason}`);
     logFallbackEvent(source, reason, 'success');
-    
-    console.log(`[CMS] 🔄 Using fallback data for ${source}`);
     return fallbackData;
   }
 }
@@ -146,15 +129,14 @@ export async function fetchWithTimeout(cmsFetcher, fallbackData, source, timeout
  * @param {string} apiUrl - CMS API URL
  * @returns {Promise<boolean>} True if CMS is available
  */
-export async function checkCmsHealth(apiUrl = 'https://cms2.emmanuelu.com/api') {
+export async function checkCmsHealth(apiUrl = import.meta.env.REACT_APP_API_URL || 'https://cms2.emmanuelu.com/api') {
   try {
     const response = await fetch(`${apiUrl}/health`, { 
       method: 'GET',
       timeout: 3000 
     });
     return response.ok;
-  } catch (error) {
-    console.warn('[CMS] Health check failed:', error.message);
+  } catch {
     return false;
   }
 }

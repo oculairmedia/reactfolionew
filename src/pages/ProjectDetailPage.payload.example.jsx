@@ -15,7 +15,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
  * 4. SEO meta tags with OG images
  */
 
-const CMS_API_URL = 'https://cms2.emmanuelu.com/api';
+const CMS_API_URL = import.meta.env.REACT_APP_API_URL || 'https://cms2.emmanuelu.com/api';
 
 const ProjectDetailPagePayload = () => {
   const { slug } = useParams();
@@ -54,7 +54,6 @@ const ProjectDetailPagePayload = () => {
       // Update SEO meta tags
       updateMetaTags(data.docs[0]);
     } catch (err) {
-      console.error('Failed to fetch project:', err);
       setError(err.message);
     } finally {
       setLoading(false);

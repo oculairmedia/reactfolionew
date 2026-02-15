@@ -50,7 +50,6 @@ export const PayloadOptimizedVideo = ({
   
   // Validate that media is a video (unless it's a legacy URL)
   if (!isLegacyUrl && (!media || !isVideo(media))) {
-    console.warn('[PayloadOptimizedVideo] Invalid video media object:', media);
     return null;
   }
 
@@ -104,7 +103,6 @@ export const PayloadOptimizedVideo = ({
   };
 
   const handleError = (e) => {
-    console.error('[PayloadOptimizedVideo] Video load error:', e);
     if (onError) {
       onError(e);
     }
