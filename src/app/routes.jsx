@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes, Navigate, useLocation } from "react-router-dom";
-import withRouter from "../hooks/withRouter"
+import withRouter from "../hooks/withRouter.jsx"
 const loadHome = () => import("../pages/home").then(m => ({ default: m.Home }));
 const loadPortfolio = () => import("../pages/portfolio").then(m => ({ default: m.Portfolio }));
 const loadAbout = () => import("../pages/about").then(m => ({ default: m.About }));

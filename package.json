@@ -33,7 +33,6 @@
     "react-icons": "^4.1.0",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^6.6.2",
-    "react-scripts": "^5.0.1",
     "react-transition-group": "^4.4.2",
     "stream-browserify": "^3.0.0",
     "tty-browserify": "^0.0.1",
@@ -41,19 +40,17 @@
     "url": "^0.11.4",
     "util": "^0.12.5",
     "vibe-kanban-web-companion": "^0.0.5",
-    "vm-browserify": "^1.1.2",
-    "web-vitals": "^3.1.1"
+    "vm-browserify": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "vercel-build": "react-scripts build",
-    "build:analyze": "source-map-explorer 'build/static/js/*.js'",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "vercel-build": "vite build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build && cp build/index.html build/404.html",
     "deploy": "gh-pages -d build",
-    "build:prod": "react-scripts build && node scripts/purgecss.js",
     "payload": "ts-node server.ts",
     "payload:build": "tsc --project tsconfig.server.json",
     "payload:serve": "node dist/server.js",
@@ -84,6 +81,7 @@
     "@fullhuman/postcss-purgecss": "^7.0.2",
     "@types/express": "^5.0.5",
     "@types/node": "^24.10.0",
+    "@vitejs/plugin-react": "^5.1.4",
     "esbuild": "^0.27.0",
     "http-proxy-middleware": "^3.0.3",
     "node-loader": "^2.1.0",
@@ -91,6 +89,10 @@
     "postcss": "^8.5.6",
     "source-map-explorer": "^2.5.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
-  }
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vite-plugin-env-compatible": "^2.0.1",
+    "vite-plugin-svgr": "^4.5.0"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
