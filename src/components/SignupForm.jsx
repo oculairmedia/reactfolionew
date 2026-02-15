@@ -9,7 +9,7 @@ const SignupForm = () => {
     setStatus('Subscribing...');
 
     try {
-      const ghostUrl = import.meta.env.REACT_APP_GHOST_URL || 'https://blog.emmanuelu.com';
+      const ghostUrl = import.meta.env.VITE_GHOST_URL || 'https://blog.emmanuelu.com';
       const response = await fetch(`${ghostUrl}/members/api/send-magic-link/`, {
         method: 'POST',
         headers: {

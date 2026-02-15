@@ -65,7 +65,7 @@ const SYNC_MAP = {
         title: data.title || "I'm Emmanuel Umukoro",
         description: data.description || '',
         image_url: data.image_url || data.image?.url || '',
-        animated: data.animated_phrases?.map(phrase => ({ 
+        animated: data.animated?.map(phrase => ({ 
           text: typeof phrase === 'string' ? phrase : phrase.text 
         })) || []
       };

@@ -3,8 +3,8 @@ import GhostContentAPI from '@tryghost/content-api';
 // Initialize Ghost Content API
 // Vite uses import.meta.env instead of process.env
 const api = new GhostContentAPI({
-  url: import.meta.env.REACT_APP_GHOST_URL,
-  key: import.meta.env.REACT_APP_GHOST_KEY,
+  url: import.meta.env.VITE_GHOST_URL,
+  key: import.meta.env.VITE_GHOST_KEY,
   version: 'v5.0' // Can also use 'v3' or 'canary' depending on your Ghost version
 });
 

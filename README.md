@@ -31,10 +31,10 @@ npm install
 Create a `.env` file:
 
 ```bash
-REACT_APP_API_URL=https://your-payload-cms.com/api
-REACT_APP_GHOST_URL=https://your-ghost-blog.com
-REACT_APP_GHOST_KEY=your_ghost_content_api_key
-REACT_APP_CDN_URL=https://your-cdn.com
+VITE_API_URL=https://your-payload-cms.com/api
+VITE_GHOST_URL=https://your-ghost-blog.com
+VITE_GHOST_KEY=your_ghost_content_api_key
+VITE_CDN_URL=https://your-cdn.com
 ```
 
 ### Development
@@ -124,7 +124,7 @@ GET /api/globals/about-page                 # About page
 
 Frontend deploys to Vercel. Payload CMS runs as a remote server.
 
-Set `REACT_APP_API_URL` to point to your Payload server.
+Set `VITE_API_URL` to point to your Payload server.
 
 See [docs/](./docs/) for detailed deployment guides.
 

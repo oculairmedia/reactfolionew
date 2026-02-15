@@ -61,8 +61,7 @@ export const Home = () => {
 
         setIntroData(transformedIntroData);
         setDataPortfolio(portfolioData);
-      } catch (error) {
-        console.error('Error fetching CMS data:', error);
+      } catch {
         // Fallback to static data if CMS fails
         import('../../content_option').then(module => {
           setIntroData(module.introdata);
@@ -149,16 +148,15 @@ export const Home = () => {
                   // Force load and play
                   el.load();
                   // Add error handling for video playback
-                  el.addEventListener('error', (e) => {
-                    console.error('Video error:', e);
+                  el.addEventListener('error', () => {
                     // Try to recover by reloading the video
                     el.load();
-                    el.play().catch(console.error);
+                    el.play().catch(() => {});
                   });
                   // Add ended event listener to ensure looping
                   el.addEventListener('ended', () => {
                     el.currentTime = 0;
-                    el.play().catch(console.error);
+                    el.play().catch(() => {});
                   });
                   const playPromise = el.play();
                   if (playPromise !== undefined) {
@@ -166,11 +164,10 @@ export const Home = () => {
                       .then(() => {
                         setVideoLoaded(true);
                       })
-                      .catch(error => {
-                        console.log("Video autoplay failed:", error);
+                      .catch(() => {
                         // Try to play again after a short delay
                         setTimeout(() => {
-                          el.play().catch(e => console.log("Retry failed:", e));
+                          el.play().catch(() => {});
                         }, 1000);
                       });
                   }

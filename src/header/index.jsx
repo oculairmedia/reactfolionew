@@ -8,10 +8,10 @@ import { usePrefetch } from "../hooks/usePrefetch";
 import { loadHome, loadPortfolio, loadAbout, loadBlog } from "../app/routes";
 
 const Headermain = () => {
-  const [isActive, setActive] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleToggle = () => {
-    setActive(!isActive);
+    setMenuOpen(!menuOpen);
     document.body.classList.toggle("ovhidden");
   };
 
@@ -40,7 +40,7 @@ const Headermain = () => {
             <Themetoggle />
             {/* Hamburger — hidden on desktop via CSS */}
             <button className="menu__button nav_ac mobile-menu-btn" onClick={handleToggle}>
-              {!isActive ? <VscClose /> : <VscGrabber />}
+              {menuOpen ? <VscClose /> : <VscGrabber />}
             </button>
           </div>
         </div>
@@ -52,7 +52,7 @@ const Headermain = () => {
         uses backdrop-filter, which creates a containing block that
         traps position:fixed children (CSS spec behavior).
       */}
-      <div className={`site__navigation ${!isActive ? "menu__opend" : ""}`}>
+      <div className={`site__navigation ${menuOpen ? "menu__opend" : ""}`}>
         <div className="bg__menu h-100">
           <div className="menu__wrapper">
             <div className="menu__container p-3">

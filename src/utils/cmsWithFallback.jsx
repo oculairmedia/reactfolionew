@@ -129,7 +129,7 @@ export async function fetchWithTimeout(cmsFetcher, fallbackData, source, timeout
  * @param {string} apiUrl - CMS API URL
  * @returns {Promise<boolean>} True if CMS is available
  */
-export async function checkCmsHealth(apiUrl = import.meta.env.REACT_APP_API_URL || 'https://cms2.emmanuelu.com/api') {
+export async function checkCmsHealth(apiUrl = import.meta.env.VITE_API_URL || 'https://cms2.emmanuelu.com/api') {
   try {
     const response = await fetch(`${apiUrl}/health`, { 
       method: 'GET',

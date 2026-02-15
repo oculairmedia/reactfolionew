@@ -6,11 +6,18 @@
     margin-bottom: calc(3rem + 5.128vw);
 }
 
+.table,
 .table td,
 .table th {
-    color: var(--text-color);
+    background-color: transparent !important;
+    color: var(--text-color) !important;
+}
+
+.table td,
+.table th {
     font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 0.85rem;
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .t_border {

@@ -13,7 +13,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
  * 4. Display projects in a responsive grid
  */
 
-const CMS_API_URL = import.meta.env.REACT_APP_API_URL || 'https://cms2.emmanuelu.com/api';
+const CMS_API_URL = import.meta.env.VITE_API_URL || 'https://cms2.emmanuelu.com/api';
 
 const PortfolioPagePayload = () => {
   const [projects, setProjects] = useState([]);

@@ -49,18 +49,17 @@ const PortfolioItem = ({ data, index }) => {
   };
 
   const variants = {
-    hidden: { opacity: 0, y: 30, scale: 0.95, filter: "blur(5px)" },
+    hidden: { opacity: 0, y: 20, scale: 0.98 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      filter: "blur(0px)",
       transition: {
         type: "spring",
-        stiffness: 400,
-        damping: 20,
-        mass: 1,
-        delay: Math.min(index * 0.05, 0.5) // Cap delay at 0.5s to avoid waiting too long for last items
+        stiffness: 260,
+        damping: 25, // Higher damping = less bounce
+        mass: 0.5, // Lower mass = faster, lighter feel
+        delay: Math.min(index * 0.04, 0.4) // Faster stagger
       }
     }
   };

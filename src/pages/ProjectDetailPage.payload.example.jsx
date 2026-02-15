@@ -15,7 +15,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
  * 4. SEO meta tags with OG images
  */
 
-const CMS_API_URL = import.meta.env.REACT_APP_API_URL || 'https://cms2.emmanuelu.com/api';
+const CMS_API_URL = import.meta.env.VITE_API_URL || 'https://cms2.emmanuelu.com/api';
 
 const ProjectDetailPagePayload = () => {
   const { slug } = useParams();

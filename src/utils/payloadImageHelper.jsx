@@ -20,7 +20,7 @@
  */
 
 // Use CMS URL for uploaded media (not CDN for now)
-const CMS_BASE_URL = import.meta.env.REACT_APP_API_URL || 'https://cms2.emmanuelu.com';
+const CMS_BASE_URL = import.meta.env.VITE_API_URL || 'https://cms2.emmanuelu.com';
 const CDN_BASE_URL = `${CMS_BASE_URL}/media`;
 const CMS_API_URL = `${CMS_BASE_URL}/api/media`;
 
