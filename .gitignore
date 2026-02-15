@@ -58,3 +58,4 @@ coverage_html/
 # IDE / tooling
 .serena/
 .benchmarks/
+.vercel

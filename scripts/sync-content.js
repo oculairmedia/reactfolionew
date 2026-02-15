@@ -11,7 +11,9 @@
  *   node scripts/sync-content.js
  * 
  * Environment:
- *   CMS_API_URL - Override default CMS URL (default: http://localhost:3006/api)
+ *   CMS_API_URL - Override default CMS URL
+ *   VITE_API_URL - Fallback (used on Vercel where VITE_ vars are set)
+ *   Default: http://localhost:3006/api (local dev)
  */
 
 const fs = require('fs');
@@ -20,7 +22,7 @@ const https = require('https');
 const http = require('http');
 
 // Configuration
-const CMS_API_URL = process.env.CMS_API_URL || 'http://localhost:3006/api';
+const CMS_API_URL = process.env.CMS_API_URL || process.env.VITE_API_URL || 'http://localhost:3006/api';
 const CONTENT_DIR = path.join(__dirname, '..', 'src', 'content');
 const LOG_PREFIX = '[CMS Sync]';
 
