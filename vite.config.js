@@ -2,18 +2,23 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import envCompatible from 'vite-plugin-env-compatible';
 import svgr from 'vite-plugin-svgr';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
     envPrefix: 'REACT_APP_',
     plugins: [
         react(),
         envCompatible(),
-        svgr()
+        svgr(),
+        visualizer({
+            open: false,
+            gzipSize: true,
+            brotliSize: true,
+            filename: 'bundle-analysis.html'
+        })
     ],
     resolve: {
         alias: {
-            // Add any aliases if CRA supported them (e.g. src absolute imports)
-            // Usually CRA supports src absolute imports, Vite needs configuration
             src: "/src",
         },
     },
@@ -36,11 +41,50 @@ export default defineConfig({
     },
     build: {
         outDir: 'build',
+        sourcemap: true,
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                drop_debugger: true,
+                pure_funcs: ['console.log', 'console.info', 'console.warn']
+            },
+            mangle: {
+                safari10: true
+            }
+        },
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    vendor: ['react', 'react-dom', 'react-router-dom'],
+                    animation: ['framer-motion'],
+                    ui: ['react-bootstrap', 'bootstrap'],
+                    icons: ['react-icons'],
+                    utils: ['axios', 'emailjs-com', 'typewriter-effect'],
+                    cms: ['payload']
+                },
+                chunkFileNames: 'assets/js/[name]-[hash].js',
+                entryFileNames: 'assets/js/[name]-[hash].js',
+                assetFileNames: (assetInfo) => {
+                    const info = assetInfo.name.split('.');
+                    const ext = info[info.length - 1];
+                    if (/\.(png|jpe?g|gif|svg|webp|ico)$/i.test(assetInfo.name)) {
+                        return 'assets/images/[name]-[hash][extname]';
+                    }
+                    if (/\.(css)$/i.test(assetInfo.name)) {
+                        return 'assets/css/[name]-[hash][extname]';
+                    }
+                    return 'assets/[name]-[hash][extname]';
+                }
+            }
+        },
+        chunkSizeWarningLimit: 500
     },
     define: {
         'process.env': {}
     },
     optimizeDeps: {
         entries: ['src/index.jsx'],
+        include: ['react', 'react-dom', 'react-router-dom', 'framer-motion']
     },
 });

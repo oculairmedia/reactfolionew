@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, memo, useCallback } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Typewriter from "typewriter-effect";
@@ -11,7 +11,7 @@ import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
 import { HomeIntroSkeleton, PortfolioGridSkeleton, Skeleton } from "../../components/SkeletonLoader";
 import { usePrefetchCriticalData, usePrefetchPortfolio, usePrefetchAbout } from "../../hooks/useDataPrefetch";
 
-const SocialIcon = ({ href, children }) => (
+const SocialIcon = memo(({ href, children }) => (
   <a
     href={href}
     target="_blank"
@@ -20,7 +20,9 @@ const SocialIcon = ({ href, children }) => (
   >
     {children}
   </a>
-);
+));
+
+SocialIcon.displayName = 'SocialIcon';
 
 export const Home = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -82,11 +84,22 @@ export const Home = () => {
   const portfolioHoverHandlers = usePrefetchPortfolio();
   const aboutHoverHandlers = usePrefetchAbout();
 
-  const randomizedStrings = useMemo(() => {
+const randomizedStrings = useMemo(() => {
     if (!introdata?.animated) return [];
     const strings = Object.values(introdata.animated);
     return strings.sort(() => Math.random() - 0.5);
   }, [introdata]);
+
+  const portfolioItems = useMemo(() => {
+    if (!dataportfolio || dataportfolio.length === 0) return null;
+    return dataportfolio.map((data, i) => (
+      <PortfolioItem key={data.id || i} data={data} />
+    ));
+  }, [dataportfolio]);
+
+  const handlePortfolioClick = useCallback(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
 
   // Removed motion variants - using CSS animations instead for better performance
 
@@ -201,7 +214,7 @@ export const Home = () => {
                 {introdata.description}
               </p>
               <div className="intro_btn-action animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards', animationDelay: '0.6s', opacity: 0 }}>
-                <Link to="/portfolio" className="text_2" {...portfolioHoverHandlers} onClick={() => { window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); }}>
+                <Link to="/portfolio" className="text_2" {...portfolioHoverHandlers} onClick={handlePortfolioClick}>
                   <div id="button_p" className="ac_btn btn">
                     {uiText.myPortfolio}
                     <div className="ring one"></div>
@@ -249,16 +262,10 @@ export const Home = () => {
             {uiText.featuredProjects}
           </h2>
           <div className="portfolio_items">
-            {dataportfolio && dataportfolio.length > 0 ? (
-              dataportfolio.map((data, i) => (
-                <PortfolioItem key={data.id || i} data={data} />
-              ))
-            ) : (
-              <div>No projects available</div>
-            )}
+            {portfolioItems || <div>No projects available</div>}
           </div>
           <div className="view_all_btn animate">
-            <Link to="/portfolio" className="text_2" {...portfolioHoverHandlers} onClick={() => { window.scrollTo({ top: 0, left: 0, behavior: 'smooth' }); }}>
+            <Link to="/portfolio" className="text_2" {...portfolioHoverHandlers} onClick={handlePortfolioClick}>
               <div id="button_p" className="ac_btn btn">
                 {uiText.viewAllProjects}
                 <div className="ring one"></div>

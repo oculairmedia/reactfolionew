@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import './LoadingSpinner.css';
 
 /**
@@ -10,7 +10,7 @@ import './LoadingSpinner.css';
  * @param {string} props.message - Optional loading message
  * @param {boolean} props.fullScreen - Whether to show fullscreen overlay
  */
-export const LoadingSpinner = ({
+export const LoadingSpinner = memo(({
   size = 'medium',
   color = '#007bff',
   message = 'Loading...',
@@ -41,6 +41,8 @@ export const LoadingSpinner = ({
   }
 
   return spinnerContent;
-};
+});
+
+LoadingSpinner.displayName = 'LoadingSpinner';
 
 export default LoadingSpinner;

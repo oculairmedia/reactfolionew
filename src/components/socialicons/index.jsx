@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import "./style.css";
 import {
   FaGithub,
@@ -27,7 +27,7 @@ const ICON_MAPPING = {
   youtube: FaYoutube
 };
 
-export const Socialicons = (params) => {
+export const Socialicons = memo(() => {
   return (
     <div className="stick_follow_icon">
       <ul>
@@ -45,4 +45,6 @@ export const Socialicons = (params) => {
       <p>Follow Me</p>
     </div>
   );
-};
+});
+
+Socialicons.displayName = 'Socialicons';

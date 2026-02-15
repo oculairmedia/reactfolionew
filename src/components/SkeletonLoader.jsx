@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import './SkeletonLoader.css';
 import { Row, Col } from 'react-bootstrap';
 
 /**
  * Generic skeleton component
  */
-export const Skeleton = ({ width = '100%', height = '20px', circle = false, className = '' }) => {
+export const Skeleton = memo(({ width = '100%', height = '20px', circle = false, className = '' }) => {
   const style = {
     width,
     height,
@@ -13,34 +13,40 @@ export const Skeleton = ({ width = '100%', height = '20px', circle = false, clas
   };
 
   return <div className={`skeleton ${className}`} style={style} />;
-};
+});
+
+Skeleton.displayName = 'Skeleton';
 
 /**
  * Skeleton for portfolio grid item - matches .po_item structure
  */
-export const PortfolioItemSkeleton = () => (
+export const PortfolioItemSkeleton = memo(() => (
   <div className="portfolio-item-skeleton">
     <div className="skeleton-media-container">
       <Skeleton height="100%" className="skeleton-image" />
     </div>
   </div>
-);
+));
+
+PortfolioItemSkeleton.displayName = 'PortfolioItemSkeleton';
 
 /**
  * Skeleton for portfolio grid (multiple items) - renders items directly (no wrapper)
  */
-export const PortfolioGridSkeleton = ({ count = 6, className = '' }) => (
+export const PortfolioGridSkeleton = memo(({ count = 6, className = '' }) => (
   <>
     {Array.from({ length: count }).map((_, index) => (
       <PortfolioItemSkeleton key={index} />
     ))}
   </>
-);
+));
+
+PortfolioGridSkeleton.displayName = 'PortfolioGridSkeleton';
 
 /**
  * Skeleton for full portfolio page - matches EXACT portfolio page structure
  */
-export const PortfolioPageSkeleton = ({ count = 8 }) => (
+export const PortfolioPageSkeleton = memo(({ count = 8 }) => (
   <>
     <Row className="mb-5 mt-3 pt-md-3">
       <Col lg="8">
@@ -52,12 +58,14 @@ export const PortfolioPageSkeleton = ({ count = 8 }) => (
       <PortfolioGridSkeleton count={count} />
     </div>
   </>
-);
+));
+
+PortfolioPageSkeleton.displayName = 'PortfolioPageSkeleton';
 
 /**
  * Skeleton for project detail page
  */
-export const ProjectDetailSkeleton = () => (
+export const ProjectDetailSkeleton = memo(() => (
   <div className="project-detail-skeleton">
     <div className="skeleton-hero">
       <Skeleton height="60px" width="70%" className="skeleton-title" />
@@ -84,12 +92,14 @@ export const ProjectDetailSkeleton = () => (
       <Skeleton height="16px" width="96%" />
     </div>
   </div>
-);
+));
+
+ProjectDetailSkeleton.displayName = 'ProjectDetailSkeleton';
 
 /**
  * Skeleton for home intro section - matches EXACT .intro_sec structure
  */
-export const HomeIntroSkeleton = () => (
+export const HomeIntroSkeleton = memo(() => (
   <>
     <div className="h_bg-video skeleton-video-bg">
       <Skeleton />
@@ -111,12 +121,14 @@ export const HomeIntroSkeleton = () => (
       </div>
     </div>
   </>
-);
+));
+
+HomeIntroSkeleton.displayName = 'HomeIntroSkeleton';
 
 /**
  * Skeleton for about page - matches EXACT Bootstrap Row/Col structure
  */
-export const AboutPageSkeleton = () => (
+export const AboutPageSkeleton = memo(() => (
   <>
     <Row className="mb-5 mt-3 pt-md-3">
       <Col lg="8">
@@ -192,12 +204,14 @@ export const AboutPageSkeleton = () => (
       </Col>
     </Row>
   </>
-);
+));
+
+AboutPageSkeleton.displayName = 'AboutPageSkeleton';
 
 /**
  * Skeleton for text content
  */
-export const TextSkeleton = ({ lines = 3 }) => (
+export const TextSkeleton = memo(({ lines = 3 }) => (
   <div className="text-skeleton">
     {Array.from({ length: lines }).map((_, index) => (
       <Skeleton
@@ -207,6 +221,8 @@ export const TextSkeleton = ({ lines = 3 }) => (
       />
     ))}
   </div>
-);
+));
+
+TextSkeleton.displayName = 'TextSkeleton';
 
 export default Skeleton;
