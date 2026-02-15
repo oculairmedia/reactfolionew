@@ -56,12 +56,11 @@ export default defineConfig({
         rollupOptions: {
             output: {
                 manualChunks: {
-                    vendor: ['react', 'react-dom', 'react-router-dom'],
+                    vendor: ['react', 'react-dom'],
                     animation: ['framer-motion'],
                     ui: ['react-bootstrap', 'bootstrap'],
                     icons: ['react-icons'],
-                    utils: ['axios', 'emailjs-com', 'typewriter-effect'],
-                    cms: ['payload']
+                    utils: ['axios', 'emailjs-com', 'typewriter-effect']
                 },
                 chunkFileNames: 'assets/js/[name]-[hash].js',
                 entryFileNames: 'assets/js/[name]-[hash].js',
@@ -85,6 +84,6 @@ export default defineConfig({
     },
     optimizeDeps: {
         entries: ['src/index.jsx'],
-        include: ['react', 'react-dom', 'react-router-dom', 'framer-motion']
+        include: ['react', 'react-dom', 'framer-motion']
     },
 });

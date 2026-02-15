@@ -173,7 +173,7 @@ export interface ApiError extends Error {
 // CONFIGURATION
 // ==========================================
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+const API_URL = import.meta.env.REACT_APP_API_URL || 'https://cms2.emmanuelu.com/api';
 
 const RETRY_CONFIG = {
   maxRetries: 3,

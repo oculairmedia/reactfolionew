@@ -10,6 +10,17 @@ import ReturnToPortfolio from "./ReturnToPortfolio";
 import GalleryMedia, { normalizeGalleryItem } from "./GalleryMedia";
 import "./ProjectPage.css";
 
+// Eagerly load all local project JSON files for CMS fallback
+const projectModules = import.meta.glob("../content/projects/*.json", { eager: true });
+
+function getLocalProject(slug) {
+  for (const [path, module] of Object.entries(projectModules)) {
+    const id = path.replace(/^.*\//, "").replace(".json", "");
+    if (id === slug) return module.default || module;
+  }
+  return null;
+}
+
 const DynamicProjectPage = () => {
   const { slug } = useParams({ strict: false });
   const [project, setProject] = useState(null);
@@ -30,44 +41,18 @@ const DynamicProjectPage = () => {
         if (projectData) {
           setProject(projectData);
         } else {
-          const projectContext = require.context(
-            "../content/projects",
-            false,
-            /\.json$/,
-          );
-          const allProjects = {};
-          projectContext.keys().forEach((key) => {
-            const projectId = key.replace("./", "").replace(".json", "");
-            allProjects[projectId] = projectContext(key);
-          });
-
-          if (allProjects[slug]) {
-            setProject(allProjects[slug]);
+          const localProject = getLocalProject(slug);
+          if (localProject) {
+            setProject(localProject);
           } else {
             setNotFound(true);
           }
         }
       } catch (error) {
-        console.error("Error fetching project:", error);
-        try {
-          const projectContext = require.context(
-            "../content/projects",
-            false,
-            /\.json$/,
-          );
-          const allProjects = {};
-          projectContext.keys().forEach((key) => {
-            const projectId = key.replace("./", "").replace(".json", "");
-            allProjects[projectId] = projectContext(key);
-          });
-
-          if (allProjects[slug]) {
-            setProject(allProjects[slug]);
-          } else {
-            setNotFound(true);
-          }
-        } catch (fallbackError) {
-          console.error("Fallback error:", fallbackError);
+        const localProject = getLocalProject(slug);
+        if (localProject) {
+          setProject(localProject);
+        } else {
           setNotFound(true);
         }
       } finally {
