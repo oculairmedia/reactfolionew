@@ -13,6 +13,8 @@
     /* Ensure it sits above base body but below overlays */
     margin-bottom: 0 !important;
     /* Remove margin to flush with footer */
+    background: #000;
+    /* Ensure main content is opaque */
 }
 
 /* Ensure global footer is visible */
@@ -133,6 +135,9 @@ footer,
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     border-bottom: 1px solid #333;
+    background: #000;
+    position: relative;
+    z-index: 2;
 }
 
 .project-meta-item {
@@ -155,6 +160,10 @@ footer,
     display: grid;
     grid-template-columns: 1fr 1fr;
     border-bottom: 1px solid #333;
+    background: #000;
+    /* Prevent transparency issues */
+    position: relative;
+    z-index: 2;
 }
 
 .project-section-row.reverse {
@@ -217,11 +226,17 @@ footer,
 .project-section-full {
     padding: 6rem 2rem;
     border-bottom: 1px solid #333;
+    background: #000;
+    position: relative;
+    z-index: 2;
 }
 
 /* ─── GALLERY ─── */
 .project-gallery {
     padding: 0;
+    position: relative;
+    z-index: 5;
+    background: #000;
 }
 
 .project-gallery-title {
@@ -283,6 +298,11 @@ footer,
 .project-details {
     padding: 4rem;
     border-bottom: 1px solid #333;
+    background: #000;
+    /* Ensure solid background to prevent image bleed-through */
+    position: relative;
+    z-index: 5;
+    /* Sit above section images if they overlap */
 }
 
 .project-details-grid {
@@ -323,8 +343,8 @@ footer,
 
 /* ─── UTILITIES ─── */
 .return-button-container {
-    z-index: 2000 !important;
-    /* Ensure it stays above everything, including footer */
+    z-index: 9999 !important;
+    /* Maximum priority */
 }
 
 .return-button {

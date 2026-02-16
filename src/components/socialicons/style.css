@@ -5,6 +5,8 @@
     height: 200px;
     position: fixed;
     margin-top: -100px;
+    z-index: 9999;
+    /* Ensure it stays above project content and footer */
 }
 
 .stick_follow_icon ul {
@@ -30,7 +32,7 @@
     line-height: 1.2;
     white-space: nowrap;
     position: relative;
-    transform: rotate( -90deg);
+    transform: rotate(-90deg);
 }
 
 .stick_follow_icon ul li {
@@ -64,6 +66,7 @@
         padding: 40px 0;
         align-items: center;
     }
+
     .stick_follow_icon p {
         top: unset;
         left: unset;
@@ -75,9 +78,11 @@
         font-size: 17px;
         margin-right: 65px;
     }
+
     .stick_follow_icon ul {
         margin-bottom: 20px;
     }
+
     .stick_follow_icon ul li {
         display: inline;
         margin-bottom: 29px;

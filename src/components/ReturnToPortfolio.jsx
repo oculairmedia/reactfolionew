@@ -4,8 +4,10 @@ import { motion } from 'framer-motion';
 import { uiText } from '../content_option';
 import './ReturnToPortfolio.css';
 
+import { createPortal } from 'react-dom';
+
 const ReturnToPortfolio = () => {
-  return (
+  return createPortal(
     <motion.div
       className="return-button-container"
       initial={{ opacity: 0, y: 20 }}
@@ -20,7 +22,8 @@ const ReturnToPortfolio = () => {
           {uiText.returnToPortfolio}
         </motion.div>
       </Link>
-    </motion.div>
+    </motion.div>,
+    document.body
   );
 };
 

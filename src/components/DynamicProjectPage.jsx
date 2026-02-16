@@ -66,8 +66,8 @@ const DynamicProjectPage = () => {
   useEffect(() => {
     videoRefs.current.forEach((ref) => {
       if (ref) {
-        ref.addEventListener("loadeddata", () => {});
-        ref.addEventListener("error", () => {});
+        ref.addEventListener("loadeddata", () => { });
+        ref.addEventListener("error", () => { });
       }
     });
   }, [project]);
@@ -103,6 +103,15 @@ const DynamicProjectPage = () => {
       y: 0,
       transition: { duration: 0.55, delay: i * 0.12, ease: "easeOut" },
     }),
+  };
+
+  const imageReveal = {
+    hidden: { filter: "grayscale(100%)", opacity: 0.8 },
+    visible: {
+      filter: "grayscale(0%)",
+      opacity: 1,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
   };
 
   // ─── HERO ───
@@ -271,7 +280,10 @@ const DynamicProjectPage = () => {
           </motion.div>
           <motion.div
             className="project-section-image"
-            variants={fadeUp}
+            variants={imageReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10%" }} // Trigger a bit before center
           >
             <GalleryMedia
               item={currentImage}
@@ -319,8 +331,11 @@ const DynamicProjectPage = () => {
             <motion.div
               key={`gallery-${idx}`}
               className="project-gallery-item"
-              variants={fadeUp}
-              whileHover={{ y: -4 }}
+              variants={imageReveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-5%" }}
+              whileHover={{ scale: 1.02 }}
             >
               <GalleryMedia
                 item={item}
