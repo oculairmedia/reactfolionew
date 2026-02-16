@@ -39,20 +39,13 @@ export default defineConfig({
             },
         },
     },
+    esbuild: {
+        drop: ['console', 'debugger'],
+    },
     build: {
         outDir: 'build',
         sourcemap: !isCI,
-        minify: 'terser',
-        terserOptions: {
-            compress: {
-                drop_console: true,
-                drop_debugger: true,
-                pure_funcs: ['console.log', 'console.info', 'console.warn']
-            },
-            mangle: {
-                safari10: true
-            }
-        },
+        minify: 'esbuild',
         rollupOptions: {
             output: {
                 manualChunks: {
