@@ -76,7 +76,7 @@ export default defineConfig({
         'process.env': {}
     },
     optimizeDeps: {
-        entries: ['src/index.jsx'],
+        entries: ['src/index.tsx'],
         include: ['react', 'react-dom', 'framer-motion']
     },
 });
