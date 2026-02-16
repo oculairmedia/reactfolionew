@@ -1,22 +1,38 @@
 /* ============================================
-   PROJECT PAGE — Modern Technologist Theme
+   PROJECT PAGE — Brutalist / Raw
    ============================================ */
 
 /* ─── BASE LAYOUT OVERRIDES ─── */
 .main-content {
-    /* Allow full width for hero / banded sections */
-    max-width: 100% !important;
-    padding: 0 !important;
-    overflow-x: hidden;
-    background-color: var(--bg-color, #050505);
-    color: var(--text-color, #ffffff);
+    background-color: #000 !important;
+    color: #fff !important;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    /* Default to mono for raw feel */
+    position: relative;
+    z-index: 1;
+    /* Ensure it sits above base body but below overlays */
+    margin-bottom: 0 !important;
+    /* Remove margin to flush with footer */
+}
+
+/* Ensure global footer is visible */
+footer,
+.footer-section {
+    position: relative;
+    z-index: 1001 !important;
+    /* Above project content */
+    background: #000;
+    border-top: 1px solid #333;
 }
 
 .content-wrapper {
-    /* For centered text content */
-    max-width: 1000px;
+    max-width: 1400px;
+    /* Wide, almost full width */
     margin: 0 auto;
     padding: 0 2rem;
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
+    min-height: 100vh;
 }
 
 /* ─── TYPOGRAPHY ─── */
@@ -25,36 +41,41 @@
 .project-gallery-title {
     font-family: var(--font-heading, 'Space Grotesk', sans-serif);
     text-transform: uppercase;
-    letter-spacing: -0.02em;
-    line-height: 0.9;
+    font-weight: 800;
+    /* Heavy weight */
+    letter-spacing: -0.04em;
+    line-height: 0.85;
 }
 
 .project-meta-label,
 .project-hero-eyebrow,
-.project-scroll-hint span,
-.gallery-caption {
+.gallery-caption,
+.return-button {
     font-family: var(--font-mono, 'JetBrains Mono', monospace);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
 }
 
 /* ─── HERO SECTION ─── */
 .project-hero {
     position: relative;
-    height: 100vh;
-    width: 100vw;
+    height: 90vh;
+    /* Not quite full screen, feels more intentional */
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    justify-content: flex-end;
+    /* Bottom align text */
+    padding: 2rem;
+    border-bottom: 2px solid #fff;
+    /* Hard dividing line */
     overflow: hidden;
     margin-top: -80px;
-    /* Counteract header height if needed */
-    background: #000;
+    background: #111;
 }
 
-/* Hero Media (Video/Image) */
+/* Raw Media */
 .project-hero video,
 .project-hero img {
     position: absolute;
@@ -63,160 +84,165 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.4;
-    /* Dim background for text readability */
+    opacity: 0.6;
+    /* filter: grayscale(100%) contrast(1.2); Removed for full color */
     z-index: 0;
 }
 
 .project-hero-content {
     position: relative;
     z-index: 2;
-    padding: 2rem;
-    max-width: 1200px;
+    padding: 0;
+    max-width: 100%;
 }
 
 .project-hero-eyebrow {
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-    opacity: 0.8;
+    background: #000;
+    color: #fff;
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #fff;
 }
 
 .project-hero-title {
-    font-size: clamp(3rem, 10vw, 8rem);
-    font-weight: 700;
+    font-size: clamp(4rem, 12vw, 10rem);
+    color: #fff;
     margin: 0;
-    background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 0px #000;
+    /* Hard shadow */
 }
 
 .project-hero-subtitle {
-    font-size: clamp(1.2rem, 2vw, 2rem);
+    font-family: var(--font-mono, monospace);
+    font-size: 1rem;
+    max-width: 600px;
     margin-top: 2rem;
-    font-weight: 300;
-    opacity: 0.9;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    border-left: 2px solid #fff;
+    padding-left: 1rem;
+    background: rgba(0, 0, 0, 0.8);
 }
 
 .project-scroll-hint {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    z-index: 2;
-    opacity: 0.7;
-}
-
-.project-scroll-line {
-    width: 1px;
-    height: 60px;
-    background: linear-gradient(to bottom, #fff, transparent);
+    display: none;
+    /* Less clutter for brutalist */
 }
 
 /* ─── METADATA BAR ─── */
 .project-meta-bar {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 2rem;
-    padding: 4rem 5vw;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 4rem;
+    border-bottom: 1px solid #333;
 }
 
 .project-meta-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    border-right: 1px solid #333;
+    padding: 1.5rem;
 }
 
 .project-meta-label {
-    font-size: 0.75rem;
-    opacity: 0.5;
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
 }
 
 .project-meta-value {
-    font-size: 1rem;
-    font-weight: 500;
+    font-weight: 700;
+    font-size: 0.9rem;
 }
 
 /* ─── CONTENT SECTIONS ─── */
 .project-section-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    padding: 4rem 5vw;
-    align-items: center;
-    min-height: 80vh;
+    border-bottom: 1px solid #333;
 }
 
 .project-section-row.reverse {
-    direction: rtl;
-    /* Flip visual order */
+    direction: rtL;
 }
 
 .project-section-row.reverse .section-text {
     direction: ltr;
-    /* Reset text direction */
+    border-right: none;
+    border-left: 1px solid #333;
 }
 
-.project-section-full {
-    padding: 6rem 5vw;
-    text-align: center;
-    max-width: 1200px;
-    margin: 0 auto;
+.section-text {
+    padding: 4rem;
+    border-right: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .project-section-title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-bottom: 2rem;
+    border-bottom: 2px solid #fff;
+    /* Heavy underline */
+    display: inline-block;
+    padding-bottom: 0.5rem;
 }
 
 .section-content {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    opacity: 0.9;
+    font-size: 1rem;
+    line-height: 1.5;
 }
 
-.section-content p {
-    margin-bottom: 1.5rem;
+.project-section-image {
+    position: relative;
+    border-left: 1px solid #333;
+    /* For reverse layout separation */
 }
 
+/* CSS grayscale removed in favor of Framer Motion (DynamicProjectPage.jsx) */
 .project-section-image img,
 .project-section-image video {
     width: 100%;
-    height: auto;
-    border-radius: 4px;
-    /* Optional subtle radius */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* Filter controlled by JS */
+    transition: filter 0.5s ease-out;
+    /* Smooth transition */
+}
+
+/* 
+.project-section-image:hover img,
+.project-section-image:hover video {
+    filter: grayscale(0%);
+} 
+*/
+
+.project-section-full {
+    padding: 6rem 2rem;
+    border-bottom: 1px solid #333;
 }
 
 /* ─── GALLERY ─── */
 .project-gallery {
-    padding: 6rem 5vw;
+    padding: 0;
 }
 
 .project-gallery-title {
-    font-size: 3rem;
-    margin-bottom: 4rem;
-    text-align: center;
+    font-size: 4rem;
+    padding: 2rem;
+    border-bottom: 1px solid #333;
+    margin: 0;
 }
 
 .project-gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    /* Rigid 3-column */
 }
 
 .project-gallery-item {
+    aspect-ratio: 1;
+    /* Square tiles */
+    border-right: 1px solid #333;
+    border-bottom: 1px solid #333;
     position: relative;
-    cursor: zoom-in;
-    /* Hint at interaction */
 }
 
 .project-gallery-item img,
@@ -224,75 +250,97 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
+    /* Filter controlled by JS */
+    transition: all 0.5s ease-out;
 }
 
+/* 
+.project-gallery-item:hover img,
+.project-gallery-item:hover video {
+    filter: grayscale(0%) contrast(1.1);
+} 
+*/
+
 .gallery-caption {
-    margin-top: 10px;
-    font-size: 0.8rem;
-    opacity: 0.6;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #000;
+    color: #fff;
+    padding: 0.5rem;
+    font-size: 0.7rem;
+    border-top: 1px solid #fff;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.project-gallery-item:hover .gallery-caption {
+    opacity: 1;
 }
 
 /* ─── DETAILS CARD ─── */
 .project-details {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 6rem 5vw;
-    margin-top: 4rem;
+    padding: 4rem;
+    border-bottom: 1px solid #333;
 }
 
 .project-details-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 3rem;
-    max-width: 1200px;
-    margin: 3rem auto 0;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1px;
+    /* Gap for border effect */
+    background: #333;
+    /* Border color */
+    border: 1px solid #333;
 }
 
 .project-detail-card {
-    padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.2);
+    background: #000;
+    padding: 2rem;
 }
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
     .project-section-row {
         grid-template-columns: 1fr;
-        gap: 2rem;
-        text-align: left;
     }
 
-    .project-section-row.reverse {
-        direction: ltr;
-        /* Reset for mobile stack */
+    .section-text {
+        border-right: none;
+        border-bottom: 1px solid #333;
+        padding: 2rem;
     }
 
     .project-hero-title {
-        font-size: 3.5rem;
+        font-size: 15vw;
+    }
+
+    .project-gallery-grid {
+        grid-template-columns: 1fr;
     }
 }
 
 /* ─── UTILITIES ─── */
-.video-container {
-    width: 100%;
-    height: auto;
-    margin: 2rem 0;
+.return-button-container {
+    z-index: 2000 !important;
+    /* Ensure it stays above everything, including footer */
 }
 
-/* Fix for the user-reported blue button */
 .return-button {
-    background: transparent !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    color: var(--text-color) !important;
-    font-family: var(--font-mono, monospace);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    background: #000 !important;
+    border: 2px solid #fff !important;
+    color: #fff !important;
     padding: 1rem 2rem;
-    transition: all 0.3s ease;
+    font-weight: 700;
+    border-radius: 0 !important;
+    /* Sharp corners */
+    box-shadow: 4px 4px 0px #fff;
+    /* Hard shadow */
+    transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .return-button:hover {
-    background: #fff !important;
-    color: #000 !important;
-    border-color: #fff !important;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #fff;
 }
