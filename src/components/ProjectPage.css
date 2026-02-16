@@ -108,7 +108,8 @@ footer,
 }
 
 .project-hero-title {
-    font-size: clamp(4rem, 12vw, 10rem);
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    /* Dialed back from 10rem */
     color: #fff;
     margin: 0;
     text-shadow: 2px 2px 0px #000;
@@ -185,7 +186,8 @@ footer,
 }
 
 .project-section-title {
-    font-size: 3rem;
+    font-size: 2rem;
+    /* Reduced from 3rem */
     margin-bottom: 2rem;
     border-bottom: 2px solid #fff;
     /* Heavy underline */
@@ -240,7 +242,8 @@ footer,
 }
 
 .project-gallery-title {
-    font-size: 4rem;
+    font-size: 2.5rem;
+    /* Reduced from 4rem */
     padding: 2rem;
     border-bottom: 1px solid #333;
     margin: 0;
