@@ -1,10 +1,42 @@
 {
   "id": "coffee-by-altitude",
   "title": "Coffee by Altitude",
+  "subtitle": "Elevating specialty coffee through design that celebrates origin and altitude",
   "description": "",
   "content": "",
+  "hero": {
+    "type": "image",
+    "image": "https://oculair.b-cdn.net/cache/images/projects/work_coffee-by-altitude/coffee-by-altitude-2.jpg"
+  },
+  "sections": [
+    {
+      "title": "The Challenge",
+      "content": "Coffee by Altitude, a micro-roaster in Niagara Falls, had a unique concept: curating beans grown at similar altitudes to create distinctive flavor profiles. The challenge was creating a brand identity that would communicate this specialized, process-driven approach to both coffee enthusiasts and curious newcomers—making the science accessible without losing the sophistication.",
+      "layout": "two-column",
+      "id": "6914eb1ffc94d7000153cf21"
+    },
+    {
+      "title": "The Approach",
+      "content": "I designed a logomark that combines a coffee cup with altimeter markings—a visual representation of their altitude-focused curation process. The mark makes their unique approach immediately understandable while feeling modern and technical.\n\nFor the logotype, I chose an incised serif typeface that reflects the precision and complexity of their roasting techniques. The overall identity balances scientific credibility with coffee culture warmth.\n\nI developed a complete brand system including packaging that highlights altitude information as a key feature, making it a selling point rather than just technical detail. The WordPress site extends the brand with clean layouts that let the coffee and the altitude story take center stage.",
+      "layout": "two-column",
+      "id": "6914eb1ffc94d7000153cf22"
+    },
+    {
+      "title": "The Result",
+      "content": "The brand successfully positions Coffee by Altitude as a specialty roaster with a unique point of view. The altitude focus gives them a clear differentiator in a crowded market—it's not just \"good coffee,\" it's coffee curated by a specific, understandable criterion.\n\nThe identity works across all touchpoints, from bags on the shelf to digital presence, consistently communicating their specialized approach. It attracts the coffee geeks who appreciate the process while remaining approachable for customers who just want great coffee with a story.",
+      "layout": "two-column",
+      "id": "6914eb1ffc94d7000153cf23"
+    }
+  ],
+  "metadata": {
+    "client": "Coffee by Altitude",
+    "date": "October 2023",
+    "role": "Brand Designer, Web Designer",
+    "technologies": "Figma, Illustrator, WordPress"
+  },
   "featured_image": "",
   "gallery": [],
+  "tags": [],
   "technologies": [],
   "link": "",
   "github": "",

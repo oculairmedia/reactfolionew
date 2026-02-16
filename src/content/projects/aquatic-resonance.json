@@ -1,10 +1,44 @@
 {
   "id": "aquatic-resonance",
   "title": "Aquatic Resonance",
+  "subtitle": "An immersive journey through underwater soundscapes and visual poetry",
   "description": "",
   "content": "",
+  "hero": {
+    "type": "video",
+    "image": "https://oculair.b-cdn.net/cache/images/28690189625a7d5ecf17b50f2ebe46fa7a7c7ee4.jpg",
+    "video": "https://oculair.b-cdn.net/downloads/title.avc",
+    "alt": "Aquatic Resonance Animation"
+  },
+  "sections": [
+    {
+      "title": "Overview",
+      "content": "In collaboration with a close friend, Arnie Guha, this piece transforms a static canvas into a vibrant, breathing animation. Melding their original art with my digital alchemy, we've created a fluid dance of color and form, igniting the artwork with motion that resonates with the ebb and flow of oceanic life.",
+      "layout": "two-column",
+      "id": "6914eb22fc94d7000153cf2e"
+    },
+    {
+      "title": "The Process",
+      "content": "The process began with Arnie Guha's original artwork, which we then digitized and prepared for animation. Using advanced digital tools and techniques, we brought the static image to life, carefully preserving the integrity of the original piece while infusing it with dynamic movement that mimics the graceful sway of underwater flora.",
+      "layout": "two-column",
+      "id": "6914eb22fc94d7000153cf2f"
+    },
+    {
+      "title": "The Outcome",
+      "content": "Each frame of the animation is a testament to the synergy of our friendship and shared artistic vision. The piece demonstrates that art should not just be seen, but felt and experienced, inviting viewers to immerse themselves in a dynamic, ever-changing visual journey that echoes the rhythms of the ocean.",
+      "layout": "two-column",
+      "id": "6914eb22fc94d7000153cf30"
+    }
+  ],
+  "metadata": {
+    "client": "Arnie Guha (Collaboration)",
+    "date": "March 2024",
+    "role": "Digital Animator, Creative Director",
+    "technologies": "Adobe After Effects, Custom JavaScript"
+  },
   "featured_image": "",
   "gallery": [],
+  "tags": [],
   "technologies": [],
   "link": "",
   "github": "",

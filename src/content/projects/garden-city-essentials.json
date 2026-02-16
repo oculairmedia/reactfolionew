@@ -1,10 +1,42 @@
 {
   "id": "garden-city-essentials",
   "title": "Garden City Essentials",
+  "subtitle": "Cultivating a fresh, organic brand for urban gardening essentials",
   "description": "",
   "content": "",
+  "hero": {
+    "type": "image",
+    "image": "https://oculair.b-cdn.net/cache/images/projects/work_garden-city-essentials/garden-city-essentials-2.jpg"
+  },
+  "sections": [
+    {
+      "title": "The Challenge",
+      "content": "Garden City Essentials, an eco-friendly shop offering small-batch beauty and lifestyle goods, was celebrating their 5th anniversary and ready to evolve. The challenge was elevating their brand to reflect their maturity and reputation in the natural care space while maintaining the handcrafted, approachable character that built their loyal customer base.",
+      "layout": "two-column",
+      "id": "6914eb21fc94d7000153cf29"
+    },
+    {
+      "title": "The Approach",
+      "content": "I developed a new logo featuring a GCE monogram with organic leaf shapes—a nod to their history and natural focus. The central element is a single continuous stroke enclosed in a circle, representing harmony, handmade care, and the interconnected nature of their eco-friendly approach.\n\nThis continuous stroke became a flexible brand motif that appears throughout the identity, from packaging to digital touchpoints. I paired it with a modern sans-serif typeface that balances the organic shapes with clean readability.\n\nThe refined color palette maintains connections to nature and sustainability while feeling more sophisticated—moving from \"startup\" to \"established brand\" without losing their soul. I built their Shopify store to showcase the elevated brand while keeping the shopping experience simple and authentic.",
+      "layout": "two-column",
+      "id": "6914eb21fc94d7000153cf2a"
+    },
+    {
+      "title": "The Result",
+      "content": "The rebrand successfully matured Garden City Essentials' image while preserving what customers loved about them. The identity feels more polished and confident—appropriate for a brand that's proven itself over five years—without becoming corporate or losing its handmade character.\n\nThe continuous stroke motif gives them a distinctive visual signature that's flexible enough to work across packaging, signage, and digital applications. The rebrand positioned them to compete with larger natural care brands while maintaining their local, small-batch authenticity.",
+      "layout": "two-column",
+      "id": "6914eb21fc94d7000153cf2b"
+    }
+  ],
+  "metadata": {
+    "client": "Garden City Essentials",
+    "date": "July 2023",
+    "role": "Brand Designer, Web Designer",
+    "technologies": "Figma, Illustrator, Shopify"
+  },
   "featured_image": "",
   "gallery": [],
+  "tags": [],
   "technologies": [],
   "link": "",
   "github": "",

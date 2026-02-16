@@ -1,19 +1,91 @@
 {
   "id": "super-burgers",
   "title": "Super! Burgers & Fries",
+  "subtitle": "Crafting a bold, playful brand identity for a new fast-food experience",
   "description": "",
   "content": "",
+  "hero": {
+    "type": "image",
+    "image": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-2.jpg"
+  },
+  "sections": [
+    {
+      "title": "The Challenge",
+      "content": "Super Burgers & Fries, a new fast-food restaurant in St. Catharines, needed a brand identity that would cut through the noise of a crowded market. The challenge was creating a visual language that felt fresh and energetic while communicating their commitment to quality ingredients and made-to-order food.",
+      "layout": "two-column",
+      "id": "6914eb20fc94d7000153cf23"
+    },
+    {
+      "title": "The Approach",
+      "content": "I developed a bold, playful identity centered on custom typography and vibrant colors. The logotype uses a custom-designed typeface with a subtle burger icon integrated into the letterforms—making the brand instantly recognizable while maintaining clean readability for signage.\n\nThe color palette of vibrant yellows and reds evokes energy and appetite appeal, essential for fast food. I created hand-drawn illustrations to add personality across packaging and marketing materials, giving the brand a unique voice that stands apart from corporate fast-food chains.\n\nI designed the complete visual system in Figma, then built their website in Webflow to ensure the digital experience matched the physical brand's energy and approachability.",
+      "layout": "two-column",
+      "id": "6914eb20fc94d7000153cf24"
+    },
+    {
+      "title": "The Result",
+      "content": "The brand identity successfully positioned Super Burgers & Fries as a fresh alternative in the fast-food space—bold enough to grab attention, but approachable enough to feel welcoming. The custom typography and illustration system gave them a distinctive visual presence that works across all touchpoints, from storefront signage to social media.\n\nThe brand helped them establish a strong local presence and differentiate from both chain competitors and other local burger spots.",
+      "layout": "two-column",
+      "id": "6914eb20fc94d7000153cf27"
+    }
+  ],
+  "metadata": {
+    "client": "Super Burgers & Fries",
+    "date": "June 2023",
+    "role": "Brand Designer, Web Designer",
+    "technologies": "Figma, Webflow, Illustrator"
+  },
   "featured_image": "",
   "gallery": [
-    "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-2.jpg",
-    "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-3.jpg",
-    "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-4.jpg",
-    "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-5.jpg",
-    "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-9.jpg",
-    "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-10.jpg",
-    "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-11.jpg",
-    "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-16.jpg"
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-2.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-3.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-4.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-5.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-9.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-10.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-11.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/work_super-burgers-fries/super-burgers-fries-16.jpg",
+      "caption": "",
+      "width": "full"
+    }
   ],
+  "tags": [],
   "technologies": [],
   "link": "",
   "github": "",

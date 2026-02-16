@@ -1,10 +1,44 @@
 {
   "id": "branton",
   "title": "Branton",
+  "subtitle": "Where contemporary design meets timeless furniture craftsmanship",
   "description": "",
   "content": "",
+  "hero": {
+    "type": "video",
+    "image": "https://oculair.b-cdn.net/cache/images/projects/work_branton_cover.jpg",
+    "video": "https://oculair.b-cdn.net/api/v1/videos/f200bfc144e110dc4821384c82dca7d6fbd67c66/3rjei659/avc",
+    "alt": "Branton Brand Animation"
+  },
+  "sections": [
+    {
+      "title": "The Challenge",
+      "content": "Branton, a London-based design firm serving major industrial clients like McCormick and 3M, needed brand treatments that would resonate with their manufacturing audience while showcasing their design innovation. I was brought on to create visual identity pieces that balanced industrial strength with creative sophistication.",
+      "layout": "two-column",
+      "id": "6914eb22fc94d7000153cf2b"
+    },
+    {
+      "title": "The Approach",
+      "content": "I used Houdini's procedural capabilities to create dynamic brand treatments that embody precision and strength. The procedural approach allowed me to generate multiple variations while maintaining consistency—perfect for a firm serving diverse industrial clients.\n\nI developed a visual system using geometric forms and industrial materials as inspiration, creating animations and still frames that could adapt across applications. The procedural workflow meant I could quickly iterate and customize treatments for different contexts while keeping the core brand essence intact.",
+      "layout": "two-column",
+      "id": "6914eb22fc94d7000153cf2c"
+    },
+    {
+      "title": "The Result",
+      "content": "The final brand treatments successfully positioned Branton as both technically sophisticated and creatively innovative. The procedural approach delivered a flexible visual system that works across digital and print applications, from pitch decks to trade show materials.\n\nThe work helped Branton communicate their value to industrial clients: just as they bring design thinking to manufacturing, the brand treatments brought creative innovation to industrial aesthetics.",
+      "layout": "two-column",
+      "id": "6914eb22fc94d7000153cf2d"
+    }
+  ],
+  "metadata": {
+    "client": "Branton",
+    "date": "January 2021",
+    "role": "Digital Designer, 3D Artist",
+    "technologies": "Houdini, Adobe Creative Suite"
+  },
   "featured_image": "",
   "gallery": [],
+  "tags": [],
   "technologies": [],
   "link": "",
   "github": "",

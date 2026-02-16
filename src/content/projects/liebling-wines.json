@@ -1,10 +1,42 @@
 {
   "id": "liebling-wines",
   "title": "Liebling Wines",
+  "subtitle": "Elegant packaging design that tells the story of boutique winemaking",
   "description": "",
   "content": "",
+  "hero": {
+    "type": "image",
+    "image": "https://oculair.b-cdn.net/cache/images/projects/work_liebling-wines/liebling-wines-2.jpg"
+  },
+  "sections": [
+    {
+      "title": "The Challenge",
+      "content": "Liebling Wines, a virtual winery in Niagara-on-the-Lake, needed a brand identity that would tell their unique story. As a virtual winery, they don't own vineyards—they partner with growers and focus on winemaking craft. The challenge was creating an identity that felt premium and authentic while reflecting their approachable, passion-driven approach and German heritage.",
+      "layout": "two-column",
+      "id": "6914eb21fc94d7000153cf27"
+    },
+    {
+      "title": "The Approach",
+      "content": "I designed a logomark featuring a stylized cornflower—a nod to their German roots and the importance of land and terroir in their winemaking. The cornflower is both elegant and unpretentious, perfectly capturing Liebling's character.\n\nFor the logotype, I developed a modern take on classic display serif fonts—respecting wine industry tradition while feeling fresh and contemporary. The balance reflects their approach: traditional winemaking methods with a forward-thinking business model.\n\nI extended the identity across bottle labels, packaging, and digital presence. The color palette and supporting graphics create a premium feel that's warm and inviting rather than intimidating. Every element reinforces their story: serious about wine, but not taking themselves too seriously.",
+      "layout": "two-column",
+      "id": "6914eb21fc94d7000153cf28"
+    },
+    {
+      "title": "The Result",
+      "content": "The brand identity successfully positions Liebling Wines as a boutique winery with personality. The virtual winery model could have felt impersonal or less authentic, but the brand tells a story of passion, craft, and connection to the land that resonates with wine lovers.\n\nThe cornflower mark and refined typography give them a distinctive shelf presence that competes with established wineries while the overall aesthetic remains approachable. The identity helped them build recognition in the competitive Niagara wine region and connect with customers who value craft and story as much as the wine itself.",
+      "layout": "two-column",
+      "id": "6914eb21fc94d7000153cf29"
+    }
+  ],
+  "metadata": {
+    "client": "Liebling Wines",
+    "date": "May 2023",
+    "role": "Brand Designer, Packaging Designer",
+    "technologies": "Illustrator, Photoshop"
+  },
   "featured_image": "",
   "gallery": [],
+  "tags": [],
   "technologies": [],
   "link": "",
   "github": "",

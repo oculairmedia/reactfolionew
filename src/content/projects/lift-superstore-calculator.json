@@ -1,14 +1,68 @@
 {
   "id": "lift-superstore-calculator",
   "title": "The Lift Superstore - Interactive Height Calculator",
+  "subtitle": "An interactive lead generation tool combining custom Lottie animation with guided form UX",
   "description": "",
   "content": "",
+  "hero": {
+    "type": "image",
+    "image": "https://oculair.b-cdn.net/media/final state.jpg",
+    "alt": "The Lift Superstore Interactive Height Calculator - Garage with four-post car lift and stacked vehicles"
+  },
+  "sections": [
+    {
+      "title": "The Challenge",
+      "content": "The Lift Superstore needed to convert website visitors into qualified leads. Customers often struggle to determine if their garage can accommodate a four-post car lift—a complex calculation involving ceiling height, vehicle dimensions, and lift specifications.\n\nThe existing process required customers to manually reference spec sheets and do their own math, leading to confusion, abandoned sessions, and support calls that could have been sales conversations. They needed an engaging tool that simplifies this process while capturing contact information from genuinely interested buyers.",
+      "layout": "two-column",
+      "id": "693ddd0ed90e62000108b155"
+    },
+    {
+      "title": "The Approach",
+      "content": "I designed an interactive calculator that pairs a custom Lottie animation with a guided multi-step form. The key insight was that customers don't just need a number—they need to understand what they're measuring and why.\n\nThe animation—built in After Effects and exported to Lottie for web—visually demonstrates each measurement point: clearance to ceiling obstructions, vehicle heights, runway thickness, and the space needed beneath the lift. The animation pauses at key moments (50% and 80% progress) to highlight the specific input field the user should complete next.\n\nThis creates an intuitive experience where the visual and the form work in sync. Users see exactly where each measurement comes from in the garage diagram before entering their values.",
+      "layout": "two-column",
+      "id": "693ddd0ed90e62000108b156"
+    },
+    {
+      "title": "Technical Implementation",
+      "content": "The solution integrates seamlessly with the client's WordPress site:\n\n• Lottie Animation: Custom After Effects composition exported to lightweight JSON, with JavaScript controlling playback based on form state\n• Multi-step Form: jQuery-based validation with smooth transitions between steps\n• Real-time Calculation: Minimum ceiling height computed instantly as users enter values\n• Lead Capture: Modal contact form submitting to Gravity Forms REST API with full context (selected lift model, all measurements)\n• Responsive Design: Mobile-first CSS with breakpoints for tablet and desktop\n• Accessibility: ARIA labels, keyboard navigation, and high contrast mode support",
+      "layout": "two-column",
+      "id": "693ddd0ed90e62000108b157"
+    },
+    {
+      "title": "The Result",
+      "content": "The calculator transforms a technical specification lookup into an engaging, educational experience. Users understand exactly what they're measuring and why, reducing support inquiries while generating qualified leads with specific product interest.\n\nEach lead arrives with context: which lift model they're considering, their exact garage dimensions, and whether their space can accommodate the installation. This enables the sales team to have informed conversations from the first contact.",
+      "layout": "two-column",
+      "id": "693ddd0ed90e62000108b158"
+    }
+  ],
+  "metadata": {
+    "client": "The Lift Superstore",
+    "date": "2024",
+    "role": "UX Designer, Motion Designer, Front-end Developer",
+    "technologies": "After Effects, Lottie, JavaScript, jQuery, WordPress, Gravity Forms, CSS3"
+  },
   "featured_image": "",
   "gallery": [
-    "https://oculair.b-cdn.net/media/final state.jpg",
-    "https://cms2.emmanuelu.com/media/Demovideo.mp4",
-    "https://cms2.emmanuelu.com/media/car lift animation final.mp4"
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/media/final state.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "video",
+      "url": "https://cms2.emmanuelu.com/media/Demovideo.mp4",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "video",
+      "url": "https://cms2.emmanuelu.com/media/car lift animation final.mp4",
+      "caption": "",
+      "width": "full"
+    }
   ],
+  "tags": [],
   "technologies": [],
   "link": "",
   "github": "",

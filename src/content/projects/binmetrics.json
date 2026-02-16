@@ -1,17 +1,93 @@
 {
   "id": "binmetrics",
   "title": "Binmetrics",
+  "subtitle": "Transforming waste management with intelligent monitoring and real-time analytics",
   "description": "",
   "content": "",
+  "hero": {
+    "type": "video",
+    "image": "https://oculair.b-cdn.net/cache/images/cd3938b537ae6d5b28caf0c6863f6f07187f3a45.jpg",
+    "video": "https://oculair.b-cdn.net/api/v1/videos/332b28a6113e401b77b6894d3254766d15c6a9ac/3rjei659/avc",
+    "alt": "Binmetrics Video"
+  },
+  "sections": [
+    {
+      "title": "Overview",
+      "content": "Binmetrics is revolutionizing commercial waste management through intelligent IoT sensors that monitor bin fill levels in real-time. I was brought on to create the complete brand identity and design the web and mobile UX/UI that would make this sophisticated technology accessible to facility managers, waste haulers, and sustainability coordinators. The challenge was translating complex sensor data and analytics into intuitive interfaces that drive actionable insights.",
+      "layout": "two-column",
+      "id": "692e36505c248c0001548510"
+    },
+    {
+      "title": "The Brand Identity",
+      "content": "The brand development started with understanding Binmetrics' core value proposition: reducing waste collection costs by 30-50% through data-driven route optimization. I designed a logomark that combines a bin silhouette with ascending data visualization bars, symbolizing both the product and the measurable impact it delivers.\n\nThe color palette pairs deep navy (trust, technology) with vibrant green (sustainability, growth) and bright cyan accents (data, clarity). The typography system uses a modern geometric sans-serif that feels both technical and approachable—critical for a product that needs to appeal to both IT decision-makers and operations teams.",
+      "layout": "two-column",
+      "id": "692e36505c248c0001548511"
+    },
+    {
+      "title": "The UX/UI Design",
+      "content": "I designed responsive web and mobile applications that transform raw sensor data into clear, actionable dashboards. The interface prioritizes at-a-glance status monitoring: color-coded fill level indicators, predictive alerts for bins approaching capacity, and route optimization suggestions that help drivers collect only full bins.\n\nKey UX decisions included implementing progressive disclosure to prevent information overload, creating customizable alert thresholds for different bin types, and designing offline-capable mobile views for drivers in areas with poor connectivity. The mobile app needed to work seamlessly in bright outdoor conditions, so I optimized contrast ratios and touch targets for gloved hands.",
+      "layout": "two-column",
+      "id": "692e36505c248c0001548512"
+    },
+    {
+      "title": "The 3D Prototyping",
+      "content": "To help stakeholders visualize the hardware before manufacturing, I created detailed 3D prototypes of the sensor units in Cinema 4D. These models were used in investor presentations, on the website, and in marketing materials. The prototyping process allowed the engineering team to refine mounting mechanisms and weatherproofing designs before committing to tooling costs.\n\nThe 3D renders showcased the sensors in realistic installation scenarios—mounted inside commercial dumpsters, outdoor recycling bins, and indoor waste compactors—helping potential customers immediately understand the deployment model.",
+      "layout": "two-column",
+      "id": "692e36505c248c0001548513"
+    },
+    {
+      "title": "The Outcome",
+      "content": "The comprehensive brand and UX system positioned Binmetrics as a credible, enterprise-ready solution in a nascent market. The intuitive interface design became a key differentiator in sales demos, with prospects consistently noting how much easier the platform was to understand compared to competitors' overly technical dashboards.",
+      "layout": "two-column",
+      "id": "692e36505c248c0001548514"
+    }
+  ],
+  "metadata": {
+    "client": "Bin Metrics",
+    "date": "February 2024",
+    "role": "UX/UI Designer, Brand Identity Designer",
+    "technologies": "Web Design, Mobile App Design, 3D Prototyping"
+  },
   "featured_image": "",
   "gallery": [
-    "https://oculair.b-cdn.net/cache/images/cd3938b537ae6d5b28caf0c6863f6f07187f3a45.jpg",
-    "https://oculair.b-cdn.net/cache/images/fea60e443eff3c6b5fe78b5e11d5eda00ba7aade.jpg",
-    "https://oculair.b-cdn.net/cache/images/dd2ad260c84719d08a0323a76904c3d38b16f845.jpg",
-    "https://oculair.b-cdn.net/cache/images/3be2f00ca74e7fe41a918dd20d083589121273ee.png",
-    "https://oculair.b-cdn.net/cache/images/d12dd19b1948d8a5e9be46e1d65f2604cad27c81.jpg",
-    "https://oculair.b-cdn.net/api/v1/videos/332b28a6113e401b77b6894d3254766d15c6a9ac/3rjei659/avc"
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/cd3938b537ae6d5b28caf0c6863f6f07187f3a45.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/fea60e443eff3c6b5fe78b5e11d5eda00ba7aade.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/dd2ad260c84719d08a0323a76904c3d38b16f845.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/3be2f00ca74e7fe41a918dd20d083589121273ee.png",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/d12dd19b1948d8a5e9be46e1d65f2604cad27c81.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "video",
+      "url": "https://oculair.b-cdn.net/api/v1/videos/332b28a6113e401b77b6894d3254766d15c6a9ac/3rjei659/avc",
+      "caption": "",
+      "width": "full"
+    }
   ],
+  "tags": [],
   "technologies": [],
   "link": "",
   "github": "",

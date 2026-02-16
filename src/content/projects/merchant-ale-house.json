@@ -1,10 +1,42 @@
 {
   "id": "merchant-ale-house",
   "title": "The Merchant Ale House",
+  "subtitle": "Revitalizing a historic pub's visual identity for the modern craft beer enthusiast",
   "description": "",
   "content": "",
+  "hero": {
+    "type": "image",
+    "image": "https://oculair.b-cdn.net/cache/images/projects/work_merchant-ale-house/the-merchant-ale-house-2.jpg"
+  },
+  "sections": [
+    {
+      "title": "The Challenge",
+      "content": "The Merchant Ale House, a beloved brewpub in Downtown St. Catharines with over 20 years of history, needed a brand refresh that would honor their heritage while positioning them for the modern craft beer market. The challenge was creating an identity that felt both timeless and contemporary—respecting long-time patrons while attracting a new generation of craft beer enthusiasts.",
+      "layout": "two-column",
+      "id": "6914eb20fc94d7000153cf25"
+    },
+    {
+      "title": "The Approach",
+      "content": "I started by immersing myself in The Merchant's history, interviewing owners and long-time patrons to understand what made the pub special. The new identity needed to capture the warmth of the space and their commitment to grain-to-glass brewing.\n\nI developed a logo that incorporates elements from both the brewing process and the pub's historic architecture, creating a visual connection to the physical space. The design balances traditional pub aesthetics with clean, modern execution—heritage that doesn't feel dated.\n\nI created multiple logo variations and lockups to work across all applications, from large exterior signage to small merchandise. The complete brand system extended across menus, coasters, glassware, signage, and digital touchpoints, ensuring consistency while maintaining flexibility.",
+      "layout": "two-column",
+      "id": "6914eb20fc94d7000153cf26"
+    },
+    {
+      "title": "The Result",
+      "content": "The rebrand successfully repositioned The Merchant Ale House for the craft beer era while maintaining the character that made it a local institution. The identity works equally well on a tap handle, a pint glass, or a social media post—giving them the tools to compete in today's market without losing their soul.\n\nThe response from both long-time regulars and new customers validated the approach: the brand feels like The Merchant, just elevated. It's helped them maintain their position as a downtown destination while attracting the growing craft beer audience.",
+      "layout": "two-column",
+      "id": "6914eb20fc94d7000153cf28"
+    }
+  ],
+  "metadata": {
+    "client": "The Merchant Ale House",
+    "date": "August 2023",
+    "role": "Brand Designer, Print Designer",
+    "technologies": "Illustrator, Photoshop, InDesign"
+  },
   "featured_image": "",
   "gallery": [],
+  "tags": [],
   "technologies": [],
   "link": "",
   "github": "",

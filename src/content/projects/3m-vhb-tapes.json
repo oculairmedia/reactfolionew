@@ -1,13 +1,56 @@
 {
   "id": "3m-vhb-tapes",
   "title": "3M VHB Tapes",
+  "subtitle": "Bringing industrial adhesive technology to life through dynamic 3D visualization",
   "description": "",
   "content": "",
+  "hero": {
+    "type": "image",
+    "image": "https://oculair.b-cdn.net/cache/images/b1d7b284701359f4d25a324dd3ac3068023b3767.jpg",
+    "alt": "3M VHB Tapes"
+  },
+  "sections": [
+    {
+      "title": "Overview",
+      "content": "3M's VHB (Very High Bond) Tapes are engineering marvels—industrial adhesives capable of bonding materials that traditional fasteners can't touch. But how do you make invisible strength visible? My challenge was to create dynamic 3D visualizations that would bring the product's technical capabilities to life for 3M's marketing campaign, transforming abstract adhesive science into compelling visual storytelling.",
+      "layout": "two-column",
+      "id": "692e35305c248c000154850d"
+    },
+    {
+      "title": "The Approach",
+      "content": "I approached this project by building everything in Cinema 4D, using Redshift as my rendering engine to achieve photorealistic materials and lighting. The goal was to showcase VHB Tapes' core value proposition: permanent bonding strength in applications where drilling, riveting, or welding isn't feasible.\n\nThe 3D workflow involved creating detailed product models of the tape rolls and application scenarios, then developing dynamic compositions that demonstrated real-world use cases—from automotive assembly to architectural glazing. I used Redshift's physically-based rendering to capture the subtle translucency of the adhesive material and the way light interacts with different bonded surfaces.\n\nEach visualization was designed to communicate a specific technical benefit: load distribution, vibration dampening, weather resistance, or gap-filling capabilities. The motion design elements were crafted in After Effects to add kinetic energy to the stills, creating eye-catching content for digital marketing channels.",
+      "layout": "two-column",
+      "id": "692e35305c248c000154850e"
+    },
+    {
+      "title": "The Impact",
+      "content": "The final deliverables included a suite of high-resolution 3D product renders and animated sequences that 3M's marketing team deployed across trade show presentations, digital advertising, and sales collateral. The visualizations helped technical buyers quickly grasp complex adhesive concepts that would otherwise require lengthy written explanations.\n\nBy translating engineering specifications into visual language, the campaign successfully positioned VHB Tapes as an innovative alternative to mechanical fasteners, supporting 3M's goal of expanding the product's adoption in industrial manufacturing sectors.",
+      "layout": "two-column",
+      "id": "692e35305c248c000154850f"
+    }
+  ],
+  "metadata": {
+    "client": "3M",
+    "date": "September 2023",
+    "role": "Motion Designer, 3D Artist",
+    "technologies": "Cinema 4D, After Effects, Redshift"
+  },
   "featured_image": "",
   "gallery": [
-    "https://oculair.b-cdn.net/cache/images/331aa47bc461aa7d566b45bd9cd594ac4f11aab8.jpg",
-    "https://oculair.b-cdn.net/cache/images/b9ad119a86d87268147a3b188c145d395277b033.jpg"
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/331aa47bc461aa7d566b45bd9cd594ac4f11aab8.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/b9ad119a86d87268147a3b188c145d395277b033.jpg",
+      "caption": "",
+      "width": "full"
+    }
   ],
+  "tags": [],
   "technologies": [],
   "link": "",
   "github": "",
