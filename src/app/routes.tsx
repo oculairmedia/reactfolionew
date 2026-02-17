@@ -12,13 +12,20 @@ import { Socialicons } from "../components/socialicons";
 
 type LazyComponentLoader = () => Promise<{ default: React.ComponentType }>;
 
-const loadHome: LazyComponentLoader = () => import("../pages/home").then((m) => ({ default: m.Home }));
-const loadPortfolio: LazyComponentLoader = () => import("../pages/portfolio").then((m) => ({ default: m.Portfolio }));
-const loadAbout: LazyComponentLoader = () => import("../pages/about").then((m) => ({ default: m.About }));
-const loadBlog: LazyComponentLoader = () => import("../pages/blog").then((m) => ({ default: m.Blog }));
+const loadHome: LazyComponentLoader = () =>
+  import("../pages/home").then((m) => ({ default: m.Home }));
+const loadPortfolio: LazyComponentLoader = () =>
+  import("../pages/portfolio").then((m) => ({ default: m.Portfolio }));
+const loadAbout: LazyComponentLoader = () =>
+  import("../pages/about").then((m) => ({ default: m.About }));
+const loadBlog: LazyComponentLoader = () =>
+  import("../pages/blog").then((m) => ({ default: m.Blog }));
 const loadBlogPost: LazyComponentLoader = () =>
   import("../pages/blog/BlogPost").then((m) => ({ default: m.BlogPost }));
-const loadProject: LazyComponentLoader = () => import("../components/DynamicProjectPage");
+const loadProject: LazyComponentLoader = () =>
+  import("../components/DynamicProjectPage");
+const loadLinks: LazyComponentLoader = () =>
+  import("../pages/links").then((m) => ({ default: m.Links }));
 
 const Home = React.lazy(loadHome);
 const Portfolio = React.lazy(loadPortfolio);
@@ -26,6 +33,7 @@ const About = React.lazy(loadAbout);
 const Blog = React.lazy(loadBlog);
 const BlogPost = React.lazy(loadBlogPost);
 const DynamicProjectPage = React.lazy(loadProject);
+const Links = React.lazy(loadLinks);
 
 interface SuspendedProps {
   Component: React.LazyExoticComponent<React.ComponentType>;
@@ -39,7 +47,7 @@ const Suspended: React.FC<SuspendedProps> = ({ Component }) => (
 
 const rootRoute = createRootRoute({
   component: () => (
-    <div className="s_c">
+    <div className="s_c bg-base-100 text-base-content min-h-screen">
       <div id="page-top" className="app-wrapper">
         <Headermain />
         <Outlet />
@@ -86,10 +94,16 @@ const projectRoute = createRoute({
   component: () => <Suspended Component={DynamicProjectPage} />,
 });
 
+const linksRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/links",
+  component: () => <Suspended Component={Links} />,
+});
+
 const notFoundRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '*',
-  component: () => <Suspended Component={Home} />
+  path: "*",
+  component: () => <Suspended Component={Home} />,
 });
 
 const routeTree = rootRoute.addChildren([
@@ -99,9 +113,18 @@ const routeTree = rootRoute.addChildren([
   blogRoute,
   blogPostRoute,
   projectRoute,
-  notFoundRoute
+  linksRoute,
+  notFoundRoute,
 ]);
 
 export const router = createRouter({ routeTree });
 
-export { loadHome, loadPortfolio, loadAbout, loadBlog, loadBlogPost, loadProject };
+export {
+  loadHome,
+  loadPortfolio,
+  loadAbout,
+  loadBlog,
+  loadBlogPost,
+  loadProject,
+  loadLinks,
+};
