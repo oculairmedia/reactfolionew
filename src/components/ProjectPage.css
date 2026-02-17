@@ -226,11 +226,15 @@ footer,
 */
 
 .project-section-full {
-    padding: 6rem 2rem;
+    padding: 6rem 8%;
     border-bottom: 1px solid #333;
     background: #000;
     position: relative;
     z-index: 2;
+}
+
+.project-section-full .section-content {
+    max-width: 800px;
 }
 
 /* ─── GALLERY ─── */
