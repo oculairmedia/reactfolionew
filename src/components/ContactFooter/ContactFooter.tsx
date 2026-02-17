@@ -86,7 +86,7 @@ export const ContactFooter = () => {
         </div>
       )}
 
-      <div className="mx-auto max-w-7xl px-2 md:px-4 lg:container">
+      <div className="mx-auto max-w-7xl px-4 md:px-6 lg:container">
         {/* Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           {/* Contact Info Card */}
