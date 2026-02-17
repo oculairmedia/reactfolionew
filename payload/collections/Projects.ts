@@ -119,6 +119,20 @@ export const Projects: CollectionConfig = {
       ],
     },
     {
+      name: 'link',
+      type: 'text',
+      admin: {
+        description: 'Live site URL (e.g. https://example.com)',
+      },
+    },
+    {
+      name: 'github',
+      type: 'text',
+      admin: {
+        description: 'GitHub repository URL',
+      },
+    },
+    {
       name: 'gallery',
       type: 'array',
       fields: [

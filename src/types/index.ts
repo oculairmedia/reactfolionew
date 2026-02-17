@@ -203,6 +203,8 @@ export interface Project {
   subtitle?: string;
   slug?: string;
   description?: string;
+  link?: string;
+  github?: string;
   hero?: ProjectHero;
   metadata?: ProjectMetadata;
   sections?: ProjectSection[];
