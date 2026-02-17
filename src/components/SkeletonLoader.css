@@ -1,224 +1,187 @@
-/* Skeleton Loader Styles */
+/* ============================================
+   SKELETON LOADER \2014  Brutalist with daisyUI
+   ============================================ */
 
+/* Base Skeleton - uses daisyUI's built-in skeleton class */
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    #f0f0f0 25%,
-    #e0e0e0 50%,
-    #f0f0f0 75%
-  );
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-  margin-bottom: 0.75rem;
-  /* Smooth fade-in when skeleton appears */
-  opacity: 0;
-  animation: loading 1.5s infinite, skeletonFadeIn 0.3s ease forwards;
+    background: linear-gradient(
+        90deg,
+        var(--color-base-200) 25%,
+        var(--color-base-300) 50%,
+        var(--color-base-200) 75%
+    );
+    background-size: 200% 100%;
+    animation:
+        loading 1.5s infinite,
+        skeletonFadeIn 0.3s ease forwards;
+    margin-bottom: 0.75rem;
+    opacity: 0;
+    border-radius: 0;
 }
 
 @keyframes skeletonFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 /* Smooth transitions for skeleton-to-content */
 .skeleton-container {
-  position: relative;
-  transition: opacity 0.3s ease;
+    position: relative;
+    transition: opacity 0.3s ease;
 }
 
 .skeleton-container.fade-out {
-  opacity: 0;
+    opacity: 0;
 }
 
 .content-container {
-  opacity: 0;
-  animation: contentFadeIn 0.4s ease forwards;
+    opacity: 0;
+    animation: contentFadeIn 0.4s ease forwards;
 }
 
 @keyframes contentFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Portfolio Item Skeleton - matches .po_item */
 .portfolio-item-skeleton {
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  aspect-ratio: 1 / 1;
-  animation: skeletonFadeIn 0.3s ease forwards;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+    aspect-ratio: 1 / 1;
+    animation: skeletonFadeIn 0.3s ease forwards;
+    background-color: var(--color-base-200);
 }
 
 .skeleton-media-container {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  background-color: var(--bg-color, #1a1a1a);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: var(--color-base-200);
 }
 
 .skeleton-media-container .skeleton {
-  border-radius: 0;
-  margin-bottom: 0;
+    border-radius: 0;
+    margin-bottom: 0;
 }
 
 /* Portfolio Grid Skeleton - matches .po_items_ho and .portfolio_items */
 .portfolio-grid-skeleton {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2px;
 }
 
 /* For home page portfolio section */
 .portfolio_items.portfolio-grid-skeleton {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-  margin-bottom: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
+    margin-bottom: 40px;
 }
 
 /* Project Detail Skeleton */
 .project-detail-skeleton {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
 .skeleton-hero {
-  margin-bottom: 3rem;
+    margin-bottom: 3rem;
 }
 
 .skeleton-title {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .skeleton-subtitle {
-  margin-bottom: 2rem;
+    margin-bottom: 2rem;
 }
 
 .skeleton-hero-image {
-  border-radius: 8px;
-  margin-bottom: 0;
+    border-radius: 0;
+    margin-bottom: 0;
 }
 
 .skeleton-metadata {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-  padding: 2rem;
-  border-radius: 8px;
-  background: #fafafa;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    border-radius: 0;
+    background: var(--color-base-200);
+    border: 2px solid
+        color-mix(in oklch, var(--color-base-content) 8%, transparent);
 }
 
 .skeleton-section {
-  margin-bottom: 3rem;
+    margin-bottom: 3rem;
 }
 
 .skeleton-section-title {
-  margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 /* Skeleton video background - replaces real video */
 .skeleton-video-bg .skeleton {
-  margin-bottom: 0;
-  border-radius: 0;
-  position: absolute !important;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
+    margin-bottom: 0;
+    border-radius: 0;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
 }
 
-/* About Page uses Bootstrap classes directly - no custom CSS needed */
+.skeleton-video-bg {
+    background-color: var(--color-base-200);
+}
 
 /* Text Skeleton */
 .text-skeleton {
-  padding: 1rem 0;
+    padding: 1rem 0;
 }
 
 /* Responsive Design - uses page's existing breakpoints */
 @media (max-width: 991.98px) {
-  .portfolio_items.portfolio-grid-skeleton {
-    grid-template-columns: repeat(2, 1fr);
-  }
+    .portfolio_items.portfolio-grid-skeleton {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 767px) {
-  .portfolio-grid-skeleton {
-    grid-template-columns: 1fr;
-  }
+    .portfolio-grid-skeleton {
+        grid-template-columns: 1fr;
+    }
 
-  .skeleton-metadata {
-    grid-template-columns: 1fr;
-  }
+    .skeleton-metadata {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 480px) {
-  .portfolio_items.portfolio-grid-skeleton {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Dark Mode Support - for data-theme="dark" or prefers-color-scheme */
-[data-theme="dark"] .skeleton,
-@media (prefers-color-scheme: dark) {
-  .skeleton {
-    background: linear-gradient(
-      90deg,
-      #2a2a2a 25%,
-      #333 50%,
-      #2a2a2a 75%
-    );
-    background-size: 200% 100%;
-  }
-}
-
-[data-theme="dark"] .skeleton-media-container {
-  background-color: #1a1a1a;
-}
-
-[data-theme="dark"] .skeleton-video-bg {
-  background-color: #1a1a1a;
-}
-
-[data-theme="dark"] .skeleton-metadata {
-  background: #1a1a1a;
-}
-
-/* Light mode specific overrides */
-[data-theme="light"] .skeleton {
-  background: linear-gradient(
-    90deg,
-    #f0f0f0 25%,
-    #e0e0e0 50%,
-    #f0f0f0 75%
-  );
-  background-size: 200% 100%;
-}
-
-[data-theme="light"] .skeleton-media-container {
-  background-color: #f5f5f5;
-}
-
-[data-theme="light"] .skeleton-video-bg {
-  background-color: #f5f5f5;
+    .portfolio_items.portfolio-grid-skeleton {
+        grid-template-columns: 1fr;
+    }
 }

@@ -8,6 +8,7 @@
     "axios": "^1.13.2",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^11.11.1",
+    "prism-react-renderer": "^2.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.0.7",

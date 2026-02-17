@@ -19,18 +19,22 @@ import type {
 
 interface SocialIconProps {
   href: string;
+  label: string;
   children: React.ReactNode;
 }
 
-const SocialIcon = memo<SocialIconProps>(({ href, children }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="w-10 h-10 flex items-center justify-center border border-base-content/20 text-base-content/60 hover:text-base-content hover:border-base-content/40 hover:bg-base-content/5 transition-all duration-200"
-  >
-    {children}
-  </a>
+const SocialIcon = memo<SocialIconProps>(({ href, label, children }) => (
+  <div className="tooltip tooltip-bottom" data-tip={label}>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className="btn btn-ghost btn-square btn-sm border border-base-content/20 text-base-content/60 hover:text-base-content hover:border-base-content/40 hover:bg-base-content/5 transition-all duration-200"
+    >
+      {children}
+    </a>
+  </div>
 ));
 
 SocialIcon.displayName = "SocialIcon";
@@ -151,7 +155,7 @@ export const Home = () => {
   const portfolioItems = useMemo(() => {
     if (!dataportfolio || dataportfolio.length === 0) return null;
     return dataportfolio.map((data, i) => (
-      <PortfolioItem key={data.id || i} data={data} />
+      <PortfolioItem key={data.id || i} data={data} index={i} />
     ));
   }, [dataportfolio]);
 
@@ -293,20 +297,20 @@ export const Home = () => {
                 </a>
               </div>
 
-              {/* Social Icons */}
+              {/* Social Icons with Tooltips */}
               <div className="hero-social animate-fade-in-up delay-4">
                 {socialprofils.linkedin && (
-                  <SocialIcon href={socialprofils.linkedin}>
+                  <SocialIcon href={socialprofils.linkedin} label="LinkedIn">
                     <FaLinkedin className="text-lg" />
                   </SocialIcon>
                 )}
                 {socialprofils.github && (
-                  <SocialIcon href={socialprofils.github}>
+                  <SocialIcon href={socialprofils.github} label="GitHub">
                     <FaGithub className="text-lg" />
                   </SocialIcon>
                 )}
                 {socialprofils.twitter && (
-                  <SocialIcon href={socialprofils.twitter}>
+                  <SocialIcon href={socialprofils.twitter} label="Twitter / X">
                     <FaTwitter className="text-lg" />
                   </SocialIcon>
                 )}
@@ -316,31 +320,74 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Portfolio Section */}
+      {/* Featured Portfolio Section */}
       <motion.section
         id="portfolio"
         className="portfolio-section"
         style={{ opacity }}
       >
         <div className="portfolio-container">
-          <h2 className="portfolio-title">{uiText.featuredProjects}</h2>
+          {/* Section Header */}
+          <div className="text-center mb-10">
+            <span className="badge badge-primary badge-lg font-mono text-xs uppercase tracking-wider mb-4">
+              Selected Work
+            </span>
+            <h2 className="portfolio-title">{uiText.featuredProjects}</h2>
+            <p className="font-mono text-sm text-base-content/50 uppercase tracking-wider max-w-xl mx-auto">
+              A curated selection of recent projects showcasing my expertise in
+              creative technology and immersive experiences
+            </p>
+          </div>
 
+          {/* Portfolio Grid */}
           <div className="portfolio-grid">
             {portfolioItems || (
-              <div className="col-span-full text-center py-10 text-base-content/60 font-mono text-sm uppercase tracking-wider">
-                No projects available
+              <div className="col-span-full text-center py-10">
+                <div className="alert alert-info max-w-md mx-auto">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className="stroke-current shrink-0 w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                  <span className="font-mono text-sm">
+                    No projects available
+                  </span>
+                </div>
               </div>
             )}
           </div>
 
+          {/* CTA */}
           <div className="portfolio-cta">
             <Link
               to="/portfolio"
               {...portfolioHoverHandlers}
               onClick={handlePortfolioClick}
             >
-              <button className="btn btn-primary">
+              <button className="btn btn-primary btn-lg gap-2">
                 {uiText.viewAllProjects}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
               </button>
             </Link>
           </div>

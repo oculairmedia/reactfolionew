@@ -1,3 +1,7 @@
+/* ============================================
+   SOCIAL ICONS \2014  Brutalist with daisyUI theming
+   ============================================ */
+
 .stick_follow_icon {
     top: 50%;
     left: 30px;
@@ -18,7 +22,7 @@
 .stick_follow_icon svg {
     width: 1.3em;
     height: 1.3em;
-    fill: var(--text-color)
+    fill: var(--color-base-content);
 }
 
 .stick_follow_icon p {
@@ -26,7 +30,7 @@
     left: -24px;
     width: 68px;
     height: 20px;
-    color: var(--text-color);
+    color: var(--color-base-content);
     font-size: 12px;
     font-weight: 600;
     line-height: 1.2;
@@ -40,7 +44,11 @@
     font-size: 12px;
     text-align: center;
     margin-bottom: 10px;
-    transition: all .3s;
+    transition: all 0.3s;
+}
+
+.stick_follow_icon ul li:hover svg {
+    fill: var(--color-primary);
 }
 
 .stick_follow_icon p:after {
@@ -51,7 +59,7 @@
     content: "";
     display: block;
     position: absolute;
-    background-color: var(--text-color);
+    background-color: var(--color-base-content);
 }
 
 @media only screen and (max-width: 991px) {

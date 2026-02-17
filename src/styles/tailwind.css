@@ -8,8 +8,8 @@
 /* daisyUI Configuration */
 @plugin "daisyui" {
     themes:
-        light,
-        dark --default;
+        brutalist-light,
+        brutalist-dark --default;
     logs: false;
 }
 
@@ -128,9 +128,9 @@
 /* Custom theme configuration */
 @theme {
     /* Font families */
-    --font-heading: "Space Grotesk", sans-serif;
-    --font-mono: "JetBrains Mono", monospace;
-    --font-body: "Space Grotesk", sans-serif;
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-body: 'Space Grotesk', sans-serif;
 
     /* Animation keyframes */
     --animate-fade-in-up: fadeInUp 0.3s ease forwards;
@@ -186,6 +186,17 @@
     }
 }
 
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 /* Custom animation utilities */
 @layer utilities {
     .animate-fade-in-up {
@@ -198,6 +209,10 @@
 
     .animate-blink {
         animation: blink 0.6s step-end infinite;
+    }
+
+    .animate-slide-in-right {
+        animation: slideInRight 0.3s ease-out;
     }
 }
 

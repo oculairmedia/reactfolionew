@@ -1,8 +1,11 @@
+/* ============================================
+   THEME TOGGLE \2014  Brutalist with daisyUI
+   ============================================ */
+
 .theme_toggler {
-    background: var(--primary-color);
+    background: var(--color-primary);
     z-index: 999999999;
     left: 10px;
-    background: var(--primary-color);
     display: flex;
     height: 50px;
     align-items: center;
@@ -12,4 +15,10 @@
 .theme_toggler svg {
     width: 2em;
     height: 2em;
+    fill: var(--color-primary-content);
+    transition: fill 0.15s ease;
+}
+
+.theme_toggler:hover svg {
+    fill: var(--color-base-content);
 }

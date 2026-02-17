@@ -3,15 +3,13 @@ import { Link } from "@tanstack/react-router";
 import { logotext, socialprofils } from "../content_option";
 import Themetoggle from "../components/themetoggle";
 import { usePrefetch } from "../hooks/usePrefetch";
-import { loadHome, loadPortfolio, loadAbout, loadBlog, loadLinks } from "../app/routes";
+import { loadHome, loadPortfolio, loadAbout, loadBlog } from "../app/routes";
 
 const Headermain: React.FC = () => {
   const homeHandlers = usePrefetch(loadHome);
   const portfolioHandlers = usePrefetch(loadPortfolio);
   const aboutHandlers = usePrefetch(loadAbout);
   const blogHandlers = usePrefetch(loadBlog);
-  const linksHandlers = usePrefetch(loadLinks);
-
   const closeDrawer = () => {
     const checkbox = document.getElementById(
       "mobile-drawer",
@@ -92,17 +90,6 @@ const Headermain: React.FC = () => {
           className={linkClass}
         >
           Blog
-        </Link>
-        <Link
-          to="/links"
-          onClick={() => {
-            if (mobile) closeDrawer();
-            scrollToTop();
-          }}
-          {...linksHandlers}
-          className={linkClass}
-        >
-          Links
         </Link>
       </>
     );

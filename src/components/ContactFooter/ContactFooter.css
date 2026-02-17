@@ -1,141 +1,199 @@
 /* ============================================
-   CONTACT FOOTER — Brutalist
+   CONTACT FOOTER COMPONENT
+   Brutalist design with daisyUI theming
    ============================================ */
 
+/* Footer Container */
 .contact-footer {
-  background-color: transparent;
-  padding: 4rem 0 2rem;
-  margin-top: 4rem;
-  border-top: 2px solid rgba(255, 255, 255, 0.1);
+    background-color: var(--color-base-200);
+    padding: 5rem 0 3rem;
+    border-top: 2px solid
+        color-mix(in oklch, var(--color-base-content) 10%, transparent);
 }
 
-[data-theme="dark"] .contact-footer {
-  background-color: transparent;
+/* Section Title */
+.contact-footer h3 {
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: color-mix(in oklch, var(--color-base-content) 80%, transparent);
+    margin-bottom: 1.5rem;
 }
 
-.contact-footer .color_sec {
-  color: var(--secondary-color);
-  font-weight: 700;
-  font-family: var(--font-heading, 'Space Grotesk', sans-serif);
-  text-transform: uppercase;
-}
-
+/* Address Block */
 .contact-footer address {
-  line-height: 1.8;
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.8rem;
+    font-style: normal;
+    margin-bottom: 1.5rem;
 }
 
 .contact-footer address a {
-  color: var(--text-color);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  transition: opacity 0.15s ease;
+    color: color-mix(in oklch, var(--color-base-content) 70%, transparent);
+    text-decoration: none;
+    border-bottom: 1px solid
+        color-mix(in oklch, var(--color-base-content) 20%, transparent);
+    transition: all 0.15s ease;
 }
 
 .contact-footer address a:hover {
-  opacity: 0.6;
+    color: var(--color-base-content);
+    border-bottom-color: color-mix(
+        in oklch,
+        var(--color-base-content) 50%,
+        transparent
+    );
 }
 
-[data-theme="dark"] .contact-footer address a {
-  color: var(--text-color);
+.contact-footer address strong {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-base-content);
 }
 
-[data-theme="dark"] .contact-footer address a:hover {
-  opacity: 0.6;
+.contact-footer address p {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.85rem;
+    color: color-mix(in oklch, var(--color-base-content) 70%, transparent);
+    margin: 0.5rem 0;
 }
 
-.contact-footer .contact__form {
-  max-width: 100%;
+/* Description Text */
+.contact-footer > .container > div > p,
+.contact-footer p:not(address p) {
+    font-family: var(--font-body, 'Space Grotesk', sans-serif);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: color-mix(in oklch, var(--color-base-content) 60%, transparent);
 }
+
+/* Form Container */
+.contact-footer form {
+    width: 100%;
+}
+
+/* Form Grid */
+.contact-footer .grid {
+    gap: 1rem;
+}
+
+/* Loading Bar */
+.contact-footer .loading-bar,
+.loading-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 99999;
+    background-color: var(--color-primary);
+    transform: translateX(-100%);
+    animation: shift-rightwards 1s ease-in-out infinite;
+    animation-delay: 0.3s;
+}
+
+@keyframes shift-rightwards {
+    0% {
+        transform: translateX(-100%);
+    }
+    40% {
+        transform: translateX(0%);
+    }
+    60% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* ============================================
+   LEGACY FORM STYLES (if not using daisyUI)
+   ============================================ */
 
 .contact-footer .form-control {
-  background-color: var(--bg-color);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  color: var(--text-color);
-  padding: 12px 20px;
-  margin-bottom: 1rem;
-  transition: border-color 0.15s ease;
-  font-family: var(--font-body, 'Space Grotesk', sans-serif);
-  font-size: 0.85rem;
-  border-radius: 0;
+    background-color: var(--color-base-100);
+    border: 2px solid
+        color-mix(in oklch, var(--color-base-content) 10%, transparent);
+    color: var(--color-base-content);
+    padding: 0.875rem 1rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.15s ease;
+    font-family: var(--font-body, 'Space Grotesk', sans-serif);
+    font-size: 0.9rem;
+    border-radius: 0;
+    width: 100%;
 }
 
 .contact-footer .form-control:focus {
-  background-color: var(--bg-color);
-  border-color: var(--text-color);
-  color: var(--text-color);
-  box-shadow: none;
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: none;
 }
 
 .contact-footer .form-control::placeholder {
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-secondary);
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: color-mix(in oklch, var(--color-base-content) 40%, transparent);
 }
 
-.contact-footer .ac_btn {
-  padding: 10px 28px;
-  color: var(--secondary-color);
-  position: relative;
-  border: var(--secondary-color) 2px solid;
-  overflow: hidden;
-  transition: all 0.15s ease;
-  cursor: pointer;
-  border-radius: 0;
-  margin-right: 0;
-  font-family: var(--font-mono, 'JetBrains Mono', monospace);
-  font-size: 0.65rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  background-color: transparent;
+/* Submit Button */
+.contact-footer .ac_btn,
+.contact-footer button[type="submit"] {
+    background-color: var(--color-primary);
+    color: var(--color-primary-content);
+    border: 2px solid var(--color-primary);
+    padding: 0.875rem 2rem;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border-radius: 0;
 }
 
-.contact-footer .ac_btn:hover {
-  background: var(--secondary-color);
-  color: var(--primary-color);
+.contact-footer .ac_btn:hover,
+.contact-footer button[type="submit"]:hover {
+    background-color: transparent;
+    color: var(--color-primary);
 }
 
-.contact-footer .ac_btn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+.contact-footer .ac_btn:disabled,
+.contact-footer button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
-.contact-footer .co_alert {
-  margin-bottom: 2rem;
+/* Alert Styles */
+.contact-footer .co_alert,
+.contact-footer .alert {
+    border-radius: 0;
+    margin-bottom: 1.5rem;
 }
 
-.contact-footer .loading-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--text-color);
-  animation: loading 1.5s ease-in-out infinite;
-  z-index: 9999;
-}
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 
-@keyframes loading {
-  0% {
-    transform: translateX(-100%);
-  }
-
-  100% {
-    transform: translateX(100%);
-  }
+@media (max-width: 1024px) {
+    .contact-footer {
+        padding: 4rem 0 2rem;
+    }
 }
 
 @media (max-width: 768px) {
-  .contact-footer {
-    padding: 3rem 0 1.5rem;
-    margin-top: 3rem;
-  }
+    .contact-footer {
+        padding: 3rem 0 2rem;
+    }
 
-  .contact-footer .sec_sp {
-    padding: 0;
-  }
+    .contact-footer h3 {
+        font-size: 1.125rem;
+    }
 }

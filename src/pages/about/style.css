@@ -1,5 +1,5 @@
 /* ============================================
-   ABOUT PAGE — Brutalist
+   ABOUT PAGE \2014  Brutalist with daisyUI theming
    ============================================ */
 
 .sec_sp {
@@ -10,18 +10,22 @@
 .table td,
 .table th {
     background-color: transparent !important;
-    color: var(--text-color) !important;
+    color: var(--color-base-content) !important;
 }
 
 .table td,
 .table th {
     font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 0.85rem;
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: color-mix(
+        in oklch,
+        var(--color-base-content) 10%,
+        transparent
+    );
 }
 
 .t_border {
-    border-color: var(--text-color) !important;
+    border-color: var(--color-base-content) !important;
     border-width: 2px !important;
 }
 
@@ -32,11 +36,12 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin: 15px 0 20px;
+    color: var(--color-base-content);
 }
 
 .progress {
     height: 3px;
-    background: rgba(255, 255, 255, 0.08);
+    background: color-mix(in oklch, var(--color-base-content) 8%, transparent);
     border-radius: 0;
     box-shadow: none;
     margin-bottom: 30px;
@@ -45,7 +50,7 @@
 
 .progress .progress-bar {
     position: relative;
-    background: var(--text-color);
+    background: var(--color-base-content);
     animation: animate-positive 1.5s;
     overflow: visible;
     opacity: 1;
@@ -59,7 +64,7 @@
     font-size: 0.65rem;
     font-weight: 500;
     font-style: normal;
-    color: var(--text-color);
+    color: var(--color-base-content);
     letter-spacing: 0.05em;
 }
 
@@ -75,20 +80,23 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: -0.02em;
+    color: var(--color-base-content);
 }
 
 .service__title {
     padding: 8px 0;
-    border-bottom: solid 2px var(--secondary-color);
+    border-bottom: solid 2px
+        color-mix(in oklch, var(--color-base-content) 30%, transparent);
     font-family: var(--font-heading, 'Space Grotesk', sans-serif);
     text-transform: uppercase;
+    color: var(--color-base-content);
 }
 
 .service-section .service-category-title {
     padding-bottom: 4px;
 }
 
-/* About image — no rounded corners */
+/* About image \2014  no rounded corners */
 .about-image {
     max-width: 100%;
     height: auto;

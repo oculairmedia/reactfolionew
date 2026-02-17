@@ -62,7 +62,7 @@
 
 .home-section {
     min-height: 100vh;
-    background-color: oklch(var(--b1, 0.1 0 0));
+    background-color: var(--color-base-100);
     display: flex;
     flex-direction: column;
 }
@@ -96,7 +96,7 @@
     min-height: 300px;
     overflow: hidden;
     order: -1;
-    background-color: oklch(var(--b2, 0.12 0 0));
+    background-color: var(--color-base-200);
 }
 
 @media (min-width: 768px) {
@@ -186,12 +186,12 @@
 
 /* Subtitle */
 .hero-subtitle {
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 0.65rem;
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: oklch(var(--bc, 1 0 0) / 0.5);
+    color: color-mix(in oklch, var(--color-base-content) 50%, transparent);
     margin: 0 0 1rem 0;
     line-height: 1.4;
 }
@@ -225,13 +225,13 @@
 
 /* Typewriter Text */
 .typewriter-text {
-    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
     font-size: 2.5rem;
     font-weight: 700;
     line-height: 1.05;
     text-transform: uppercase;
     letter-spacing: -0.02em;
-    color: oklch(var(--bc, 1 0 0));
+    color: var(--color-base-content);
     display: inline;
     word-wrap: break-word;
 }
@@ -258,19 +258,19 @@
 .typewriter-cursor {
     font-size: inherit;
     font-weight: 700;
-    color: oklch(var(--bc, 1 0 0));
+    color: var(--color-base-content);
     animation: blink 0.7s step-end infinite;
     margin-left: 2px;
 }
 
 /* Description */
 .hero-description {
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 0.65rem;
     line-height: 1.8;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: oklch(var(--bc, 1 0 0) / 0.5);
+    color: color-mix(in oklch, var(--color-base-content) 50%, transparent);
     margin: 0 0 2rem 0;
     max-width: 500px;
 }
@@ -301,7 +301,7 @@
 }
 
 .hero-buttons .btn {
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 0.65rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -334,8 +334,10 @@
 
 .portfolio-section {
     padding: 5rem 0;
-    background-color: oklch(var(--b1, 0.1 0 0));
-    border-top: 2px solid oklch(var(--bc, 1 0 0) / 0.1);
+    background-color: var(--color-base-100);
+    border-top: 2px solid
+        color-mix(in oklch, var(--color-base-content) 10%, transparent);
+    width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -344,28 +346,34 @@
     }
 }
 
-/* Portfolio Container */
+/* Portfolio Container - Centered */
 .portfolio-container {
-    max-width: 1200px;
+    width: 100%;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 @media (min-width: 768px) {
     .portfolio-container {
-        padding: 0 1.5rem;
+        padding: 0 2.5rem;
     }
 }
 
-/* Portfolio Title */
+/* Portfolio Title - Centered */
 .portfolio-title {
-    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
     font-size: 1.75rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: -0.01em;
-    color: oklch(var(--bc, 1 0 0));
+    color: var(--color-base-content);
     margin: 0 0 2.5rem 0;
+    text-align: center;
+    width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -381,12 +389,15 @@
     }
 }
 
-/* Portfolio Grid */
+/* Portfolio Grid - Centered with max-width */
 .portfolio-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2px;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
     margin-bottom: 2.5rem;
+    width: 100%;
+    max-width: 1200px;
+    justify-content: center;
 }
 
 @media (min-width: 640px) {
@@ -398,16 +409,20 @@
 @media (min-width: 1024px) {
     .portfolio-grid {
         grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
     }
 }
 
-/* Portfolio CTA */
+/* Portfolio CTA - Centered */
 .portfolio-cta {
-    text-align: left;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .portfolio-cta .btn {
-    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
     font-size: 0.65rem;
     font-weight: 500;
     text-transform: uppercase;
@@ -430,5 +445,5 @@
    ============================================ */
 
 .home-section .skeleton {
-    background-color: oklch(var(--b2, 0.15 0 0));
+    background-color: var(--color-base-200);
 }

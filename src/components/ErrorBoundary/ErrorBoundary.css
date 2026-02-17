@@ -1,78 +1,95 @@
+/* ============================================
+   ERROR BOUNDARY \2014  Brutalist with daisyUI
+   ============================================ */
+
 .error-boundary {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  background-color: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: var(--color-base-100);
 }
 
 .error-content {
-  max-width: 600px;
-  padding: 2rem;
-  text-align: center;
-  background: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: 0 4px 20px var(--shadow-color);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+    max-width: 600px;
+    padding: 2rem;
+    text-align: center;
+    background: var(--color-base-200);
+    border-radius: 0;
+    border: 2px solid
+        color-mix(in oklch, var(--color-base-content) 10%, transparent);
 }
 
 .error-content h2 {
-  color: var(--text-color);
-  margin-bottom: 1rem;
+    color: var(--color-base-content);
+    margin-bottom: 1rem;
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
 }
 
 .error-content p {
-  color: var(--text-color);
-  opacity: 0.8;
-  margin-bottom: 2rem;
+    color: color-mix(in oklch, var(--color-base-content) 80%, transparent);
+    margin-bottom: 2rem;
+    font-family: var(--font-body, 'Space Grotesk', sans-serif);
 }
 
 .refresh-button {
-  background-color: var(--primary-color);
-  color: var(--bg-color);
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  font-weight: 600;
-  transition: all 0.3s ease;
+    background-color: var(--color-base-content);
+    color: var(--color-base-100);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0;
+    font-weight: 600;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
 }
 
 .refresh-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--shadow-color);
+    opacity: 0.8;
 }
 
 .error-details {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border-color);
-  text-align: left;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid
+        color-mix(in oklch, var(--color-base-content) 10%, transparent);
+    text-align: left;
 }
 
 .error-details h3 {
-  color: var(--text-color);
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+    color: var(--color-base-content);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    text-transform: uppercase;
 }
 
 .error-details pre {
-  background: rgba(var(--text-color-rgb), 0.05);
-  padding: 1rem;
-  border-radius: 6px;
-  overflow-x: auto;
-  color: var(--text-color);
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+    background: var(--color-base-300);
+    padding: 1rem;
+    border-radius: 0;
+    overflow-x: auto;
+    color: var(--color-base-content);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    border: 1px solid
+        color-mix(in oklch, var(--color-base-content) 8%, transparent);
 }
 
 @media (max-width: 768px) {
-  .error-content {
-    padding: 1.5rem;
-  }
+    .error-content {
+        padding: 1.5rem;
+    }
 
-  .error-details pre {
-    font-size: 0.8rem;
-  }
+    .error-details pre {
+        font-size: 0.8rem;
+    }
 }

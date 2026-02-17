@@ -1,21 +1,22 @@
 /* ============================================
-   CONTACT PAGE — Brutalist
+   CONTACT PAGE \2014  Brutalist with daisyUI
    ============================================ */
 
 .contact__form .form-control {
-    padding: 1.375rem .75rem;
+    padding: 1.375rem 0.75rem;
     line-height: 1.5;
-    color: var(--text-color);
-    background-color: var(--bg-color);
+    color: var(--color-base-content);
+    background-color: var(--color-base-100);
     border-radius: 0 !important;
-    border: 2px solid rgba(255, 255, 255, 0.15);
+    border: 2px solid
+        color-mix(in oklch, var(--color-base-content) 15%, transparent);
     font-family: var(--font-body, 'Space Grotesk', sans-serif);
     font-size: 0.85rem;
     transition: border-color 0.15s ease;
 }
 
 .contact__form .form-control:focus {
-    border-color: var(--text-color);
+    border-color: var(--color-base-content);
     box-shadow: none;
     outline: none;
 }
@@ -25,17 +26,17 @@
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text-secondary);
+    color: color-mix(in oklch, var(--color-base-content) 50%, transparent);
 }
 
 .contact__form input.form-control {
     margin-bottom: 2em;
-    height: calc(2.5em + .75rem + 2px);
+    height: calc(2.5em + 0.75rem + 2px);
 }
 
 button.btn.ac_btn:hover {
-    color: var(--primary-color);
-    background: var(--secondary-color);
+    color: var(--color-primary-content);
+    background: var(--color-primary);
 }
 
 .loading-bar {
@@ -45,10 +46,10 @@ button.btn.ac_btn:hover {
     right: 0;
     height: 3px;
     z-index: 999999999;
-    background: var(--text-color);
+    background: var(--color-base-content);
     transform: translateX(100%);
     animation: shift-rightwards 1s ease-in-out infinite;
-    animation-delay: .3s;
+    animation-delay: 0.3s;
 }
 
 @keyframes shift-rightwards {

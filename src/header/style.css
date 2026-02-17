@@ -1,308 +1,334 @@
 /* ============================================
-   HEADER BAR — Brutalist
-   Opaque background, no blur.
+   HEADER / NAVIGATION STYLES
+   Brutalist design with daisyUI theming
    ============================================ */
+
+/* ============================================
+   MAIN HEADER
+   ============================================ */
+
 .site__header {
-    top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    background-color: var(--primary-color);
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
+    background-color: color-mix(
+        in oklch,
+        var(--color-base-100) 95%,
+        transparent
+    );
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 2px solid
+        color-mix(in oklch, var(--color-base-content) 10%, transparent);
+    transition: background-color 0.3s ease;
 }
 
-[data-theme="light"] .site__header {
-    background-color: var(--primary-color);
-    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+.site__header .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
 }
 
-.menu__button {
-    color: var(--text-color);
+.site__header .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
 }
 
-.menu__button:focus,
-.menu__button:hover {
-    color: var(--text-color);
-    box-shadow: unset;
-}
-
-.menu__button svg {
-    width: 2em;
-    height: 2em;
-    fill: var(--text-color-2);
-    color: var(--text-color-2);
-}
-
-.nav_ac {
-    padding: 5px 15px;
-    margin: 0;
-    border: unset;
-    background: transparent;
-    font-size: 1.25rem;
+/* Logo / Brand */
+.navbar-brand {
     font-family: var(--font-heading, 'Space Grotesk', sans-serif);
-    color: var(--text-color-2);
-    line-height: 2;
-    height: 50px;
-    font-weight: bold;
-    z-index: 1000;
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--color-base-content);
+    text-decoration: none;
+    transition: color 0.15s ease;
 }
 
-.nav_ac:hover {
-    color: var(--text-color-2);
+.navbar-brand:hover {
+    color: var(--color-primary);
 }
 
 /* ============================================
-   PAGE BORDER FRAME
+   DESKTOP NAVIGATION
    ============================================ */
+
+.desktop-nav {
+    display: none;
+    align-items: center;
+    gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+    .desktop-nav {
+        display: flex;
+    }
+}
+
+.desktop-nav a {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: color-mix(in oklch, var(--color-base-content) 60%, transparent);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.15s ease;
+}
+
+.desktop-nav a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width 0.2s ease;
+}
+
+.desktop-nav a:hover {
+    color: var(--color-base-content);
+}
+
+.desktop-nav a:hover::after {
+    width: 100%;
+}
+
+.desktop-nav a.active {
+    color: var(--color-base-content);
+}
+
+.desktop-nav a.active::after {
+    width: 100%;
+}
+
+/* ============================================
+   MOBILE MENU BUTTON
+   ============================================ */
+
+.mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    color: var(--color-base-content);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+
+.mobile-menu-btn:hover {
+    color: var(--color-primary);
+}
+
+@media (min-width: 1024px) {
+    .mobile-menu-btn {
+        display: none;
+    }
+}
+
+/* ============================================
+   MOBILE NAVIGATION OVERLAY
+   ============================================ */
+
+.site__navigation {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background-color: var(--color-base-100);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.site__navigation.menu__opend {
+    opacity: 1;
+    visibility: visible;
+}
+
+.bg__menu {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu__wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu__container {
+    text-align: center;
+}
+
+/* Mobile Menu Items */
+.the_menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu_item {
+    margin: 1rem 0;
+}
+
+.menu_item a {
+    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--color-base-content);
+    text-decoration: none;
+    display: inline-block;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.15s ease;
+}
+
+@media (min-width: 768px) {
+    .menu_item a {
+        font-size: 3rem;
+    }
+}
+
+.menu_item a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--color-primary);
+    transition: width 0.2s ease;
+}
+
+.menu_item a:hover {
+    color: var(--color-primary);
+}
+
+.menu_item a:hover::after {
+    width: 100%;
+}
+
+/* Mobile Menu Footer */
+.menu_footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    border-top: 1px solid
+        color-mix(in oklch, var(--color-base-content) 10%, transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .menu_footer {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.menu_footer a {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: color-mix(in oklch, var(--color-base-content) 50%, transparent);
+    text-decoration: none;
+    margin-right: 1.5rem;
+    transition: color 0.15s ease;
+}
+
+.menu_footer a:hover {
+    color: var(--color-base-content);
+}
+
+.menu_footer .copyright {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: color-mix(in oklch, var(--color-base-content) 30%, transparent);
+    margin: 0;
+}
+
+/* ============================================
+   BRUTALIST BORDER FRAMES
+   ============================================ */
+
 .br-top,
 .br-bottom,
-.br-right,
-.br-left {
+.br-left,
+.br-right {
     position: fixed;
-    z-index: 999999;
-    background: var(--primary-color);
+    background-color: var(--color-base-100);
+    z-index: 9999;
+    pointer-events: none;
 }
 
 .br-top {
     top: 0;
-    height: 10px;
     left: 0;
-    width: 100%;
+    right: 0;
+    height: 10px;
 }
 
 .br-bottom {
     bottom: 0;
     left: 0;
-    height: 10px;
-    width: 100%;
-}
-
-.br-right {
-    width: 10px;
     right: 0;
-    top: 0;
-    height: 100%;
+    height: 10px;
 }
 
 .br-left {
-    width: 10px;
-    left: 0;
     top: 0;
-    height: 100%;
-}
-
-/* ============================================
-   MOBILE FULLSCREEN OVERLAY
-   Lives OUTSIDE <header> to avoid backdrop-filter
-   creating a containing block for position:fixed.
-   z-index must be ABOVE the border frame (999999).
-   ============================================ */
-.cortina__wrapper-menu {
-    position: relative;
-    width: 100%;
-    padding-top: 5em;
-    padding-bottom: 3em;
-    height: 100%;
-    overflow-y: auto;
-}
-
-.site__navigation {
-    height: 100%;
-    left: 0;
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    visibility: hidden;
-    z-index: 9999999;
-}
-
-.menu__opend {
-    visibility: visible !important;
-}
-
-.main__menu_ul,
-.menu_right {
-    opacity: 0;
-    position: relative;
-    transition: 0.5s;
-    transition-delay: 0s;
-    visibility: hidden;
-    z-index: 100;
-}
-
-.menu_right {
-    text-align: center;
-}
-
-.site__navigation.menu__opend .main__menu_ul,
-.site__navigation.menu__opend .menu_right {
-    opacity: 1;
-    transition-delay: 0.6s;
-    visibility: visible;
-}
-
-.site__navigation .main__menu_ul li {
-    list-style: none;
-    margin: 10px 0;
-}
-
-.site__navigation .main__menu_ul li a {
-    color: var(--text-color);
-    display: block;
-    font-size: 2.5rem;
-    text-decoration: none;
-}
-
-.bg__menu {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    background-color: var(--primary-color);
-    will-change: transform;
-    transform: translateY(-100%);
-    transition: .5s ease all;
-}
-
-.menu__opend .bg__menu {
-    transform: translateY(0);
-}
-
-.menu__wrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden auto;
-}
-
-.the_menu {
-    padding-top: 20vh;
-    padding-bottom: 20vh;
-    padding-left: 0;
-}
-
-@media (min-width: 992px) {
-    .menu__container {
-        margin-left: 33.3333%;
-    }
-
-    .the_menu {
-        padding-top: 10vh;
-        padding-bottom: 10vh;
-    }
-}
-
-.the_menu .menu_item>a {
-    color: var(--text-color-2);
-    line-height: 1;
-    font-size: 2rem;
-    display: inline-block;
-    position: relative;
-    transition: color 250ms cubic-bezier(0, 0, 0.58, 1) 0s;
-    padding: 4px 0px;
-    text-decoration: none;
-    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-}
-
-.the_menu .menu_item>a:hover {
-    color: var(--text-color-3);
-}
-
-@media (min-width: 768px) {
-    .the_menu .menu_item>a {
-        font-size: 4.8vw;
-    }
-}
-
-.menu_footer {
     bottom: 0;
-    font-family: var(--font-mono, 'JetBrains Mono', monospace);
-    font-size: 14px;
-    background: var(--primary-color);
+    left: 0;
+    width: 10px;
 }
 
-.menu_footer a {
-    color: var(--text-color-2);
-    margin-right: 10px;
-    text-decoration: none;
-}
-
-/* ============================================
-   DESKTOP INLINE NAVIGATION
-   Visible only on screens >= 992px.
-   ============================================ */
-.desktop-nav {
-    display: none;
-}
-
-@media (min-width: 992px) {
-    .desktop-nav {
-        display: flex;
-        align-items: center;
-        gap: 32px;
-    }
-
-    .desktop-nav a {
-        color: var(--text-color);
-        text-decoration: none;
-        font-family: var(--font-mono, 'JetBrains Mono', monospace);
-        font-size: 0.7rem;
-        font-weight: 500;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        position: relative;
-        padding: 4px 0;
-        transition: color 0.25s ease;
-    }
-
-    .desktop-nav a::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 1.5px;
-        background-color: var(--text-color);
-        transition: width 0.3s ease;
-    }
-
-    .desktop-nav a:hover {
-        color: var(--text-color);
-    }
-
-    .desktop-nav a:hover::after {
-        width: 100%;
-    }
-
-    /* Hide hamburger on desktop */
-    .mobile-menu-btn {
-        display: none !important;
-    }
+.br-right {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 10px;
 }
 
 /* ============================================
-   MOBILE OVERRIDES (< 992px)
-   Desktop nav is nuked. Hamburger is visible.
+   NAV ACCESSIBILITY
    ============================================ */
-@media (max-width: 991.98px) {
-    .desktop-nav {
-        display: none !important;
-        visibility: hidden !important;
-        width: 0 !important;
-        height: 0 !important;
-        overflow: hidden !important;
-        position: absolute !important;
-        pointer-events: none !important;
-    }
 
-    .mobile-menu-btn {
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        background: transparent !important;
-    }
+.nav_ac:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   HEADER RIGHT SECTION
+   ============================================ */
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
