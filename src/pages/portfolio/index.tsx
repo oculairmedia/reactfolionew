@@ -45,7 +45,7 @@ export const Portfolio: React.FC = () => {
           ) : (
             <div className="animate-[fadeIn_0.3s_ease_forwards]">
               {/* Header */}
-              <div className="mb-10 mt-6 md:pt-6 pl-2 md:pl-0">
+              <div className="mb-10 mt-6 md:pt-6 pl-4 md:pl-0">
                 <div className="lg:w-2/3">
                   <h1 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-base-content mb-4">
                     {portfolioPage.title}

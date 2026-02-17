@@ -52,11 +52,45 @@ export default defineConfig({
     minify: "esbuild",
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ["react", "react-dom"],
-          animation: ["framer-motion"],
-          icons: ["react-icons"],
-          utils: ["axios", "emailjs-com", "typewriter-effect"],
+        manualChunks(id) {
+          // React core - loaded on every page
+          if (
+            id.includes("node_modules/react-dom") ||
+            id.includes("node_modules/react/")
+          ) {
+            return "vendor";
+          }
+          // Animation - lazy loaded only when needed
+          if (id.includes("node_modules/framer-motion")) {
+            return "animation";
+          }
+          // Syntax highlighting - only for blog
+          if (id.includes("node_modules/prism-react-renderer")) {
+            return "prism";
+          }
+          // Icons - split by icon pack for better tree-shaking
+          if (id.includes("node_modules/react-icons")) {
+            return "icons";
+          }
+          // Router - core navigation
+          if (id.includes("node_modules/@tanstack/react-router")) {
+            return "router";
+          }
+          // Markdown rendering
+          if (
+            id.includes("node_modules/react-markdown") ||
+            id.includes("node_modules/remark") ||
+            id.includes("node_modules/unified")
+          ) {
+            return "markdown";
+          }
+          // Utilities
+          if (
+            id.includes("node_modules/axios") ||
+            id.includes("node_modules/emailjs-com")
+          ) {
+            return "utils";
+          }
         },
         chunkFileNames: "assets/js/[name]-[hash].js",
         entryFileNames: "assets/js/[name]-[hash].js",
