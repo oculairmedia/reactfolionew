@@ -55,7 +55,7 @@ export const Portfolio: React.FC = () => {
               </div>
 
               {/* Portfolio Grid */}
-              <div className="mb-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0.5">
+              <div className="mb-10 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0.5">
                 {dataportfolio && dataportfolio.length > 0 ? (
                   dataportfolio.map((data, i) => (
                     <PortfolioItem key={data.id || i} data={data} index={i} />
