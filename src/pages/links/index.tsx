@@ -34,16 +34,16 @@ const LinkCard: React.FC<LinkCardProps> = ({
   className = "",
 }) => {
   const content = (
-    <div className="flex flex-col h-full justify-between p-6">
+    <div className="flex flex-col h-full justify-between">
       <div className="flex justify-between items-start">
-        {icon && <div className="text-3xl mb-4">{icon}</div>}
+        {icon && <div className="text-2xl md:text-3xl mb-2 md:mb-4">{icon}</div>}
       </div>
       <div>
-        <h3 className="font-heading text-xl font-bold uppercase tracking-tight mb-1">
+        <h3 className="font-heading text-sm md:text-xl font-bold uppercase tracking-tight mb-0.5 md:mb-1">
           {title}
         </h3>
         {subtitle && (
-          <p className="font-mono text-xs opacity-70 uppercase tracking-widest">
+          <p className="font-mono text-[0.6rem] md:text-xs opacity-70 uppercase tracking-widest">
             {subtitle}
           </p>
         )}
@@ -94,9 +94,9 @@ export const Links: React.FC = () => {
             </div>
 
             <div className="bento-grid">
-              <div className="bento-card col-span-1 md:col-span-2 row-span-2 bg-base-100 flex flex-col items-center justify-center p-8 text-center gap-4">
-                <div className="avatar">
-                  <div className="w-32 border-4 border-base-content">
+              <div className="bento-card col-span-2 row-span-1 md:row-span-2 bg-base-100 flex flex-row md:flex-col items-center justify-start md:justify-center p-4 md:p-8 text-left md:text-center gap-4">
+                <div className="avatar shrink-0">
+                  <div className="w-16 md:w-32 border-4 border-base-content">
                     <img
                       src="https://oculair.b-cdn.net/pages%252Fabout-us%252Fclean-2.jpg"
                       alt="Emmanuel Umukoro"
@@ -104,10 +104,10 @@ export const Links: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <h2 className="font-heading text-3xl md:text-4xl font-black uppercase tracking-tighter mb-2">
+                  <h2 className="font-heading text-xl md:text-4xl font-black uppercase tracking-tighter mb-1 md:mb-2">
                     Emmanuel Umukoro
                   </h2>
-                  <div className="badge badge-outline p-4 font-mono text-xs uppercase tracking-widest">
+                  <div className="badge badge-outline p-2 md:p-4 font-mono text-[0.55rem] md:text-xs uppercase tracking-widest">
                     Creative Technologist & Designer
                   </div>
                 </div>
@@ -142,7 +142,7 @@ export const Links: React.FC = () => {
                 subtitle="View my work"
                 icon={<HiOutlineCollection />}
                 to="/portfolio"
-                className="col-span-1 md:col-span-2 bg-base-200"
+                className="col-span-2 bg-base-200"
               />
 
               <LinkCard
