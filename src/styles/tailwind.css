@@ -1,0 +1,131 @@
+/* ============================================
+   Tailwind CSS v4 + daisyUI 5 Configuration
+   ============================================ */
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+/* daisyUI Configuration */
+@plugin "daisyui" {
+  themes: light, dark --default;
+  logs: false;
+}
+
+/* Custom Theme - Brutalist Design System */
+@plugin "daisyui/theme" {
+  name: "brutalist-dark";
+  default: true;
+  prefersdark: true;
+  color-scheme: dark;
+
+  /* Base colors - matching existing brutalist design */
+  --color-base-100: oklch(7% 0 0);           /* #0a0a0a */
+  --color-base-200: oklch(12% 0 0);          /* slightly lighter */
+  --color-base-300: oklch(18% 0 0);          /* even lighter */
+  --color-base-content: oklch(100% 0 0);     /* #fff */
+
+  /* Primary - using white for brutalist contrast */
+  --color-primary: oklch(100% 0 0);          /* #fff */
+  --color-primary-content: oklch(7% 0 0);    /* #0a0a0a */
+
+  /* Secondary - inverted */
+  --color-secondary: oklch(50% 0 0);         /* mid gray */
+  --color-secondary-content: oklch(100% 0 0);
+
+  /* Accent */
+  --color-accent: oklch(100% 0 0);
+  --color-accent-content: oklch(7% 0 0);
+
+  /* Neutral */
+  --color-neutral: oklch(20% 0 0);
+  --color-neutral-content: oklch(100% 0 0);
+
+  /* Status colors */
+  --color-info: oklch(70% 0.15 220);
+  --color-info-content: oklch(98% 0.01 220);
+  --color-success: oklch(65% 0.2 140);
+  --color-success-content: oklch(98% 0.01 140);
+  --color-warning: oklch(80% 0.2 80);
+  --color-warning-content: oklch(20% 0.05 80);
+  --color-error: oklch(65% 0.25 30);
+  --color-error-content: oklch(98% 0.01 30);
+
+  /* Brutalist style - sharp corners */
+  --radius-selector: 0rem;
+  --radius-field: 0rem;
+  --radius-box: 0rem;
+
+  /* Size settings */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* Sharp borders */
+  --border: 2px;
+
+  /* No depth for flat brutalist look */
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Light theme variant */
+@plugin "daisyui/theme" {
+  name: "brutalist-light";
+  default: false;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Base colors - light brutalist */
+  --color-base-100: oklch(96% 0.01 90);      /* #f5f5f0 */
+  --color-base-200: oklch(92% 0.01 90);
+  --color-base-300: oklch(88% 0.01 90);
+  --color-base-content: oklch(7% 0 0);       /* #0a0a0a */
+
+  /* Primary - using black for brutalist contrast */
+  --color-primary: oklch(7% 0 0);
+  --color-primary-content: oklch(96% 0.01 90);
+
+  /* Secondary */
+  --color-secondary: oklch(50% 0 0);
+  --color-secondary-content: oklch(7% 0 0);
+
+  /* Accent */
+  --color-accent: oklch(7% 0 0);
+  --color-accent-content: oklch(96% 0.01 90);
+
+  /* Neutral */
+  --color-neutral: oklch(80% 0 0);
+  --color-neutral-content: oklch(7% 0 0);
+
+  /* Status colors */
+  --color-info: oklch(55% 0.2 220);
+  --color-info-content: oklch(98% 0.01 220);
+  --color-success: oklch(50% 0.25 140);
+  --color-success-content: oklch(98% 0.01 140);
+  --color-warning: oklch(70% 0.25 80);
+  --color-warning-content: oklch(20% 0.05 80);
+  --color-error: oklch(55% 0.3 30);
+  --color-error-content: oklch(98% 0.01 30);
+
+  /* Brutalist style - sharp corners */
+  --radius-selector: 0rem;
+  --radius-field: 0rem;
+  --radius-box: 0rem;
+
+  /* Size settings */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* Sharp borders */
+  --border: 2px;
+
+  /* No depth for flat brutalist look */
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Custom font configuration */
+@theme {
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'Space Grotesk', sans-serif;
+}
