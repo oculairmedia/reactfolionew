@@ -1,0 +1,22 @@
+# Bun configuration for personal-site
+# https://bun.sh/docs/runtime/bunfig
+
+[install]
+# Skip saving lockfile due to Windows network drive issues
+saveTextLockfile = false
+
+# Use symlinks for faster installs (if supported)
+backend = "hardlink"
+
+# Increase network concurrency for faster downloads
+networkConcurrency = 64
+
+# Trust all dependencies (skip postinstall prompts)
+# trustedDependencies = ["*"]
+
+[run]
+# Enable hot reloading
+hot = true
+
+# Silence bun's own output, let vite handle it
+silent = false
