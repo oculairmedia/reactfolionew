@@ -88,7 +88,7 @@ export const ContactFooter = () => {
 
       <div className="mx-auto max-w-7xl px-2 md:px-4 lg:container">
         {/* Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           {/* Contact Info Card */}
           <div className="lg:col-span-5">
             <div className="card bg-base-300 shadow-none">
@@ -158,10 +158,10 @@ export const ContactFooter = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-7">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="col-span-1 lg:col-span-7">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
               {/* Name & Email Row */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-3 md:gap-6">
                 <fieldset className="fieldset">
                   <legend className="fieldset-legend font-mono text-xs uppercase tracking-wider">
                     Name
