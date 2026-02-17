@@ -77,7 +77,7 @@ export const ContactFooter = () => {
   return (
     <footer
       id="contact-footer"
-      className="footer bg-base-200 border-t-2 border-base-content/10 py-16"
+      className="bg-base-200 border-t-2 border-base-content/10 py-16"
     >
       {/* Loading Progress Bar */}
       {formData.loading && (
