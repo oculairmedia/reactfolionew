@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { Container, Row, Col } from "react-bootstrap";
 import { meta, portfolioPage } from "../../content_option";
 import { getPortfolioItems } from "../../utils/payloadApi";
 import PortfolioItem from "../../components/PortfolioItem";
@@ -21,7 +19,7 @@ export const Portfolio: React.FC = () => {
         const portfolioData = await getPortfolioItems();
         setDataPortfolio(portfolioData);
       } catch {
-        import('../../content_option').then(module => {
+        import("../../content_option").then((module) => {
           setDataPortfolio(module.dataportfolio);
         });
       } finally {
@@ -34,36 +32,44 @@ export const Portfolio: React.FC = () => {
 
   return (
     <HelmetProvider>
-      <Container className="About-header">
+      <div className="container mx-auto max-w-7xl px-4 py-8">
         <Helmet>
           <meta charSet="utf-8" />
-          <title> Portfolio | {meta.title} </title>
+          <title>Portfolio | {meta.title}</title>
           <meta name="description" content={meta.description} />
         </Helmet>
+
         {loading ? (
-          <div className="skeleton-container">
-            <PortfolioPageSkeleton count={8} />
-          </div>
+          <PortfolioPageSkeleton count={8} />
         ) : (
-          <div className="content-container">
-            <Row className="mb-5 mt-3 pt-md-3">
-              <Col lg="8">
-                <h1 className="display-4 mb-4">{portfolioPage.title}</h1>
-                <hr className="t_border my-4 ml-0 text-left" />
-              </Col>
-            </Row>
-            <div className="mb-5 po_items_ho">
+          <div className="animate-[fadeIn_0.3s_ease_forwards]">
+            {/* Header */}
+            <div className="mb-10 mt-6 md:pt-6">
+              <div className="lg:w-2/3">
+                <h1 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-base-content mb-4">
+                  {portfolioPage.title}
+                </h1>
+                <div className="divider my-4 before:bg-base-content/20 after:bg-base-content/20"></div>
+              </div>
+            </div>
+
+            {/* Portfolio Grid */}
+            <div className="mb-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0.5">
               {dataportfolio && dataportfolio.length > 0 ? (
                 dataportfolio.map((data, i) => (
                   <PortfolioItem key={data.id || i} data={data} index={i} />
                 ))
               ) : (
-                <div style={{ textAlign: 'center', padding: '2rem' }}>No portfolio items available</div>
+                <div className="col-span-full text-center py-16">
+                  <p className="text-base-content/60 font-mono text-sm uppercase tracking-wider">
+                    No portfolio items available
+                  </p>
+                </div>
               )}
             </div>
           </div>
         )}
-      </Container>
+      </div>
     </HelmetProvider>
   );
 };

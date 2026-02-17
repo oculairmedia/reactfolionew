@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import * as emailjs from "emailjs-com";
-import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { meta, contactConfig, contactPage } from "../../content_option";
-import { Container, Row, Col, Alert } from "react-bootstrap";
 import type { ContactFormData } from "../../types";
 
 export const ContactUs: React.FC = () => {
@@ -33,14 +31,15 @@ export const ContactUs: React.FC = () => {
         contactConfig.YOUR_SERVICE_ID,
         contactConfig.YOUR_TEMPLATE_ID,
         templateParams,
-        contactConfig.YOUR_PUBLIC_KEY
+        contactConfig.YOUR_PUBLIC_KEY,
       )
       .then(
         () => {
           setFormdata({
             ...formData,
             loading: false,
-            alertmessage: contactPage.successMessage || "Message sent successfully!",
+            alertmessage:
+              contactPage.successMessage || "Message sent successfully!",
             variant: "success",
             show: true,
           });
@@ -48,119 +47,181 @@ export const ContactUs: React.FC = () => {
         (error: { text: string }) => {
           setFormdata({
             ...formData,
-            alertmessage: `Faild to send!,${error.text}`,
-            variant: "danger",
+            alertmessage: `Failed to send! ${error.text}`,
+            variant: "error",
             show: true,
           });
-          document.getElementsByClassName("co_alert")[0]?.scrollIntoView();
-        }
+        },
       );
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setFormdata({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
+  const getAlertClass = () => {
+    switch (formData.variant) {
+      case "success":
+        return "alert-success";
+      case "error":
+      case "danger":
+        return "alert-error";
+      default:
+        return "";
+    }
+  };
+
   return (
     <HelmetProvider>
-      <Container>
+      <div className="container mx-auto max-w-7xl px-4 py-8">
         <Helmet>
           <meta charSet="utf-8" />
           <title>{meta.title} | Contact</title>
           <meta name="description" content={meta.description} />
         </Helmet>
-        <Row className="mb-5 mt-3 pt-md-3">
-          <Col lg="8">
-            <h1 className="display-4 mb-4">{contactPage.title}</h1>
-            <hr className="t_border my-4 ml-0 text-left" />
-          </Col>
-        </Row>
-        <Row className="sec_sp">
-          <Col lg="12">
-            <Alert
-              variant={formData.variant}
-              className={`rounded-0 co_alert ${
-                formData.show ? "d-block" : "d-none"
-              }`}
-              onClose={() => setFormdata({ ...formData, show: false })}
-              dismissible
-            >
-              <p className="my-0">{formData.alertmessage}</p>
-            </Alert>
-          </Col>
-          <Col lg="5" className="mb-5">
-            <h3 className="color_sec py-4">{contactPage.sectionTitle}</h3>
-            <address>
-              <strong>Email:</strong>{" "}
-              <a href={`mailto:${contactConfig.YOUR_EMAIL}`}>
-                {contactConfig.YOUR_EMAIL}
-              </a>
-              <br />
-              <br />
-              {contactConfig.YOUR_FONE ? (
-                <p>
-                  <strong>Phone:</strong> {contactConfig.YOUR_FONE}
+
+        {/* Loading Bar */}
+        {formData.loading && (
+          <div className="fixed top-0 left-0 right-0 h-[3px] z-[99999] bg-primary animate-[shift-rightwards_1s_ease-in-out_infinite_0.3s]" />
+        )}
+
+        <div className="animate-[fadeIn_0.3s_ease_forwards]">
+          {/* Header */}
+          <div className="mb-10 mt-6 md:pt-6">
+            <div className="lg:w-2/3">
+              <h1 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-base-content mb-4">
+                {contactPage.title}
+              </h1>
+              <div className="divider my-4 before:bg-base-content/20 after:bg-base-content/20"></div>
+            </div>
+          </div>
+
+          {/* Alert */}
+          {formData.show && (
+            <div role="alert" className={`alert ${getAlertClass()} mb-8`}>
+              <span>{formData.alertmessage}</span>
+              <button
+                className="btn btn-sm btn-ghost"
+                onClick={() => setFormdata({ ...formData, show: false })}
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
+          {/* Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+            {/* Contact Info */}
+            <div className="lg:col-span-5">
+              <h3 className="font-heading text-xl font-bold uppercase tracking-tight text-base-content/80 py-4">
+                {contactPage.sectionTitle}
+              </h3>
+              <address className="not-italic space-y-4 mb-6">
+                <p className="font-mono text-sm">
+                  <strong className="text-base-content">Email:</strong>{" "}
+                  <a
+                    href={`mailto:${contactConfig.YOUR_EMAIL}`}
+                    className="link link-hover text-base-content/70"
+                  >
+                    {contactConfig.YOUR_EMAIL}
+                  </a>
                 </p>
-              ) : (
-                ""
-              )}
-            </address>
-            <p>{contactConfig.description}</p>
-          </Col>
-          <Col lg="7" className="d-flex align-items-center">
-            <form onSubmit={handleSubmit} className="contact__form w-100">
-              <Row>
-                <Col lg="6" className="form-group">
-                  <input
-                    className="form-control"
-                    id="name"
-                    name="name"
-                    placeholder="Name"
-                    value={formData.name || ""}
-                    type="text"
-                    required
+                {contactConfig.YOUR_FONE && (
+                  <p className="font-mono text-sm">
+                    <strong className="text-base-content">Phone:</strong>{" "}
+                    <span className="text-base-content/70">
+                      {contactConfig.YOUR_FONE}
+                    </span>
+                  </p>
+                )}
+              </address>
+              <p className="font-body text-sm text-base-content/70 leading-relaxed">
+                {contactConfig.description}
+              </p>
+            </div>
+
+            {/* Contact Form */}
+            <div className="lg:col-span-7 flex items-center">
+              <form onSubmit={handleSubmit} className="w-full space-y-6">
+                {/* Name & Email Row */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  <fieldset className="fieldset">
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="NAME"
+                      value={formData.name || ""}
+                      required
+                      onChange={handleChange}
+                      className="input input-bordered w-full font-body text-sm placeholder:font-mono placeholder:text-[0.7rem] placeholder:uppercase placeholder:tracking-[0.1em] placeholder:text-base-content/50"
+                    />
+                  </fieldset>
+                  <fieldset className="fieldset">
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="EMAIL"
+                      value={formData.email || ""}
+                      required
+                      onChange={handleChange}
+                      className="input input-bordered w-full font-body text-sm placeholder:font-mono placeholder:text-[0.7rem] placeholder:uppercase placeholder:tracking-[0.1em] placeholder:text-base-content/50"
+                    />
+                  </fieldset>
+                </div>
+
+                {/* Message */}
+                <fieldset className="fieldset">
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="MESSAGE"
+                    rows={5}
+                    value={formData.message}
                     onChange={handleChange}
-                  />
-                </Col>
-                <Col lg="6" className="form-group">
-                  <input
-                    className="form-control rounded-0"
-                    id="email"
-                    name="email"
-                    placeholder="Email"
-                    type="email"
-                    value={formData.email || ""}
                     required
-                    onChange={handleChange}
+                    className="textarea textarea-bordered w-full font-body text-sm placeholder:font-mono placeholder:text-[0.7rem] placeholder:uppercase placeholder:tracking-[0.1em] placeholder:text-base-content/50 resize-none"
                   />
-                </Col>
-              </Row>
-              <textarea
-                className="form-control rounded-0"
-                id="message"
-                name="message"
-                placeholder="Message"
-                rows={5}
-                value={formData.message}
-                onChange={handleChange}
-                required
-              ></textarea>
-              <br />
-              <Row>
-                <Col lg="12" className="form-group">
-                  <button className="btn ac_btn" type="submit">
-                    {formData.loading ? (contactPage.sendingText || "Sending...") : (contactPage.submitButton || "Send")}
+                </fieldset>
+
+                {/* Submit Button */}
+                <div>
+                  <button
+                    type="submit"
+                    className="btn btn-primary font-mono text-[0.7rem] uppercase tracking-[0.15em] px-8"
+                    disabled={formData.loading}
+                  >
+                    {formData.loading ? (
+                      <>
+                        <span className="loading loading-spinner loading-sm"></span>
+                        {contactPage.sendingText || "Sending..."}
+                      </>
+                    ) : (
+                      contactPage.submitButton || "Send"
+                    )}
                   </button>
-                </Col>
-              </Row>
-            </form>
-          </Col>
-        </Row>
-      </Container>
-      <div className={formData.loading ? "loading-bar" : "d-none"}></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Keyframe for loading bar - add to global styles if not present */}
+      <style>{`
+        @keyframes shift-rightwards {
+          0% { transform: translateX(-100%); }
+          40% { transform: translateX(0%); }
+          60% { transform: translateX(0%); }
+          100% { transform: translateX(100%); }
+        }
+      `}</style>
     </HelmetProvider>
   );
 };

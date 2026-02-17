@@ -7,10 +7,16 @@ import { getHomeIntro, getPortfolioItems } from "../../utils/payloadApi";
 import { Link } from "@tanstack/react-router";
 import PortfolioItem from "../../components/PortfolioItem";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
-import { HomeIntroSkeleton, PortfolioGridSkeleton, Skeleton } from "../../components/SkeletonLoader";
-import { usePrefetchCriticalData, usePrefetchPortfolio, usePrefetchAbout } from "../../hooks/useDataPrefetch";
-import type { TransformedIntroData, PortfolioItem as PortfolioItemType } from "../../types";
+import { FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
+import {
+  usePrefetchCriticalData,
+  usePrefetchPortfolio,
+  usePrefetchAbout,
+} from "../../hooks/useDataPrefetch";
+import type {
+  TransformedIntroData,
+  PortfolioItem as PortfolioItemType,
+} from "../../types";
 
 interface SocialIconProps {
   href: string;
@@ -22,13 +28,51 @@ const SocialIcon = memo<SocialIconProps>(({ href, children }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="social-icon"
+    className="btn btn-square btn-ghost btn-sm border border-base-content/20 hover:bg-base-content/10 hover:border-base-content/40 transition-all duration-150"
   >
     {children}
   </a>
 ));
 
-SocialIcon.displayName = 'SocialIcon';
+SocialIcon.displayName = "SocialIcon";
+
+// Skeleton Components using daisyUI
+const HomeIntroSkeleton = memo(() => (
+  <>
+    <div className="w-full lg:w-[45%] h-[40vh] lg:h-full order-first lg:order-last">
+      <div className="skeleton w-full h-full"></div>
+    </div>
+    <div className="w-full lg:w-[55%] p-4 lg:pl-[4%] flex justify-start items-start">
+      <div className="max-w-[90%] lg:max-w-[90%] flex flex-col gap-4">
+        <div className="skeleton h-6 w-48"></div>
+        <div className="skeleton h-16 w-full max-w-md"></div>
+        <div className="skeleton h-4 w-full"></div>
+        <div className="skeleton h-4 w-3/4"></div>
+        <div className="flex gap-3 mt-4">
+          <div className="skeleton h-12 w-36"></div>
+          <div className="skeleton h-12 w-36"></div>
+        </div>
+        <div className="flex gap-3 mt-6">
+          <div className="skeleton w-9 h-9"></div>
+          <div className="skeleton w-9 h-9"></div>
+          <div className="skeleton w-9 h-9"></div>
+        </div>
+      </div>
+    </div>
+  </>
+));
+
+HomeIntroSkeleton.displayName = "HomeIntroSkeleton";
+
+const PortfolioGridSkeleton = memo<{ count?: number }>(({ count = 3 }) => (
+  <>
+    {Array.from({ length: count }).map((_, index) => (
+      <div key={index} className="skeleton aspect-[4/3] w-full"></div>
+    ))}
+  </>
+));
+
+PortfolioGridSkeleton.displayName = "PortfolioGridSkeleton";
 
 export const Home = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -44,28 +88,44 @@ export const Home = () => {
         setLoading(true);
         const [homeIntroData, portfolioData] = await Promise.all([
           getHomeIntro(),
-          getPortfolioItems({ limit: 3 })
+          getPortfolioItems({ limit: 3 }),
         ]);
 
         const transformedIntroData: TransformedIntroData = {
           title: homeIntroData.title,
           description: homeIntroData.description,
           your_img_url: homeIntroData.image_url,
-          animated: homeIntroData.animated.reduce((acc: Record<string, string>, item: { text: string }, index: number) => {
-            const keys = [
-              'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'
-            ];
-            if (index < keys.length) {
-              acc[keys[index]] = item.text;
-            }
-            return acc;
-          }, {})
+          animated: homeIntroData.animated.reduce(
+            (
+              acc: Record<string, string>,
+              item: { text: string },
+              index: number,
+            ) => {
+              const keys = [
+                "first",
+                "second",
+                "third",
+                "fourth",
+                "fifth",
+                "sixth",
+                "seventh",
+                "eighth",
+                "ninth",
+                "tenth",
+              ];
+              if (index < keys.length) {
+                acc[keys[index]] = item.text;
+              }
+              return acc;
+            },
+            {},
+          ),
         };
 
         setIntroData(transformedIntroData);
         setDataPortfolio(portfolioData);
       } catch {
-        const module = await import('../../content_option');
+        const module = await import("../../content_option");
         setIntroData(module.introdata);
         setDataPortfolio(module.dataportfolio);
       } finally {
@@ -76,7 +136,7 @@ export const Home = () => {
     fetchData();
   }, []);
 
-  usePrefetchCriticalData(['portfolio', 'about']);
+  usePrefetchCriticalData(["portfolio", "about"]);
 
   const portfolioHoverHandlers = usePrefetchPortfolio();
   const aboutHoverHandlers = usePrefetchAbout();
@@ -95,25 +155,25 @@ export const Home = () => {
   }, [dataportfolio]);
 
   const handlePortfolioClick = useCallback(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
   if (loading || !introdata) {
     return (
       <HelmetProvider>
-        <section id="home" className="home">
+        <section id="home" className="min-h-screen bg-base-100">
           <Helmet>
             <meta charSet="utf-8" />
-            <title> {meta.title}</title>
+            <title>{meta.title}</title>
             <meta name="description" content={meta.description} />
           </Helmet>
-          <div className="intro_sec skeleton-container">
+          <div className="flex flex-col lg:flex-row min-h-[calc(100vh-60px)] lg:min-h-[700px] -mt-[60px] items-center">
             <HomeIntroSkeleton />
           </div>
-          <section id="portfolio" className="portfolio_section skeleton-container">
-            <div className="container">
-              <Skeleton height="48px" width="300px" className="section_title" style={{ margin: '0 auto 40px', display: 'block' }} />
-              <div className="portfolio_items">
+          <section className="py-20 bg-base-100 border-t-2 border-base-content/15">
+            <div className="container mx-auto max-w-6xl px-4">
+              <div className="skeleton h-12 w-72 mb-10"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0.5">
                 <PortfolioGridSkeleton count={3} />
               </div>
             </div>
@@ -125,14 +185,106 @@ export const Home = () => {
 
   return (
     <HelmetProvider>
-      <section id="home" className="home">
+      <section id="home" className="min-h-screen bg-base-100">
         <Helmet>
           <meta charSet="utf-8" />
-          <title> {meta.title}</title>
+          <title>{meta.title}</title>
           <meta name="description" content={meta.description} />
         </Helmet>
-        <div className="intro_sec content-container">
-          <div className="h_bg-video">
+
+        {/* Hero Section */}
+        <div className="flex flex-col lg:flex-row min-h-[calc(100vh-60px)] lg:min-h-[700px] -mt-[60px] items-center">
+          {/* Text Content */}
+          <div className="w-full lg:w-[55%] p-4 lg:pl-[4%] flex justify-start items-center order-last lg:order-first">
+            <div className="max-w-[90%] flex flex-col">
+              {/* Subtitle */}
+              <h2 className="font-mono text-[0.7rem] font-normal uppercase tracking-[0.2em] text-base-content/60 mb-3 animate-[fadeInUp_0.3s_ease_forwards]">
+                {introdata.title}
+              </h2>
+
+              {/* Typewriter */}
+              <div
+                className="h-[130px] overflow-hidden mb-5 animate-[fadeInUp_0.3s_ease_forwards_0.2s] opacity-0"
+                style={{ animationFillMode: "forwards" }}
+              >
+                <Typewriter
+                  options={{
+                    strings: randomizedStrings,
+                    autoStart: true,
+                    loop: true,
+                    deleteSpeed: 20,
+                    delay: 100,
+                    wrapperClassName:
+                      "font-heading text-5xl md:text-6xl font-bold uppercase tracking-tighter leading-none text-base-content",
+                    cursorClassName:
+                      "text-5xl md:text-6xl font-bold text-base-content animate-[blink_0.6s_step-end_infinite]",
+                  }}
+                />
+              </div>
+
+              {/* Description */}
+              <p
+                className="font-mono text-[0.7rem] uppercase tracking-[0.08em] leading-relaxed text-base-content/60 mb-8 animate-[fadeInUp_0.3s_ease_forwards_0.4s] opacity-0"
+                style={{ animationFillMode: "forwards" }}
+              >
+                {introdata.description}
+              </p>
+
+              {/* CTA Buttons */}
+              <div
+                className="flex flex-wrap gap-3 animate-[fadeInUp_0.3s_ease_forwards_0.6s] opacity-0"
+                style={{ animationFillMode: "forwards" }}
+              >
+                <Link
+                  to="/portfolio"
+                  {...portfolioHoverHandlers}
+                  onClick={handlePortfolioClick}
+                >
+                  <button className="btn btn-primary font-mono text-[0.7rem] uppercase tracking-[0.15em] px-7">
+                    {uiText.myPortfolio}
+                  </button>
+                </Link>
+                <a
+                  href="#contact-footer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .getElementById("contact-footer")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  <button className="btn btn-outline font-mono text-[0.7rem] uppercase tracking-[0.15em] px-7">
+                    {uiText.contactMe}
+                  </button>
+                </a>
+              </div>
+
+              {/* Social Icons */}
+              <div
+                className="flex gap-3 mt-8 animate-[fadeInUp_0.3s_ease_forwards_0.8s] opacity-0"
+                style={{ animationFillMode: "forwards" }}
+              >
+                {socialprofils.linkedin && (
+                  <SocialIcon href={socialprofils.linkedin}>
+                    <FaLinkedin className="text-lg" />
+                  </SocialIcon>
+                )}
+                {socialprofils.github && (
+                  <SocialIcon href={socialprofils.github}>
+                    <FaGithub className="text-lg" />
+                  </SocialIcon>
+                )}
+                {socialprofils.twitter && (
+                  <SocialIcon href={socialprofils.twitter}>
+                    <FaTwitter className="text-lg" />
+                  </SocialIcon>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Video Background */}
+          <div className="w-full lg:w-[45%] h-[40vh] lg:h-full min-h-[280px] lg:min-h-0 relative overflow-hidden order-first lg:order-last">
             <video
               ref={(el) => {
                 if (el) {
@@ -141,11 +293,11 @@ export const Home = () => {
                   el.loop = true;
                   el.autoplay = true;
                   el.load();
-                  el.addEventListener('error', () => {
+                  el.addEventListener("error", () => {
                     el.load();
                     el.play().catch(() => {});
                   });
-                  el.addEventListener('ended', () => {
+                  el.addEventListener("ended", () => {
                     el.currentTime = 0;
                     el.play().catch(() => {});
                   });
@@ -164,7 +316,9 @@ export const Home = () => {
                 }
               }}
               onLoadedData={() => setVideoLoaded(true)}
-              className={`hero-video ${videoLoaded ? 'loaded' : ''}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 grayscale-[0.3] contrast-[1.1] ${
+                videoLoaded ? "opacity-100" : "opacity-0"
+              }`}
               preload="metadata"
             >
               <source
@@ -174,86 +328,37 @@ export const Home = () => {
               Your browser does not support the video tag.
             </video>
           </div>
-          <div className="text">
-            <div className="intro">
-              <h2 className="animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards' }}>
-                {introdata.title}
-              </h2>
-              <h1 className="typewriter-container animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards', animationDelay: '0.2s', opacity: 0 }}>
-                <Typewriter
-                  options={{
-                    strings: randomizedStrings,
-                    autoStart: true,
-                    loop: true,
-                    deleteSpeed: 20,
-                    delay: 100,
-                    wrapperClassName: "Typewriter__wrapper",
-                    cursorClassName: "Typewriter__cursor",
-                  }}
-                />
-              </h1>
-              <p className="animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards', animationDelay: '0.4s', opacity: 0 }}>
-                {introdata.description}
-              </p>
-              <div className="intro_btn-action animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards', animationDelay: '0.6s', opacity: 0 }}>
-                <Link to="/portfolio" className="text_2" {...portfolioHoverHandlers} onClick={handlePortfolioClick}>
-                  <div id="button_p" className="ac_btn btn">
-                    {uiText.myPortfolio}
-                    <div className="ring one"></div>
-                    <div className="ring two"></div>
-                    <div className="ring three"></div>
-                  </div>
-                </Link>
-                <a href="#contact-footer" onClick={(e) => { e.preventDefault(); document.getElementById('contact-footer')?.scrollIntoView({ behavior: 'smooth' }); }}>
-                  <div id="button_h" className="ac_btn btn">
-                    {uiText.contactMe}
-                    <div className="ring one"></div>
-                    <div className="ring two"></div>
-                    <div className="ring three"></div>
-                  </div>
-                </a>
-              </div>
-              <div className="social-icons animate-item" style={{ animation: 'fadeInUp 0.3s ease forwards', animationDelay: '0.8s', opacity: 0 }}>
-                {socialprofils.linkedin && (
-                  <SocialIcon href={socialprofils.linkedin}>
-                    <FaLinkedin />
-                  </SocialIcon>
-                )}
-                {socialprofils.github && (
-                  <SocialIcon href={socialprofils.github}>
-                    <FaGithub />
-                  </SocialIcon>
-                )}
-                {socialprofils.twitter && (
-                  <SocialIcon href={socialprofils.twitter}>
-                    <FaTwitter />
-                  </SocialIcon>
-                )}
-              </div>
-            </div>
-          </div>
         </div>
       </section>
+
+      {/* Portfolio Section */}
       <motion.section
         id="portfolio"
-        className="portfolio_section content-container"
+        className="py-20 bg-base-100 border-t-2 border-base-content/15"
         style={{ opacity }}
       >
-        <div className="container">
-          <h2 className="section_title animate">
+        <div className="container mx-auto max-w-6xl px-4">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold uppercase tracking-tight text-left mb-10 text-base-content">
             {uiText.featuredProjects}
           </h2>
-          <div className="portfolio_items">
-            {portfolioItems || <div>No projects available</div>}
-          </div>
-          <div className="view_all_btn animate">
-            <Link to="/portfolio" className="text_2" {...portfolioHoverHandlers} onClick={handlePortfolioClick}>
-              <div id="button_p" className="ac_btn btn">
-                {uiText.viewAllProjects}
-                <div className="ring one"></div>
-                <div className="ring two"></div>
-                <div className="ring three"></div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5 mb-10">
+            {portfolioItems || (
+              <div className="col-span-full text-center py-10 text-base-content/60">
+                No projects available
               </div>
+            )}
+          </div>
+
+          <div className="text-left">
+            <Link
+              to="/portfolio"
+              {...portfolioHoverHandlers}
+              onClick={handlePortfolioClick}
+            >
+              <button className="btn btn-primary font-mono text-[0.7rem] uppercase tracking-[0.15em] px-7">
+                {uiText.viewAllProjects}
+              </button>
             </Link>
           </div>
         </div>

@@ -7,125 +7,231 @@
 
 /* daisyUI Configuration */
 @plugin "daisyui" {
-  themes: light, dark --default;
-  logs: false;
+    themes:
+        light,
+        dark --default;
+    logs: false;
 }
 
 /* Custom Theme - Brutalist Design System */
 @plugin "daisyui/theme" {
-  name: "brutalist-dark";
-  default: true;
-  prefersdark: true;
-  color-scheme: dark;
+    name: "brutalist-dark";
+    default: true;
+    prefersdark: true;
+    color-scheme: dark;
 
-  /* Base colors - matching existing brutalist design */
-  --color-base-100: oklch(7% 0 0);           /* #0a0a0a */
-  --color-base-200: oklch(12% 0 0);          /* slightly lighter */
-  --color-base-300: oklch(18% 0 0);          /* even lighter */
-  --color-base-content: oklch(100% 0 0);     /* #fff */
+    /* Base colors - matching existing brutalist design */
+    --color-base-100: oklch(7% 0 0); /* #0a0a0a */
+    --color-base-200: oklch(12% 0 0); /* slightly lighter */
+    --color-base-300: oklch(18% 0 0); /* even lighter */
+    --color-base-content: oklch(100% 0 0); /* #fff */
 
-  /* Primary - using white for brutalist contrast */
-  --color-primary: oklch(100% 0 0);          /* #fff */
-  --color-primary-content: oklch(7% 0 0);    /* #0a0a0a */
+    /* Primary - using white for brutalist contrast */
+    --color-primary: oklch(100% 0 0); /* #fff */
+    --color-primary-content: oklch(7% 0 0); /* #0a0a0a */
 
-  /* Secondary - inverted */
-  --color-secondary: oklch(50% 0 0);         /* mid gray */
-  --color-secondary-content: oklch(100% 0 0);
+    /* Secondary - inverted */
+    --color-secondary: oklch(50% 0 0); /* mid gray */
+    --color-secondary-content: oklch(100% 0 0);
 
-  /* Accent */
-  --color-accent: oklch(100% 0 0);
-  --color-accent-content: oklch(7% 0 0);
+    /* Accent */
+    --color-accent: oklch(100% 0 0);
+    --color-accent-content: oklch(7% 0 0);
 
-  /* Neutral */
-  --color-neutral: oklch(20% 0 0);
-  --color-neutral-content: oklch(100% 0 0);
+    /* Neutral */
+    --color-neutral: oklch(20% 0 0);
+    --color-neutral-content: oklch(100% 0 0);
 
-  /* Status colors */
-  --color-info: oklch(70% 0.15 220);
-  --color-info-content: oklch(98% 0.01 220);
-  --color-success: oklch(65% 0.2 140);
-  --color-success-content: oklch(98% 0.01 140);
-  --color-warning: oklch(80% 0.2 80);
-  --color-warning-content: oklch(20% 0.05 80);
-  --color-error: oklch(65% 0.25 30);
-  --color-error-content: oklch(98% 0.01 30);
+    /* Status colors */
+    --color-info: oklch(70% 0.15 220);
+    --color-info-content: oklch(98% 0.01 220);
+    --color-success: oklch(65% 0.2 140);
+    --color-success-content: oklch(98% 0.01 140);
+    --color-warning: oklch(80% 0.2 80);
+    --color-warning-content: oklch(20% 0.05 80);
+    --color-error: oklch(65% 0.25 30);
+    --color-error-content: oklch(98% 0.01 30);
 
-  /* Brutalist style - sharp corners */
-  --radius-selector: 0rem;
-  --radius-field: 0rem;
-  --radius-box: 0rem;
+    /* Brutalist style - sharp corners */
+    --radius-selector: 0rem;
+    --radius-field: 0rem;
+    --radius-box: 0rem;
 
-  /* Size settings */
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
+    /* Size settings */
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
 
-  /* Sharp borders */
-  --border: 2px;
+    /* Sharp borders */
+    --border: 2px;
 
-  /* No depth for flat brutalist look */
-  --depth: 0;
-  --noise: 0;
+    /* No depth for flat brutalist look */
+    --depth: 0;
+    --noise: 0;
 }
 
 /* Light theme variant */
 @plugin "daisyui/theme" {
-  name: "brutalist-light";
-  default: false;
-  prefersdark: false;
-  color-scheme: light;
+    name: "brutalist-light";
+    default: false;
+    prefersdark: false;
+    color-scheme: light;
 
-  /* Base colors - light brutalist */
-  --color-base-100: oklch(96% 0.01 90);      /* #f5f5f0 */
-  --color-base-200: oklch(92% 0.01 90);
-  --color-base-300: oklch(88% 0.01 90);
-  --color-base-content: oklch(7% 0 0);       /* #0a0a0a */
+    /* Base colors - light brutalist */
+    --color-base-100: oklch(96% 0.01 90); /* #f5f5f0 */
+    --color-base-200: oklch(92% 0.01 90);
+    --color-base-300: oklch(88% 0.01 90);
+    --color-base-content: oklch(7% 0 0); /* #0a0a0a */
 
-  /* Primary - using black for brutalist contrast */
-  --color-primary: oklch(7% 0 0);
-  --color-primary-content: oklch(96% 0.01 90);
+    /* Primary - using black for brutalist contrast */
+    --color-primary: oklch(7% 0 0);
+    --color-primary-content: oklch(96% 0.01 90);
 
-  /* Secondary */
-  --color-secondary: oklch(50% 0 0);
-  --color-secondary-content: oklch(7% 0 0);
+    /* Secondary */
+    --color-secondary: oklch(50% 0 0);
+    --color-secondary-content: oklch(7% 0 0);
 
-  /* Accent */
-  --color-accent: oklch(7% 0 0);
-  --color-accent-content: oklch(96% 0.01 90);
+    /* Accent */
+    --color-accent: oklch(7% 0 0);
+    --color-accent-content: oklch(96% 0.01 90);
 
-  /* Neutral */
-  --color-neutral: oklch(80% 0 0);
-  --color-neutral-content: oklch(7% 0 0);
+    /* Neutral */
+    --color-neutral: oklch(80% 0 0);
+    --color-neutral-content: oklch(7% 0 0);
 
-  /* Status colors */
-  --color-info: oklch(55% 0.2 220);
-  --color-info-content: oklch(98% 0.01 220);
-  --color-success: oklch(50% 0.25 140);
-  --color-success-content: oklch(98% 0.01 140);
-  --color-warning: oklch(70% 0.25 80);
-  --color-warning-content: oklch(20% 0.05 80);
-  --color-error: oklch(55% 0.3 30);
-  --color-error-content: oklch(98% 0.01 30);
+    /* Status colors */
+    --color-info: oklch(55% 0.2 220);
+    --color-info-content: oklch(98% 0.01 220);
+    --color-success: oklch(50% 0.25 140);
+    --color-success-content: oklch(98% 0.01 140);
+    --color-warning: oklch(70% 0.25 80);
+    --color-warning-content: oklch(20% 0.05 80);
+    --color-error: oklch(55% 0.3 30);
+    --color-error-content: oklch(98% 0.01 30);
 
-  /* Brutalist style - sharp corners */
-  --radius-selector: 0rem;
-  --radius-field: 0rem;
-  --radius-box: 0rem;
+    /* Brutalist style - sharp corners */
+    --radius-selector: 0rem;
+    --radius-field: 0rem;
+    --radius-box: 0rem;
 
-  /* Size settings */
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
+    /* Size settings */
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
 
-  /* Sharp borders */
-  --border: 2px;
+    /* Sharp borders */
+    --border: 2px;
 
-  /* No depth for flat brutalist look */
-  --depth: 0;
-  --noise: 0;
+    /* No depth for flat brutalist look */
+    --depth: 0;
+    --noise: 0;
 }
 
-/* Custom font configuration */
+/* Custom theme configuration */
 @theme {
-  --font-heading: 'Space Grotesk', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-body: 'Space Grotesk', sans-serif;
+    /* Font families */
+    --font-heading: "Space Grotesk", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+    --font-body: "Space Grotesk", sans-serif;
+
+    /* Animation keyframes */
+    --animate-fade-in-up: fadeInUp 0.3s ease forwards;
+    --animate-fade-in: fadeIn 0.3s ease forwards;
+    --animate-blink: blink 0.6s step-end infinite;
+}
+
+/* Custom utility classes for fonts */
+@layer utilities {
+    .font-heading {
+        font-family: var(--font-heading);
+    }
+
+    .font-mono {
+        font-family: var(--font-mono);
+    }
+
+    .font-body {
+        font-family: var(--font-body);
+    }
+}
+
+/* Keyframe animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Custom animation utilities */
+@layer utilities {
+    .animate-fade-in-up {
+        animation: fadeInUp 0.3s ease forwards;
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.3s ease forwards;
+    }
+
+    .animate-blink {
+        animation: blink 0.6s step-end infinite;
+    }
+}
+
+/* Line clamp utilities for text truncation */
+@layer utilities {
+    .line-clamp-1 {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+/* Brutalist selection style */
+::selection {
+    background: oklch(100% 0 0);
+    color: oklch(7% 0 0);
+}
+
+[data-theme="brutalist-light"] ::selection {
+    background: oklch(7% 0 0);
+    color: oklch(100% 0 0);
 }

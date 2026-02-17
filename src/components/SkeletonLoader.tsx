@@ -1,6 +1,4 @@
-import React, { memo } from 'react';
-import './SkeletonLoader.css';
-import { Row, Col } from 'react-bootstrap';
+import React, { memo } from "react";
 
 interface SkeletonProps {
   width?: string;
@@ -10,213 +8,265 @@ interface SkeletonProps {
   style?: React.CSSProperties;
 }
 
-export const Skeleton = memo<SkeletonProps>(({ width = '100%', height = '20px', circle = false, className = '', style }) => {
-  const combinedStyle: React.CSSProperties = {
-    width,
-    height,
-    borderRadius: circle ? '50%' : '4px',
-    ...style,
-  };
+export const Skeleton = memo<SkeletonProps>(
+  ({ width, height, circle = false, className = "", style }) => {
+    const sizeClasses = [];
+    if (width) sizeClasses.push(`w-[${width}]`);
+    if (height) sizeClasses.push(`h-[${height}]`);
 
-  return <div className={`skeleton ${className}`} style={combinedStyle} />;
-});
+    return (
+      <div
+        className={`skeleton ${circle ? "rounded-full" : ""} ${className}`}
+        style={{
+          width: width || "100%",
+          height: height || "20px",
+          ...style,
+        }}
+      />
+    );
+  },
+);
 
-Skeleton.displayName = 'Skeleton';
+Skeleton.displayName = "Skeleton";
 
 export const PortfolioItemSkeleton = memo(() => (
-  <div className="portfolio-item-skeleton">
-    <div className="skeleton-media-container">
-      <Skeleton height="100%" className="skeleton-image" />
-    </div>
+  <div className="aspect-[4/3] w-full">
+    <div className="skeleton w-full h-full"></div>
   </div>
 ));
 
-PortfolioItemSkeleton.displayName = 'PortfolioItemSkeleton';
+PortfolioItemSkeleton.displayName = "PortfolioItemSkeleton";
 
 interface PortfolioGridSkeletonProps {
   count?: number;
   className?: string;
 }
 
-export const PortfolioGridSkeleton = memo<PortfolioGridSkeletonProps>(({ count = 6 }) => (
-  <>
-    {Array.from({ length: count }).map((_, index) => (
-      <PortfolioItemSkeleton key={index} />
-    ))}
-  </>
-));
+export const PortfolioGridSkeleton = memo<PortfolioGridSkeletonProps>(
+  ({ count = 6 }) => (
+    <>
+      {Array.from({ length: count }).map((_, index) => (
+        <PortfolioItemSkeleton key={index} />
+      ))}
+    </>
+  ),
+);
 
-PortfolioGridSkeleton.displayName = 'PortfolioGridSkeleton';
+PortfolioGridSkeleton.displayName = "PortfolioGridSkeleton";
 
 interface PortfolioPageSkeletonProps {
   count?: number;
 }
 
-export const PortfolioPageSkeleton = memo<PortfolioPageSkeletonProps>(({ count = 8 }) => (
-  <>
-    <Row className="mb-5 mt-3 pt-md-3">
-      <Col lg="8">
-        <Skeleton height="48px" width="250px" className="display-4 mb-4" />
-        <hr className="t_border my-4 ml-0 text-left" style={{ borderColor: 'var(--text-color)' }} />
-      </Col>
-    </Row>
-    <div className="mb-5 po_items_ho">
-      <PortfolioGridSkeleton count={count} />
-    </div>
-  </>
-));
+export const PortfolioPageSkeleton = memo<PortfolioPageSkeletonProps>(
+  ({ count = 8 }) => (
+    <>
+      {/* Header */}
+      <div className="mb-8 mt-6 md:pt-6">
+        <div className="lg:w-2/3">
+          <div className="skeleton h-12 w-64 mb-4"></div>
+          <div className="divider my-4"></div>
+        </div>
+      </div>
 
-PortfolioPageSkeleton.displayName = 'PortfolioPageSkeleton';
+      {/* Portfolio Grid */}
+      <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0.5">
+        <PortfolioGridSkeleton count={count} />
+      </div>
+    </>
+  ),
+);
+
+PortfolioPageSkeleton.displayName = "PortfolioPageSkeleton";
 
 export const ProjectDetailSkeleton = memo(() => (
-  <div className="project-detail-skeleton">
-    <div className="skeleton-hero">
-      <Skeleton height="60px" width="70%" className="skeleton-title" />
-      <Skeleton height="30px" width="50%" className="skeleton-subtitle" />
-      <Skeleton height="400px" className="skeleton-hero-image" />
+  <div className="space-y-8">
+    {/* Hero Section */}
+    <div className="space-y-4">
+      <div className="skeleton h-16 w-[70%]"></div>
+      <div className="skeleton h-8 w-[50%]"></div>
+      <div className="skeleton h-[400px] w-full"></div>
     </div>
-    <div className="skeleton-metadata">
-      <Skeleton height="20px" width="150px" />
-      <Skeleton height="20px" width="150px" />
-      <Skeleton height="20px" width="150px" />
-      <Skeleton height="20px" width="150px" />
+
+    {/* Metadata */}
+    <div className="flex flex-wrap gap-4">
+      <div className="skeleton h-6 w-36"></div>
+      <div className="skeleton h-6 w-36"></div>
+      <div className="skeleton h-6 w-36"></div>
+      <div className="skeleton h-6 w-36"></div>
     </div>
-    <div className="skeleton-section">
-      <Skeleton height="32px" width="40%" className="skeleton-section-title" />
-      <Skeleton height="16px" width="100%" />
-      <Skeleton height="16px" width="95%" />
-      <Skeleton height="16px" width="98%" />
-      <Skeleton height="16px" width="90%" />
+
+    {/* Content Section 1 */}
+    <div className="space-y-3">
+      <div className="skeleton h-8 w-[40%]"></div>
+      <div className="skeleton h-4 w-full"></div>
+      <div className="skeleton h-4 w-[95%]"></div>
+      <div className="skeleton h-4 w-[98%]"></div>
+      <div className="skeleton h-4 w-[90%]"></div>
     </div>
-    <div className="skeleton-section">
-      <Skeleton height="32px" width="35%" className="skeleton-section-title" />
-      <Skeleton height="16px" width="100%" />
-      <Skeleton height="16px" width="92%" />
-      <Skeleton height="16px" width="96%" />
+
+    {/* Content Section 2 */}
+    <div className="space-y-3">
+      <div className="skeleton h-8 w-[35%]"></div>
+      <div className="skeleton h-4 w-full"></div>
+      <div className="skeleton h-4 w-[92%]"></div>
+      <div className="skeleton h-4 w-[96%]"></div>
     </div>
   </div>
 ));
 
-ProjectDetailSkeleton.displayName = 'ProjectDetailSkeleton';
+ProjectDetailSkeleton.displayName = "ProjectDetailSkeleton";
 
 export const HomeIntroSkeleton = memo(() => (
   <>
-    <div className="h_bg-video skeleton-video-bg">
-      <Skeleton />
+    {/* Video Background Skeleton */}
+    <div className="w-full lg:w-[45%] h-[40vh] lg:h-full min-h-[280px] order-first lg:order-last">
+      <div className="skeleton w-full h-full"></div>
     </div>
-    <div className="text">
-      <div className="intro">
-        <Skeleton height="40px" width="70%" style={{ marginBottom: '1rem' }} />
-        <Skeleton height="60px" width="90%" style={{ marginBottom: '1rem' }} className="typewriter-container" />
-        <Skeleton height="20px" width="100%" style={{ marginBottom: '0.5rem' }} />
-        <div className="intro_btn-action">
-          <Skeleton height="45px" width="150px" style={{ display: 'inline-block', marginRight: '1rem' }} />
-          <Skeleton height="45px" width="150px" style={{ display: 'inline-block' }} />
+
+    {/* Text Content Skeleton */}
+    <div className="w-full lg:w-[55%] p-4 lg:pl-[4%] flex justify-start items-center order-last lg:order-first">
+      <div className="max-w-[90%] flex flex-col gap-4">
+        {/* Subtitle */}
+        <div className="skeleton h-5 w-48"></div>
+
+        {/* Typewriter Title */}
+        <div className="skeleton h-20 w-full max-w-lg"></div>
+
+        {/* Description */}
+        <div className="space-y-2">
+          <div className="skeleton h-4 w-full"></div>
+          <div className="skeleton h-4 w-3/4"></div>
         </div>
-        <div className="social-icons" style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
-          <Skeleton circle width="40px" height="40px" />
-          <Skeleton circle width="40px" height="40px" />
-          <Skeleton circle width="40px" height="40px" />
+
+        {/* Buttons */}
+        <div className="flex gap-3 mt-4">
+          <div className="skeleton h-12 w-36"></div>
+          <div className="skeleton h-12 w-36"></div>
+        </div>
+
+        {/* Social Icons */}
+        <div className="flex gap-3 mt-6">
+          <div className="skeleton w-9 h-9"></div>
+          <div className="skeleton w-9 h-9"></div>
+          <div className="skeleton w-9 h-9"></div>
         </div>
       </div>
     </div>
   </>
 ));
 
-HomeIntroSkeleton.displayName = 'HomeIntroSkeleton';
+HomeIntroSkeleton.displayName = "HomeIntroSkeleton";
 
 export const AboutPageSkeleton = memo(() => (
-  <>
-    <Row className="mb-5 mt-3 pt-md-3">
-      <Col lg="8">
-        <Skeleton height="48px" width="200px" className="display-4 mb-4" />
-        <hr className="t_border my-4 ml-0 text-left" style={{ borderColor: 'var(--text-color)' }} />
-      </Col>
-    </Row>
-    <Row className="sec_sp">
-      <Col lg="5">
-        <Skeleton height="32px" width="80%" className="color_sec py-4" />
-        <Skeleton height="400px" width="100%" className="about-image mb-4" style={{ borderRadius: '8px' }} />
-      </Col>
-      <Col lg="7" className="d-flex align-items-center">
-        <div>
-          <Skeleton height="18px" width="100%" />
-          <Skeleton height="18px" width="100%" />
-          <Skeleton height="18px" width="95%" />
-          <Skeleton height="18px" width="98%" />
-          <Skeleton height="18px" width="100%" />
-          <Skeleton height="18px" width="92%" />
+  <div className="space-y-12">
+    {/* Header */}
+    <div className="mb-8 mt-6 md:pt-6">
+      <div className="lg:w-2/3">
+        <div className="skeleton h-12 w-48 mb-4"></div>
+        <div className="divider my-4"></div>
+      </div>
+    </div>
+
+    {/* About Section */}
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      {/* Image Column */}
+      <div className="lg:col-span-5 space-y-4">
+        <div className="skeleton h-8 w-[80%]"></div>
+        <div className="skeleton h-[400px] w-full"></div>
+      </div>
+
+      {/* Bio Column */}
+      <div className="lg:col-span-7 flex items-center">
+        <div className="space-y-2 w-full">
+          <div className="skeleton h-5 w-full"></div>
+          <div className="skeleton h-5 w-full"></div>
+          <div className="skeleton h-5 w-[95%]"></div>
+          <div className="skeleton h-5 w-[98%]"></div>
+          <div className="skeleton h-5 w-full"></div>
+          <div className="skeleton h-5 w-[92%]"></div>
         </div>
-      </Col>
-    </Row>
-    <Row className="sec_sp">
-      <Col lg="5">
-        <Skeleton height="32px" width="200px" className="color_sec py-4" />
-      </Col>
-      <Col lg="7">
-        <table className="table caption-top">
-          <tbody>
-            {Array.from({ length: 3 }).map((_, i) => (
-              <tr key={i}>
-                <th scope="row"><Skeleton height="20px" width="120px" /></th>
-                <td><Skeleton height="20px" width="100px" /></td>
-                <td><Skeleton height="20px" width="80px" /></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </Col>
-    </Row>
-    <Row className="sec_sp">
-      <Col lg="5">
-        <Skeleton height="32px" width="150px" className="color_sec py-4" />
-      </Col>
-      <Col lg="7">
+      </div>
+    </div>
+
+    {/* Work & Education */}
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="lg:col-span-5">
+        <div className="skeleton h-8 w-48"></div>
+      </div>
+      <div className="lg:col-span-7">
+        <div className="overflow-x-auto">
+          <table className="table">
+            <tbody>
+              {Array.from({ length: 3 }).map((_, i) => (
+                <tr key={i}>
+                  <td>
+                    <div className="skeleton h-5 w-28"></div>
+                  </td>
+                  <td>
+                    <div className="skeleton h-5 w-24"></div>
+                  </td>
+                  <td>
+                    <div className="skeleton h-5 w-20"></div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    {/* Skills */}
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="lg:col-span-5">
+        <div className="skeleton h-8 w-36"></div>
+      </div>
+      <div className="lg:col-span-7 space-y-4">
         {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i}>
-            <Skeleton height="20px" width="120px" className="progress-title" />
-            <div className="progress">
-              <Skeleton height="5px" width="100%" className="progress-bar" />
-            </div>
+          <div key={i} className="space-y-2">
+            <div className="skeleton h-4 w-28"></div>
+            <div className="skeleton h-2 w-full"></div>
           </div>
         ))}
-      </Col>
-    </Row>
-    <Row className="sec_sp">
-      <Col lg="5">
-        <Skeleton height="32px" width="150px" className="color_sec py-4" />
-      </Col>
-      <Col lg="7">
+      </div>
+    </div>
+
+    {/* Services */}
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="lg:col-span-5">
+        <div className="skeleton h-8 w-36"></div>
+      </div>
+      <div className="lg:col-span-7 space-y-6">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div className="service_ py-4" key={i}>
-            <Skeleton height="24px" width="60%" className="service__title" />
-            <Skeleton height="16px" width="100%" />
-            <Skeleton height="16px" width="90%" />
+          <div key={i} className="py-4 space-y-2">
+            <div className="skeleton h-6 w-[60%]"></div>
+            <div className="skeleton h-4 w-full"></div>
+            <div className="skeleton h-4 w-[90%]"></div>
           </div>
         ))}
-      </Col>
-    </Row>
-  </>
+      </div>
+    </div>
+  </div>
 ));
 
-AboutPageSkeleton.displayName = 'AboutPageSkeleton';
+AboutPageSkeleton.displayName = "AboutPageSkeleton";
 
 interface TextSkeletonProps {
   lines?: number;
 }
 
 export const TextSkeleton = memo<TextSkeletonProps>(({ lines = 3 }) => (
-  <div className="text-skeleton">
+  <div className="space-y-2">
     {Array.from({ length: lines }).map((_, index) => (
-      <Skeleton
+      <div
         key={index}
-        height="16px"
-        width={index === lines - 1 ? '80%' : '100%'}
+        className={`skeleton h-4 ${index === lines - 1 ? "w-[80%]" : "w-full"}`}
       />
     ))}
   </div>
 ));
 
-TextSkeleton.displayName = 'TextSkeleton';
+TextSkeleton.displayName = "TextSkeleton";
 
 export default Skeleton;
