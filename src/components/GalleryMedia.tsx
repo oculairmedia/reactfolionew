@@ -1,5 +1,4 @@
 import React from "react";
-import { Image } from "react-bootstrap";
 import type { NormalizedGalleryItem, ProjectGalleryItem } from "../types";
 
 const isVideoUrl = (url: string): boolean => {
@@ -12,7 +11,9 @@ const isVideoUrl = (url: string): boolean => {
   );
 };
 
-export const normalizeGalleryItem = (item: ProjectGalleryItem | string): NormalizedGalleryItem => {
+export const normalizeGalleryItem = (
+  item: ProjectGalleryItem | string,
+): NormalizedGalleryItem => {
   if (typeof item === "string") {
     return {
       type: isVideoUrl(item) ? "video" : "image",
@@ -36,23 +37,31 @@ export const normalizeGalleryItem = (item: ProjectGalleryItem | string): Normali
 interface GalleryMediaProps {
   item: NormalizedGalleryItem | ProjectGalleryItem | string;
   registerVideoRef?: (el: HTMLVideoElement) => void;
+  className?: string;
 }
 
-const GalleryMedia = ({ item, registerVideoRef }: GalleryMediaProps) => {
-  const media = typeof item === 'string' || !('type' in item && 'url' in item)
-    ? normalizeGalleryItem(item as ProjectGalleryItem | string)
-    : item as NormalizedGalleryItem;
+const GalleryMedia = ({
+  item,
+  registerVideoRef,
+  className = "",
+}: GalleryMediaProps) => {
+  const media =
+    typeof item === "string" || !("type" in item && "url" in item)
+      ? normalizeGalleryItem(item as ProjectGalleryItem | string)
+      : (item as NormalizedGalleryItem);
   const altText = media.alt || media.caption || "Gallery media";
 
   if (media.type === "video") {
     return (
       <video
-        ref={(el: HTMLVideoElement | null) => { if (registerVideoRef && el) registerVideoRef(el); }}
+        ref={(el: HTMLVideoElement | null) => {
+          if (registerVideoRef && el) registerVideoRef(el);
+        }}
         autoPlay
         loop
         muted
         playsInline
-        style={{ width: "100%", height: "auto", display: "block" }}
+        className={`w-full h-auto block ${className}`}
         onError={() => {}}
         onLoadedData={() => {}}
         poster={media.poster}
@@ -64,11 +73,11 @@ const GalleryMedia = ({ item, registerVideoRef }: GalleryMediaProps) => {
   }
 
   return (
-    <Image
+    <img
       src={media.url}
       alt={altText}
-      fluid
-      style={{ width: "100%", height: "auto", display: "block" }}
+      className={`w-full h-auto block ${className}`}
+      loading="lazy"
     />
   );
 };

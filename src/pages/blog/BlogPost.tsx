@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { Container, Row, Col, Badge, Spinner, Alert, Button } from "react-bootstrap";
 import { useParams, Link, useNavigate } from "@tanstack/react-router";
 import { meta } from "../../content_option";
 import { getPostBySlug, isGhostConfigured } from "../../services/ghostApi";
@@ -11,7 +9,9 @@ export const BlogPost: React.FC = () => {
   const { slug } = useParams({ strict: false });
   const navigate = useNavigate();
   const [post, setPost] = useState<GhostPost | null>(null);
-  const [loading, setLoading] = useState<boolean>(!isGhostConfigured ? false : true);
+  const [loading, setLoading] = useState<boolean>(
+    !isGhostConfigured ? false : true,
+  );
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const BlogPost: React.FC = () => {
         setPost(data as GhostPost);
         setError(null);
       } catch {
-        setError('Failed to load blog post. Please try again later.');
+        setError("Failed to load blog post. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -34,143 +34,211 @@ export const BlogPost: React.FC = () => {
   }, [slug]);
 
   const formatDate = (dateString: string): string => {
-    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
+  // Loading State
   if (loading) {
     return (
       <HelmetProvider>
-        <Container className="Blog-header">
+        <div className="container mx-auto max-w-4xl px-4 py-8">
           <Helmet>
             <meta charSet="utf-8" />
             <title>Loading... | {meta.title}</title>
           </Helmet>
-          <div className="text-center py-5">
-            <Spinner animation="border" variant="primary" />
-            <p className="mt-3">Loading post...</p>
+          <div className="flex flex-col items-center justify-center py-16">
+            <span className="loading loading-spinner loading-lg"></span>
+            <p className="mt-4 font-mono text-sm uppercase tracking-wider text-base-content/60">
+              Loading post...
+            </p>
           </div>
-        </Container>
+        </div>
       </HelmetProvider>
     );
   }
 
+  // Error or Not Found State
   if (!isGhostConfigured || error || !post) {
     return (
       <HelmetProvider>
-        <Container className="Blog-header">
+        <div className="container mx-auto max-w-4xl px-4 py-8">
           <Helmet>
             <meta charSet="utf-8" />
-            <title>{!isGhostConfigured ? 'Under Construction' : 'Error'} | {meta.title}</title>
+            <title>
+              {!isGhostConfigured ? "Under Construction" : "Error"} |{" "}
+              {meta.title}
+            </title>
           </Helmet>
-          <div className="content-container">
+
+          <div className="animate-[fadeIn_0.3s_ease_forwards]">
             {!isGhostConfigured ? (
-              <div className="text-center py-5">
-                <h2>Under Construction</h2>
-                <p className="text-muted mt-3">The blog is being set up. Check back soon.</p>
+              <div className="text-center py-16">
+                <h2 className="font-heading text-2xl font-bold uppercase tracking-tight text-base-content mb-4">
+                  Under Construction
+                </h2>
+                <p className="font-mono text-sm text-base-content/60 mb-8">
+                  The blog is being set up. Check back soon.
+                </p>
               </div>
             ) : (
-              <Alert variant="danger">
-                {error || 'Post not found'}
-              </Alert>
+              <div role="alert" className="alert alert-error mb-8">
+                <span>{error || "Post not found"}</span>
+              </div>
             )}
-            <Button variant="primary" onClick={() => navigate({ to: '/blog' })}>
+
+            <button
+              className="btn btn-primary font-mono text-[0.7rem] uppercase tracking-[0.15em]"
+              onClick={() => navigate({ to: "/blog" })}
+            >
               Back to Blog
-            </Button>
+            </button>
           </div>
-        </Container>
+        </div>
       </HelmetProvider>
     );
   }
 
+  // Post Content
   return (
     <HelmetProvider>
-      <Container className="Blog-header">
+      <div className="container mx-auto max-w-4xl px-4 py-8">
         <Helmet>
           <meta charSet="utf-8" />
-          <title>{post.title} | {meta.title}</title>
-          <meta name="description" content={post.custom_excerpt || post.excerpt || post.title} />
-          {post.og_image && <meta property="og:image" content={post.og_image} />}
-          {post.twitter_image && <meta name="twitter:image" content={post.twitter_image} />}
+          <title>
+            {post.title} | {meta.title}
+          </title>
+          <meta
+            name="description"
+            content={post.custom_excerpt || post.excerpt || post.title}
+          />
+          {post.og_image && (
+            <meta property="og:image" content={post.og_image} />
+          )}
+          {post.twitter_image && (
+            <meta name="twitter:image" content={post.twitter_image} />
+          )}
         </Helmet>
 
-        <div className="blog-back-button">
-          <Link to="/blog" className="blog-back-btn">
-            ← Back to Blog
+        {/* Back Button */}
+        <div className="mb-8">
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.15em] text-base-content/60 hover:text-primary transition-colors duration-200"
+          >
+            <span>←</span>
+            Back to Blog
           </Link>
         </div>
 
-        <div className="content-container">
-          <Row>
-            <Col lg="10" className="mx-auto">
-              <article className="blog-post">
-                <header className="blog-post-header">
-                  <h1 className="blog-post-title">{post.title}</h1>
+        <article className="animate-[fadeIn_0.3s_ease_forwards]">
+          {/* Header */}
+          <header className="mb-10">
+            <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold uppercase tracking-tight text-base-content mb-6">
+              {post.title}
+            </h1>
 
-                  <div className="blog-post-meta mb-3">
-                    <span>{formatDate(post.published_at)}</span>
-                    {post.reading_time && (
-                      <>
-                        <span className="mx-2">•</span>
-                        <span>{post.reading_time} min read</span>
-                      </>
-                    )}
-                    {post.primary_author && (
-                      <>
-                        <span className="mx-2">•</span>
-                        <span>by {post.primary_author.name}</span>
-                      </>
-                    )}
-                  </div>
+            {/* Meta */}
+            <div className="flex flex-wrap items-center gap-2 font-mono text-[0.7rem] uppercase tracking-wider text-base-content/60 mb-6">
+              <span>{formatDate(post.published_at)}</span>
+              {post.reading_time && (
+                <>
+                  <span>•</span>
+                  <span>{post.reading_time} min read</span>
+                </>
+              )}
+              {post.primary_author && (
+                <>
+                  <span>•</span>
+                  <span>by {post.primary_author.name}</span>
+                </>
+              )}
+            </div>
 
-                  <div className="mb-3">
-                    {post.tags && post.tags.map((tag) => (
-                      <Badge
-                        key={tag.id}
-                        bg="secondary"
-                        className="me-1 mb-1"
-                      >
-                        {tag.name}
-                      </Badge>
-                    ))}
-                  </div>
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2 mb-8">
+              {post.tags &&
+                post.tags.map((tag) => (
+                  <span
+                    key={tag.id}
+                    className="badge badge-neutral font-mono text-[0.6rem] uppercase tracking-wider"
+                  >
+                    {tag.name}
+                  </span>
+                ))}
+            </div>
 
-                  {post.feature_image && (
-                    <img
-                      src={post.feature_image}
-                      alt={post.title}
-                      className="blog-post-featured-image"
-                    />
-                  )}
-                </header>
-
-                <div
-                  className="blog-post-content"
-                  dangerouslySetInnerHTML={{ __html: post.html }}
+            {/* Featured Image */}
+            {post.feature_image && (
+              <figure className="w-full overflow-hidden mb-8">
+                <img
+                  src={post.feature_image}
+                  alt={post.title}
+                  className="w-full h-auto object-cover"
                 />
+              </figure>
+            )}
+          </header>
 
-                {post.primary_author && (
-                  <div className="blog-author-info">
-                    {post.primary_author.profile_image && (
+          {/* Content */}
+          <div
+            className="prose prose-invert max-w-none
+                       prose-headings:font-heading prose-headings:uppercase prose-headings:tracking-tight
+                       prose-p:font-body prose-p:text-base-content/80 prose-p:leading-relaxed
+                       prose-a:text-primary prose-a:no-underline hover:prose-a:underline
+                       prose-strong:text-base-content prose-strong:font-semibold
+                       prose-code:font-mono prose-code:text-sm
+                       prose-pre:bg-base-300 prose-pre:border-2 prose-pre:border-base-content/10
+                       prose-img:w-full prose-img:my-8
+                       prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-6 prose-blockquote:italic"
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
+
+          {/* Author Info */}
+          {post.primary_author && (
+            <div className="mt-16 pt-8 border-t-2 border-base-content/10">
+              <div className="flex items-start gap-6">
+                {post.primary_author.profile_image && (
+                  <div className="avatar">
+                    <div className="w-16 h-16">
                       <img
                         src={post.primary_author.profile_image}
                         alt={post.primary_author.name}
-                        className="blog-author-avatar"
+                        className="w-full h-full object-cover"
                       />
-                    )}
-                    <div className="blog-author-details">
-                      <h5>{post.primary_author.name}</h5>
-                      {post.primary_author.bio && (
-                        <p>{post.primary_author.bio}</p>
-                      )}
                     </div>
                   </div>
                 )}
-              </article>
-            </Col>
-          </Row>
+                <div>
+                  <h5 className="font-heading text-lg font-bold uppercase tracking-tight text-base-content mb-2">
+                    {post.primary_author.name}
+                  </h5>
+                  {post.primary_author.bio && (
+                    <p className="font-body text-sm text-base-content/70 leading-relaxed">
+                      {post.primary_author.bio}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </article>
+
+        {/* Back to Blog Link */}
+        <div className="mt-16 pt-8 border-t-2 border-base-content/10">
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-2 font-mono text-[0.7rem] uppercase tracking-[0.15em] text-primary font-medium hover:gap-3 transition-all duration-200"
+          >
+            <span>←</span>
+            Back to all posts
+          </Link>
         </div>
-      </Container>
+      </div>
     </HelmetProvider>
   );
 };

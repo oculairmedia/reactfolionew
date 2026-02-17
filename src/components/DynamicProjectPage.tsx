@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, Navigate } from "@tanstack/react-router";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { Container } from "react-bootstrap";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import { meta } from "../content_option";
@@ -12,7 +11,10 @@ import type { Project, NormalizedGalleryItem } from "../types";
 import "./ProjectPage.css";
 
 type ProjectModule = { default?: Project } & Record<string, unknown>;
-const projectModules: Record<string, ProjectModule> = import.meta.glob("../content/projects/*.json", { eager: true });
+const projectModules: Record<string, ProjectModule> = import.meta.glob(
+  "../content/projects/*.json",
+  { eager: true },
+);
 
 function getLocalProject(slug: string): Project | null {
   for (const [path, module] of Object.entries(projectModules)) {
@@ -67,8 +69,8 @@ const DynamicProjectPage = () => {
   useEffect(() => {
     videoRefs.current.forEach((ref) => {
       if (ref) {
-        ref.addEventListener("loadeddata", () => { });
-        ref.addEventListener("error", () => { });
+        ref.addEventListener("loadeddata", () => {});
+        ref.addEventListener("error", () => {});
       }
     });
   }, [project]);
@@ -76,11 +78,14 @@ const DynamicProjectPage = () => {
   if (loading) {
     return (
       <HelmetProvider>
-        <Container className="content-wrapper">
-          <div style={{ textAlign: "center", padding: "4rem" }}>
-            Loading project...
+        <div className="container mx-auto max-w-7xl px-4">
+          <div className="flex items-center justify-center py-16">
+            <span className="loading loading-spinner loading-lg"></span>
+            <span className="ml-4 font-mono text-sm uppercase tracking-wider text-base-content/60">
+              Loading project...
+            </span>
           </div>
-        </Container>
+        </div>
       </HelmetProvider>
     );
   }
@@ -95,7 +100,9 @@ const DynamicProjectPage = () => {
     }
   };
 
-  const galleryItems: NormalizedGalleryItem[] = (project.gallery || []).map(normalizeGalleryItem);
+  const galleryItems: NormalizedGalleryItem[] = (project.gallery || []).map(
+    normalizeGalleryItem,
+  );
 
   const fadeUp = {
     hidden: { opacity: 0, y: 25 },
@@ -111,8 +118,8 @@ const DynamicProjectPage = () => {
     visible: {
       filter: "grayscale(0%)",
       opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut" }
-    }
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
   };
 
   const renderHero = () => {
@@ -126,6 +133,7 @@ const DynamicProjectPage = () => {
           loop
           muted
           playsInline
+          className="w-full h-full object-cover"
         >
           <source src={project.hero.video} type="video/mp4" />
         </video>
@@ -133,6 +141,7 @@ const DynamicProjectPage = () => {
         <img
           src={project.hero.image}
           alt={project.hero.alt || project.title}
+          className="w-full h-full object-cover"
         />
       ) : null;
 
@@ -144,13 +153,7 @@ const DynamicProjectPage = () => {
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-          }}
+          className="absolute inset-0 w-full h-full"
         >
           {heroMedia}
         </motion.div>
@@ -162,25 +165,31 @@ const DynamicProjectPage = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           {project.metadata?.exhibition && (
-            <p className="project-hero-eyebrow">
+            <p className="project-hero-eyebrow font-mono text-[0.7rem] uppercase tracking-[0.2em] text-base-content/60 mb-4">
               {project.metadata.exhibition}
             </p>
           )}
-          <h1 className="project-hero-title">{project.title}</h1>
-          <div className="project-hero-divider" />
+          <h1 className="project-hero-title font-heading text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tight text-base-content">
+            {project.title}
+          </h1>
+          <div className="project-hero-divider w-24 h-[2px] bg-base-content/30 my-6" />
           {project.subtitle && (
-            <p className="project-hero-subtitle">{project.subtitle}</p>
+            <p className="project-hero-subtitle font-mono text-sm uppercase tracking-wider text-base-content/70 max-w-2xl">
+              {project.subtitle}
+            </p>
           )}
         </motion.div>
 
         <motion.div
-          className="project-scroll-hint"
+          className="project-scroll-hint absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.4, duration: 0.8 }}
         >
-          <span>Scroll</span>
-          <div className="project-scroll-line" />
+          <span className="font-mono text-[0.6rem] uppercase tracking-[0.2em] text-base-content/50">
+            Scroll
+          </span>
+          <div className="project-scroll-line w-[1px] h-8 bg-base-content/30" />
         </motion.div>
       </div>
     );
@@ -203,7 +212,7 @@ const DynamicProjectPage = () => {
 
     return (
       <motion.div
-        className="project-meta-bar"
+        className="project-meta-bar grid grid-cols-2 md:grid-cols-4 gap-6 py-8 border-y-2 border-base-content/10 my-12"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
@@ -213,13 +222,13 @@ const DynamicProjectPage = () => {
         }}
       >
         {items.map((item, i) => (
-          <motion.div
-            key={i}
-            className="project-meta-item"
-            variants={fadeUp}
-          >
-            <div className="project-meta-label">{item.label}</div>
-            <div className="project-meta-value">{item.value}</div>
+          <motion.div key={i} className="project-meta-item" variants={fadeUp}>
+            <div className="project-meta-label font-mono text-[0.6rem] uppercase tracking-[0.15em] text-base-content/50 mb-1">
+              {item.label}
+            </div>
+            <div className="project-meta-value font-body text-sm text-base-content">
+              {item.value}
+            </div>
           </motion.div>
         ))}
       </motion.div>
@@ -238,14 +247,16 @@ const DynamicProjectPage = () => {
         return (
           <motion.div
             key={`section-${index}`}
-            className="project-section-full"
+            className="project-section-full py-12"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={fadeUp}
           >
-            <h3 className="project-section-title">{section.title}</h3>
-            <div className="section-content">
+            <h3 className="project-section-title font-heading text-2xl md:text-3xl font-bold uppercase tracking-tight text-base-content mb-6">
+              {section.title}
+            </h3>
+            <div className="section-content prose prose-invert max-w-none font-body text-base-content/80 leading-relaxed">
               <ReactMarkdown>{section.content}</ReactMarkdown>
             </div>
           </motion.div>
@@ -259,7 +270,9 @@ const DynamicProjectPage = () => {
       return (
         <motion.div
           key={`section-${index}`}
-          className={`project-section-row ${isReverse ? "reverse" : ""}`}
+          className={`project-section-row grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 py-12 ${
+            isReverse ? "lg:[&>*:first-child]:order-2" : ""
+          }`}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
@@ -269,8 +282,10 @@ const DynamicProjectPage = () => {
           }}
         >
           <motion.div className="section-text" variants={fadeUp}>
-            <h3 className="project-section-title">{section.title}</h3>
-            <div className="section-content">
+            <h3 className="project-section-title font-heading text-2xl md:text-3xl font-bold uppercase tracking-tight text-base-content mb-6">
+              {section.title}
+            </h3>
+            <div className="section-content prose prose-invert max-w-none font-body text-base-content/80 leading-relaxed">
               <ReactMarkdown>{section.content}</ReactMarkdown>
             </div>
           </motion.div>
@@ -284,6 +299,7 @@ const DynamicProjectPage = () => {
             <GalleryMedia
               item={currentImage}
               registerVideoRef={registerVideoRef}
+              className="w-full h-auto"
             />
           </motion.div>
         </motion.div>
@@ -305,7 +321,7 @@ const DynamicProjectPage = () => {
 
     return (
       <motion.div
-        className="project-gallery"
+        className="project-gallery py-16"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
@@ -315,16 +331,16 @@ const DynamicProjectPage = () => {
         }}
       >
         <motion.h3
-          className="project-gallery-title"
+          className="project-gallery-title font-heading text-2xl md:text-3xl font-bold uppercase tracking-tight text-base-content mb-10"
           variants={fadeUp}
         >
           Gallery
         </motion.h3>
-        <div className="project-gallery-grid">
+        <div className="project-gallery-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {remainingItems.map((item, idx) => (
             <motion.div
               key={`gallery-${idx}`}
-              className="project-gallery-item"
+              className="project-gallery-item group relative overflow-hidden"
               variants={imageReveal}
               initial="hidden"
               whileInView="visible"
@@ -334,9 +350,14 @@ const DynamicProjectPage = () => {
               <GalleryMedia
                 item={item}
                 registerVideoRef={registerVideoRef}
+                className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
               />
               {item.caption && (
-                <div className="gallery-caption">{item.caption}</div>
+                <div className="gallery-caption absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-base-100/90 to-transparent">
+                  <p className="font-mono text-[0.65rem] uppercase tracking-wider text-base-content/70">
+                    {item.caption}
+                  </p>
+                </div>
               )}
             </motion.div>
           ))}
@@ -361,7 +382,7 @@ const DynamicProjectPage = () => {
 
     return (
       <motion.div
-        className="project-details"
+        className="project-details py-16 border-t-2 border-base-content/10"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
@@ -370,18 +391,25 @@ const DynamicProjectPage = () => {
           visible: { transition: { staggerChildren: 0.08 } },
         }}
       >
-        <motion.h3 className="project-section-title" variants={fadeUp}>
+        <motion.h3
+          className="project-section-title font-heading text-2xl md:text-3xl font-bold uppercase tracking-tight text-base-content mb-10"
+          variants={fadeUp}
+        >
           Project Details
         </motion.h3>
-        <div className="project-details-grid">
+        <div className="project-details-grid grid grid-cols-2 md:grid-cols-3 gap-6">
           {details.map((d, i) => (
             <motion.div
               key={i}
-              className="project-detail-card"
+              className="project-detail-card p-4 border-2 border-base-content/10"
               variants={fadeUp}
             >
-              <div className="project-meta-label">{d.label}</div>
-              <div className="project-meta-value">{d.value}</div>
+              <div className="project-meta-label font-mono text-[0.6rem] uppercase tracking-[0.15em] text-base-content/50 mb-1">
+                {d.label}
+              </div>
+              <div className="project-meta-value font-body text-sm text-base-content">
+                {d.value}
+              </div>
             </motion.div>
           ))}
         </div>
@@ -405,7 +433,7 @@ const DynamicProjectPage = () => {
       {renderHero()}
 
       <motion.div
-        className="main-content"
+        className="main-content container mx-auto max-w-6xl px-4 py-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
