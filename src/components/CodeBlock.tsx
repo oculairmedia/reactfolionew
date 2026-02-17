@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import { Highlight, type PrismTheme } from "prism-react-renderer";
 
-// Custom theme that works with both light and dark modes
+// Theme-aware syntax highlighting using daisyUI CSS variables
 const customTheme: PrismTheme = {
   plain: {
-    color: "var(--prism-foreground, #d6deeb)",
+    color: "var(--prism-foreground)",
     backgroundColor: "transparent",
   },
   styles: [
     {
       types: ["comment", "prolog", "doctype", "cdata"],
       style: {
-        color: "var(--prism-comment, #637777)",
+        color: "var(--prism-comment)",
         fontStyle: "italic",
       },
     },
     {
       types: ["punctuation"],
       style: {
-        color: "var(--prism-punctuation, #c792ea)",
+        color: "var(--prism-punctuation)",
       },
     },
     {
@@ -32,37 +32,37 @@ const customTheme: PrismTheme = {
         "deleted",
       ],
       style: {
-        color: "var(--prism-property, #f78c6c)",
+        color: "var(--prism-property)",
       },
     },
     {
       types: ["selector", "attr-name", "string", "char", "builtin", "inserted"],
       style: {
-        color: "var(--prism-string, #addb67)",
+        color: "var(--prism-string)",
       },
     },
     {
       types: ["operator", "entity", "url"],
       style: {
-        color: "var(--prism-operator, #89ddff)",
+        color: "var(--prism-operator)",
       },
     },
     {
       types: ["atrule", "attr-value", "keyword"],
       style: {
-        color: "var(--prism-keyword, #c792ea)",
+        color: "var(--prism-keyword)",
       },
     },
     {
       types: ["function", "class-name"],
       style: {
-        color: "var(--prism-function, #82aaff)",
+        color: "var(--prism-function)",
       },
     },
     {
       types: ["regex", "important", "variable"],
       style: {
-        color: "var(--prism-variable, #d6deeb)",
+        color: "var(--prism-variable)",
       },
     },
   ],
@@ -116,7 +116,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
   const normalizedLanguage = normalizeLanguage(language);
 
   return (
-    <div className="code-block-wrapper my-8 border-2 border-base-content/20 bg-base-300 overflow-hidden">
+    <div className="code-block-wrapper my-8 overflow-hidden">
       {/* Header */}
       <div className="code-block-header flex items-center justify-between px-4 py-2 bg-base-content border-b border-base-content/20">
         <div className="flex items-center gap-3">
