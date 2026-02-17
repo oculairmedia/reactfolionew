@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from "react";
 import {
   getPayloadImageUrl,
   generatePayloadSrcSet,
   generateSizesAttr,
-} from '../../utils/payloadImageHelper';
-import type { PayloadMedia } from '../../types';
-import './OptimizedImage.css';
+} from "../../utils/payloadImageHelper";
+import type { PayloadMedia } from "../../types";
+import "./OptimizedImage.css";
 
 interface PayloadOptimizedImageProps {
   media: PayloadMedia | string;
@@ -24,13 +23,14 @@ interface PayloadOptimizedImageProps {
 export const PayloadOptimizedImage = ({
   media,
   alt,
-  size = 'medium',
-  className = '',
+  size = "medium",
+  className = "",
   responsive = true,
   lazyLoad = true,
   sizes,
   width,
-  height
+  height,
+  onLoad,
 }: PayloadOptimizedImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(!lazyLoad);
@@ -48,9 +48,9 @@ export const PayloadOptimizedImage = ({
         }
       },
       {
-        rootMargin: '50px',
-        threshold: 0.01
-      }
+        rootMargin: "100px",
+        threshold: 0.01,
+      },
     );
 
     if (imgRef.current) {
@@ -60,43 +60,66 @@ export const PayloadOptimizedImage = ({
     return () => observer.disconnect();
   }, [lazyLoad]);
 
-  if (typeof media === 'string') {
+  const handleLoad = () => {
+    setIsLoaded(true);
+    onLoad?.();
+  };
+
+  const handleError = () => {
+    setError(true);
+  };
+
+  // Handle string URLs directly
+  if (typeof media === "string") {
     return (
-      <img
-        src={media}
-        alt={alt || ''}
-        className={`${className} ${isLoaded ? 'loaded' : ''}`}
-        loading={lazyLoad ? 'lazy' : 'eager'}
-        onLoad={() => setIsLoaded(true)}
-        onError={() => setError(true)}
-      />
+      <div ref={imgRef} className={`optimized-image-container ${className}`}>
+        {isInView && (
+          <img
+            src={media}
+            alt={alt || ""}
+            className={isLoaded ? "loaded" : ""}
+            loading={lazyLoad ? "lazy" : "eager"}
+            onLoad={handleLoad}
+            onError={handleError}
+            decoding="async"
+          />
+        )}
+        {!isLoaded && !error && <div className="image-placeholder" />}
+        {error && (
+          <div className="image-error">
+            <span>Failed to load</span>
+          </div>
+        )}
+      </div>
     );
   }
 
+  // Handle PayloadMedia objects
   const mainSrc = getPayloadImageUrl(media, size);
 
-  const srcSet = responsive && media?.sizes
-    ? generatePayloadSrcSet(media, ['small', 'medium', 'large'])
-    : undefined;
+  const srcSet =
+    responsive && media?.sizes
+      ? generatePayloadSrcSet(media, ["small", "medium", "large"])
+      : undefined;
 
   const sizesAttr = sizes || (responsive ? generateSizesAttr() : undefined);
-  const altText = alt || media?.alt || '';
-  const imgWidth = width;
-  const imgHeight = height;
+  const altText = alt || media?.alt || "";
 
+  // No valid source
   if (!mainSrc) {
     return (
       <div className={`optimized-image-container ${className}`}>
         <div className="image-error">
-          <span>No image available</span>
+          <span>No image</span>
         </div>
       </div>
     );
   }
 
-  const containerStyle: React.CSSProperties | undefined = (imgWidth && imgHeight)
-    ? { width: imgWidth as number, height: imgHeight as number }
-    : undefined;
+  const containerStyle: React.CSSProperties | undefined =
+    width && height
+      ? { width: width as number, height: height as number }
+      : undefined;
 
   return (
     <div
@@ -104,41 +127,25 @@ export const PayloadOptimizedImage = ({
       className={`optimized-image-container ${className}`}
       style={containerStyle}
     >
-      <AnimatePresence mode="wait">
-        {!isLoaded && !error && (
-          <motion.div
-            className="image-placeholder"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          />
-        )}
-        {error && (
-          <motion.div
-            className="image-error"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            <span>Failed to load image</span>
-          </motion.div>
-        )}
-        {isInView && (
-          <motion.img
-            src={mainSrc}
-            srcSet={srcSet}
-            sizes={sizesAttr}
-            alt={altText}
-            className={`${className} ${isLoaded ? 'loaded' : ''}`}
-            onLoad={() => setIsLoaded(true)}
-            onError={() => setError(true)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isLoaded ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-            loading={lazyLoad ? 'lazy' : 'eager'}
-            decoding="async"
-          />
-        )}
-      </AnimatePresence>
+      {isInView && (
+        <img
+          src={mainSrc}
+          srcSet={srcSet}
+          sizes={sizesAttr}
+          alt={altText}
+          className={isLoaded ? "loaded" : ""}
+          onLoad={handleLoad}
+          onError={handleError}
+          loading={lazyLoad ? "lazy" : "eager"}
+          decoding="async"
+        />
+      )}
+      {!isLoaded && !error && <div className="image-placeholder" />}
+      {error && (
+        <div className="image-error">
+          <span>Failed to load</span>
+        </div>
+      )}
     </div>
   );
 };

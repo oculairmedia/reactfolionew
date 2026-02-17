@@ -11,7 +11,6 @@ import { FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
 import {
   usePrefetchCriticalData,
   usePrefetchPortfolio,
-  usePrefetchAbout,
 } from "../../hooks/useDataPrefetch";
 import type {
   TransformedIntroData,
@@ -28,7 +27,7 @@ const SocialIcon = memo<SocialIconProps>(({ href, children }) => (
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="btn btn-square btn-ghost btn-sm border border-base-content/20 hover:bg-base-content/10 hover:border-base-content/40 transition-all duration-150"
+    className="w-10 h-10 flex items-center justify-center border border-base-content/20 text-base-content/60 hover:text-base-content hover:border-base-content/40 hover:bg-base-content/5 transition-all duration-200"
   >
     {children}
   </a>
@@ -38,28 +37,31 @@ SocialIcon.displayName = "SocialIcon";
 
 // Skeleton Components using daisyUI
 const HomeIntroSkeleton = memo(() => (
-  <>
-    <div className="w-full lg:w-[45%] h-[40vh] lg:h-full order-first lg:order-last">
+  <div className="hero-container">
+    {/* Video Skeleton */}
+    <div className="hero-media">
       <div className="skeleton w-full h-full"></div>
     </div>
-    <div className="w-full lg:w-[55%] p-4 lg:pl-[4%] flex justify-start items-start">
-      <div className="max-w-[90%] lg:max-w-[90%] flex flex-col gap-4">
-        <div className="skeleton h-6 w-48"></div>
-        <div className="skeleton h-16 w-full max-w-md"></div>
-        <div className="skeleton h-4 w-full"></div>
-        <div className="skeleton h-4 w-3/4"></div>
-        <div className="flex gap-3 mt-4">
+
+    {/* Text Skeleton */}
+    <div className="hero-content">
+      <div className="hero-text">
+        <div className="skeleton h-5 w-40 mb-4"></div>
+        <div className="skeleton h-16 w-full max-w-lg mb-6"></div>
+        <div className="skeleton h-4 w-full mb-2"></div>
+        <div className="skeleton h-4 w-3/4 mb-8"></div>
+        <div className="flex gap-3 mb-8">
           <div className="skeleton h-12 w-36"></div>
           <div className="skeleton h-12 w-36"></div>
         </div>
-        <div className="flex gap-3 mt-6">
-          <div className="skeleton w-9 h-9"></div>
-          <div className="skeleton w-9 h-9"></div>
-          <div className="skeleton w-9 h-9"></div>
+        <div className="flex gap-3">
+          <div className="skeleton w-10 h-10"></div>
+          <div className="skeleton w-10 h-10"></div>
+          <div className="skeleton w-10 h-10"></div>
         </div>
       </div>
     </div>
-  </>
+  </div>
 ));
 
 HomeIntroSkeleton.displayName = "HomeIntroSkeleton";
@@ -139,7 +141,6 @@ export const Home = () => {
   usePrefetchCriticalData(["portfolio", "about"]);
 
   const portfolioHoverHandlers = usePrefetchPortfolio();
-  const aboutHoverHandlers = usePrefetchAbout();
 
   const randomizedStrings = useMemo(() => {
     if (!introdata?.animated) return [];
@@ -161,19 +162,19 @@ export const Home = () => {
   if (loading || !introdata) {
     return (
       <HelmetProvider>
-        <section id="home" className="min-h-screen bg-base-100">
+        <section id="home" className="home-section">
           <Helmet>
             <meta charSet="utf-8" />
             <title>{meta.title}</title>
             <meta name="description" content={meta.description} />
           </Helmet>
-          <div className="flex flex-col lg:flex-row min-h-[calc(100vh-60px)] lg:min-h-[700px] -mt-[60px] items-center">
-            <HomeIntroSkeleton />
-          </div>
-          <section className="py-20 bg-base-100 border-t-2 border-base-content/15">
-            <div className="container mx-auto max-w-6xl px-4">
-              <div className="skeleton h-12 w-72 mb-10"></div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0.5">
+
+          <HomeIntroSkeleton />
+
+          <section className="portfolio-section">
+            <div className="portfolio-container">
+              <div className="skeleton h-10 w-64 mb-10"></div>
+              <div className="portfolio-grid">
                 <PortfolioGridSkeleton count={3} />
               </div>
             </div>
@@ -185,7 +186,7 @@ export const Home = () => {
 
   return (
     <HelmetProvider>
-      <section id="home" className="min-h-screen bg-base-100">
+      <section id="home" className="home-section">
         <Helmet>
           <meta charSet="utf-8" />
           <title>{meta.title}</title>
@@ -193,98 +194,9 @@ export const Home = () => {
         </Helmet>
 
         {/* Hero Section */}
-        <div className="flex flex-col lg:flex-row min-h-[calc(100vh-60px)] lg:min-h-[700px] -mt-[60px] items-center">
-          {/* Text Content */}
-          <div className="w-full lg:w-[55%] p-4 lg:pl-[4%] flex justify-start items-center order-last lg:order-first">
-            <div className="max-w-[90%] flex flex-col">
-              {/* Subtitle */}
-              <h2 className="font-mono text-[0.7rem] font-normal uppercase tracking-[0.2em] text-base-content/60 mb-3 animate-[fadeInUp_0.3s_ease_forwards]">
-                {introdata.title}
-              </h2>
-
-              {/* Typewriter */}
-              <div
-                className="h-[130px] overflow-hidden mb-5 animate-[fadeInUp_0.3s_ease_forwards_0.2s] opacity-0"
-                style={{ animationFillMode: "forwards" }}
-              >
-                <Typewriter
-                  options={{
-                    strings: randomizedStrings,
-                    autoStart: true,
-                    loop: true,
-                    deleteSpeed: 20,
-                    delay: 100,
-                    wrapperClassName:
-                      "font-heading text-5xl md:text-6xl font-bold uppercase tracking-tighter leading-none text-base-content",
-                    cursorClassName:
-                      "text-5xl md:text-6xl font-bold text-base-content animate-[blink_0.6s_step-end_infinite]",
-                  }}
-                />
-              </div>
-
-              {/* Description */}
-              <p
-                className="font-mono text-[0.7rem] uppercase tracking-[0.08em] leading-relaxed text-base-content/60 mb-8 animate-[fadeInUp_0.3s_ease_forwards_0.4s] opacity-0"
-                style={{ animationFillMode: "forwards" }}
-              >
-                {introdata.description}
-              </p>
-
-              {/* CTA Buttons */}
-              <div
-                className="flex flex-wrap gap-3 animate-[fadeInUp_0.3s_ease_forwards_0.6s] opacity-0"
-                style={{ animationFillMode: "forwards" }}
-              >
-                <Link
-                  to="/portfolio"
-                  {...portfolioHoverHandlers}
-                  onClick={handlePortfolioClick}
-                >
-                  <button className="btn btn-primary font-mono text-[0.7rem] uppercase tracking-[0.15em] px-7">
-                    {uiText.myPortfolio}
-                  </button>
-                </Link>
-                <a
-                  href="#contact-footer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document
-                      .getElementById("contact-footer")
-                      ?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                >
-                  <button className="btn btn-outline font-mono text-[0.7rem] uppercase tracking-[0.15em] px-7">
-                    {uiText.contactMe}
-                  </button>
-                </a>
-              </div>
-
-              {/* Social Icons */}
-              <div
-                className="flex gap-3 mt-8 animate-[fadeInUp_0.3s_ease_forwards_0.8s] opacity-0"
-                style={{ animationFillMode: "forwards" }}
-              >
-                {socialprofils.linkedin && (
-                  <SocialIcon href={socialprofils.linkedin}>
-                    <FaLinkedin className="text-lg" />
-                  </SocialIcon>
-                )}
-                {socialprofils.github && (
-                  <SocialIcon href={socialprofils.github}>
-                    <FaGithub className="text-lg" />
-                  </SocialIcon>
-                )}
-                {socialprofils.twitter && (
-                  <SocialIcon href={socialprofils.twitter}>
-                    <FaTwitter className="text-lg" />
-                  </SocialIcon>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Video Background */}
-          <div className="w-full lg:w-[45%] h-[40vh] lg:h-full min-h-[280px] lg:min-h-0 relative overflow-hidden order-first lg:order-last">
+        <div className="hero-container">
+          {/* Video/Media Side */}
+          <div className="hero-media">
             <video
               ref={(el) => {
                 if (el) {
@@ -316,9 +228,7 @@ export const Home = () => {
                 }
               }}
               onLoadedData={() => setVideoLoaded(true)}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 grayscale-[0.3] contrast-[1.1] ${
-                videoLoaded ? "opacity-100" : "opacity-0"
-              }`}
+              className={`hero-video ${videoLoaded ? "loaded" : ""}`}
               preload="metadata"
             >
               <source
@@ -328,35 +238,108 @@ export const Home = () => {
               Your browser does not support the video tag.
             </video>
           </div>
+
+          {/* Text Content Side */}
+          <div className="hero-content">
+            <div className="hero-text">
+              {/* Subtitle */}
+              <h2 className="hero-subtitle animate-fade-in-up">
+                {introdata.title}
+              </h2>
+
+              {/* Typewriter Title */}
+              <div className="hero-typewriter animate-fade-in-up delay-1">
+                <Typewriter
+                  options={{
+                    strings: randomizedStrings,
+                    autoStart: true,
+                    loop: true,
+                    deleteSpeed: 20,
+                    delay: 100,
+                    wrapperClassName: "typewriter-text",
+                    cursorClassName: "typewriter-cursor",
+                  }}
+                />
+              </div>
+
+              {/* Description */}
+              <p className="hero-description animate-fade-in-up delay-2">
+                {introdata.description}
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="hero-buttons animate-fade-in-up delay-3">
+                <Link
+                  to="/portfolio"
+                  {...portfolioHoverHandlers}
+                  onClick={handlePortfolioClick}
+                >
+                  <button className="btn btn-primary">
+                    {uiText.myPortfolio}
+                  </button>
+                </Link>
+                <a
+                  href="#contact-footer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document
+                      .getElementById("contact-footer")
+                      ?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  <button className="btn btn-outline">
+                    {uiText.contactMe}
+                  </button>
+                </a>
+              </div>
+
+              {/* Social Icons */}
+              <div className="hero-social animate-fade-in-up delay-4">
+                {socialprofils.linkedin && (
+                  <SocialIcon href={socialprofils.linkedin}>
+                    <FaLinkedin className="text-lg" />
+                  </SocialIcon>
+                )}
+                {socialprofils.github && (
+                  <SocialIcon href={socialprofils.github}>
+                    <FaGithub className="text-lg" />
+                  </SocialIcon>
+                )}
+                {socialprofils.twitter && (
+                  <SocialIcon href={socialprofils.twitter}>
+                    <FaTwitter className="text-lg" />
+                  </SocialIcon>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Portfolio Section */}
       <motion.section
         id="portfolio"
-        className="py-20 bg-base-100 border-t-2 border-base-content/15"
+        className="portfolio-section"
         style={{ opacity }}
       >
-        <div className="container mx-auto max-w-6xl px-4">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold uppercase tracking-tight text-left mb-10 text-base-content">
-            {uiText.featuredProjects}
-          </h2>
+        <div className="portfolio-container">
+          <h2 className="portfolio-title">{uiText.featuredProjects}</h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5 mb-10">
+          <div className="portfolio-grid">
             {portfolioItems || (
-              <div className="col-span-full text-center py-10 text-base-content/60">
+              <div className="col-span-full text-center py-10 text-base-content/60 font-mono text-sm uppercase tracking-wider">
                 No projects available
               </div>
             )}
           </div>
 
-          <div className="text-left">
+          <div className="portfolio-cta">
             <Link
               to="/portfolio"
               {...portfolioHoverHandlers}
               onClick={handlePortfolioClick}
             >
-              <button className="btn btn-primary font-mono text-[0.7rem] uppercase tracking-[0.15em] px-7">
+              <button className="btn btn-primary">
                 {uiText.viewAllProjects}
               </button>
             </Link>

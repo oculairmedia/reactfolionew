@@ -1,13 +1,16 @@
 /* ============================================
-   HOME PAGE — Keyframe Animations
-   For use with daisyUI/Tailwind migration
+   HOME PAGE STYLES
+   Brutalist design with daisyUI theming
    ============================================ */
 
-/* Fade in up animation */
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(15px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -15,7 +18,6 @@
     }
 }
 
-/* Simple fade in */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -25,15 +27,408 @@
     }
 }
 
-/* Cursor blink for typewriter */
 @keyframes blink {
-    0% {
+    0%,
+    100% {
         opacity: 1;
     }
     50% {
         opacity: 0;
     }
-    100% {
-        opacity: 1;
+}
+
+/* Animation utility classes */
+.animate-fade-in-up {
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+.delay-1 {
+    animation-delay: 0.1s;
+}
+.delay-2 {
+    animation-delay: 0.2s;
+}
+.delay-3 {
+    animation-delay: 0.3s;
+}
+.delay-4 {
+    animation-delay: 0.4s;
+}
+
+/* ============================================
+   HOME SECTION
+   ============================================ */
+
+.home-section {
+    min-height: 100vh;
+    background-color: oklch(var(--b1, 0.1 0 0));
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================
+   HERO CONTAINER
+   ============================================ */
+
+.hero-container {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 64px);
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .hero-container {
+        flex-direction: row;
+        min-height: 100vh;
     }
+}
+
+/* ============================================
+   HERO MEDIA (Video/Image Side)
+   ============================================ */
+
+.hero-media {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    min-height: 300px;
+    overflow: hidden;
+    order: -1;
+    background-color: oklch(var(--b2, 0.12 0 0));
+}
+
+@media (min-width: 768px) {
+    .hero-media {
+        height: 45vh;
+        min-height: 350px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-media {
+        width: 50%;
+        height: 100vh;
+        min-height: 600px;
+        order: 1;
+        position: sticky;
+        top: 0;
+    }
+}
+
+@media (min-width: 1280px) {
+    .hero-media {
+        width: 45%;
+    }
+}
+
+/* Hero Video */
+.hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    filter: grayscale(0.2) contrast(1.05);
+}
+
+.hero-video.loaded {
+    opacity: 1;
+}
+
+/* ============================================
+   HERO CONTENT (Text Side)
+   ============================================ */
+
+.hero-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3rem 1.5rem;
+    order: 1;
+}
+
+@media (min-width: 768px) {
+    .hero-content {
+        padding: 4rem 2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-content {
+        width: 50%;
+        min-height: 100vh;
+        padding: 4rem;
+        order: 0;
+    }
+}
+
+@media (min-width: 1280px) {
+    .hero-content {
+        width: 55%;
+        padding: 4rem 5%;
+    }
+}
+
+/* Hero Text Container */
+.hero-text {
+    max-width: 600px;
+    width: 100%;
+}
+
+/* ============================================
+   HERO TYPOGRAPHY
+   ============================================ */
+
+/* Subtitle */
+.hero-subtitle {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: oklch(var(--bc, 1 0 0) / 0.5);
+    margin: 0 0 1rem 0;
+    line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+    .hero-subtitle {
+        font-size: 0.7rem;
+        margin-bottom: 1.25rem;
+    }
+}
+
+/* Typewriter Container */
+.hero-typewriter {
+    height: 100px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .hero-typewriter {
+        height: 130px;
+        margin-bottom: 2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-typewriter {
+        height: 150px;
+    }
+}
+
+/* Typewriter Text */
+.typewriter-text {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: oklch(var(--bc, 1 0 0));
+    display: inline;
+    word-wrap: break-word;
+}
+
+@media (min-width: 768px) {
+    .typewriter-text {
+        font-size: 3.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .typewriter-text {
+        font-size: 4rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .typewriter-text {
+        font-size: 4.5rem;
+    }
+}
+
+/* Typewriter Cursor */
+.typewriter-cursor {
+    font-size: inherit;
+    font-weight: 700;
+    color: oklch(var(--bc, 1 0 0));
+    animation: blink 0.7s step-end infinite;
+    margin-left: 2px;
+}
+
+/* Description */
+.hero-description {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    line-height: 1.8;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: oklch(var(--bc, 1 0 0) / 0.5);
+    margin: 0 0 2rem 0;
+    max-width: 500px;
+}
+
+@media (min-width: 768px) {
+    .hero-description {
+        font-size: 0.7rem;
+        margin-bottom: 2.5rem;
+    }
+}
+
+/* ============================================
+   HERO BUTTONS
+   ============================================ */
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .hero-buttons {
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+    }
+}
+
+.hero-buttons .btn {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.875rem 1.75rem;
+    min-height: 0;
+    height: auto;
+    border-radius: 0;
+}
+
+@media (min-width: 768px) {
+    .hero-buttons .btn {
+        font-size: 0.7rem;
+        padding: 1rem 2rem;
+    }
+}
+
+/* ============================================
+   HERO SOCIAL ICONS
+   ============================================ */
+
+.hero-social {
+    display: flex;
+    gap: 0.75rem;
+}
+
+/* ============================================
+   PORTFOLIO SECTION
+   ============================================ */
+
+.portfolio-section {
+    padding: 5rem 0;
+    background-color: oklch(var(--b1, 0.1 0 0));
+    border-top: 2px solid oklch(var(--bc, 1 0 0) / 0.1);
+}
+
+@media (min-width: 768px) {
+    .portfolio-section {
+        padding: 6rem 0;
+    }
+}
+
+/* Portfolio Container */
+.portfolio-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+    .portfolio-container {
+        padding: 0 1.5rem;
+    }
+}
+
+/* Portfolio Title */
+.portfolio-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: oklch(var(--bc, 1 0 0));
+    margin: 0 0 2.5rem 0;
+}
+
+@media (min-width: 768px) {
+    .portfolio-title {
+        font-size: 2rem;
+        margin-bottom: 3rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .portfolio-title {
+        font-size: 2.25rem;
+    }
+}
+
+/* Portfolio Grid */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    margin-bottom: 2.5rem;
+}
+
+@media (min-width: 640px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Portfolio CTA */
+.portfolio-cta {
+    text-align: left;
+}
+
+.portfolio-cta .btn {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.875rem 1.75rem;
+    min-height: 0;
+    height: auto;
+    border-radius: 0;
+}
+
+@media (min-width: 768px) {
+    .portfolio-cta .btn {
+        font-size: 0.7rem;
+        padding: 1rem 2rem;
+    }
+}
+
+/* ============================================
+   SKELETON STATES
+   ============================================ */
+
+.home-section .skeleton {
+    background-color: oklch(var(--b2, 0.15 0 0));
 }

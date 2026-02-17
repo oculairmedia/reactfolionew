@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import "./PortfolioItem.css";
 import { motion, useInView } from "framer-motion";
 import { usePrefetchProject } from "../hooks/useDataPrefetch";
 import { PayloadOptimizedImage } from "./OptimizedImage/PayloadOptimizedImage";
@@ -22,22 +23,12 @@ interface PortfolioItemProps {
 
 const PortfolioItem = ({ data, index = 0 }: PortfolioItemProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const navigate = useNavigate();
   const ref = useRef<HTMLDivElement>(null);
   const isInViewport = useInView(ref, { once: true, amount: 0.2 });
 
   const projectId = data.id || (data.link ? data.link.split("/").pop() : null);
   const projectPrefetchHandlers = usePrefetchProject(projectId);
-
-  useEffect(() => {
-    if (isInViewport && data.isVideo) {
-      const timer = setTimeout(() => {
-        setShouldLoadVideo(true);
-      }, 200);
-      return () => clearTimeout(timer);
-    }
-  }, [isInViewport, data.isVideo]);
 
   const handleClick = () => {
     const link = data.link || `/projects/${data.slug || data.id}`;
@@ -46,7 +37,7 @@ const PortfolioItem = ({ data, index = 0 }: PortfolioItemProps) => {
     }
   };
 
-  const handleVideoLoad = () => {
+  const handleMediaLoad = () => {
     setIsLoaded(true);
   };
 
@@ -66,6 +57,7 @@ const PortfolioItem = ({ data, index = 0 }: PortfolioItemProps) => {
     },
   };
 
+  // Determine media type and source
   const featuredVideo = data.isVideo
     ? data.img
     : data.featured_video || data.featuredVideo || data.video;
@@ -87,10 +79,10 @@ const PortfolioItem = ({ data, index = 0 }: PortfolioItemProps) => {
       animate={isInViewport ? "visible" : "hidden"}
       variants={variants}
       {...projectPrefetchHandlers}
-      className="group relative aspect-[4/3] overflow-hidden cursor-pointer bg-base-200"
+      className="po-item group"
     >
       {/* Media Container */}
-      <div className="absolute inset-0 w-full h-full">
+      <div className="po-item-media">
         {hasVideo ? (
           <PayloadOptimizedVideo
             media={featuredVideo as PayloadMedia | string}
@@ -100,45 +92,40 @@ const PortfolioItem = ({ data, index = 0 }: PortfolioItemProps) => {
             muted={true}
             playsInline={true}
             lazyLoad={true}
-            onLoadedData={handleVideoLoad}
-            className={`w-full h-full object-cover transition-all duration-500 ${
-              isLoaded ? "opacity-100" : "opacity-0"
-            } group-hover:scale-105`}
+            onLoadedData={handleMediaLoad}
+            className="po-item-video"
           />
         ) : (
           <PayloadOptimizedImage
             media={featuredImage as PayloadMedia | string}
             alt={data.title}
-            size="small"
+            size="medium"
             responsive={true}
             lazyLoad={true}
-            className={`w-full h-full object-cover transition-all duration-500 ${
-              isLoaded ? "opacity-100" : "opacity-0"
-            } group-hover:scale-105`}
+            onLoad={handleMediaLoad}
+            className="po-item-image"
           />
         )}
       </div>
 
-      {/* Overlay - Always visible gradient, enhanced on hover */}
-      <div className="absolute inset-0 bg-gradient-to-t from-base-100/90 via-base-100/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Overlay Gradient */}
+      <div className="po-item-overlay" />
 
       {/* Content */}
-      <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-6">
+      <div className="po-item-content">
         {/* Title */}
-        <h3 className="font-heading text-lg md:text-xl font-bold uppercase tracking-tight text-base-content mb-1 line-clamp-2 transform translate-y-0 group-hover:-translate-y-1 transition-transform duration-300">
-          {data.title}
-        </h3>
+        <h3 className="po-item-title">{data.title}</h3>
 
-        {/* Description - Hidden by default, shown on hover */}
-        <p className="font-mono text-[0.65rem] uppercase tracking-wider text-base-content/70 line-clamp-2 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 mb-2">
+        {/* Description - shown on hover */}
+        <p className="po-item-description">
           {truncateText(data.description, 100)}
         </p>
 
         {/* View Project Link */}
-        <span className="inline-flex items-center gap-2 font-mono text-[0.6rem] uppercase tracking-[0.15em] text-primary font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-75">
+        <span className="po-item-link">
           View Project
           <svg
-            className="w-3 h-3 transform group-hover:translate-x-1 transition-transform duration-200"
+            className="po-item-arrow"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -154,7 +141,7 @@ const PortfolioItem = ({ data, index = 0 }: PortfolioItemProps) => {
       </div>
 
       {/* Border overlay for brutalist look */}
-      <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/30 transition-colors duration-300 pointer-events-none" />
+      <div className="po-item-border" />
     </motion.div>
   );
 };

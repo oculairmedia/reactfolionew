@@ -1,134 +1,217 @@
 /* ============================================
-   PORTFOLIO ITEM COMPONENT STYLES
-   Moved from src/pages/portfolio/style.css
+   PORTFOLIO ITEM COMPONENT
+   Brutalist design with daisyUI theming
    ============================================ */
 
-/* Container for grid items (if used directly) */
-.po_items_ho {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2px;
-}
-
-/* Individual Item Wrapper */
-.po_item {
+/* Container */
+.po-item {
     position: relative;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
-    /* No border-radius */
-    transition: none;
-    aspect-ratio: 1 / 1;
     cursor: pointer;
+    background-color: oklch(var(--b2, 0.15 0 0));
 }
 
-.media-container {
+/* Media Container */
+.po-item-media {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    position: relative;
-    background-color: #111;
 }
 
-.po_item img,
-.po_item video {
+/* Image styles */
+.po-item-image {
+    width: 100%;
+    height: 100%;
+}
+
+.po-item-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: opacity 1s ease, filter 0.2s ease;
-    opacity: 0;
+    transition:
+        transform 0.5s ease,
+        filter 0.3s ease;
 }
 
-.po_item img.loaded,
-.po_item video.loaded {
+.po-item:hover .po-item-image img {
+    transform: scale(1.05);
+}
+
+/* Video styles */
+.po-item-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.po-item:hover .po-item-video {
+    transform: scale(1.05);
+}
+
+/* Overlay Gradient */
+.po-item-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        oklch(var(--b1, 0.1 0 0) / 0.95) 0%,
+        oklch(var(--b1, 0.1 0 0) / 0.4) 40%,
+        transparent 100%
+    );
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.po-item:hover .po-item-overlay {
     opacity: 1;
 }
 
-.po_item:hover img,
-.po_item:hover video {
-    filter: contrast(1.15) brightness(1.05);
-}
-
-/* Content Overlay */
-.po_item .content {
+/* Content Container */
+.po-item-content {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.85);
-    color: white;
-    padding: 0.75rem 1rem;
-    transform: translateY(100%);
-    transition: transform 0.2s ease;
-    /* Ensure content is above media */
-    z-index: 2;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+    z-index: 10;
 }
 
-.po_item:hover .content {
+@media (min-width: 768px) {
+    .po-item-content {
+        padding: 1.5rem;
+    }
+}
+
+/* Title */
+.po-item-title {
+    font-family: var(--font-heading, "Space Grotesk", sans-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: oklch(var(--bc, 1 0 0));
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+@media (min-width: 768px) {
+    .po-item-title {
+        font-size: 1.125rem;
+    }
+}
+
+.po-item:hover .po-item-title {
+    transform: translateY(-4px);
+}
+
+/* Description */
+.po-item-description {
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: oklch(var(--bc, 1 0 0) / 0.7);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.po-item:hover .po-item-description {
+    opacity: 1;
     transform: translateY(0);
 }
 
-.po_item .content h3 {
-    font-family: var(--font-heading, 'Space Grotesk', sans-serif);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.25rem;
-    color: #fff;
-}
-
-.po_item .content p {
-    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+/* View Project Link */
+.po-item-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
     font-size: 0.6rem;
-    margin-bottom: 0.3rem;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.po_item .content .view-project {
-    display: inline-block;
-    background: white;
-    color: black;
-    padding: 0.25rem 0.6rem;
-    font-family: var(--font-mono, 'JetBrains Mono', monospace);
-    font-size: 0.55rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    text-decoration: none;
-    /* No border-radius */
-    transition: all 0.15s ease;
+    letter-spacing: 0.15em;
+    color: oklch(var(--p, 1 0 0));
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+        opacity 0.3s ease 0.05s,
+        transform 0.3s ease 0.05s;
 }
 
-.po_item .content .view-project:hover {
-    background: transparent;
-    color: white;
-    outline: 1px solid white;
+.po-item:hover .po-item-link {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* Responsive Modifications */
-@media (max-width: 768px) {
-
-    /* If strictly controlled by parent grid, this might be redundant but safe */
-    .po_items_ho {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
+/* Arrow Icon */
+.po-item-arrow {
+    width: 0.75rem;
+    height: 0.75rem;
+    transition: transform 0.2s ease;
 }
 
-@media (max-width: 480px) {
+.po-item:hover .po-item-arrow {
+    transform: translateX(4px);
+}
+
+/* Border Overlay */
+.po-item-border {
+    position: absolute;
+    inset: 0;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.po-item:hover .po-item-border {
+    border-color: oklch(var(--p, 1 0 0) / 0.3);
+}
+
+/* ============================================
+   PORTFOLIO GRID CONTAINER
+   ============================================ */
+
+.po_items_ho {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+}
+
+@media (min-width: 640px) {
     .po_items_ho {
         grid-template-columns: repeat(2, 1fr);
-        gap: 2px;
     }
+}
 
-    .po_item .content h3 {
-        font-size: 0.65rem;
+@media (min-width: 1024px) {
+    .po_items_ho {
+        grid-template-columns: repeat(3, 1fr);
     }
+}
 
-    .po_item .content p {
-        font-size: 0.55rem;
-    }
-
-    .po_item .content .view-project {
-        font-size: 0.5rem;
-        padding: 0.2rem 0.4rem;
+@media (min-width: 1280px) {
+    .po_items_ho {
+        grid-template-columns: repeat(4, 1fr);
     }
 }

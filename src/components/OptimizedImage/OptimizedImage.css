@@ -1,52 +1,79 @@
+/* ============================================
+   OPTIMIZED IMAGE COMPONENT
+   Using daisyUI theme colors
+   ============================================ */
+
 .optimized-image-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: var(--bg-color);
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: oklch(var(--b2, 0.2 0 0));
 }
 
 .optimized-image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.optimized-image-container img.loaded {
+    opacity: 1;
 }
 
 .image-placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(var(--text-color-rgb), 0.05) 25%,
-    rgba(var(--text-color-rgb), 0.1) 37%,
-    rgba(var(--text-color-rgb), 0.05) 63%
-  );
-  background-size: 400% 100%;
-  animation: shimmer 1.4s ease infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        oklch(var(--b3, 0.25 0 0)) 25%,
+        oklch(var(--b2, 0.2 0 0)) 37%,
+        oklch(var(--b3, 0.25 0 0)) 63%
+    );
+    background-size: 400% 100%;
+    animation: shimmer 1.4s ease infinite;
 }
 
 .image-error {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(var(--text-color-rgb), 0.05);
-  color: var(--text-color);
-  font-size: 0.875rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: oklch(var(--b2, 0.2 0 0));
+    color: oklch(var(--bc, 1 0 0) / 0.5);
+    font-family: var(--font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0 50%;
-  }
+    0% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+/* Ensure images inside portfolio items fill properly */
+.optimized-image-container.w-full.h-full {
+    position: absolute;
+    inset: 0;
+}
+
+.optimized-image-container.w-full.h-full img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
 }
