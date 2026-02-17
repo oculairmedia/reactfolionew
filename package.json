@@ -19,9 +19,11 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/purgecss.js",
+    "build:fast": "vite build",
+    "build:analyze": "vite build && open bundle-analysis.html",
     "preview": "vite preview",
-    "vercel-build": "vite build",
+    "vercel-build": "vite build && node scripts/purgecss.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
