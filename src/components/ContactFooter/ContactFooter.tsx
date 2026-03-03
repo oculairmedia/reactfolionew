@@ -303,6 +303,8 @@ export const ContactFooter = () => {
             { to: "/about", label: "About" },
             { to: "/blog", label: "Blog" },
             { to: "/links", label: "Links" },
+            { to: "/privacy", label: "Privacy" },
+            { to: "/terms", label: "Terms" },
           ].map(({ to, label }) => (
             <Link
               key={to}
