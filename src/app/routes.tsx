@@ -26,6 +26,10 @@ const loadProject: LazyComponentLoader = () =>
   import("../components/DynamicProjectPage");
 const loadLinks: LazyComponentLoader = () =>
   import("../pages/links").then((m) => ({ default: m.Links }));
+const loadPrivacy: LazyComponentLoader = () =>
+  import("../pages/privacy").then((m) => ({ default: m.Privacy }));
+const loadTerms: LazyComponentLoader = () =>
+  import("../pages/terms").then((m) => ({ default: m.Terms }));
 
 const Home = React.lazy(loadHome);
 const Portfolio = React.lazy(loadPortfolio);
@@ -34,6 +38,8 @@ const Blog = React.lazy(loadBlog);
 const BlogPost = React.lazy(loadBlogPost);
 const DynamicProjectPage = React.lazy(loadProject);
 const Links = React.lazy(loadLinks);
+const Privacy = React.lazy(loadPrivacy);
+const Terms = React.lazy(loadTerms);
 
 interface SuspendedProps {
   Component: React.LazyExoticComponent<React.ComponentType>;
@@ -100,6 +106,18 @@ const linksRoute = createRoute({
   component: () => <Suspended Component={Links} />,
 });
 
+const privacyRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/privacy",
+  component: () => <Suspended Component={Privacy} />,
+});
+
+const termsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/terms",
+  component: () => <Suspended Component={Terms} />,
+});
+
 const notFoundRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "*",
@@ -114,6 +132,8 @@ const routeTree = rootRoute.addChildren([
   blogPostRoute,
   projectRoute,
   linksRoute,
+  privacyRoute,
+  termsRoute,
   notFoundRoute,
 ]);
 
@@ -127,4 +147,6 @@ export {
   loadBlogPost,
   loadProject,
   loadLinks,
+  loadPrivacy,
+  loadTerms,
 };
