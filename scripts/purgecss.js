@@ -7,18 +7,26 @@
 const { PurgeCSS } = require("purgecss");
 const fs = require("fs");
 const path = require("path");
-const glob = require("glob");
 
 const BUILD_DIR = path.join(__dirname, "..", "build");
 
-// Normalize path for glob (always use forward slashes)
-const normGlob = (p) => p.replace(/\\/g, "/");
-
+/** Recursively find files matching an extension under a directory */
+function findFiles(dir, ext) {
+  const results = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      results.push(...findFiles(full, ext));
+    } else if (entry.name.endsWith(ext)) {
+      results.push(full);
+    }
+  }
+  return results;
+}
 async function purge() {
   // Find all CSS files in the Vite build output
-  const cssFiles = glob.sync(
-    normGlob(path.join(BUILD_DIR, "assets/css/**/*.css")),
-  );
+  const cssDir = path.join(BUILD_DIR, "assets/css");
+  const cssFiles = fs.existsSync(cssDir) ? findFiles(cssDir, ".css") : [];
 
   if (cssFiles.length === 0) {
     console.log("No CSS files found in build directory.");
@@ -26,9 +34,10 @@ async function purge() {
   }
 
   // Find all JS/HTML files as content sources
+  const jsDir = path.join(BUILD_DIR, "assets/js");
   const contentFiles = [
-    ...glob.sync(normGlob(path.join(BUILD_DIR, "assets/js/**/*.js"))),
-    ...glob.sync(normGlob(path.join(BUILD_DIR, "**/*.html"))),
+    ...(fs.existsSync(jsDir) ? findFiles(jsDir, ".js") : []),
+    ...findFiles(BUILD_DIR, ".html"),
   ];
 
   console.log(`\n🧹 PurgeCSS: Processing ${cssFiles.length} CSS files...`);
