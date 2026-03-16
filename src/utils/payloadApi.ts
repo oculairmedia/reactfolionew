@@ -15,9 +15,7 @@ interface PayloadResponse {
 }
 
 async function fetchFromPayload(endpoint: string): Promise<PayloadResponse> {
-  const timestamp = Date.now();
-  const separator = endpoint.includes('?') ? '&' : '?';
-  const url = `${API_URL}${endpoint}${separator}_t=${timestamp}`;
+  const url = `${API_URL}${endpoint}`;
 
   const response = await fetch(url);
 

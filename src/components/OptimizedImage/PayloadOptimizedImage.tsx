@@ -4,6 +4,7 @@ import {
   generatePayloadSrcSet,
   generateSizesAttr,
 } from "../../utils/payloadImageHelper";
+import { generatePictureElement } from "../../utils/cdnHelper";
 import type { PayloadMedia } from "../../types";
 import "./OptimizedImage.css";
 
@@ -69,11 +70,33 @@ export const PayloadOptimizedImage = ({
     setError(true);
   };
 
-  // Handle string URLs directly
   if (typeof media === "string") {
+    const pictureConfig = media.includes("b-cdn.net")
+      ? generatePictureElement(media, alt || "")
+      : null;
+
     return (
       <div ref={imgRef} className={`optimized-image-container ${className}`}>
-        {isInView && (
+        {isInView && pictureConfig?.sources ? (
+          <picture>
+            {pictureConfig.sources.map((source) => (
+              <source
+                key={source.type}
+                srcSet={source.srcSet}
+                type={source.type}
+              />
+            ))}
+            <img
+              src={pictureConfig.img.src}
+              alt={pictureConfig.img.alt}
+              className={isLoaded ? "loaded" : ""}
+              loading={lazyLoad ? "lazy" : "eager"}
+              onLoad={handleLoad}
+              onError={handleError}
+              decoding="async"
+            />
+          </picture>
+        ) : isInView ? (
           <img
             src={media}
             alt={alt || ""}
@@ -83,7 +106,7 @@ export const PayloadOptimizedImage = ({
             onError={handleError}
             decoding="async"
           />
-        )}
+        ) : null}
         {!isLoaded && !error && <div className="image-placeholder" />}
         {error && (
           <div className="image-error">

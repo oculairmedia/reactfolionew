@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { meta } from "../../content_option";
+import {
+  meta,
+  dataabout as fallbackAbout,
+  worktimeline as fallbackTimeline,
+  skills as fallbackSkills,
+  services as fallbackServices,
+} from "../../content_option";
 import { getAboutPage } from "../../utils/payloadApi";
-import { AboutPageSkeleton } from "../../components/SkeletonLoader";
 import type { TimelineEntry, Skill, Service } from "../../types";
 
 export const About = () => {
   const [dataabout, setDataAbout] = useState<{
     title: string;
     aboutme: string;
-  } | null>(null);
-  const [worktimeline, setWorkTimeline] = useState<TimelineEntry[]>([]);
-  const [skills, setSkills] = useState<Skill[]>([]);
-  const [services, setServices] = useState<Service[]>([]);
-  const [loading, setLoading] = useState(true);
+  }>(fallbackAbout);
+  const [worktimeline, setWorkTimeline] = useState<TimelineEntry[]>(fallbackTimeline);
+  const [skills, setSkills] = useState<Skill[]>(fallbackSkills);
+  const [services, setServices] = useState<Service[]>(fallbackServices);
 
   useEffect(() => {
     const fetchAboutData = async () => {
       try {
-        setLoading(true);
         const aboutData = await getAboutPage();
 
         setDataAbout({
@@ -28,36 +31,11 @@ export const About = () => {
         setWorkTimeline(aboutData.timeline || []);
         setSkills(aboutData.skills || []);
         setServices(aboutData.services || []);
-      } catch {
-        const module = await import("../../content_option");
-        setDataAbout(module.dataabout);
-        setWorkTimeline(module.worktimeline);
-        setSkills(module.skills);
-        setServices(module.services);
-      } finally {
-        setLoading(false);
-      }
+      } catch { /* fallback data pre-populated */ }
     };
 
     fetchAboutData();
   }, []);
-
-  if (loading) {
-    return (
-      <HelmetProvider>
-        <div className="min-h-screen bg-base-100">
-          <div className="container mx-auto max-w-7xl px-4 py-8">
-            <Helmet>
-              <meta charSet="utf-8" />
-              <title>About | {meta.title}</title>
-              <meta name="description" content={meta.description} />
-            </Helmet>
-            <AboutPageSkeleton />
-          </div>
-        </div>
-      </HelmetProvider>
-    );
-  }
 
   return (
     <HelmetProvider>

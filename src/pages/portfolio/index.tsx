@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { meta, portfolioPage } from "../../content_option";
+import {
+  meta,
+  portfolioPage,
+  dataportfolio as fallbackPortfolio,
+} from "../../content_option";
 import { getPortfolioItems } from "../../utils/payloadApi";
 import PortfolioItem from "../../components/PortfolioItem";
-import { PortfolioPageSkeleton } from "../../components/SkeletonLoader";
 import type { PortfolioItem as PortfolioItemType } from "../../types";
 
 export const Portfolio: React.FC = () => {
-  const [dataportfolio, setDataPortfolio] = useState<PortfolioItemType[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [dataportfolio, setDataPortfolio] =
+    useState<PortfolioItemType[]>(fallbackPortfolio);
 
   useEffect(() => {
     window.scrollTo(0, 0);
 
     const fetchPortfolio = async () => {
       try {
-        setLoading(true);
         const portfolioData = await getPortfolioItems();
         setDataPortfolio(portfolioData);
-      } catch {
-        import("../../content_option").then((module) => {
-          setDataPortfolio(module.dataportfolio);
-        });
-      } finally {
-        setLoading(false);
-      }
+      } catch { /* fallback data pre-populated */ }
     };
 
     fetchPortfolio();
@@ -40,8 +36,12 @@ export const Portfolio: React.FC = () => {
             <meta name="description" content={meta.description} />
           </Helmet>
 
-          {loading ? (
-            <PortfolioPageSkeleton count={8} />
+          {dataportfolio.length === 0 ? (
+            <div className="col-span-full text-center py-16">
+              <p className="text-base-content/60 font-mono text-sm uppercase tracking-wider">
+                No portfolio items available
+              </p>
+            </div>
           ) : (
             <div className="animate-[fadeIn_0.3s_ease_forwards]">
               {/* Header */}

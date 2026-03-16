@@ -8,12 +8,17 @@ const Themetoggle = () => {
   const isDark = theme === "brutalist-dark";
 
   const toggleTheme = () => {
+    document.documentElement.classList.add("theme-transitioning");
     setTheme(isDark ? "brutalist-light" : "brutalist-dark");
   };
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
+    const timer = setTimeout(() => {
+      document.documentElement.classList.remove("theme-transitioning");
+    }, 200);
+    return () => clearTimeout(timer);
   }, [theme]);
 
   return (

@@ -2,7 +2,13 @@ import React, { useEffect, useMemo, useState, memo, useCallback } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Typewriter from "typewriter-effect";
-import { meta, socialprofils, uiText } from "../../content_option";
+import {
+  meta,
+  socialprofils,
+  uiText,
+  introdata as fallbackIntro,
+  dataportfolio as fallbackPortfolio,
+} from "../../content_option";
 import { getHomeIntro, getPortfolioItems } from "../../utils/payloadApi";
 import { Link } from "@tanstack/react-router";
 import PortfolioItem from "../../components/PortfolioItem";
@@ -82,16 +88,16 @@ PortfolioGridSkeleton.displayName = "PortfolioGridSkeleton";
 
 export const Home = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const [introdata, setIntroData] = useState<TransformedIntroData | null>(null);
-  const [dataportfolio, setDataPortfolio] = useState<PortfolioItemType[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [introdata, setIntroData] = useState<TransformedIntroData>(fallbackIntro);
+  const [dataportfolio, setDataPortfolio] = useState<PortfolioItemType[]>(
+    fallbackPortfolio.slice(0, 3),
+  );
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
         const [homeIntroData, portfolioData] = await Promise.all([
           getHomeIntro(),
           getPortfolioItems({ limit: 3 }),
@@ -130,13 +136,7 @@ export const Home = () => {
 
         setIntroData(transformedIntroData);
         setDataPortfolio(portfolioData);
-      } catch {
-        const module = await import("../../content_option");
-        setIntroData(module.introdata);
-        setDataPortfolio(module.dataportfolio);
-      } finally {
-        setLoading(false);
-      }
+      } catch { /* fallback data pre-populated */ }
     };
 
     fetchData();
@@ -162,31 +162,6 @@ export const Home = () => {
   const handlePortfolioClick = useCallback(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
-
-  if (loading || !introdata) {
-    return (
-      <HelmetProvider>
-        <section id="home" className="home-section">
-          <Helmet>
-            <meta charSet="utf-8" />
-            <title>{meta.title}</title>
-            <meta name="description" content={meta.description} />
-          </Helmet>
-
-          <HomeIntroSkeleton />
-
-          <section className="portfolio-section">
-            <div className="portfolio-container">
-              <div className="skeleton h-10 w-64 mb-10"></div>
-              <div className="portfolio-grid">
-                <PortfolioGridSkeleton count={3} />
-              </div>
-            </div>
-          </section>
-        </section>
-      </HelmetProvider>
-    );
-  }
 
   return (
     <HelmetProvider>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import './ErrorBoundary.css';
 
 interface ErrorBoundaryProps {
@@ -34,11 +33,8 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
     if (this.state.hasError) {
       return (
         <div className="error-boundary">
-          <motion.div
-            className="error-content"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+          <div
+            className="error-content error-content--animate"
           >
             <h2>Oops! Something went wrong</h2>
             <p>We're sorry, but something went wrong. Please try refreshing the page or contact support if the problem persists.</p>
@@ -55,7 +51,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
                 <pre>{this.state.errorInfo && this.state.errorInfo.componentStack}</pre>
               </div>
             )}
-          </motion.div>
+          </div>
         </div>
       );
     }
