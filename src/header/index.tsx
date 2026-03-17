@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { logotext, socialprofils } from "../content_option";
 import Themetoggle from "../components/themetoggle";
 import { usePrefetch } from "../hooks/usePrefetch";
-import { loadHome, loadPortfolio, loadAbout, loadBlog } from "../app/routes";
+import { loadHome, loadPortfolio, loadAbout, loadBlog } from "../app/route-loaders";
 
 const Headermain: React.FC = () => {
   const homeHandlers = usePrefetch(loadHome);

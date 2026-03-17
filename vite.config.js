@@ -109,11 +109,14 @@ export default defineConfig({
     },
     chunkSizeWarningLimit: 500,
   },
+  ssr: {
+    noExternal: true,
+  },
   define: {
     "process.env": {},
   },
   optimizeDeps: {
-    entries: ["src/index.tsx"],
+    entries: ["src/entry-client.tsx"],
     include: ["react", "react-dom", "framer-motion"],
   },
 });

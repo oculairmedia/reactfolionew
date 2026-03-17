@@ -9,27 +9,17 @@ import { LoadingSpinner } from "../components/LoadingSpinner";
 import Headermain from "../header";
 import { ContactFooter } from "../components/ContactFooter";
 import { Socialicons } from "../components/socialicons";
-
-type LazyComponentLoader = () => Promise<{ default: React.ComponentType }>;
-
-const loadHome: LazyComponentLoader = () =>
-  import("../pages/home").then((m) => ({ default: m.Home }));
-const loadPortfolio: LazyComponentLoader = () =>
-  import("../pages/portfolio").then((m) => ({ default: m.Portfolio }));
-const loadAbout: LazyComponentLoader = () =>
-  import("../pages/about").then((m) => ({ default: m.About }));
-const loadBlog: LazyComponentLoader = () =>
-  import("../pages/blog").then((m) => ({ default: m.Blog }));
-const loadBlogPost: LazyComponentLoader = () =>
-  import("../pages/blog/BlogPost").then((m) => ({ default: m.BlogPost }));
-const loadProject: LazyComponentLoader = () =>
-  import("../components/DynamicProjectPage");
-const loadLinks: LazyComponentLoader = () =>
-  import("../pages/links").then((m) => ({ default: m.Links }));
-const loadPrivacy: LazyComponentLoader = () =>
-  import("../pages/privacy").then((m) => ({ default: m.Privacy }));
-const loadTerms: LazyComponentLoader = () =>
-  import("../pages/terms").then((m) => ({ default: m.Terms }));
+import {
+  loadHome,
+  loadPortfolio,
+  loadAbout,
+  loadBlog,
+  loadBlogPost,
+  loadProject,
+  loadLinks,
+  loadPrivacy,
+  loadTerms,
+} from "./route-loaders";
 
 const Home = React.lazy(loadHome);
 const Portfolio = React.lazy(loadPortfolio);
@@ -149,4 +139,4 @@ export {
   loadLinks,
   loadPrivacy,
   loadTerms,
-};
+} from "./route-loaders";

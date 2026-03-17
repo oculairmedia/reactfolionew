@@ -2,6 +2,13 @@ import React, { useEffect, useMemo, useState, memo, useCallback } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Typewriter from "typewriter-effect";
+
+/** True once the component has mounted on the client (after hydration). */
+const useIsClient = () => {
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => setIsClient(true), []);
+  return isClient;
+};
 import {
   meta,
   socialprofils,
@@ -87,6 +94,7 @@ const PortfolioGridSkeleton = memo<{ count?: number }>(({ count = 3 }) => (
 PortfolioGridSkeleton.displayName = "PortfolioGridSkeleton";
 
 export const Home = () => {
+  const isClient = useIsClient();
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [introdata, setIntroData] = useState<TransformedIntroData>(fallbackIntro);
   const [dataportfolio, setDataPortfolio] = useState<PortfolioItemType[]>(
@@ -146,11 +154,14 @@ export const Home = () => {
 
   const portfolioHoverHandlers = usePrefetchPortfolio();
 
-  const randomizedStrings = useMemo(() => {
+  const animatedStrings = useMemo(() => {
     if (!introdata?.animated) return [];
-    const strings = Object.values(introdata.animated);
-    return strings.sort(() => Math.random() - 0.5);
+    return Object.values(introdata.animated);
   }, [introdata]);
+
+  const randomizedStrings = useMemo(() => {
+    return [...animatedStrings].sort(() => Math.random() - 0.5);
+  }, [animatedStrings]);
 
   const portfolioItems = useMemo(() => {
     if (!dataportfolio || dataportfolio.length === 0) return null;
@@ -228,17 +239,21 @@ export const Home = () => {
 
               {/* Typewriter Title */}
               <div className="hero-typewriter animate-fade-in-up delay-1">
-                <Typewriter
-                  options={{
-                    strings: randomizedStrings,
-                    autoStart: true,
-                    loop: true,
-                    deleteSpeed: 20,
-                    delay: 100,
-                    wrapperClassName: "typewriter-text",
-                    cursorClassName: "typewriter-cursor",
-                  }}
-                />
+                {isClient ? (
+                  <Typewriter
+                    options={{
+                      strings: randomizedStrings,
+                      autoStart: true,
+                      loop: true,
+                      deleteSpeed: 20,
+                      delay: 100,
+                      wrapperClassName: "typewriter-text",
+                      cursorClassName: "typewriter-cursor",
+                    }}
+                  />
+                ) : (
+                  <span className="typewriter-text">{animatedStrings[0] || ''}</span>
+                )}
               </div>
 
               {/* Description */}
@@ -299,7 +314,7 @@ export const Home = () => {
       <motion.section
         id="portfolio"
         className="portfolio-section"
-        style={{ opacity }}
+        style={isClient ? { opacity } : {}}
       >
         <div className="portfolio-container">
           {/* Section Header */}

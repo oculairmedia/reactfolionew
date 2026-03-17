@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 const Themetoggle = () => {
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") || "brutalist-dark",
+  const [theme, setTheme] = useState(() =>
+    typeof window !== "undefined"
+      ? localStorage.getItem("theme") || "brutalist-dark"
+      : "brutalist-dark",
   );
 
   const isDark = theme === "brutalist-dark";
