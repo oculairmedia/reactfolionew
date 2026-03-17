@@ -12,7 +12,7 @@ interface GhostCommentsProps {
 }
 
 function injectPortalOnce(siteUrl: string, apiKey: string): void {
-  if (document.querySelector('script[data-ghost]')) return;
+  if (document.querySelector("script[data-ghost]")) return;
 
   const portal = document.createElement("script");
   portal.src = PORTAL_SRC;
@@ -22,6 +22,19 @@ function injectPortalOnce(siteUrl: string, apiKey: string): void {
   portal.setAttribute("data-key", apiKey);
   portal.setAttribute("data-api", `${siteUrl}/ghost/api/content/`);
   document.body.appendChild(portal);
+}
+
+function getThemeConfig(): { colorScheme: string; accentColor: string } {
+  const theme = document.documentElement.getAttribute("data-theme");
+  const isDark =
+    theme === "brutalist-dark" ||
+    (!theme &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+  return {
+    colorScheme: isDark ? "dark" : "light",
+    accentColor: isDark ? "#FFFFFF" : "#0a0a0a",
+  };
 }
 
 export const GhostComments: React.FC<GhostCommentsProps> = ({
@@ -36,6 +49,8 @@ export const GhostComments: React.FC<GhostCommentsProps> = ({
 
     injectPortalOnce(siteUrl, apiKey);
 
+    const { colorScheme, accentColor } = getThemeConfig();
+
     const script = document.createElement("script");
     script.src = COMMENTS_UI_SRC;
     script.defer = true;
@@ -46,7 +61,9 @@ export const GhostComments: React.FC<GhostCommentsProps> = ({
     script.setAttribute("data-admin", `${siteUrl}/ghost/`);
     script.setAttribute("data-key", apiKey);
     script.setAttribute("data-post-id", postId);
-    script.setAttribute("data-color-scheme", "auto");
+    script.setAttribute("data-color-scheme", colorScheme);
+    script.setAttribute("data-accent-color", accentColor);
+    script.setAttribute("data-title", "");
 
     containerRef.current.appendChild(script);
 
