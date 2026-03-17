@@ -2,11 +2,26 @@ import { useEffect, useRef } from "react";
 
 const COMMENTS_UI_SRC =
   "https://cdn.jsdelivr.net/ghost/comments-ui@~1.3/umd/comments-ui.min.js";
+const PORTAL_SRC =
+  "https://cdn.jsdelivr.net/ghost/portal@~2.0/umd/portal.min.js";
 
 interface GhostCommentsProps {
   postId: string;
   siteUrl: string;
   apiKey: string;
+}
+
+function injectPortalOnce(siteUrl: string, apiKey: string): void {
+  if (document.querySelector('script[data-ghost]')) return;
+
+  const portal = document.createElement("script");
+  portal.src = PORTAL_SRC;
+  portal.defer = true;
+  portal.crossOrigin = "anonymous";
+  portal.setAttribute("data-ghost", `${siteUrl}/`);
+  portal.setAttribute("data-key", apiKey);
+  portal.setAttribute("data-api", `${siteUrl}/ghost/api/content/`);
+  document.body.appendChild(portal);
 }
 
 export const GhostComments: React.FC<GhostCommentsProps> = ({
@@ -18,6 +33,8 @@ export const GhostComments: React.FC<GhostCommentsProps> = ({
 
   useEffect(() => {
     if (!postId || !containerRef.current) return;
+
+    injectPortalOnce(siteUrl, apiKey);
 
     const script = document.createElement("script");
     script.src = COMMENTS_UI_SRC;
