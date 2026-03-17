@@ -14,8 +14,7 @@
     "react-helmet-async": "^1.0.7",
     "react-icons": "^4.1.0",
     "react-markdown": "^10.1.0",
-    "typewriter-effect": "^2.18.2",
-    "vibe-kanban-web-companion": "^0.0.5"
+    "typewriter-effect": "^2.18.2"
   },
   "scripts": {
     "start": "vite",
@@ -74,6 +73,7 @@
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vite-plugin-svgr": "^4.5.0",
+    "vibe-kanban-web-companion": "^0.0.5",
     "vitest": "^4.0.18"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
