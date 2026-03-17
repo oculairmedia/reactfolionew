@@ -43,6 +43,11 @@
     opacity: 0;
 }
 
+[data-prerendered] .animate-fade-in-up {
+    animation: none;
+    opacity: 1;
+}
+
 .delay-1 {
     animation-delay: 0.1s;
 }

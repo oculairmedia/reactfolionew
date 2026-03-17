@@ -40,7 +40,9 @@ async function prerender() {
     try {
       const { html, head } = await render(url);
 
-      let page = template.replace("<!--app-html-->", html);
+      let page = template
+        .replace("<!--app-html-->", html)
+        .replace("<html lang", '<html data-prerendered lang');
       if (head) {
         page = page.replace("<!--head-tags-->", head);
       } else {

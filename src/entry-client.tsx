@@ -20,6 +20,7 @@ const app = (
 
 if (rootElement.hasChildNodes()) {
   ReactDOM.hydrateRoot(rootElement, app);
+  document.documentElement.removeAttribute("data-prerendered");
 } else {
   ReactDOM.createRoot(rootElement).render(app);
 }
