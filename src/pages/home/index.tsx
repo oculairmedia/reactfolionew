@@ -2,13 +2,7 @@ import React, { useEffect, useMemo, useState, memo, useCallback } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Typewriter from "typewriter-effect";
-
-/** True once the component has mounted on the client (after hydration). */
-const useIsClient = () => {
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => setIsClient(true), []);
-  return isClient;
-};
+import { useIsClient } from "../../hooks/useIsClient";
 import {
   meta,
   socialprofils,

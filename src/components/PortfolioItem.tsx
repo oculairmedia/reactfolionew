@@ -3,6 +3,7 @@ import { useNavigate } from "@tanstack/react-router";
 import "./PortfolioItem.css";
 import { motion, useInView } from "framer-motion";
 import { usePrefetchProject } from "../hooks/useDataPrefetch";
+import { useIsClient } from "../hooks/useIsClient";
 import { PayloadOptimizedImage } from "./OptimizedImage/PayloadOptimizedImage";
 import { PayloadOptimizedVideo } from "./OptimizedVideo/PayloadOptimizedVideo";
 import { isVideo } from "../utils/payloadImageHelper";
@@ -22,6 +23,7 @@ interface PortfolioItemProps {
 }
 
 const PortfolioItem = ({ data, index = 0 }: PortfolioItemProps) => {
+  const isClient = useIsClient();
   const [isLoaded, setIsLoaded] = useState(false);
   const navigate = useNavigate();
   const ref = useRef<HTMLDivElement>(null);
@@ -75,8 +77,8 @@ const PortfolioItem = ({ data, index = 0 }: PortfolioItemProps) => {
     <motion.div
       ref={ref}
       onClick={handleClick}
-      initial="hidden"
-      animate={isInViewport ? "visible" : "hidden"}
+      initial={isClient ? "hidden" : false}
+      animate={isClient ? (isInViewport ? "visible" : "hidden") : undefined}
       variants={variants}
       {...projectPrefetchHandlers}
       className="po-item group"
