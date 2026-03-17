@@ -2,9 +2,15 @@ import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useParams, Link, useNavigate } from "@tanstack/react-router";
 import { meta } from "../../content_option";
-import { getPostBySlug, isGhostConfigured } from "../../services/ghostApi";
+import {
+  getPostBySlug,
+  isGhostConfigured,
+  GHOST_URL,
+  GHOST_KEY,
+} from "../../services/ghostApi";
 import type { GhostPost } from "@tryghost/content-api";
 import BlogContent from "../../components/BlogContent";
+import { GhostComments } from "../../components/GhostComments";
 import "./BlogPost.css";
 
 interface TableOfContentsItem {
@@ -509,6 +515,20 @@ export const BlogPost: React.FC = () => {
                       )}
                     </div>
                   </div>
+                </div>
+              )}
+
+              {/* Comments */}
+              {GHOST_URL && GHOST_KEY && (
+                <div className="mt-16 pt-8 border-t-2 border-base-content/10">
+                  <h3 className="font-heading text-xl font-bold uppercase tracking-tight text-base-content mb-6">
+                    Discussion
+                  </h3>
+                  <GhostComments
+                    postId={post.id}
+                    siteUrl={GHOST_URL}
+                    apiKey={GHOST_KEY}
+                  />
                 </div>
               )}
 

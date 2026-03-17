@@ -1,7 +1,7 @@
 import GhostContentAPI from '@tryghost/content-api';
 
-const GHOST_URL = import.meta.env.VITE_GHOST_URL as string | undefined;
-const GHOST_KEY = import.meta.env.VITE_GHOST_KEY as string | undefined;
+export const GHOST_URL = import.meta.env.VITE_GHOST_URL as string | undefined;
+export const GHOST_KEY = import.meta.env.VITE_GHOST_KEY as string | undefined;
 
 export const isGhostConfigured = Boolean(GHOST_URL && GHOST_KEY);
 
