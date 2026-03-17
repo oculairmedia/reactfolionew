@@ -1,0 +1,125 @@
+[
+  {
+    "id": "69b61391589e860001c1189b",
+    "title": "Your AI Agent Already Has a Subconscious. Give It a Cheaper One.",
+    "slug": "how-we-cut-our-ai-agent-costs-by-10x-with-the-triage-primary-pattern",
+    "feature_image": "https://blog.emmanuelu.com/content/images/2026/03/image-1.png",
+    "excerpt": "I split my persistent AI agent into a cheap watcher and an expensive thinker. Background costs dropped from $54/month to $5.",
+    "custom_excerpt": "I split my persistent AI agent into a cheap watcher and an expensive thinker. Background costs dropped from $54/month to $5.",
+    "published_at": "2026-03-15T20:05:52.000+00:00",
+    "reading_time": 0,
+    "tags": [
+      {
+        "id": "67c795d4ba24220001fe0193",
+        "name": "AI",
+        "slug": "ai"
+      },
+      {
+        "id": "69515591938eab0001f8b118",
+        "name": "DevOps",
+        "slug": "devops"
+      },
+      {
+        "id": "693a4d2dd072a10001841425",
+        "name": "Letta",
+        "slug": "letta"
+      },
+      {
+        "id": "6950b655938eab0001f8b109",
+        "name": "Infrastructure",
+        "slug": "infrastructure"
+      }
+    ]
+  },
+  {
+    "id": "698ca89112d2ec00018fff56",
+    "title": "425 Sessions of Duct Tape: Why Most AI Workflows Are Solving the Wrong Problem",
+    "slug": "425-sessions-of-duct-tape-why-most-ai-workflows-are-solving-the-wrong-problem",
+    "feature_image": "https://images.unsplash.com/photo-1621294465978-6b4198a5f2f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMTc3M3wwfDF8c2VhcmNofDZ8fG1lc3N8ZW58MHx8fHwxNzcwODI2ODc1fDA&ixlib=rb-4.1.0&q=80&w=2000",
+    "excerpt": "Someone Spent 9 Months Building a Memory System for AI. It Already Exists.\n\nA post recently went viral on Reddit. A solopreneur with no engineering background shared what they'd built over 425 sessions with Claude: a 56-rule \"CODEX\" to prevent drift, a three-tier memory system using Google Sheets and checkpoint files, a 37-perspective evaluation framework, and a 6-step session close protocol.\n\nIt's genuinely impressive work. They solved real problems through sheer persistence and operational thi",
+    "custom_excerpt": null,
+    "published_at": "2026-02-11T16:41:05.000+00:00",
+    "reading_time": 0,
+    "tags": [
+      {
+        "id": "6950b655938eab0001f8b10b",
+        "name": "ai-agents",
+        "slug": "ai-agents-2"
+      },
+      {
+        "id": "698ca89112d2ec00018fff57",
+        "name": "persistent-memory",
+        "slug": "persistent-memory"
+      },
+      {
+        "id": "693a4d2dd072a10001841425",
+        "name": "Letta",
+        "slug": "letta"
+      }
+    ]
+  },
+  {
+    "id": "693a4a5dd072a10001841413",
+    "title": "Building an MCP Server in 2025: What Actually Worked",
+    "slug": "building-an-mcp-server-in-2025-what-actually-worked",
+    "feature_image": "https://blog.emmanuelu.com/content/images/2025/12/686b5e988ad87717a55fca3f_letta_graphs_2x.webp",
+    "excerpt": "A year ago, MCP was an experiment. Today it's infrastructure—10,000+ public servers, 97 million monthly SDK downloads, adoption by ChatGPT, Gemini, and Copilot, a home in the Linux Foundation. That's not early adoption anymore. That's standardization.\n\n\n\nI've been building a Letta MCP server through this entire arc, and the biggest lesson came early: tool sprawl will kill you before complexity does.\n\nEvery capability wants to be its own tool. Create agent, update agent, delete agent, list agents",
+    "custom_excerpt": null,
+    "published_at": "2025-12-11T04:44:44.000+00:00",
+    "reading_time": 0,
+    "tags": [
+      {
+        "id": "67df19383880540001f674b4",
+        "name": "MCP",
+        "slug": "mcp"
+      },
+      {
+        "id": "693a4d2dd072a10001841425",
+        "name": "Letta",
+        "slug": "letta"
+      },
+      {
+        "id": "693a4d2dd072a10001841426",
+        "name": "AI Agents",
+        "slug": "ai-agents"
+      },
+      {
+        "id": "693a4d2dd072a10001841427",
+        "name": "Developer Tools",
+        "slug": "developer-tools"
+      },
+      {
+        "id": "693a4d2dd072a10001841428",
+        "name": "Architecture",
+        "slug": "architecture"
+      }
+    ]
+  },
+  {
+    "id": "67c94c4a3880540001f67484",
+    "title": "Letta MCP Server: A Robust Middleware for AI Agent Management",
+    "slug": "letta-mcp-server-a-robust-middleware-for-ai-agent-management",
+    "feature_image": "https://blog.emmanuelu.com/content/images/2025/03/67a44735ae8c2311297490c9_letta_memory_2x.webp",
+    "excerpt": "Managing distributed AI agents requires sophisticated middleware that can handle complex communication protocols, memory management, and agent interactions. The Letta Model Context Protocol (MCP) Server addresses these challenges by providing a comprehensive solution for developers working with multi-agent systems. you can find it here https://github.com/oculairmedia/Letta-MCP-server\n\n\nCore Architecture\n\nThe MCP Server is designed as an intelligent middleware layer that sits between applications",
+    "custom_excerpt": null,
+    "published_at": "2025-03-06T07:18:34.000+00:00",
+    "reading_time": 0,
+    "tags": [
+      {
+        "id": "67c94c4a3880540001f67485",
+        "name": "development",
+        "slug": "development"
+      },
+      {
+        "id": "67c795d4ba24220001fe0193",
+        "name": "AI",
+        "slug": "ai"
+      },
+      {
+        "id": "67c94c4a3880540001f67486",
+        "name": "middleware",
+        "slug": "middleware"
+      }
+    ]
+  }
+]

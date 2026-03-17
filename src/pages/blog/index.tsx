@@ -4,11 +4,15 @@ import { Link } from "@tanstack/react-router";
 import { meta } from "../../content_option";
 import { getPosts, isGhostConfigured } from "../../services/ghostApi";
 import type { GhostPost } from "@tryghost/content-api";
+import fallbackPosts from "../../content/blog/posts.json";
+
+const initialPosts = fallbackPosts as unknown as GhostPost[];
+const hasFallback = initialPosts.length > 0;
 
 export const Blog: React.FC = () => {
-  const [posts, setPosts] = useState<GhostPost[]>([]);
+  const [posts, setPosts] = useState<GhostPost[]>(initialPosts);
   const [loading, setLoading] = useState<boolean>(
-    !isGhostConfigured ? false : true,
+    isGhostConfigured && !hasFallback,
   );
   const [error, setError] = useState<string | null>(null);
 
@@ -16,13 +20,15 @@ export const Blog: React.FC = () => {
     if (!isGhostConfigured) return;
 
     const fetchPosts = async () => {
+      if (!hasFallback) setLoading(true);
       try {
-        setLoading(true);
         const data = await getPosts({ limit: 12 });
         setPosts(data as GhostPost[]);
         setError(null);
       } catch {
-        setError("Failed to load blog posts. Please try again later.");
+        if (!hasFallback) {
+          setError("Failed to load blog posts. Please try again later.");
+        }
       } finally {
         setLoading(false);
       }

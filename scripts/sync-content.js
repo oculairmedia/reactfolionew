@@ -21,10 +21,36 @@ const path = require('path');
 const https = require('https');
 const http = require('http');
 
+// Load .env file if present (for local dev — Vercel injects env vars directly)
+function loadEnvFile() {
+  try {
+    const envPath = path.join(__dirname, '..', '.env');
+    if (fs.existsSync(envPath)) {
+      const lines = fs.readFileSync(envPath, 'utf8').split('\n');
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#')) continue;
+        const eqIdx = trimmed.indexOf('=');
+        if (eqIdx === -1) continue;
+        const key = trimmed.slice(0, eqIdx);
+        const value = trimmed.slice(eqIdx + 1);
+        if (key && !process.env[key]) {
+          process.env[key] = value;
+        }
+      }
+    }
+  } catch {}
+}
+loadEnvFile();
+
 // Configuration
 const CMS_API_URL = process.env.CMS_API_URL || process.env.VITE_API_URL || 'http://localhost:3006/api';
 const CONTENT_DIR = path.join(__dirname, '..', 'src', 'content');
 const LOG_PREFIX = '[CMS Sync]';
+
+const GHOST_URL = process.env.VITE_GHOST_URL;
+const GHOST_KEY = process.env.VITE_GHOST_KEY;
+const GHOST_LISTING_FIELDS = 'id,title,slug,feature_image,excerpt,custom_excerpt,published_at,reading_time';
 
 // Sync configuration - maps CMS collections to local file paths
 const SYNC_MAP = {
@@ -283,7 +309,45 @@ async function syncEndpoint(name, config) {
   }
 }
 
-// Main sync function
+async function syncGhostBlog() {
+  if (!GHOST_URL || !GHOST_KEY) {
+    console.log(`${LOG_PREFIX} ⏭️  Ghost blog sync skipped (VITE_GHOST_URL / VITE_GHOST_KEY not set)`);
+    return { success: true, name: 'ghost-blog', skipped: true };
+  }
+
+  const url = `${GHOST_URL}/ghost/api/content/posts/?key=${GHOST_KEY}&fields=${GHOST_LISTING_FIELDS}&include=tags&limit=20&order=published_at%20desc`;
+
+  console.log(`${LOG_PREFIX} Fetching Ghost blog posts from ${GHOST_URL}...`);
+
+  try {
+    const rawData = await fetchUrl(url);
+    const posts = (rawData.posts || []).map(post => ({
+      id: post.id,
+      title: post.title || '',
+      slug: post.slug || '',
+      feature_image: post.feature_image || null,
+      excerpt: post.excerpt || '',
+      custom_excerpt: post.custom_excerpt || null,
+      published_at: post.published_at || '',
+      reading_time: post.reading_time || 0,
+      tags: (post.tags || []).map(tag => ({
+        id: tag.id,
+        name: tag.name,
+        slug: tag.slug
+      }))
+    }));
+
+    const outputPath = path.join(CONTENT_DIR, 'blog', 'posts.json');
+    writeJsonFile(outputPath, posts);
+
+    console.log(`${LOG_PREFIX} ✅ Synced ${posts.length} Ghost blog posts`);
+    return { success: true, name: 'ghost-blog' };
+  } catch (error) {
+    console.error(`${LOG_PREFIX} ❌ Failed to sync Ghost blog: ${error.message}`);
+    return { success: false, name: 'ghost-blog', error: error.message, critical: false };
+  }
+}
+
 async function syncAll() {
   console.log(`${LOG_PREFIX} Starting content sync from ${CMS_API_URL}`);
   console.log(`${LOG_PREFIX} Target directory: ${CONTENT_DIR}`);
@@ -295,7 +359,12 @@ async function syncAll() {
     const result = await syncEndpoint(name, config);
     results.push(result);
   }
-  
+
+  const ghostResult = await syncGhostBlog();
+  if (!ghostResult.skipped) {
+    results.push(ghostResult);
+  }
+
   console.log('');
   console.log(`${LOG_PREFIX} ========================================`);
   console.log(`${LOG_PREFIX} Sync Complete!`);
