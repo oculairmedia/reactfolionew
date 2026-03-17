@@ -3,13 +3,19 @@ import { Link } from "@tanstack/react-router";
 import { logotext, socialprofils } from "../content_option";
 import Themetoggle from "../components/themetoggle";
 import { usePrefetch } from "../hooks/usePrefetch";
+import { usePrefetchBlog } from "../hooks/useDataPrefetch";
 import { loadHome, loadPortfolio, loadAbout, loadBlog } from "../app/route-loaders";
 
 const Headermain: React.FC = () => {
   const homeHandlers = usePrefetch(loadHome);
   const portfolioHandlers = usePrefetch(loadPortfolio);
   const aboutHandlers = usePrefetch(loadAbout);
-  const blogHandlers = usePrefetch(loadBlog);
+  const blogCodeHandlers = usePrefetch(loadBlog);
+  const blogDataHandlers = usePrefetchBlog();
+  const blogHandlers = {
+    onMouseEnter: () => { blogCodeHandlers.onMouseEnter(); blogDataHandlers.onMouseEnter(); },
+    onTouchStart: () => { blogCodeHandlers.onTouchStart(); blogDataHandlers.onTouchStart(); },
+  };
   const closeDrawer = () => {
     const checkbox = document.getElementById(
       "mobile-drawer",

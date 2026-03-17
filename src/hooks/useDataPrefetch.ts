@@ -6,6 +6,7 @@ import {
   getSiteSettings,
   getHomeIntro,
 } from '../utils/payloadApi';
+import { prefetchBlogPosts } from '../services/ghostApi';
 import type { PrefetchHandlers, DataPrefetchType } from '../types';
 
 export const usePrefetchPortfolio = (): PrefetchHandlers => {
@@ -143,6 +144,22 @@ export const usePrefetchCriticalData = (dataTypes: DataPrefetchType[] = []): voi
   }, [dataTypes]);
 };
 
+export const usePrefetchBlog = (): PrefetchHandlers => {
+  const prefetched = useRef(false);
+
+  const prefetch = useCallback(() => {
+    if (prefetched.current) return;
+
+    prefetched.current = true;
+    prefetchBlogPosts();
+  }, []);
+
+  return {
+    onMouseEnter: prefetch,
+    onTouchStart: prefetch,
+  };
+};
+
 export const prefetchData = (fetchFn: () => Promise<unknown>, _label: string = 'data'): void => {
   fetchFn().catch(() => {});
 };
@@ -152,6 +169,7 @@ export default {
   usePrefetchAbout,
   usePrefetchProject,
   usePrefetchHomeIntro,
+  usePrefetchBlog,
   usePrefetchSiteSettings,
   usePrefetchCriticalData,
   prefetchData,
