@@ -235,6 +235,8 @@ const DynamicProjectPage = () => {
           loop
           muted
           playsInline
+          poster={project.hero.poster || project.hero.image}
+          preload="auto"
           className="w-full h-full object-cover"
         >
           <source src={project.hero.video} type="video/mp4" />

@@ -17,6 +17,7 @@ interface PayloadOptimizedVideoProps {
   muted?: boolean;
   controls?: boolean;
   playsInline?: boolean;
+  poster?: string;
   lazyLoad?: boolean;
   className?: string;
   style?: React.CSSProperties;
@@ -32,6 +33,7 @@ export const PayloadOptimizedVideo = ({
   muted = false,
   controls = false,
   playsInline = true,
+  poster,
   lazyLoad = true,
   className = '',
   style = {},
@@ -85,7 +87,7 @@ export const PayloadOptimizedVideo = ({
   }, [lazyLoad]);
 
   const videoUrl = isLegacyUrl ? media : getPayloadVideoUrl(media as PayloadMedia, currentQuality);
-  const posterUrl = isLegacyUrl ? null : getVideoThumbnailUrl(media as PayloadMedia);
+  const posterUrl = poster || (isLegacyUrl ? null : getVideoThumbnailUrl(media as PayloadMedia));
   const videoSources = isLegacyUrl ? [] : generateVideoSources(media as PayloadMedia);
 
   const handleLoadedData = (e: React.SyntheticEvent<HTMLVideoElement>) => {

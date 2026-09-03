@@ -93,6 +93,7 @@ const PortfolioItem = ({ data, index = 0 }: PortfolioItemProps) => {
             loop={true}
             muted={true}
             playsInline={true}
+            poster={data.poster}
             lazyLoad={true}
             onLoadedData={handleMediaLoad}
             className="po-item-video"

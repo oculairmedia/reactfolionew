@@ -5,8 +5,20 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BUILD_DIR = path.join(__dirname, "..", "build");
 const SERVER_DIR = path.join(__dirname, "..", "build-server");
+// Keep this list aligned with the static routes in `src/app/routes.tsx`.
+// Dynamic routes still fetch their full content at runtime and therefore
+// continue to use Vercel's SPA fallback.
+const STATIC_ROUTES = [
+  "/",
+  "/portfolio",
+  "/about",
+  "/blog",
+  "/links",
+  "/privacy",
+  "/terms",
+];
 
-const ROUTES_TO_PRERENDER = ["/"];
+const ROUTES_TO_PRERENDER = STATIC_ROUTES;
 
 async function prerender() {
   const templatePath = path.join(BUILD_DIR, "index.html");

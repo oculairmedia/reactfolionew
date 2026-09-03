@@ -153,6 +153,7 @@ export interface PortfolioItem {
   description: string;
   img?: string;
   isVideo?: boolean;
+  poster?: string;
   link?: string;
   slug?: string;
   order?: number;
@@ -169,6 +170,7 @@ export interface ProjectHero {
   type: 'image' | 'video';
   image?: string;
   video?: string;
+  poster?: string;
   alt?: string;
 }
 

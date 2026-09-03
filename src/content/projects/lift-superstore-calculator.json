@@ -6,7 +6,7 @@
   "content": "",
   "hero": {
     "type": "image",
-    "image": "https://oculair.b-cdn.net/media/final state.jpg",
+    "image": "https://oculair.b-cdn.net/media/final%20state.jpg",
     "alt": "The Lift Superstore Interactive Height Calculator - Garage with four-post car lift and stacked vehicles"
   },
   "sections": [
@@ -45,19 +45,21 @@
   "gallery": [
     {
       "type": "image",
-      "url": "https://oculair.b-cdn.net/media/final state.jpg",
+      "url": "https://oculair.b-cdn.net/media/final%20state.jpg",
       "caption": "",
       "width": "full"
     },
     {
       "type": "video",
-      "url": "https://cms2.emmanuelu.com/media/Demovideo.mp4",
+      "url": "https://oculair.b-cdn.net/media/project-lift-demo.mp4",
+      "poster": "https://oculair.b-cdn.net/media/project-lift-demo-poster.jpg",
       "caption": "",
       "width": "full"
     },
     {
       "type": "video",
-      "url": "https://cms2.emmanuelu.com/media/car lift animation final.mp4",
+      "url": "https://oculair.b-cdn.net/media/project-lift-animation.mp4",
+      "poster": "https://oculair.b-cdn.net/media/project-lift-animation-poster.jpg",
       "caption": "",
       "width": "full"
     }

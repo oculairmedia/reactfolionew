@@ -7,7 +7,8 @@
   "hero": {
     "type": "video",
     "image": "https://oculair.b-cdn.net/cache/images/cd3938b537ae6d5b28caf0c6863f6f07187f3a45.jpg",
-    "video": "https://oculair.b-cdn.net/api/v1/videos/332b28a6113e401b77b6894d3254766d15c6a9ac/3rjei659/avc",
+    "poster": "https://oculair.b-cdn.net/media/portfolio-binmetrics-poster.jpg",
+    "video": "https://oculair.b-cdn.net/media/portfolio-binmetrics-preview.mp4",
     "alt": "Binmetrics Video"
   },
   "sections": [
@@ -82,7 +83,8 @@
     },
     {
       "type": "video",
-      "url": "https://oculair.b-cdn.net/api/v1/videos/332b28a6113e401b77b6894d3254766d15c6a9ac/3rjei659/avc",
+      "url": "https://oculair.b-cdn.net/media/portfolio-binmetrics-preview.mp4",
+      "poster": "https://oculair.b-cdn.net/media/portfolio-binmetrics-poster.jpg",
       "caption": "",
       "width": "full"
     }

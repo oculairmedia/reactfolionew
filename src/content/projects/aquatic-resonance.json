@@ -6,8 +6,9 @@
   "content": "",
   "hero": {
     "type": "video",
-    "image": "https://oculair.b-cdn.net/cache/images/28690189625a7d5ecf17b50f2ebe46fa7a7c7ee4.jpg",
-    "video": "https://oculair.b-cdn.net/downloads/title.avc",
+    "image": "https://oculair.b-cdn.net/media/portfolio-aquatic-resonance-poster.jpg",
+    "poster": "https://oculair.b-cdn.net/media/portfolio-aquatic-resonance-poster.jpg",
+    "video": "https://oculair.b-cdn.net/media/portfolio-aquatic-resonance-preview.mp4",
     "alt": "Aquatic Resonance Animation"
   },
   "sections": [
