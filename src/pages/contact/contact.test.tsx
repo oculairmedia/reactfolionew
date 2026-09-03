@@ -29,22 +29,22 @@ describe('Contact form', () => {
 
   it('renders all form fields', () => {
     renderContact();
-    expect(screen.getByPlaceholderText('Name')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Message')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/name/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/email/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/message/i)).toBeInTheDocument();
   });
 
   it('updates fields on user input', async () => {
     const user = userEvent.setup();
     renderContact();
 
-    await user.type(screen.getByPlaceholderText('Name'), 'John');
-    await user.type(screen.getByPlaceholderText('Email'), 'john@test.com');
-    await user.type(screen.getByPlaceholderText('Message'), 'Hello!');
+    await user.type(screen.getByPlaceholderText(/name/i), 'John');
+    await user.type(screen.getByPlaceholderText(/email/i), 'john@test.com');
+    await user.type(screen.getByPlaceholderText(/message/i), 'Hello!');
 
-    expect(screen.getByPlaceholderText('Name')).toHaveValue('John');
-    expect(screen.getByPlaceholderText('Email')).toHaveValue('john@test.com');
-    expect(screen.getByPlaceholderText('Message')).toHaveValue('Hello!');
+    expect(screen.getByPlaceholderText(/name/i)).toHaveValue('John');
+    expect(screen.getByPlaceholderText(/email/i)).toHaveValue('john@test.com');
+    expect(screen.getByPlaceholderText(/message/i)).toHaveValue('Hello!');
   });
 
   it('calls emailjs.send on form submission', async () => {
@@ -52,9 +52,9 @@ describe('Contact form', () => {
     const user = userEvent.setup();
     renderContact();
 
-    await user.type(screen.getByPlaceholderText('Name'), 'John');
-    await user.type(screen.getByPlaceholderText('Email'), 'john@test.com');
-    await user.type(screen.getByPlaceholderText('Message'), 'Hello!');
+    await user.type(screen.getByPlaceholderText(/name/i), 'John');
+    await user.type(screen.getByPlaceholderText(/email/i), 'john@test.com');
+    await user.type(screen.getByPlaceholderText(/message/i), 'Hello!');
     await user.click(screen.getByRole('button', { name: /send/i }));
 
     await waitFor(() => {
@@ -76,14 +76,14 @@ describe('Contact form', () => {
     const user = userEvent.setup();
     renderContact();
 
-    await user.type(screen.getByPlaceholderText('Name'), 'John');
-    await user.type(screen.getByPlaceholderText('Email'), 'john@test.com');
-    await user.type(screen.getByPlaceholderText('Message'), 'Hello!');
+    await user.type(screen.getByPlaceholderText(/name/i), 'John');
+    await user.type(screen.getByPlaceholderText(/email/i), 'john@test.com');
+    await user.type(screen.getByPlaceholderText(/message/i), 'Hello!');
     await user.click(screen.getByRole('button', { name: /send/i }));
 
     await waitFor(() => {
-      const alert = document.querySelector('.co_alert.d-block');
-      expect(alert).toBeTruthy();
+      expect(screen.getByRole('alert')).toHaveClass('alert-success');
+      expect(screen.getByRole('alert')).toHaveTextContent(/message sent successfully/i);
     });
   });
 
@@ -92,14 +92,14 @@ describe('Contact form', () => {
     const user = userEvent.setup();
     renderContact();
 
-    await user.type(screen.getByPlaceholderText('Name'), 'John');
-    await user.type(screen.getByPlaceholderText('Email'), 'john@test.com');
-    await user.type(screen.getByPlaceholderText('Message'), 'Hello!');
+    await user.type(screen.getByPlaceholderText(/name/i), 'John');
+    await user.type(screen.getByPlaceholderText(/email/i), 'john@test.com');
+    await user.type(screen.getByPlaceholderText(/message/i), 'Hello!');
     await user.click(screen.getByRole('button', { name: /send/i }));
 
     await waitFor(() => {
-      const alert = document.querySelector('.co_alert.d-block');
-      expect(alert).toBeTruthy();
+      expect(screen.getByRole('alert')).toHaveClass('alert-error');
+      expect(screen.getByRole('alert')).toHaveTextContent(/failed to send/i);
     });
   });
 });
