@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import type { NormalizedGalleryItem, ProjectGalleryItem } from "../types";
 
 const isVideoUrl = (url: string): boolean => {
@@ -45,28 +45,51 @@ const GalleryMedia = ({
   registerVideoRef,
   className = "",
 }: GalleryMediaProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const media =
     typeof item === "string" || !("type" in item && "url" in item)
       ? normalizeGalleryItem(item as ProjectGalleryItem | string)
       : (item as NormalizedGalleryItem);
   const altText = media.alt || media.caption || "Gallery media";
 
+  useEffect(() => {
+    if (media.type !== "video" || !videoRef.current) return;
+
+    const video = videoRef.current;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { rootMargin: "200px 0px" },
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [media.type]);
+
   if (media.type === "video") {
     return (
       <video
         ref={(el: HTMLVideoElement | null) => {
+          videoRef.current = el;
           if (registerVideoRef && el) registerVideoRef(el);
         }}
-        autoPlay
         loop
         muted
         playsInline
+        preload="none"
         className={`w-full h-auto block ${className}`}
         onError={() => {}}
         onLoadedData={() => {}}
         poster={media.poster}
       >
-        <source src={media.url} type="video/mp4" />
+        {shouldLoad && <source src={media.url} type="video/mp4" />}
         Your browser does not support the video tag.
       </video>
     );

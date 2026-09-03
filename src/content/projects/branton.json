@@ -6,8 +6,9 @@
   "content": "",
   "hero": {
     "type": "video",
-    "image": "https://oculair.b-cdn.net/cache/images/projects/work_branton_cover.jpg",
-    "video": "https://oculair.b-cdn.net/api/v1/videos/f200bfc144e110dc4821384c82dca7d6fbd67c66/3rjei659/avc",
+    "image": "https://oculair.b-cdn.net/media/portfolio-branton-poster.jpg",
+    "poster": "https://oculair.b-cdn.net/media/portfolio-branton-poster.jpg",
+    "video": "https://oculair.b-cdn.net/media/portfolio-branton-preview.mp4",
     "alt": "Branton Brand Animation"
   },
   "sections": [

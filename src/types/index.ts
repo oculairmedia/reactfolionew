@@ -170,6 +170,7 @@ export interface ProjectHero {
   type: 'image' | 'video';
   image?: string;
   video?: string;
+  poster?: string;
   alt?: string;
 }
 

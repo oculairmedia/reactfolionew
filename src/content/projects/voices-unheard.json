@@ -7,7 +7,8 @@
   "hero": {
     "type": "video",
     "image": "https://oculair.b-cdn.net/cache/images/a464a6d79ac0a23ba1e3dca4ed8f836534ed77fd.jpg",
-    "video": "https://oculair.b-cdn.net/api/v1/videos/bfbad3bf0b671badf4eb75634e9f15407ffd60ad/3rjei659/hevc",
+    "poster": "https://oculair.b-cdn.net/media/portfolio-voices-unheard-poster.jpg",
+    "video": "https://oculair.b-cdn.net/media/portfolio-voices-unheard-preview.mp4",
     "alt": "Voices Unheard: The Church and Marginalized Communities"
   },
   "sections": [
@@ -52,13 +53,15 @@
     },
     {
       "type": "video",
-      "url": "https://oculair.b-cdn.net/api/v1/videos/ab378b5c663d95304309a7a814fcae6997042c36/3rjei659/avc",
+      "url": "https://oculair.b-cdn.net/media/project-voices-gallery-a.mp4",
+      "poster": "https://oculair.b-cdn.net/media/project-voices-gallery-a-poster.jpg",
       "caption": "",
       "width": "full"
     },
     {
       "type": "video",
-      "url": "https://cms2.emmanuelu.com/media/IMG_5208.MOV",
+      "url": "https://oculair.b-cdn.net/media/project-voices-gallery-b.mp4",
+      "poster": "https://oculair.b-cdn.net/media/project-voices-gallery-b-poster.jpg",
       "caption": "",
       "width": "full"
     }
