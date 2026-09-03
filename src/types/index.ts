@@ -153,6 +153,7 @@ export interface PortfolioItem {
   description: string;
   img?: string;
   isVideo?: boolean;
+  poster?: string;
   link?: string;
   slug?: string;
   order?: number;

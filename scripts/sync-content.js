@@ -162,6 +162,7 @@ const SYNC_MAP = {
       title: item.title,
       img: item.img || item.featured_image?.cdn_url || item.featured_image?.url || item.image || '',
       isVideo: item.isVideo || false,
+      poster: item.poster?.cdn_url || item.poster?.url || item.poster || '',
       description: item.short_description || item.description || '',
       link: item.link || `/portfolio/${item.id}`,
       order: item.order || 999,

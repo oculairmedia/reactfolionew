@@ -14,6 +14,33 @@ interface PayloadResponse {
   [key: string]: unknown;
 }
 
+const COMPRESSED_PORTFOLIO_MEDIA: Record<
+  string,
+  { img: string; poster: string }
+> = {
+  "aquatic-resonance": {
+    img: "https://oculair.b-cdn.net/media/portfolio-aquatic-resonance-preview.mp4",
+    poster: "https://oculair.b-cdn.net/media/portfolio-aquatic-resonance-poster.jpg",
+  },
+  binmetrics: {
+    img: "https://oculair.b-cdn.net/media/portfolio-binmetrics-preview.mp4",
+    poster: "https://oculair.b-cdn.net/media/portfolio-binmetrics-poster.jpg",
+  },
+  branton: {
+    img: "https://oculair.b-cdn.net/media/portfolio-branton-preview.mp4",
+    poster: "https://oculair.b-cdn.net/media/portfolio-branton-poster.jpg",
+  },
+  "voices-unheard": {
+    img: "https://oculair.b-cdn.net/media/portfolio-voices-unheard-preview.mp4",
+    poster: "https://oculair.b-cdn.net/media/portfolio-voices-unheard-poster.jpg",
+  },
+};
+
+function withCompressedPortfolioMedia(item: PortfolioItem): PortfolioItem {
+  const compressed = COMPRESSED_PORTFOLIO_MEDIA[item.id];
+  return compressed ? { ...item, ...compressed, isVideo: true } : item;
+}
+
 async function fetchFromPayload(endpoint: string): Promise<PayloadResponse> {
   const url = `${API_URL}${endpoint}`;
 
@@ -64,14 +91,14 @@ export async function getPortfolioItems(options: PayloadQueryOptions = {}): Prom
   const endpoint = `/portfolio${queryString ? `?${queryString}` : ''}`;
 
   const data = await fetchFromPayload(endpoint);
-  return (data.docs || []) as PortfolioItem[];
+  return ((data.docs || []) as PortfolioItem[]).map(withCompressedPortfolioMedia);
 }
 
 export async function getPortfolioItemById(portfolioId: string): Promise<PortfolioItem | null> {
   const endpoint = `/portfolio?where[id][equals]=${portfolioId}`;
   const data = await fetchFromPayload(endpoint);
   const docs = data.docs as PortfolioItem[] | undefined;
-  return docs?.[0] || null;
+  return docs?.[0] ? withCompressedPortfolioMedia(docs[0]) : null;
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {

@@ -88,9 +88,9 @@ const services: Service[] = (aboutData as AboutData).services || [];
 const processPortfolioItem = (item: PortfolioItem): PortfolioItem => {
   const processed = { ...item };
 
-  if (processed.img && processed.img.includes('oculair.b-cdn.net') && !processed.img.includes('width=')) {
+  if (!processed.isVideo && processed.img && processed.img.includes('oculair.b-cdn.net') && !processed.img.includes('width=')) {
     processed.img = optimizeImage(processed.img, { width: 800, quality: 85 });
-  } else if (processed.img && processed.img.includes('oculair.b-cdn.net') && processed.img.includes('width=')) {
+  } else if (!processed.isVideo && processed.img && processed.img.includes('oculair.b-cdn.net') && processed.img.includes('width=')) {
     processed.img = optimizeImage(processed.img, { width: 800, quality: 80 });
   }
 

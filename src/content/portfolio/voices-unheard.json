@@ -1,7 +1,8 @@
 {
   "id": "voices-unheard",
   "title": "Voices Unheard: The Church and Marginalized Communities",
-  "img": "https://oculair.b-cdn.net/api/v1/videos/bfbad3bf0b671badf4eb75634e9f15407ffd60ad/3rjei659/hevc",
+  "img": "https://oculair.b-cdn.net/media/portfolio-voices-unheard-preview.mp4",
+  "poster": "https://oculair.b-cdn.net/media/portfolio-voices-unheard-poster.jpg",
   "isVideo": true,
   "description": "A video collaboration for Inter/Access IA 360° Showcase Exhibition, using AI-generated imagery to create a new 'church' for Indigenous, Queer, and POC folks.",
   "link": "/projects/voices-unheard",

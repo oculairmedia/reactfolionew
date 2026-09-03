@@ -182,41 +182,17 @@ export const Home = () => {
           {/* Video/Media Side */}
           <div className="hero-media">
             <video
-              ref={(el) => {
-                if (el) {
-                  el.playsInline = true;
-                  el.muted = true;
-                  el.loop = true;
-                  el.autoplay = true;
-                  el.load();
-                  el.addEventListener("error", () => {
-                    el.load();
-                    el.play().catch(() => {});
-                  });
-                  el.addEventListener("ended", () => {
-                    el.currentTime = 0;
-                    el.play().catch(() => {});
-                  });
-                  const playPromise = el.play();
-                  if (playPromise !== undefined) {
-                    playPromise
-                      .then(() => {
-                        setVideoLoaded(true);
-                      })
-                      .catch(() => {
-                        setTimeout(() => {
-                          el.play().catch(() => {});
-                        }, 1000);
-                      });
-                  }
-                }
-              }}
+              autoPlay
+              muted
+              loop
+              playsInline
               onLoadedData={() => setVideoLoaded(true)}
               className={`hero-video ${videoLoaded ? "loaded" : ""}`}
-              preload="metadata"
+              preload="auto"
+              poster="https://oculair.b-cdn.net/media/portfolio-aquatic-resonance-poster.jpg"
             >
               <source
-                src="https://oculair.b-cdn.net/downloads/title.avc"
+                src="https://oculair.b-cdn.net/media/portfolio-aquatic-resonance-preview.mp4"
                 type="video/mp4"
               />
               Your browser does not support the video tag.
