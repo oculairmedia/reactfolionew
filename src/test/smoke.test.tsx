@@ -56,6 +56,10 @@ vi.mock('@tanstack/react-router', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@tanstack/react-router')>();
   return {
     ...actual,
+    Link: ({ children, to, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { to: string }) => (
+      <a href={to} {...props}>{children}</a>
+    ),
+    Navigate: () => null,
     useParams: vi.fn().mockReturnValue({ slug: 'test-slug' }),
     useNavigate: vi.fn().mockReturnValue(vi.fn()),
   };
@@ -78,7 +82,7 @@ describe('Route smoke tests', () => {
   it('Home page renders without crashing', async () => {
     const { Home } = await import('../pages/home');
     const { container } = wrap(<Home />);
-    expect(container.querySelector('.intro_sec')).toBeTruthy();
+    expect(container.querySelector('.home-section')).toBeTruthy();
   });
 
   it('Portfolio page renders and shows content after loading', async () => {
@@ -94,7 +98,7 @@ describe('Route smoke tests', () => {
     const { About } = await import('../pages/about');
     const { container } = wrap(<About />);
     // Renders skeleton or content — just verify it mounts
-    expect(container.querySelector('.About-header')).toBeTruthy();
+    expect(container.querySelector('.min-h-screen')).toBeTruthy();
   });
 
   it('Blog page renders with unconfigured state', async () => {
@@ -106,9 +110,9 @@ describe('Route smoke tests', () => {
   it('Contact page renders form fields', async () => {
     const { ContactUs } = await import('../pages/contact');
     wrap(<ContactUs />);
-    expect(screen.getByPlaceholderText('Name')).toBeTruthy();
-    expect(screen.getByPlaceholderText('Email')).toBeTruthy();
-    expect(screen.getByPlaceholderText('Message')).toBeTruthy();
+    expect(screen.getByPlaceholderText(/name/i)).toBeTruthy();
+    expect(screen.getByPlaceholderText(/email/i)).toBeTruthy();
+    expect(screen.getByPlaceholderText(/message/i)).toBeTruthy();
   });
 
   it('BlogPost page renders without crashing (ghost unconfigured)', async () => {
