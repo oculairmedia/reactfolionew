@@ -54,7 +54,11 @@ async function prerender() {
 
       let page = template
         .replace("<!--app-html-->", html)
-        .replace("<html lang", '<html data-prerendered lang');
+        // Record which route this markup belongs to. vercel.json rewrites
+        // every unmatched URL (e.g. /projects/:slug) to /index.html, so the
+        // browser can receive the home page's markup for a different route.
+        // entry-client.tsx only hydrates when this matches the current path.
+        .replace("<html lang", `<html data-prerendered="${url}" lang`);
       if (head) {
         page = page.replace("<!--head-tags-->", head);
       } else {

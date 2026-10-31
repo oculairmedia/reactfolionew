@@ -31,6 +31,10 @@ for (const route of routes) {
   if (!html.includes("data-prerendered")) {
     throw new Error(`${route}: prerender marker is missing`);
   }
+  // entry-client.tsx hydrates only when this matches the current path.
+  if (!html.includes(`data-prerendered="${route}"`)) {
+    throw new Error(`${route}: prerender marker does not name this route`);
+  }
   if (html.includes("<!--app-html-->")) {
     throw new Error(`${route}: unresolved app placeholder remains`);
   }
