@@ -3,9 +3,13 @@
    ============================================ */
 
 @import "tailwindcss";
-@plugin "daisyui";
 
-/* daisyUI Configuration */
+/* daisyUI Configuration
+   NOTE: do not add a bare `@plugin "daisyui";` above this block. A bare
+   import emits daisyUI's stock `light` and `dark` themes in addition to
+   the two configured below, shipping two full sets of unused theme
+   variables. Only brutalist-light/brutalist-dark are ever applied
+   (see components/themetoggle, the sole writer of data-theme). */
 @plugin "daisyui" {
     themes:
         brutalist-light,
