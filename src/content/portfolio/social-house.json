@@ -1,0 +1,11 @@
+{
+  "id": "social-house",
+  "title": "Social House",
+  "img": "https://oculair.b-cdn.net/cache/images/projects/social-house/home-desktop.jpg",
+  "isVideo": false,
+  "poster": "",
+  "description": "Brand identity and website for a Waterloo Region creative workshop business, with Eventbrite ticketing built in and a CMS it updates itself.",
+  "link": "/projects/social-house",
+  "order": 999,
+  "date": "March 2026"
+}

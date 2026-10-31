@@ -1,0 +1,82 @@
+{
+  "id": "social-house",
+  "title": "Social House",
+  "subtitle": "A brand and website for a workshop business that sells tickets and keeps itself up to date.",
+  "description": "",
+  "content": "",
+  "hero": {
+    "type": "image",
+    "image": "https://oculair.b-cdn.net/cache/images/projects/social-house/home-desktop.jpg",
+    "alt": "Social House homepage"
+  },
+  "sections": [
+    {
+      "title": "Overview",
+      "content": "Social House runs hands-on paint, floral, candle and pottery workshops at cafés and breweries across Waterloo Region, Ontario. I created the brand identity and designed and built the website. The site had two jobs: make the workshops feel as warm and handmade online as they do in person, and turn visitors into ticket buyers without anyone entering an event twice.",
+      "layout": "two-column",
+      "id": "6ae5f8d431dd360001120af6"
+    },
+    {
+      "title": "The Brand Identity",
+      "content": "The brand is cottagecore meets editorial magazine. The palette started out earthy brown and moved to dusty rose and terracotta on blush paper, which felt closer to the workshops themselves. Type pairs Cormorant Garamond headlines with DM Sans for small text, plus a touch of Caveat handwriting. Hand-drawn illustrations of pears, candles, ducks and other small things carry the handmade feel across the site and social posts. The voice is warm and encouraging: \"No experience needed — just curiosity and good vibes.\"",
+      "layout": "two-column",
+      "id": "6ae5f8d431dd360001120af7"
+    },
+    {
+      "title": "The Website",
+      "content": "The layout borrows from Do Lectures' editorial style: big serif type, asymmetric sections, fine grid lines, and illustrations scattered through the page. On phones there's no header bar. The logo sits over the hero image, and a round menu button stays within thumb reach.",
+      "layout": "two-column",
+      "id": "6ae5f8d431dd360001120af8"
+    },
+    {
+      "title": "The Build",
+      "content": "Events come straight from Eventbrite: the listings, a month calendar, ticket tiers, spots remaining, and checkout embedded on each event page. The content started in WordPress and moved to Automad, a lighter CMS, in April 2026, so pages and journal posts can be edited without touching code. The Instagram section uses a saved copy of recent posts, because Instagram blocks requests from hosting servers. Built with React, Vite, Tailwind, DaisyUI and GSAP.",
+      "layout": "two-column",
+      "id": "6ae5f8d431dd360001120af9"
+    },
+    {
+      "title": "The Outcome",
+      "content": "Since launch in March 2026, Social House has run 13 workshops across 8 venues in southwestern Ontario, with more than 100 tickets sold through Eventbrite. Every listing, ticket tier and sold-out notice reaches the site automatically, and Social House edits everything else in the CMS without touching code.",
+      "layout": "two-column",
+      "id": "6ae5f8d431dd360001120afa"
+    }
+  ],
+  "metadata": {
+    "client": "Social House",
+    "date": "March 2026 – present",
+    "role": "Brand Identity Designer, Web Designer & Developer",
+    "technologies": "Brand Identity, React, Eventbrite API, Automad CMS, GSAP"
+  },
+  "featured_image": "",
+  "gallery": [
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/social-house/home-desktop.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/social-house/events-desktop.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/social-house/event-detail-desktop.jpg",
+      "caption": "",
+      "width": "full"
+    },
+    {
+      "type": "image",
+      "url": "https://oculair.b-cdn.net/cache/images/projects/social-house/home-mobile.jpg",
+      "caption": "",
+      "width": "half"
+    }
+  ],
+  "tags": [],
+  "technologies": [],
+  "link": "https://social-house.ca",
+  "github": "",
+  "date": "2026-10-31T14:19:00.698Z"
+}
